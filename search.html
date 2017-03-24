@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <meta name="keywords" content="淘宝优惠券，超级淘宝优惠券" />
 <meta name="description" content="分享淘宝，天猫优惠券。" />
-<title>淘宝优惠券搜索</title>
+<title>淘宝优惠券大全</title>
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/fonts.css">
@@ -15,8 +15,7 @@
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="js/data.js"></script>
 <script type="text/javascript">
-    alert(dataArr);alert(dataArr.length);
-	return;
+
     Request = {
         QueryString : function(item){
         var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
@@ -24,7 +23,7 @@
         }
     }
     var queryWord= unescape(Request.QueryString("word"));
-    if (queryWord !== null && queryWord !== undefined && queryWord !=="") { 
+    if (queryWord !== null && queryWord !== undefined && queryWord !=="" && queryWord !=="null") { 
         searchData(queryWord);
     } 
 
@@ -41,21 +40,33 @@
 
     function searchData(word)
     {
-        //查询数据
-        alert("请求查询:"+word);
-
-        //获取json数据
-		$.ajax({
-			//type : "GET",
-			url : "data.json",
-			dataType:"json",
-            success:function(data){
-                alert("success");
-            },
-            error:function(err){
-                alert(err.message);
+        var newArr=new Array();
+        //查询data数据
+        for(var i=0;i<dataArr.length;i++)
+        {
+            if(dataArr[i].name.indexOf(word)>-1||dataArr[i].type.indexOf(word)>-1)
+            {
+                newArr.push(dataArr[i]);
             }
-		});
+        }
+        //alert(newArr);
+
+
+        $("ul").find("li").remove(); 
+
+        //添加内容到网页
+        for(var i=0;i<newArr.length;i++)
+        {
+            var item=newArr[i];
+
+           
+
+            var liitem="<li><figure class=\"effect-winston\"><img src=\""+item.pic+"\" alt=\""+item.name+"\"><figcaption><h2>["+item.type+"]"+item.name+"&nbsp;<span>"+item.card+"</span></h2>";
+                liitem+="<p><a alt=\"领取优惠券\" href=\""+item.curl+"\" target=\"_blank\"><i class=\"icon-demo\"></i></a><a alt=\"直接领券购买\" href=\""+item.url+"\" target=\"_blank\">";
+                liitem+="<i class=\"icon-buy\"></i></a></p><a href=\""+item.url+"\" target=\"_blank\">查看更多</a></figcaption></figure></li>";
+                $("#ullist").append(liitem);
+
+        }
     }
     
 </script>
@@ -67,13 +78,14 @@
 	<div class="search d7">
         <form>
 	  <input id="tbWords" type="text" placeholder="输入想要查询的内容">
-	  <button onclick="doSearch()"></button>
+	  <button  type="button" onclick="doSearch()"></button>
       </form>
 </div>
 <div class="wrap" id="wrap">
     <main>
         <ul id="ullist" class="ul items">
-            <span>暂无可显示内容！</span>
+            <li><span>暂无可显示内容！</span></li>
+            
         </ul>
     </main>
 
