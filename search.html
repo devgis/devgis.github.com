@@ -13,8 +13,10 @@
 <link rel="stylesheet" type="text/css" href="css/demo.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
 <script type="text/javascript">
-
+    alert(data);alert(data.length);
+	return;
     Request = {
         QueryString : function(item){
         var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
