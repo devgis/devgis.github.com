@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<meta name="keywords" content="淘宝优惠券，超级淘宝优惠券" />
+<meta name="description" content="分享淘宝，天猫优惠券。" />
+<title>淘宝优惠券大全</title>
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript">
+
+    Request = {
+        QueryString : function(item){
+        var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
+        return svalue ? svalue[1] : svalue;
+        }
+    }
+    var queryWord= unescape(Request.QueryString("word"));
+    if (queryWord !== null && queryWord !== undefined && queryWord !=="") { 
+        searchData(queryWord);
+    } 
+
+	function doSearch() {
+        var word=$("#tbWords").val();
+        if (word !== null && word !== undefined && word !=="") { 
+            searchData(word);
+        } 
+        else
+        {
+            alert("请输入要查找的关键词！");
+        }
+	}
+
+    function searchData(word)
+    {
+        //查询数据
+        alert("请求查询:"+word);
+
+        //获取json数据
+		$.ajax({
+			//type : "GET",
+			url : "data.json",
+			dataType:"json",
+            success:function(data){
+                alert("success");
+            },
+            error:function(err){
+                alert(err.message);
+            }
+		});
+    }
+    
+</script>
+</head>
+<body>
+<!-- 代码 开始 -->
+<a href="index.html" target="_blank" style="float: left;padding-top: 3px;padding-left: 20px;text-align: left;width: auto;font-size: 26px;font-family:'微软雅黑';font-weight: bolder;color: #111111;">淘宝天猫内部券</a>
+<div class="search d1">
+	<div class="search d7">
+        <form>
+	  <input id="tbWords" type="text" placeholder="输入想要查询的内容">
+	  <button onclick="doSearch()"></button>
+      </form>
+</div>
+<div class="wrap" id="wrap">
+    <main>
+        <ul id="ullist" class="ul items">
+            <span>暂无可显示内容！</span>
+        </ul>
+    </main>
+
+<div style="text-align:center;margin:50px 0">
+<p>我们不制造优惠券，我们只是优惠券的搬运工</a></p>
+<p style="margin:20px 0"></p>
+</div>
+</body>
+</html>
