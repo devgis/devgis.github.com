@@ -1,20 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 <meta name="keywords" content="淘宝优惠券，超级淘宝优惠券" />
 <meta name="description" content="分享淘宝，天猫优惠券。" />
 <title>淘宝优惠券大全</title>
 <link rel="stylesheet" href="css/app.css">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/demo.css">
+<link rel="stylesheet" href="css/style.css">
+<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+<script type="text/javascript">
+	function getData() {
+        var word=$("#tbWords").val();
+        if (word !== null && word !== undefined && word !=="") { 
+            window.open("search.html?word="+escape(word));  
+        } 
+        else
+        {
+            alert("请输入要查找的关键词！");
+        }
+	}
+    
+</script>
 </head>
 <body>
 <!-- 代码 开始 -->
+<div style="float: left;padding-top: 3px;padding-left: 20px;text-align: left;width: auto;font-size: 26px;font-family:'微软雅黑';font-weight: bolder;color: #111111;">淘宝天猫内部券</div>
+<div class="search d1">
+	<div class="search d7">
+        <form>
+	  <input id="tbWords" type="text" placeholder="输入想要查询的内容">
+	  <button onclick="getData()"></button>
+      </form>
+</div>
 <div class="wrap" id="wrap">
-<div style="float: left;padding-top: 30px;text-align: center;width: 100%;font-weight: bolder;color: #ff6600;">淘宝天猫超级优惠券</div>
-    <main>
+
 <p><a href="index.html" target="_blank">首页</a>&nbsp<a href="index_2.html" target="_blank">第2页</a>&nbsp<a href="index_3.html" target="_blank">第3页</a>&nbsp<a href="index_4.html" target="_blank">第Four页</a>&nbsp<a href="index_5.html" target="_blank">第5页</a>&nbsp<a href="index_6.html" target="_blank">第6页</a>&nbsp<a href="index_7.html" target="_blank">第7页</a>&nbsp<a href="index_8.html" target="_blank">第8页</a>&nbsp<a href="index_9.html" target="_blank">第9页</a>&nbsp<a href="index_10.html" target="_blank">第10页</a></p>
+    <main>
         <ul class="ul items">            <li>
                 <figure class="effect-winston">
                     <img src="http://img02.taobaocdn.com/bao/uploaded/i2/TB1dN5SQXXXXXcfXXXXXXXXXXXX_!!0-item_pic.jpg" alt="丽拉|lila">
