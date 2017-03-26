@@ -131,6 +131,14 @@
 	var pageIndex=1; //默认第一页
 	var pageCount=100;//最大页数
 	var pageSize=100;
+
+    $('#tbWords').bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            //需要处理的事情
+            doSearch();
+            return false;
+        }
+    });
 	
 	//输出分类页签
 	//输出分页信息标签
@@ -174,7 +182,7 @@
 		|| pageIndex =="null") { 
 			pageIndex=1; //页信息如果为空 则直接将页信息置为1 默认第一页
 		} 
-		
+        
 
 		//输出分页信息标签
 		$("#topp").find("a").remove(); 

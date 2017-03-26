@@ -38,6 +38,13 @@
 <p style="margin:20px 0"></p>
 </div>
 	<script type="text/javascript">
+    $('#tbWords').bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            //需要处理的事情
+            doSearch();
+            return false;
+        }
+    });
 
     Request = {
         QueryString : function(item){
@@ -49,7 +56,6 @@
     if (queryWord !== null && queryWord !== undefined && queryWord !=="" && queryWord !=="null") { 
         searchData(queryWord);
     } 
-
 	function doSearch() {
         var word=$("#tbWords").val();
         if (word !== null && word !== undefined && word !=="") { 
@@ -60,7 +66,6 @@
             alert("请输入要查找的关键词！");
         }
 	}
-
     function searchData(word)
     {
         var newArr=new Array();
@@ -73,22 +78,16 @@
             }
         }
         //alert(newArr);
-
-
-        $("ul").find("li").remove(); 
-
+        $("ul").find("li").remove(); 
         //添加内容到网页
         for(var i=0;i<newArr.length;i++)
         {
             var item=newArr[i];
-
            
-
             var liitem="<li><figure class=\"effect-winston\"><img src=\""+item.pic+"\" alt=\""+item.name+"\"><figcaption><h2>["+item.type+"]"+item.name+"&nbsp;<span>"+item.card+"</span></h2>";
                 liitem+="<p><a alt=\"领取优惠券\" href=\""+item.curl+"\" target=\"_blank\"><i class=\"icon-demo\"></i></a><a alt=\"直接领券购买\" href=\""+item.url+"\" target=\"_blank\">";
                 liitem+="<i class=\"icon-buy\"></i></a></p><a href=\""+item.url+"\" target=\"_blank\">查看更多</a></figcaption></figure></li>";
                 $("#ullist").append(liitem);
-
         }
     }
     
