@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">  
 <head>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-<title>优惠券文本列表适合(每日更新，建议添加到文件夹)</title>
+<title>CSS Tables</title>
 <script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="js/data.js"></script>
 </head>  
@@ -145,7 +145,7 @@ $("#mytable").append("<caption></caption>");
 $("#mytable").append("<tr><th scope=\"col\" abbr=\"序号\">序号</th><th scope=\"col\" abbr=\"分类\">分类</th><th scope=\"col\" abbr=\"名称\">名称</th><th scope=\"col\" abbr=\"优惠券面额\">优惠券面额</th><th scope=\"col\" abbr=\"优惠券地址\">优惠券地址</th><th scope=\"col\" abbr=\"购买地址\">购买地址</th>"); 
 for(var i=0;i<dataArr.length;i++)
 {
-    var liitem="<tr> <th scope=\"row\" abbr=\"L2 Cache\" class=\"specalt\">"+(i+1)+"</th><td class=\"alt\">"+dataArr[i].type+"</td><td class=\"alt\">"+dataArr[i].name+"</td><td class=\"alt\">"+dataArr[i].card+"</td><td class=\"alt\"><a href=\""+dataArr[i].curl+"\" title=\"领取优惠券\" style=\"float:lef\">领券</a></td><td><a href=\""+dataArr[i].url+"\" title=\"购买下单地址\" style=\"float:lef\">领券并下单</a></td></tr>";
+    var liitem="<tr> <th scope=\"row\" abbr=\"L2 Cache\" class=\"specalt\">"+(i+1)+"</th><td class=\"alt\">"+dataArr[i].type+"</td><td class=\"alt\">"+dataArr[i].name+"</td><td class=\"alt\">"+dataArr[i].card+"</td><td class=\"alt\"><a href=\""+dataArr[i].curl+"\" title=\"领取优惠券\" style=\"float:lef\" target=\"_blank\">领券</a></td><td><a href=\""+dataArr[i].url+"\" title=\"购买下单地址\" style=\"float:lef\" target=\"_blank\">领券并下单</a></td></tr>";
     $("#mytable").append(liitem); 
 }
 </script>
