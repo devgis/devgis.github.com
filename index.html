@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
@@ -139,6 +139,9 @@
             return false;
         }
     });
+
+    var listlinkstart="<a href=\"list.html\" target=\"_blank\">查看列表</a>&nbsp"; //列表链接地址
+    var listlinkend="&nbsp<a href=\"list.html\" target=\"_blank\">查看列表</a>"; //列表链接地址
 	
 	//输出分类页签
 	//输出分页信息标签
@@ -147,10 +150,15 @@
 	
 	$("#topptype").find("a").remove(); 
 	$("#bottomptype").find("a").remove(); 
+
+    
 	
 	var firstitem="<a href=\"index.html\" target=\"_blank\">返回首页</a>";
 	$("#topptype").append(firstitem); 
 	$("#bottomptype").append(firstitem); 
+
+    $("#topptype").append(listlinkend); 
+	$("#bottomptype").append(listlinkend);   
 	
 	for(var i=0;i<typeNames.length;i++)
 	{
@@ -158,7 +166,10 @@
 		$("#topptype").append(liitem); 
 		$("#bottomptype").append(liitem); 
 	}
-	
+
+	$("#topptype").append(listlinkend); 
+	$("#bottomptype").append(listlinkend);   
+
     Request = {
         QueryString : function(item){
         var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
@@ -187,6 +198,8 @@
 		//输出分页信息标签
 		$("#topp").find("a").remove(); 
 		$("#bottomp").find("a").remove(); 
+        $("#topp").append(listlinkstart); 
+		$("#bottomp").append(listlinkstart);   
 		for(var i=1;i<=pageCount;i++)
 		{
 			var liitem="<a href=\"index.html\" target=\"_blank\">首页</a>";
@@ -205,6 +218,10 @@
 			$("#topp").append(liitem); 
 			$("#bottomp").append(liitem);   
 		}
+
+        var listlink="&nbsp<a href=\"list.html\" target=\"_blank\">查看详细表格</a>";
+        $("#topp").append(listlinkend); 
+		$("#bottomp").append(listlinkend);   
 		
 		//如果查询类型为空则直接使用分页方式显示所有数据
 		
