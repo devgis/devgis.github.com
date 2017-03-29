@@ -167,7 +167,7 @@ html>body td{ font-size:11px;}</style>
         $("#mytable").append("<tr><th scope=\"col\" abbr=\"序号\">序号</th><th scope=\"col\" abbr=\"分类\">分类</th><th scope=\"col\" abbr=\"名称\">名称</th><th scope=\"col\" abbr=\"优惠券面额\">优惠券面额</th><th scope=\"col\" abbr=\"优惠券地址\">优惠券地址</th><th scope=\"col\" abbr=\"购买地址\">购买地址</th>"); 
         for(var i=0;i<dataArr.length;i++)
         {
-            var liitem="<tr> <th scope=\"row\" abbr=\"L2 Cache\" class=\"specalt\">"+(i+1)+"</th><td class=\"alt\">"+dataArr[i].type+"</td><td class=\"alt\">"+dataArr[i].name+"</td><td class=\"alt\">"+dataArr[i].card+"</td><td class=\"alt\"><a href=\""+dataArr[i].curl+"\" title=\"领取优惠券\" style=\"float:lef\" target=\"_blank\">领券</a></td><td><a href=\""+dataArr[i].url+"\" title=\"购买下单地址\" style=\"float:lef\" target=\"_blank\">领券并下单</a></td></tr>";
+            var liitem="<tr> <th scope=\"row\" abbr=\"L2 Cache\" class=\"specalt\">"+(i+1)+"</th><td class=\"alt\"><a href=\"index.html?typename="+escape(dataArr[i].type)+"\" title=\"分类\" style=\"float:lef\" target=\"_blank\">"+dataArr[i].type+"</a></td><td class=\"alt\"><a href=\""+dataArr[i].url+"\" title=\"商品名称\" style=\"float:lef\" target=\"_blank\">"+dataArr[i].name+"</a></td><td class=\"alt\"><a href=\""+dataArr[i].curl+"\" title=\"优惠券\" style=\"float:lef\" target=\"_blank\">"+dataArr[i].card+"</a></td><td class=\"alt\"><a href=\""+dataArr[i].curl+"\" title=\"领取优惠券\" style=\"float:lef\" target=\"_blank\">领券</a></td><td><a href=\""+dataArr[i].url+"\" title=\"购买下单地址\" style=\"float:lef\" target=\"_blank\">领券并下单</a></td></tr>";
             $("#mytable").append(liitem); 
         }
     }
