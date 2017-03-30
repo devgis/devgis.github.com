@@ -52,6 +52,7 @@
 <p style="margin:20px 0"></p>
 </div>
 	<script type="text/javascript">
+    window.setTimeout(loaddata,100); 
     $(document).ready(function(){
         $(".fakeloader").fakeLoader({
             timeToHide:1200,
@@ -174,10 +175,10 @@
         
         
         var firstitem="<a href=\"index.html\" target=\"_blank\">返回首页</a>";
-        //$("#topptype").append(firstitem); 
+        $("#topptype").append(firstitem); 
         $("#bottomptype").append(firstitem); 
 
-        //$("#topptype").append(listlinkend); 
+        $("#topptype").append(listlinkend); 
         $("#bottomptype").append(listlinkend);   
         
         for(var i=0;i<typeNames.length;i++)
@@ -218,7 +219,7 @@
             //输出分页信息标签
             $("#topp").find("a").remove(); 
             $("#bottomp").find("a").remove(); 
-            $("#topp").append(listlinkstart); 
+            //$("#topp").append(listlinkstart); 
             $("#bottomp").append(listlinkstart);   
             for(var i=1;i<=pageCount;i++)
             {
@@ -240,7 +241,7 @@
             }
 
             var listlink="&nbsp<a href=\"list.html\" target=\"_blank\">查看详细表格</a>";
-            $("#topp").append(listlinkend); 
+            //$("#topp").append(listlinkend); 
             $("#bottomp").append(listlinkend);   
             
             //如果查询类型为空则直接使用分页方式显示所有数据
@@ -344,7 +345,7 @@
                 $("#ullist").append(liitem);
         }
     }
-    window.setTimeout(loaddata,100); 
+    //window.setTimeout(loaddata,100); 
 </script>
 </body>
 </html>
