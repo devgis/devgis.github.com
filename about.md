@@ -17,13 +17,13 @@ permalink: /about/
 <hr/>
 <br/>
 
-<img src="qrcode/small/wxlyf.png" alt="" class="img-responsive center-block" />
+![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyf.pn){:height="128px" width="128px"}
 
 <br/>
 
 扫一扫加微信
 
-<img src="qrcode/small/qq80163278.jpg" alt="" class="img-responsive center-block" />
+![扫一扫加QQ](https://devgis.github.io/qrcode/small/qq80163278.jpg){:height="128px" width="128px"}
 
 <br/>
 
