@@ -4,20 +4,6 @@ title: 开源
 permalink: /opensource/
 ---
 
-## MD表格
-
-
-| name | kecheng | fenshu |
-| :--- | :------ | :----- |
-| 张三   | 语文      | 81     |
-| 张三   | 数学      | 75     |
-| 李四   | 语文      | 76     |
-| 李四   | 数学      | 90     |
-| 王五   | 语文      | 81     |
-| 王五   | 数学      | 100    |
-| 王五   | 英语      | 90     |
-
-## HTML 表格
 <style>
 ol{
     counter-reset: li;
@@ -85,7 +71,6 @@ ol ol{
     transform: scale(1.5);
 }
 </style>
-
 
 <ol class="circle-list">
 
