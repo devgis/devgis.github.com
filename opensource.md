@@ -18,52 +18,97 @@ permalink: /opensource/
 | 王五   | 英语      | 90     |
 
 ## HTML 表格
+<style>
+ol{
+    counter-reset: li;
+    list-style: none;
+    *list-style: decimal;
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
 
-<style type="text/css">
-table.hovertable {
-    font-family: verdana,arial,sans-serif;
-    font-size:11px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #999999;
-    border-collapse: collapse;
+ol ol{
+    margin: 0 0 0 2em;
 }
-table.hovertable th {
-    background-color:#c3dde0;
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #a9c6c9;
+
+
+
+.circle-list li{
+    padding: 2.5em;
+    border-bottom: 1px dashed #ccc;
 }
-table.hovertable tr {
-    background-color:#d4e3e5;
+
+.circle-list h2{
+    position: relative;
+    margin: 0;
 }
-table.hovertable td {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #a9c6c9;
+
+.circle-list p{
+    margin: 0;
+}
+
+.circle-list h2:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;    
+    z-index: -1;
+    left: -1.3em;
+    top: -.8em;
+    background: #f5f5f5;
+    height: 1.5em;
+    width: 1.5em;
+    border: .1em solid rgba(0,0,0,.05);
+    text-align: center;
+    font: italic bold 1em/1.5em Georgia, Serif;
+    color: #ccc;
+    -moz-border-radius: 1.5em;
+    -webkit-border-radius: 1.5em;
+    border-radius: 1.5em;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;    
+}
+
+.circle-list li:hover h2:before{
+    background-color: #ffd797;
+    border-color: rgba(0,0,0,.08);
+    border-width: .2em;
+    color: #444;
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    transform: scale(1.5);
 }
 </style>
 
-<!-- Table goes in the document BODY -->
-<table class="hovertable">
-<tr>
-    <th>Info Header 1</th><th>Info Header 2</th><th>Info Header 3</th>
-</tr>
-<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-    <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td>
-</tr>
-<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
-</tr>
-<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-    <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td>
-</tr>
-<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-    <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td>
-</tr>
-<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-    <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td>
-</tr>
-</table>  
+
+<ol class="circle-list">
+
+    <li>
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+    </li>
+    <li>
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+
+    </li>
+    <li>
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+    </li>
+    <li>
+        <h2>Lorem ipsum dolor sit amet</h2>
+
+        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+    </li>
+    <li>
+        <h2>Lorem ipsum dolor sit amet</h2>
+        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+    </li>           
+</ol>
