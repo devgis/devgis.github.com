@@ -17,19 +17,9 @@ permalink: /about/
 <hr/>
 <br/>
 
-![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyf.png){:height="128px" width="128px"}
-
-<br/>
-
-![扫一扫加QQ](https://devgis.github.io/qrcode/small/qq80163278.jpg){:height="128px" width="128px"}
-
-<br/>
-
-<hr/>
-<br/>
 <span class="contacticon center">
-	![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyf.png){:height="128px" width="128px"}
-	![扫一扫加QQ](https://devgis.github.io/qrcode/small/qq80163278.jpg){:height="128px" width="128px"}
+	![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyftxt.png){:height="160px" width="300px"}
+	![扫一扫加QQ](https://devgis.github.io/qrcode/small/qq80163278txt.jpg){:height="160px" width="300px"}
 </span>
 
 <hr/>
