@@ -4,10 +4,8 @@ title: 开源
 permalink: /opensource/
 ---
 
-## 图表
+## MD表格
 
-六、用一条SQL语句查询出每门课都大于80分的学生
-能跑吗
 
 | name | kecheng | fenshu |
 | :--- | :------ | :----- |
@@ -19,29 +17,53 @@ permalink: /opensource/
 | 王五   | 数学      | 100    |
 | 王五   | 英语      | 90     |
 
-mysql> select a.name 姓名 -> from -> (select name,count(\*) anum from NO\_6 where fenshu>80 group by name) a, -> (select name,count(\*) bnum from NO\_6 group by name) b -> where a.name=b.name -> and a.anum=b.bnum;
+## HTML 表格
 
- 
+<style type="text/css">
+table.hovertable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.hovertable tr {
+    background-color:#d4e3e5;
+}
+table.hovertable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+</style>
 
- 
-
-七、怎么把这样一个表
-
-| Year | month | amount |
-| :--- | :---- | :----- |
-| 1991 | 1     | 1.1    |
-| 1991 | 2     | 1.2    |
-| 1991 | 3     | 1.3    |
-| 1991 | 4     | 1.4    |
-| 1992 | 1     | 2.1    |
-| 1992 | 2     | 2.2    |
-| 1992 | 3     | 2.3    |
-| 1992 | 4     | 2.4    |
-
-查成这样一个结果
-
-| year | M1  | M2  | M3  | M4  |
-| :--- | :-- | :-- | :-- | :-- |
-| 1991 | 1.1 | 1.2 | 1.3 | 1.4 |
-| 1992 | 2.1 | 2.2 | 2.3 | 2.4 |
-
+<!-- Table goes in the document BODY -->
+<table class="hovertable">
+<tr>
+    <th>Info Header 1</th><th>Info Header 2</th><th>Info Header 3</th>
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td>Item 1A</td><td>Item 1B</td><td>Item 1C</td>
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td>Item 2A</td><td>Item 2B</td><td>Item 2C</td>
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td>Item 3A</td><td>Item 3B</td><td>Item 3C</td>
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td>Item 4A</td><td>Item 4B</td><td>Item 4C</td>
+</tr>
+<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+    <td>Item 5A</td><td>Item 5B</td><td>Item 5C</td>
+</tr>
+</table>  
