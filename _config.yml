@@ -1,0 +1,24 @@
+# Site settings
+title: DEVGIS
+email: devgis@163.com
+description: 变成改变世界，Hello World!
+baseurl: / # the subpath of your site, e.g. /blog/
+url:  # the base hostname & protocol for your site
+twitter_username: devgis
+github_username:  devgis
+
+# Build settings
+markdown: kramdown
+
+highlighter: rouge
+
+# Pagination
+paginate: 20
+paginate_path: "/page:num"
+
+
+collections:
+  homes:
+    output: true
+    permalink: /homes/:path
+
