@@ -12,46 +12,22 @@ permalink: /about/
 
 <br/>
 
->       
-       本人从2008年开始从事C#相关软件开发， 曾为中铁，中国航天，陕西省交通厅，国家电网，金蝶，用友等企业开发相关应用系统，经验丰富，有需求的朋友联系我，真诚希望与广大新老朋友合作。
+> 本人从2008年开始从事C#相关软件开发， 曾为中铁，中国航天，陕西省交通厅，国家电网，金蝶，用友等企业开发相关应用系统，经验丰富，有需求的朋友联系我，真诚希望与广大新老朋友合作。
  
+<hr/>
 <br/>
-<div class="row">
-                <div class="col-md-3 center-block  text-center">
-                    <p><img src="qrcode/small/wxlyf.png" alt="" class="img-responsive center-block" /></p>
-		             <p>
-                        扫一扫加微信
-                    </p>
-                </div>
-                <div class="col-md-3 center-block  text-center">
-                    <p><img src="qrcode/small/qq80163278.jpg" alt="" class="img-responsive center-block" /></p>
-		            <p>
-                        扫一扫加QQ
-                    </p>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="services-box-3">
-                        <h1><i class="fa fa-qq "></i></h1>
-                        <div class="content">
-                            <h5><p>
-                                QQ</p></h5>
-                            <h3>
-                                80163278</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center">
-                    <div class="services-box-3">
-                        <h1><i class="fa fa-envelope"></i></h1>
-                        <div class="content">
-                            <h5><p>
-                                E-mail</p></h5>
-                            <h3>
-                                devgis@qq.com</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+<img src="qrcode/small/wxlyf.png" alt="" class="img-responsive center-block" />
+
+<br/>
+
+扫一扫加微信
+
+<img src="qrcode/small/qq80163278.jpg" alt="" class="img-responsive center-block" />
+
+<br/>
+
+扫一扫加QQ
 
 <hr/>
 <br/>
