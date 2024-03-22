@@ -18,8 +18,8 @@ permalink: /about/
 <br/>
 
 <span class="contacticon center">
-	![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyftxt.png){:height="160px" width="300px"}
 	![扫一扫加QQ](https://devgis.github.io/qrcode/small/qq80163278txt.jpg){:height="160px" width="300px"}
+	![扫一扫加微信](https://devgis.github.io/qrcode/small/wxlyftxt.png){:height="160px" width="300px"}	
 </span>
 
 <hr/>
