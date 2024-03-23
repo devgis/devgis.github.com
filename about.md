@@ -14,9 +14,8 @@ permalink: /about
 
 <br/>
 
-
 <h2>主要提供以下类型的技术服务</h2>
-
+<br/>
 <h3>GIS系统二次开发</h3>
 
 基于Arcgis engine,Mapinfo Mapxtreme的桌面GIS系统二次开发。
@@ -39,8 +38,8 @@ permalink: /about
 <br/>
 
 <span class="contacticon center">
-	![扫一扫加QQ](img/qrcode/small/qq80163278txt.jpg){:height="160px" width="300px"}
-	![扫一扫加微信](img/qrcode/small/wxlyftxt.png){:height="160px" width="300px"}
+	![扫一扫加QQ](img/qrcode/qq.png){:height="300px" width="300px"}
+	![扫一扫加微信](img/qrcode/wechat.png){:height="300px" width="300px"}
 </span>
 
 <hr/>
@@ -53,4 +52,11 @@ permalink: /about
 <div class="col three caption">
 	编程改变世界，Hello World！
 </div>
+
+<style>
+	.contacticon img{
+		margin:20px 50px 20px 50px;
+		border-radius: 10px;
+	}
+</style>
 
