@@ -20,4 +20,10 @@ collections:
   articles:
     output: true
     permalink: /articles/:path
+  cases:
+    output: true
+    permalink: /cases/:path
+  opensource:
+    output: true
+    permalink: /opensource/:path
 

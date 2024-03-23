@@ -5,27 +5,16 @@ permalink: /opensource/
 ---
 
 <ol class="circle-list">
-
     <li>
-        <h2 class="item-title-top">Lorem ipsum dolor sit amet</h2>
-        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
+      <h2><a class="post-title item-title-top" href="/opensource/">开源项目列表</a></h2>
+      <p>所有得开源相关内容介绍，获取以及编译方式。</p>
     </li>
+  
+    {% for post in site.case %}
     <li>
-        <h2>Lorem ipsum dolor sit amet</h2>
-        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
-
+      <h2><a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
+      <p>{{ post.description }}</p>
+      <p class="post-meta">创作时间：{{ post.date | date: '%B %-d, %Y - %H:%M' }} 最后更新：{{ post.updatedate | date: '%B %-d, %Y - %H:%M' }}</p>
     </li>
-    <li>
-        <h2>Lorem ipsum dolor sit amet</h2>
-        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
-    </li>
-    <li>
-        <h2>Lorem ipsum dolor sit amet</h2>
-
-        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
-    </li>
-    <li>
-        <h2>Lorem ipsum dolor sit amet</h2>
-        <p>Morbi sagittis sapien ac magna egestas dictum.</p>
-    </li>           
+  {% endfor %}
 </ol>
