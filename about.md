@@ -31,19 +31,16 @@ permalink: /about
 各种常见信息的架构设计，系统设计服务等！
  
 <hr/>
-<br/>
-
 <span class="contacticon center">
 	![扫一扫加QQ](img/qrcode/qq.png){:height="200px" width="200px"}
 	![扫一扫加微信](img/qrcode/wechat.png){:height="200px" width="200px"}
 </span>
-
-<hr/>
-<br/>
 <span class="contacticon center">
 	<a href="mailto:devgis@163.com" title="发送邮件倒我的网易邮箱">网易邮箱:devgis@163.com<i class="fa fa-envelope-square"></i></a>
 	<a href="mailto:devgis@qq.com" title="发送邮件倒我的QQ邮箱">QQ邮箱:devgis@qq.com<i class="fa fa-envelope-square"></i></a>
 </span>
+<br/>
+<br/>
 
 <style>
 	.contacticon img{
