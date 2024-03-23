@@ -1,16 +1,16 @@
 ---
 layout: default
 title: 开源
-permalink: /opensource
+permalink: /opensources
 ---
 
 <ol class="circle-list">
     <li>
-      <h2><a class="post-title item-title-top" href="/opensource/">开源项目列表</a></h2>
+      <h2><a class="post-title item-title-top" href="">整理中</a></h2>
       <p>所有得开源相关内容介绍，获取以及编译方式。</p>
     </li>
   
-    {% for post in site.case %}
+    {% for post in site.opensources %}
     <li>
       <h2><a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
       <p>{{ post.description }}</p>
