@@ -68,3 +68,7 @@ ol ol{
     font-size: 28px;
     color: #7D1B7E;
 }
+
+ul, ol {
+    margin-left: 0px;
+}
