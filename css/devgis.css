@@ -72,3 +72,8 @@ ol ol{
 ul, ol {
     margin-left: 0px;
 }
+
+.title-image {
+    width: 480px; /* 设置图像宽度为200像素 */
+    height: auto; /* 高度自适应比例保持原始尺寸 */
+}
