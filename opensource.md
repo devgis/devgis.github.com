@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 开源
-permalink: /opensource/
+permalink: /opensource
 ---
 
 <ol class="circle-list">

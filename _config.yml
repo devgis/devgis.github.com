@@ -17,10 +17,10 @@ paginate: 20
 paginate_path: "/page:num"
 
 collections:
-  articles:
+  article:
     output: true
     permalink: /article/:path
-  cases:
+  case:
     output: true
     permalink: /case/:path
   opensource:
