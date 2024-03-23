@@ -17,7 +17,7 @@ paginate: 20
 paginate_path: "/page:num"
 
 collections:
-  homes:
+  articles:
     output: true
-    permalink: /homes/:path
+    permalink: /articles/:path
 

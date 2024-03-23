@@ -10,7 +10,7 @@ layout: default
     <p>所有得开源相关内容介绍，获取以及编译方式。</p>
   </li>
 
-  {% for post in site.homes %}
+  {% for post in site.articles %}
   <li>
     <h2><a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
     <p>{{ post.description }}</p>
