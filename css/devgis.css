@@ -86,3 +86,7 @@ ul, ol {
 .site-nav {
     position: static;
 }
+
+a.page-link {
+    color:#3090C7;
+}
