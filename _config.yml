@@ -19,10 +19,10 @@ paginate_path: "/page:num"
 collections:
   articles:
     output: true
-    permalink: /articles/:path
+    permalink: /article/:path
   cases:
     output: true
-    permalink: /cases/:path
+    permalink: /case/:path
   opensource:
     output: true
     permalink: /opensource/:path
