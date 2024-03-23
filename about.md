@@ -45,10 +45,6 @@ permalink: /about
 	<a href="mailto:devgis@qq.com" title="发送邮件倒我的QQ邮箱">QQ邮箱:devgis@qq.com<i class="fa fa-envelope-square"></i></a>
 </span>
 
-<div class="col three caption">
-	编程改变世界，Hello World！
-</div>
-
 <style>
 	.contacticon img{
 		margin:10px 100px 10px 100px;
