@@ -39,9 +39,6 @@ permalink: /about
 	<a href="mailto:devgis@163.com" title="发送邮件倒我的网易邮箱">网易邮箱:devgis@163.com<i class="fa fa-envelope-square"></i></a>
 	<a href="mailto:devgis@qq.com" title="发送邮件倒我的QQ邮箱">QQ邮箱:devgis@qq.com<i class="fa fa-envelope-square"></i></a>
 </span>
-<br/>
-<br/>
-
 <style>
 	.contacticon img{
 		margin:10px 100px 10px 100px;
