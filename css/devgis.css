@@ -1,6 +1,8 @@
 ol{
     counter-reset: li;
     list-style: none;
+    font: 15px 'trebuchet MS', 'lucida sans';
+    color: #3090C7;
     padding: 0;
     margin-bottom: 4em;
     text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -62,6 +64,7 @@ ol ol{
     transform: scale(1.5);
 }
 
-ul, ol {
-     margin-left: 0px;
+.item-title-top{
+    font-size: 28px;
+    color: #7D1B7E;
 }
