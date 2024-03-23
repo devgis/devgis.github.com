@@ -1,7 +1,7 @@
 # Site settings
-title: DEVGIS
+title: 首页
 email: devgis@163.com
-description: 变成改变世界，Hello World!
+description: Hello World!用程序改变世界！
 baseurl: / # the subpath of your site, e.g. /blog/
 url:  # the base hostname & protocol for your site
 twitter_username: devgis
