@@ -271,123 +271,123 @@ Dotnet6 完整卸载，如果未安装可以不用执行
 
 .NET 是一款广泛使用的软件开发框架，它经历了多个版本的演进和改进。其中有的特性对.NET起到划时代的意义，对我们开发效率和程序的运行效率得到本质提升。本文将介绍.NET历史版本中比较优秀的10个新特征： 1、 .NET Framework 2.0： 引入了泛型类型和方法。通过使用泛型，开发人员可以编写更灵活、可扩展和类型安全的代码，减少了冗余代码的编写，并提高了应用程序的性能和可维护性。泛型在.NET框架中被广泛应用，例如在集合类（如List、Dictionary）、LINQ查询、委托和事件等方面。 2、.NET Framework 3.5： 引入了 LINQ（Language Integrated Query）查询语言，LINQ（Language Integrated Query）是.NET框架中的一项功能，它提供了一种统一的查询语法和操作符，用于在.NET应用程序中对各种数据源进行查询和操作。LINQ使得在.NET中执行查询操作变得更加简洁、直观和易于理解。同时可以使用Lambda表达式，它是一种简洁的匿名函数表示法，LINQ与lambda表达式密切相关。 3、 .NET Framework 4.5： 异步编程模型（async/await）是.NET框架中的一项重要特性，用于简化和改进异步编程。它使开发人员能够以一种更直观、可读性更高的方式编写异步代码，避免了传统的回调式编程模式带来的复杂性和困扰。 public async Task DownloadDataAsync(string url){ HttpClient client = new HttpClient(); string data = await client.GetStringAsync(url); return data;}//DownloadDataAsync方法被标记为异步方法，//并使用await关键字等待HttpClient的GetStringAsync方法的完成。//在等待期间，线程可以执行其他任务，而不会被阻塞。当异步操作完成后，//方法会返回结果。 ![0](https://note.youdao.com/yws/res/27000/WEBRESOURCE30e6d4f01758815f80a8b55fc6506da8 "0") 4、.NET Core 1.0： 从2016年6月开始发布.NET Core 1.0 ，.NET Core已经经历过了8年，加上今年发布的.NET7 已经有7个版本了，几乎是一年一个版本。其中长期支持的版本是.NET Core 3.1和.NET 6，大家注意选择。下面是[思维导图](https://so.csdn.net/so/search?q=%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE\&spm=1001.2101.3001.7020)描述了他们的发展历程。 .NET Core 1.0是.NET的首个跨平台版本，为开发人员带来了一场革命。它突破了操作系统的限制，可以在Windows、Linux和macOS等多个平台上运行，打开了.NET的全新时代。 新特性：
 
-*   URL 重写中间件
-*   响应缓存中间件
-*   查看组件 标记帮助程序
-*   MVC 型中间件筛选器
-*   基于 Cookie 的 TempData 提供程序
-*   Azure App Service 日志记录提供程序
-*   Azure Key Vault 配置提供程序
-*   Azure 和 Redis 存储数据保护密钥存储库
-*   适用于 Windows 的 WebListener 服务器（注：指 HTTP.sys 服务器）
-*   WebSockets 支持 5、 .NET Core 2.0： 增加了对 Razor Pages 的支持， Razor Pages采用了一种类似于传统Web Forms的方式，即将前端页面和后端代码逻辑紧密集成在一个文件中。每个Razor Pages文件（.cshtml）都包含了HTML标记和C#代码，使开发人员能够在同一个文件中处理页面布局、数据绑定和事件处理等操作。 Razor Pages使用了Razor语法，这是一种简洁、直观的模板语言，可以轻松地将C#代码嵌入到HTML中。开发人员可以在Razor Pages中使用Razor语法来处理数据显示、条件逻辑、循环结构等。Razor Pages还支持部分视图（Partial Views），这允许开发人员将页面的某些部分作为可重用的组件进行封装。 6、.NET Core 2.1： .NET Core 2.0引入了高性能的Span类型，以更有效地处理内存和数据。Span是一个结构体，用于表示连续的内存区域，并提供了一组安全且高效的方法来访问和操作这些内存区域。 通过使用Span，开发人员可以直接操作内存，而无需进行不必要的内存分配和复制操作。这对于处理大型数据集合或高性能计算任务非常有用。Span提供了多种方法来访问和修改内存，如索引访问、切片操作、复制和填充等。 新特性包含2.0、2.1， 新特性如下：
-*   Razor Pages
-*   ASP.NET Core 元包（注：即Microsoft.AspNetCore.All ，我喜欢称作全家桶，作用就是一把梭给你全部引用了相关的包，不用你发现没有的时候自己去找，方便是方便，就是把一堆没用到的也给引用了，项目加载速度也会受到影响）
-*   .NET Standard 2.0
-*   SPA 模板
-*   Kestrel 改进（添加大量服务器约束配置选项）
-*   WebListener 重命名为 HTTP.sys
-*   默认启用防跨站请求攻击（CSRF）
-*   SignalR（已针对 ASP.NET Core 2.1 重新编写 SignalR：新 JavaScript 客户端不具有 jQuery 依赖项，新紧凑型二进制协议基于 MessagePack等）
-*   Razor 类库（Razor Class Library）
-*   Identity UI 库
-*   HTTPS
-*   GDPR（注：刚出来时，很多人发现Cookie写入不了就是因为开启了它）
-*   集成测试
-*   \[ApiController], ActionResult
-*   端点路由（Endpoint Routing）
-*   健康检查（HealthCheck）
-*   HTTP/2
-*   IIS 进程内承载
-*   SignalR Java 客户端
-*   CORS 改进
-*   响应压缩（ASP.NET Core 2.2 可以使用 Brotli 压缩格式来压缩响应。）
-*   提升 HttpClient 性能（通过改善连接池锁的冲突） 7、 .NET Core 3.0： .NET Core 3.0引入了System.Text.Json，它是.NET平台中用于JSON序列化和反序列化的官方库。它具有高性能、简化的API和可定制性等特点，使开发人员能够方便地处理JSON数据。随着.NET Core的发展，System.Text.Json已成为.NET开发中的首选JSON处理库。 { // 创建一个对象 Person person = new Person {Name = "caochao", Age = 30, Email = "<caochao@example.com>" }; // 对象序列化为JSON字符串 string json = JsonSerializer.Serialize(person); // JSON字符串反序列化为对象 Person deserializedPerson = JsonSerializer.Deserialize(json); } class Person { public string Name { get; set; } public int Age { get; set; } public string Email { get; set; } }//欢迎关注公众号：DOTNET开发跳槽，领取海量面试题。加微信号xbhpnet入群交流 新特性包含3.0 新特性如下：
-*   Blazor Server
-*   Blazor WebAssembly
-*   Razor 组件
-*   gRPC
-*   ASP.NET Core 和 SignalR 默认使用 System.Text.Json 来进行序列化
-*   ASP.NET Core 默认不再使用 WebHostBuilder ，而是使用 HostBuilder（可以更好地将 ASP.NET Core 应用与非 Web 特定的其他服务器方案集成）
-*   Startup 类构造方法注入类型更改，只支持：IHostEnvironment，IWebHostEnvironment，IConfiguration
-*   默认情况下启用 HTTP/2
-*   Kestrel：默认情况下禁用  8、.NET 5: .NET 5引入了AOT，.NET Native是一个AOT编译器，通过预先将.NET应用程序编译为本地机器代码，加快了应用程序的启动时间和执行效率。它适用于那些不需要动态生成代码的应用程序，可以提供更快的加载和执行速度。需要注意的是AOT不支持动态生成的应用程序。 新特性：
-*   ASP.NET Core MVC 和 Razor 改进
-*   OpenAPI 规范默认开启
-*   Blazor 性能改进、增加组件
-*   gRPC 性能改进
-*   SignalR 增加 Hub Filter，类似于 MVC Filter。支持并行调用，允许客户端一次调用多个Hub方法
-*   自定义处理授权失败，使用由
-*   授权中间件调用的新 IAuthorizationMiddlewareResultHandler 接口可以更轻松地自定义处理授权失败
-*   使用端点路由时的授权
-*   Linux 上的 Kerberos 身份验证和 LDAP 的基于角色的访问控制
-*   对 ASP.NET Core 项目运行
-*    dotnet watch 将启动默认浏览器，并在对代码进行更改时自动刷新浏览器
-*   控制台记录器格式化程序
-*   JSON Console Logger 9、 .NET 6： .NET MAUI是.NET 6中的重要新特性，它是一种新的跨平台应用程序开发框架，允许开发人员使用单一代码库构建移动、桌面和Web应用程序。它继承了Xamarin.Forms的优点，并进一步扩展和改进了跨平台开发体验。 .NET 6 (长期支持版本) 新特性：
-*   性能大幅提升
-*   支持 [热更新](https://so.csdn.net/so/search?q=%E7%83%AD%E6%9B%B4%E6%96%B0\&spm=1001.2101.3001.7020) Visual Studio 2022 和 .NET CLI 中支持，适用于 C# 和 Visual Basic
-*   支持C#10版本 ,例如记录结构、隐式使用和新的 lambda 功能
-*   具有原生设备功能的 [Blazor](https://so.csdn.net/so/search?q=Blazor\&spm=1001.2101.3001.7020) 桌面Web应用
-*   添加了 HTTP3支持
-*   System.Text.Json APIs
-*   新的 LINQ API
-*   支持Arm64
-*   最小化 Web APIs(Mini API) 10、 .NET 7： 内置容器化支持是.NET 7引入的重要新特征。之前我们更熟悉使用 Dockerfile 的形式构建镜像，而现在，可以在 .NET 项目中，配置 MSBuild 属性来做同样的事情，指定基础镜像，标签等等。.NET7的新特性小编比较难找，不知道“内置容器化支持”具体如何？ .NET 7 优化主要集中在： 统一的基类库（Base Class Library - BCL）、新的 TFM、对 ARM64 的原生支持、Linux 上增强的 .NET 支持。 ![0](https://note.youdao.com/yws/res/27938/WEBRESOURCE648a639fc7b432befdd4e358e020fcfc "0") 简单来说，如果使用 .NET 7，开发人员只需学习一次即可通过一个 SDK、一个运行时、一组基础库重复构建多种类型的应用程序（云、Web、桌面、移动、游戏、IoT 和 AI）。 ![0](https://note.youdao.com/yws/res/27939/WEBRESOURCE0a132573396519c807f8548c8d1af385 "0") 此外，微软还优化了在 Arm 机器上的性能，包括估算 L3 缓存大小、引入了 LSE 原子指令、优化使用内在函数的库。 11、 .NET 8： .NET 8 是微软于2021年8月24日宣布的下一代编程语言和框架，它是 .NET 宇宙的一部分，与 C# (Common Language Infrastructure) 紧密集成。.NET 8 引入了许多新功能，如原生编译、值类型 (Value Types)、结构化并发 (structured concurrency) 和快速数组 (RapidArray)。.NET 8 还支持本机 (native) AOT (Ahead-Of-Time) 编译，以提高性能和启动速度。 .NET 8 是 Microsoft 发布的最新一代 .NET 框架，它引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率。 以下是一些 .NET 8 的主要亮点： 1.性能提升：.NET 8 引入了名为“性能计数器”的新功能，可帮助开发人员了解应用程序的性能瓶颈，并采取相应的优化措施。此外，.NET 8 还对许多现有的组件和库进行了优化，以提高应用程序的整体性能。 2.新的异步编程模型：.NET 8 引入了名为“协程”的新的异步编程模型，它可以更自然地处理异步操作和长时间运行的任务。协程可以在同一个线程上执行多个异步操作，从而避免了线程切换和上下文切换的开销。 3.云原生支持：.NET 8 提供了更好的云原生支持，可以更轻松地将应用程序部署到 Kubernetes 等容器化平台中。.NET 8 还支持使用 Docker 等容器化工具打包和分发应用程序。 4.新的开发工具：.NET 8 引入了新的开发工具，如 R#”、Visual Studio Code“ 和 Visual Studio IDE 等，这些工具可以帮助开发人员更高效地编写、调试和测试代码。 5.跨平台支持：.NET 8 可以在多个平台上运行，包括 Windows、macOS 和 Linux 等操作系统。此外，.NET 8 还支持在移动设备、Web 应用程序和游戏开发等领域中使用。 6.人工智能和机器学习：.NET 8 内置了对人工智能和机器学习的支持，可以更轻松地使用这些技术来构建智能应用程序。 7.安全性改进：.NET 8 对安全性进行了改进，包括更好的代码签名和加密技术、对 .NET 反射的限制、对代码访问控制的改进等。 总的来说，.NET 8 为开发人员提供了许多新功能和改进，可以帮助他们更高效地编写高质量的应用程序。 以下是 .NET 8 中引入的一些主要功能和改进： 1.性能优化：.NET 8 引入了名为“JIT-Chains”的全新技术，它可以将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 2.容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 3.多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 4.新增语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch表达式、模式匹配、记录类型、可变性和局部类型参数等。 5.云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 6.数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 7.Web API 改进：.NET 8 对 Web API 进行了改进，可以更轻松地创建 RESTful API，并且支持异步和同步请求处理。 总之，.NET 8 引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率，使其成为构建现代应用程序的一个强大框架。 .NET 8 与.NET 7 相比，主要区别在于性能优化、容器化、多平台支持、语言功能、云原生应用支持、数据库连接和 Web API 改进等方面。.NET 8 在这些方面进行了升级和改进，旨在提高性能、可扩展性和开发效率。 .NET8对比.NET 性能优化：.NET 8 引入了 JIT-Chains 技术，将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch 表达式、模式匹配、记录类型、可变性和局部类型参数等。 云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 Web API 改进：.NET 8 对 Web API 进行 12、 .NET 9预览版：
+* URL 重写中间件
+* 响应缓存中间件
+* 查看组件 标记帮助程序
+* MVC 型中间件筛选器
+* 基于 Cookie 的 TempData 提供程序
+* Azure App Service 日志记录提供程序
+* Azure Key Vault 配置提供程序
+* Azure 和 Redis 存储数据保护密钥存储库
+* 适用于 Windows 的 WebListener 服务器（注：指 HTTP.sys 服务器）
+* WebSockets 支持 5、 .NET Core 2.0： 增加了对 Razor Pages 的支持， Razor Pages采用了一种类似于传统Web Forms的方式，即将前端页面和后端代码逻辑紧密集成在一个文件中。每个Razor Pages文件（.cshtml）都包含了HTML标记和C#代码，使开发人员能够在同一个文件中处理页面布局、数据绑定和事件处理等操作。 Razor Pages使用了Razor语法，这是一种简洁、直观的模板语言，可以轻松地将C#代码嵌入到HTML中。开发人员可以在Razor Pages中使用Razor语法来处理数据显示、条件逻辑、循环结构等。Razor Pages还支持部分视图（Partial Views），这允许开发人员将页面的某些部分作为可重用的组件进行封装。 6、.NET Core 2.1： .NET Core 2.0引入了高性能的Span类型，以更有效地处理内存和数据。Span是一个结构体，用于表示连续的内存区域，并提供了一组安全且高效的方法来访问和操作这些内存区域。 通过使用Span，开发人员可以直接操作内存，而无需进行不必要的内存分配和复制操作。这对于处理大型数据集合或高性能计算任务非常有用。Span提供了多种方法来访问和修改内存，如索引访问、切片操作、复制和填充等。 新特性包含2.0、2.1， 新特性如下：
+* Razor Pages
+* ASP.NET Core 元包（注：即Microsoft.AspNetCore.All ，我喜欢称作全家桶，作用就是一把梭给你全部引用了相关的包，不用你发现没有的时候自己去找，方便是方便，就是把一堆没用到的也给引用了，项目加载速度也会受到影响）
+* .NET Standard 2.0
+* SPA 模板
+* Kestrel 改进（添加大量服务器约束配置选项）
+* WebListener 重命名为 HTTP.sys
+* 默认启用防跨站请求攻击（CSRF）
+* SignalR（已针对 ASP.NET Core 2.1 重新编写 SignalR：新 JavaScript 客户端不具有 jQuery 依赖项，新紧凑型二进制协议基于 MessagePack等）
+* Razor 类库（Razor Class Library）
+* Identity UI 库
+* HTTPS
+* GDPR（注：刚出来时，很多人发现Cookie写入不了就是因为开启了它）
+* 集成测试
+* \[ApiController], ActionResult
+* 端点路由（Endpoint Routing）
+* 健康检查（HealthCheck）
+* HTTP/2
+* IIS 进程内承载
+* SignalR Java 客户端
+* CORS 改进
+* 响应压缩（ASP.NET Core 2.2 可以使用 Brotli 压缩格式来压缩响应。）
+* 提升 HttpClient 性能（通过改善连接池锁的冲突） 7、 .NET Core 3.0： .NET Core 3.0引入了System.Text.Json，它是.NET平台中用于JSON序列化和反序列化的官方库。它具有高性能、简化的API和可定制性等特点，使开发人员能够方便地处理JSON数据。随着.NET Core的发展，System.Text.Json已成为.NET开发中的首选JSON处理库。 { // 创建一个对象 Person person = new Person {Name = "caochao", Age = 30, Email = "<caochao@example.com>" }; // 对象序列化为JSON字符串 string json = JsonSerializer.Serialize(person); // JSON字符串反序列化为对象 Person deserializedPerson = JsonSerializer.Deserialize(json); } class Person { public string Name { get; set; } public int Age { get; set; } public string Email { get; set; } }//欢迎关注公众号：DOTNET开发跳槽，领取海量面试题。加微信号xbhpnet入群交流 新特性包含3.0 新特性如下：
+* Blazor Server
+* Blazor WebAssembly
+* Razor 组件
+* gRPC
+* ASP.NET Core 和 SignalR 默认使用 System.Text.Json 来进行序列化
+* ASP.NET Core 默认不再使用 WebHostBuilder ，而是使用 HostBuilder（可以更好地将 ASP.NET Core 应用与非 Web 特定的其他服务器方案集成）
+* Startup 类构造方法注入类型更改，只支持：IHostEnvironment，IWebHostEnvironment，IConfiguration
+* 默认情况下启用 HTTP/2
+* Kestrel：默认情况下禁用  8、.NET 5: .NET 5引入了AOT，.NET Native是一个AOT编译器，通过预先将.NET应用程序编译为本地机器代码，加快了应用程序的启动时间和执行效率。它适用于那些不需要动态生成代码的应用程序，可以提供更快的加载和执行速度。需要注意的是AOT不支持动态生成的应用程序。 新特性：
+* ASP.NET Core MVC 和 Razor 改进
+* OpenAPI 规范默认开启
+* Blazor 性能改进、增加组件
+* gRPC 性能改进
+* SignalR 增加 Hub Filter，类似于 MVC Filter。支持并行调用，允许客户端一次调用多个Hub方法
+* 自定义处理授权失败，使用由
+* 授权中间件调用的新 IAuthorizationMiddlewareResultHandler 接口可以更轻松地自定义处理授权失败
+* 使用端点路由时的授权
+* Linux 上的 Kerberos 身份验证和 LDAP 的基于角色的访问控制
+* 对 ASP.NET Core 项目运行
+*  dotnet watch 将启动默认浏览器，并在对代码进行更改时自动刷新浏览器
+* 控制台记录器格式化程序
+* JSON Console Logger 9、 .NET 6： .NET MAUI是.NET 6中的重要新特性，它是一种新的跨平台应用程序开发框架，允许开发人员使用单一代码库构建移动、桌面和Web应用程序。它继承了Xamarin.Forms的优点，并进一步扩展和改进了跨平台开发体验。 .NET 6 (长期支持版本) 新特性：
+* 性能大幅提升
+* 支持 [热更新](https://so.csdn.net/so/search?q=%E7%83%AD%E6%9B%B4%E6%96%B0\&spm=1001.2101.3001.7020) Visual Studio 2022 和 .NET CLI 中支持，适用于 C# 和 Visual Basic
+* 支持C#10版本 ,例如记录结构、隐式使用和新的 lambda 功能
+* 具有原生设备功能的 [Blazor](https://so.csdn.net/so/search?q=Blazor\&spm=1001.2101.3001.7020) 桌面Web应用
+* 添加了 HTTP3支持
+* System.Text.Json APIs
+* 新的 LINQ API
+* 支持Arm64
+* 最小化 Web APIs(Mini API) 10、 .NET 7： 内置容器化支持是.NET 7引入的重要新特征。之前我们更熟悉使用 Dockerfile 的形式构建镜像，而现在，可以在 .NET 项目中，配置 MSBuild 属性来做同样的事情，指定基础镜像，标签等等。.NET7的新特性小编比较难找，不知道“内置容器化支持”具体如何？ .NET 7 优化主要集中在： 统一的基类库（Base Class Library - BCL）、新的 TFM、对 ARM64 的原生支持、Linux 上增强的 .NET 支持。 ![0](https://note.youdao.com/yws/res/27938/WEBRESOURCE648a639fc7b432befdd4e358e020fcfc "0") 简单来说，如果使用 .NET 7，开发人员只需学习一次即可通过一个 SDK、一个运行时、一组基础库重复构建多种类型的应用程序（云、Web、桌面、移动、游戏、IoT 和 AI）。 ![0](https://note.youdao.com/yws/res/27939/WEBRESOURCE0a132573396519c807f8548c8d1af385 "0") 此外，微软还优化了在 Arm 机器上的性能，包括估算 L3 缓存大小、引入了 LSE 原子指令、优化使用内在函数的库。 11、 .NET 8： .NET 8 是微软于2021年8月24日宣布的下一代编程语言和框架，它是 .NET 宇宙的一部分，与 C# (Common Language Infrastructure) 紧密集成。.NET 8 引入了许多新功能，如原生编译、值类型 (Value Types)、结构化并发 (structured concurrency) 和快速数组 (RapidArray)。.NET 8 还支持本机 (native) AOT (Ahead-Of-Time) 编译，以提高性能和启动速度。 .NET 8 是 Microsoft 发布的最新一代 .NET 框架，它引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率。 以下是一些 .NET 8 的主要亮点： 1.性能提升：.NET 8 引入了名为“性能计数器”的新功能，可帮助开发人员了解应用程序的性能瓶颈，并采取相应的优化措施。此外，.NET 8 还对许多现有的组件和库进行了优化，以提高应用程序的整体性能。 2.新的异步编程模型：.NET 8 引入了名为“协程”的新的异步编程模型，它可以更自然地处理异步操作和长时间运行的任务。协程可以在同一个线程上执行多个异步操作，从而避免了线程切换和上下文切换的开销。 3.云原生支持：.NET 8 提供了更好的云原生支持，可以更轻松地将应用程序部署到 Kubernetes 等容器化平台中。.NET 8 还支持使用 Docker 等容器化工具打包和分发应用程序。 4.新的开发工具：.NET 8 引入了新的开发工具，如 R#”、Visual Studio Code“ 和 Visual Studio IDE 等，这些工具可以帮助开发人员更高效地编写、调试和测试代码。 5.跨平台支持：.NET 8 可以在多个平台上运行，包括 Windows、macOS 和 Linux 等操作系统。此外，.NET 8 还支持在移动设备、Web 应用程序和游戏开发等领域中使用。 6.人工智能和机器学习：.NET 8 内置了对人工智能和机器学习的支持，可以更轻松地使用这些技术来构建智能应用程序。 7.安全性改进：.NET 8 对安全性进行了改进，包括更好的代码签名和加密技术、对 .NET 反射的限制、对代码访问控制的改进等。 总的来说，.NET 8 为开发人员提供了许多新功能和改进，可以帮助他们更高效地编写高质量的应用程序。 以下是 .NET 8 中引入的一些主要功能和改进： 1.性能优化：.NET 8 引入了名为“JIT-Chains”的全新技术，它可以将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 2.容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 3.多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 4.新增语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch表达式、模式匹配、记录类型、可变性和局部类型参数等。 5.云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 6.数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 7.Web API 改进：.NET 8 对 Web API 进行了改进，可以更轻松地创建 RESTful API，并且支持异步和同步请求处理。 总之，.NET 8 引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率，使其成为构建现代应用程序的一个强大框架。 .NET 8 与.NET 7 相比，主要区别在于性能优化、容器化、多平台支持、语言功能、云原生应用支持、数据库连接和 Web API 改进等方面。.NET 8 在这些方面进行了升级和改进，旨在提高性能、可扩展性和开发效率。 .NET8对比.NET 性能优化：.NET 8 引入了 JIT-Chains 技术，将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch 表达式、模式匹配、记录类型、可变性和局部类型参数等。 云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 Web API 改进：.NET 8 对 Web API 进行 12、 .NET 9预览版：
 
 # C#历史版本
 
 C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开始接触 C# 的，在此不赘述该版本了，只能说 C# 的起点不低，从 Java 转过来上手很快，兼具 C 语族的语法特点，同时又很有 Delphi 味，简直梦幻开局。 C# 1.2 发布日期：2003 年 4 月 从此版本开始，当 IEnumerator 实现 IDisposable 时，foreach 循环中生成的代码会在 IEnumerator 上调用 Dispose。【刚刚知道还有这特性】 C# 2.0 发布日期：2005 年 11 月 和 Visual Studio 2005 一起发布。看看这些金光闪闪的特性吧：
 
-*   泛型
-*   分部类型【partial 关键字】
-*   匿名方法【利用 delegate 运算符】
-*   可为空的值类型【Nullable 或 T? 】
-*   迭代器【yield return 语句】
-*   协变和逆变【这时候还不支持泛型接口和委托】
-*   getter/setter 单独可访问性
-*   静态类 C# 3.0 发布日期：2007 年 11 月 C# 3.0 和 Visual Studio 2008 一起发布于 2007 年下半年，但完整的语言功能是在 .NET Framework 3.5 版中发布的。如果说 2.0 时期是分庭抗礼，那么到了 3.0 就真的是一骑绝尘，诸多特性完美地结合 在一起。尽管我习惯用 Lambda 表达式与链式调用来写 LINQ ，但是查询表达式写法的 LINQ 实在 是太惊艳了。
-*   自动实现的属性【{ get; set; } 写法】
-*   匿名类型【new { Foo = 108, Bar = "Hello" } 写法】
-*   查询表达式【from foo select bar where baz 写法】
-*   Lambda 表达式
-*   表达式树
-*   扩展方法
-*   隐式类型本地变量【var 关键字】
-*   分部方法【partial 关键字可以作用在方法上，没用过该特性】
-*   对象和集合初始值设定项【Foo foo = new Foo { Bar = "Hello" } 写法】
-*   WPF、WCF、WF C# 4.0 发布日期：2010 年 4 月 C# 版本 4.0 随 Visual Studio 2010 一起发布，引入了一些小改进。
-*   动态绑定【dynamic 关键字，不在编译时检查类型，而是在运行时评估。】
-*   命名实参和可选实参【可以少些一些方法重载了】
-*   泛型协变和逆变【完全体，但一般只有底层类库设计者需要考虑这玩意】
-*   嵌入的互操作类型【没什么存在感】
-*   System.Threading.Tasks 命名空间【更方便的线程操作及并行处理】
-*   System.Tuple 类
-*   现有类的新方法【例如 String.IsNullOrWhiteSpace、Stopwatch.Restart、StringBuilder.Clear 等等】
-*   现有方法的新重载【例如 String.Join 方法添加了可以连接 IEnumerable 集合的成员的新重载。 】
-*   Managed Extensibility Framework (MEF)【动态加载，实现插件系统的好帮手】
-*   ASP.NET MVC C# 5.0 发布日期：2012 年 8 月 C# 版本 5.0 随 Visual Studio 2012 一起发布。.NET Framework 4.5、4.5.1、4.5.2 基本上就是一系列更新和优化，新东西很少。
-*   异步成员【async 和 await，版本之子。】
-*   调用方信息特性【CallerMemberName 等，方便确定调用方信息。】 C# 6.0 发布日期：2015 年 7 月 版本 6.0 随 Visual Studio 2015 一起发布，发布了很多使得 C# 编程更有效率的小功能。对应 .NET Framework 4.6、4.6.1、4.6.2。.NET Core 出现了，好消息是 .NET 开放源码了，坏消息是微软开始折腾，从这开始语法糖多得齁嗓子。得益于诸多新特性，代码变得简短了，但是引入了很多新符号，心智负 担加重了。“Null 条件运算符”、“字符串内插”、“nameof 表达式”是我比较喜欢的特性。
-*   静态导入【using static 指令命名了一种类型，无需指定类型名称即可访问其静态成员和嵌套类型。】可以using static非静态类型，但是只能使用它的静态方法。 using static System.Console; namespace csharp6 { internal class Program { private static void Main(string\[] args) { WriteLine("blackheart"); } } }
-*   异常筛选器【catch (ExceptionType \[e]) when (expr)】 using System; using System.Net.Http; using System.Threading.Tasks; class Program { static void Main() { Console.WriteLine(MakeRequest().Result); } public static async Task\<string> MakeRequest() { var client = new HttpClient(); var streamTask = client.GetStringAsync("<https://localHost:10000>"); try { var responseText = await streamTask; return responseText; } catch (HttpRequestException e) when (e.Message.Contains("301")) { return "Site Moved"; } catch (HttpRequestException e) when (e.Message.Contains("404")) { return "Page Not Found"; } catch (HttpRequestException e) { return e.Message; } } }
-*   自动属性初始化表达式【public string Foo { get; set; } = string.Empty;】
-*   表达式主体定义【例如：public override string ToString() => \$"{foo} {bar}";】
-*   Null 条件运算符【成员访问?. 或元素访问?\[]】 namespace csharp6 { internal class Person { public string Name { get; set; } } internal class Program { private static void Main() { Person person = null; string name = person?.Name; } } }
-*   字符串内插【\$"{foo} {bar}"】
-*   nameof 表达式【nameof(Foo)】 C# 7.0 发布日期：2017 年 3 月 C# 7.0 版已与 Visual Studio 2017 一起发布。 对应 .NET Framework 4.7、4.7.1、4.7.2。后续还有 C# 7.1、7.2、7.3 。
-*   out 变量【if (Int32.TryParse(foo, out int bar)) Console.WriteLine(\$"Converted '{foo}' to {bar}");】
-*   元组【(double Foo, int Bar) t2 = (4.5, 3);】
-*   模式匹配 **模式匹配**也许能算的上C#本次更新最重量级的升级，也是最受关注的特性（也许没有之一），通过模式匹配，我们可以简化大量的条件代码。   **Switch语句** 大家也许遇到过这样的情景，假设你的代码中，有一个**Nullable\<int>的值，需要对其在**正整数，**非正整数**，**Null**三种情况下分别作不同的逻辑处理。大多数童鞋直接想到是类似于下面的逻辑： 1 void Foo(int? num) 2 { 3     if (!num.HasValue) 4      /\* null logic */ 5     else if (num.Value > 0) 6      /* positive int logic */ 7     else 8      /* negative int & zero logic \*/ 9 请大家思考一下，这个逻辑是否可以用switch-case语句来做，在VB及很多**非C系**的语言中，答案是肯定的，比如**VB.NET中**可以这样写： 1 Sub Foo(Num As Integer?) 2     Select Case Num 3         Case Not Num.HasValue 4         'null logic 5         Case Num > 0 6         'positive Int logic 7         Case Num <= 0 8             'negative Int() & zero logic 9         Case Else 10 11     End Select 12 End Sub 说到这里，在具体讨论**模式匹配**在switch-case中的应用之前，先淡淡的吐槽一下C#，本来理所应当的一个简单的小语法，到了C#7.0才加入。 看看C#7.0加入的类型模式（Type Pattern）：
+* 泛型
+* 分部类型【partial 关键字】
+* 匿名方法【利用 delegate 运算符】
+* 可为空的值类型【Nullable 或 T? 】
+* 迭代器【yield return 语句】
+* 协变和逆变【这时候还不支持泛型接口和委托】
+* getter/setter 单独可访问性
+* 静态类 C# 3.0 发布日期：2007 年 11 月 C# 3.0 和 Visual Studio 2008 一起发布于 2007 年下半年，但完整的语言功能是在 .NET Framework 3.5 版中发布的。如果说 2.0 时期是分庭抗礼，那么到了 3.0 就真的是一骑绝尘，诸多特性完美地结合 在一起。尽管我习惯用 Lambda 表达式与链式调用来写 LINQ ，但是查询表达式写法的 LINQ 实在 是太惊艳了。
+* 自动实现的属性【{ get; set; } 写法】
+* 匿名类型【new { Foo = 108, Bar = "Hello" } 写法】
+* 查询表达式【from foo select bar where baz 写法】
+* Lambda 表达式
+* 表达式树
+* 扩展方法
+* 隐式类型本地变量【var 关键字】
+* 分部方法【partial 关键字可以作用在方法上，没用过该特性】
+* 对象和集合初始值设定项【Foo foo = new Foo { Bar = "Hello" } 写法】
+* WPF、WCF、WF C# 4.0 发布日期：2010 年 4 月 C# 版本 4.0 随 Visual Studio 2010 一起发布，引入了一些小改进。
+* 动态绑定【dynamic 关键字，不在编译时检查类型，而是在运行时评估。】
+* 命名实参和可选实参【可以少些一些方法重载了】
+* 泛型协变和逆变【完全体，但一般只有底层类库设计者需要考虑这玩意】
+* 嵌入的互操作类型【没什么存在感】
+* System.Threading.Tasks 命名空间【更方便的线程操作及并行处理】
+* System.Tuple 类
+* 现有类的新方法【例如 String.IsNullOrWhiteSpace、Stopwatch.Restart、StringBuilder.Clear 等等】
+* 现有方法的新重载【例如 String.Join 方法添加了可以连接 IEnumerable 集合的成员的新重载。 】
+* Managed Extensibility Framework (MEF)【动态加载，实现插件系统的好帮手】
+* ASP.NET MVC C# 5.0 发布日期：2012 年 8 月 C# 版本 5.0 随 Visual Studio 2012 一起发布。.NET Framework 4.5、4.5.1、4.5.2 基本上就是一系列更新和优化，新东西很少。
+* 异步成员【async 和 await，版本之子。】
+* 调用方信息特性【CallerMemberName 等，方便确定调用方信息。】 C# 6.0 发布日期：2015 年 7 月 版本 6.0 随 Visual Studio 2015 一起发布，发布了很多使得 C# 编程更有效率的小功能。对应 .NET Framework 4.6、4.6.1、4.6.2。.NET Core 出现了，好消息是 .NET 开放源码了，坏消息是微软开始折腾，从这开始语法糖多得齁嗓子。得益于诸多新特性，代码变得简短了，但是引入了很多新符号，心智负 担加重了。“Null 条件运算符”、“字符串内插”、“nameof 表达式”是我比较喜欢的特性。
+* 静态导入【using static 指令命名了一种类型，无需指定类型名称即可访问其静态成员和嵌套类型。】可以using static非静态类型，但是只能使用它的静态方法。 using static System.Console; namespace csharp6 { internal class Program { private static void Main(string\[] args) { WriteLine("blackheart"); } } }
+* 异常筛选器【catch (ExceptionType \[e]) when (expr)】 using System; using System.Net.Http; using System.Threading.Tasks; class Program { static void Main() { Console.WriteLine(MakeRequest().Result); } public static async Task\<string> MakeRequest() { var client = new HttpClient(); var streamTask = client.GetStringAsync("<https://localHost:10000>"); try { var responseText = await streamTask; return responseText; } catch (HttpRequestException e) when (e.Message.Contains("301")) { return "Site Moved"; } catch (HttpRequestException e) when (e.Message.Contains("404")) { return "Page Not Found"; } catch (HttpRequestException e) { return e.Message; } } }
+* 自动属性初始化表达式【public string Foo { get; set; } = string.Empty;】
+* 表达式主体定义【例如：public override string ToString() => \$"{foo} {bar}";】
+* Null 条件运算符【成员访问?. 或元素访问?\[]】 namespace csharp6 { internal class Person { public string Name { get; set; } } internal class Program { private static void Main() { Person person = null; string name = person?.Name; } } }
+* 字符串内插【\$"{foo} {bar}"】
+* nameof 表达式【nameof(Foo)】 C# 7.0 发布日期：2017 年 3 月 C# 7.0 版已与 Visual Studio 2017 一起发布。 对应 .NET Framework 4.7、4.7.1、4.7.2。后续还有 C# 7.1、7.2、7.3 。
+* out 变量【if (Int32.TryParse(foo, out int bar)) Console.WriteLine(\$"Converted '{foo}' to {bar}");】
+* 元组【(double Foo, int Bar) t2 = (4.5, 3);】
+* 模式匹配 **模式匹配**也许能算的上C#本次更新最重量级的升级，也是最受关注的特性（也许没有之一），通过模式匹配，我们可以简化大量的条件代码。   **Switch语句** 大家也许遇到过这样的情景，假设你的代码中，有一个**Nullable\<int>的值，需要对其在**正整数，**非正整数**，**Null**三种情况下分别作不同的逻辑处理。大多数童鞋直接想到是类似于下面的逻辑： 1 void Foo(int? num) 2 { 3     if (!num.HasValue) 4      /\* null logic */ 5     else if (num.Value > 0) 6      /* positive int logic */ 7     else 8      /* negative int & zero logic \*/ 9 请大家思考一下，这个逻辑是否可以用switch-case语句来做，在VB及很多**非C系**的语言中，答案是肯定的，比如**VB.NET中**可以这样写： 1 Sub Foo(Num As Integer?) 2     Select Case Num 3         Case Not Num.HasValue 4         'null logic 5         Case Num > 0 6         'positive Int logic 7         Case Num <= 0 8             'negative Int() & zero logic 9         Case Else 10 11     End Select 12 End Sub 说到这里，在具体讨论**模式匹配**在switch-case中的应用之前，先淡淡的吐槽一下C#，本来理所应当的一个简单的小语法，到了C#7.0才加入。 看看C#7.0加入的类型模式（Type Pattern）：
 
     1 void Foo(int? num) 2 { 3     switch (num) 4     { 5         case null: 6             //null logic 7             break; 8         case int n when n > 0: 9             //positive Int logic 10             break; 11         case int n when n <= 0: 12             //negative Int() & zero logic 13             break; 14     } 15 } 这个不多说了，大家自己体会，单纯的在**Nullable\<int>下，可能体现的不是很清晰，个人认为这个小变动其实意义并不是很大，同样场景下，或许**if-if else-else会让代码更清晰易读些。   如果说模式匹配仅仅是完善了一下switch-case，那可真是太大才小用了，下面我们看一个好玩的。  **Match表达式** 虽然把match带到C#中看起来并不是什么大事，但是会引起的代码简化还是非常爽的。 就像很多人说三元表达式（**\<condition>？\<true result> : \<false result>** ）将**if-else**简化一样。match表达式，是**将switch-case结构简化**到了一个新限度。 看match表达式代码前，我们先来看一行略坑的三元表达式。 var reuslt = x == null ? default(int) : (x is Func\<int> ? (x as Func\<int>)() : (x is int ? Convert.ToInt32(x) : default(int))); 好吧，我承认我是故意让你们抓狂的。^\_^， 为了能稳住大家看完上面这行代码后的情绪，来一副match表达式消消火。 var result = x match( case Func\<int> f: f(), case int i: i, case \*: default(int) ); 这两种写法效果上是等效的，有没有非常干净清爽的感觉？写过match表达式的码农，应该再也不想回去嵌套 **<\*>?<\*>:<\*>** 了。 （*注：目前这种写法还未确认，C#7.0发布后可能会有略微变动*）   **Is表达式** 如果说上面两个变化是“语法糖”，那么**is表达式**可是要玩真的了。 说点题外话，其实对**正则表达式**熟悉的童鞋可能知道，本质上\*\*\[模式匹配]**和正则表达式要解决的问题**逻辑**类似，以一个确定的模式，来判断或查找一个确定的实例**。只不过在正则表达式中，这里说的"模式"是正则表达式，"实例"指字符串。而\[模式匹配]下，所针对的"实例"是对象，那么"模式"，就可以理解成is表达式\*\*了。 举个例子，比如你要查找并列出 一组电子设备中，所有iPhone的IMEI串号，我们在C#6.0中，会这样做： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 class Device 2 { 3     public ProductLineOption ProductLine { get; set; } 4 } 5 6 class MobiePhone : Device 7 { 8     public string IMEICode { get; set; } 9 } 10 11 IEnumerable\<Device> GetAllDevices() { /\* 获取并返回所有设备 \*/ }; 12 13 IEnumerable\<string> GetAlliPhoneIMEI() 14 { 15     var deviceList = this.GetAllDevices(); 16     foreach (Device device in deviceList) 17     { 18         MobiePhone phone = device as MobiePhone; 19         if (phone == null) continue; 20 21         if (phone.ProductLine == ProductLineOption.IPhone) 22         { 23             yield return phone.IMEICode; 24         } 25     } 26 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 一个非常典型的传统方法，没什么好说的。我们直接来看C#7.0 中\*\* is表达式\*\*怎么等效的实现这段逻辑： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 IEnumerable\<string> GetAlliPhoneIMEI() 2 { 3     List\<Device> deviceList = this.GetAllDevices(); 4     foreach (Device device in deviceList) 5     { 6         if (device is MobiePhone { IMEICode is var imei, ProductLine is ProductLineOption.IPhone}) 7         { 8             yield return imei; 9         } 10     } 11 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 如果你还是觉得这没什么，那么，其实这个例子中，仅仅体现出模式匹配中的**属性模式**。 根据Doc:#[patterns](https://github.com/dotnet/roslyn/blob/future/docs/features/patterns.md) C#7.0会提供一下几种匹配方式：
 
-    *   类型模式
-    *   常量模式
-    *   变量模式
-    *   通配符模式
-    *   位置模式
-    *   属性模式 我们可以想象，如果模式匹配组合起来使用，会给现有的C#代码带来多大的便利和清静。 Okay，说了这么多，下面给大家一个相对完整的案例，自行体会。   **案例**  [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 abstract class Animal 2 { 3     public string Name { get; set; } 4 } 5 6 class Dog : Animal 7 { 8     public string BarkLikeCrazy() => "WOOF WOOF WOOF"; 9 } 10 11 class Cat : Animal { } 12 class Swan : Animal { } 13 14 class Program 15 { 16     static void Main(string\[] args) 17     { 18         var animals = new Animal\[] { 19             new Dog { Name = "hola" }, 20             new Cat { Name = "tom" }, 21             new Swan { Name = "hacienda" } 22         }; 23 24         var organizedAnimals = from animal in animals 25                                let sound = animal match( //Match语句 26                                    case Dog d: "woof... " + d.BarkLikeCrazy(), //类型匹配 27                                    case Cat c: "meow", 28                                    case \* : "I'm mute.." //通配符匹配 29                                ) 30                                select new { Type = animal, Sound = sound }; 31 32         foreach (var animal in organizedAnimals) 33         { 34             Console.WriteLine(`$"{animal.Type.ToString()} - {animal.Sound}");
+    * 类型模式
+    * 常量模式
+    * 变量模式
+    * 通配符模式
+    * 位置模式
+    * 属性模式 我们可以想象，如果模式匹配组合起来使用，会给现有的C#代码带来多大的便利和清静。 Okay，说了这么多，下面给大家一个相对完整的案例，自行体会。   **案例**  [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 abstract class Animal 2 { 3     public string Name { get; set; } 4 } 5 6 class Dog : Animal 7 { 8     public string BarkLikeCrazy() => "WOOF WOOF WOOF"; 9 } 10 11 class Cat : Animal { } 12 class Swan : Animal { } 13 14 class Program 15 { 16     static void Main(string\[] args) 17     { 18         var animals = new Animal\[] { 19             new Dog { Name = "hola" }, 20             new Cat { Name = "tom" }, 21             new Swan { Name = "hacienda" } 22         }; 23 24         var organizedAnimals = from animal in animals 25                                let sound = animal match( //Match语句 26                                    case Dog d: "woof... " + d.BarkLikeCrazy(), //类型匹配 27                                    case Cat c: "meow", 28                                    case \* : "I'm mute.." //通配符匹配 29                                ) 30                                select new { Type = animal, Sound = sound }; 31 32         foreach (var animal in organizedAnimals) 33         { 34             Console.WriteLine(`$"{animal.Type.ToString()} - {animal.Sound}");
         35         }
         36 
         37         foreach (var a in animals)
@@ -395,9 +395,9 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
         39             if (a is Cat { Name is var name }) //类型及属性匹配，is表达式
         40             {
         41                 Console.WriteLine($`"Name of {nameof(Cat)} is {name}"); 42             } 43 44             string sound = ""; 45             switch (a) //匹配switch语句 46             { 47                 case Dog d when d.Name == "hola": 48                     sound = "woof... hola" + d.BarkLikeCrazy(); 49                     break; 50                 case Dog d: 51                     sound = "woof..." + d.BarkLikeCrazy(); 52                     break; 53                 case Cat c: 54                     sound = "meow"; 55                     break; 56                 case IEnumerable\<Animal> l when l.Any(): 57                     //TODO: any logic; 58                     break; 59                 case null: 60                     sound = "no animal"; 61                     break; 62                 default: 63                     sound = "I'm mute.."; 64                     break; 65             } 66             Console.WriteLine(\$"{a.ToString()} - {sound}"); 67         } 68     } 69 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")   
-*   本地函数【内部函数，让我想起了 Delphi】 public class C { public void M() { int result = add(100, 200); // 本地函数 add int add(int a, int b) { return a + b; } } }
-*   ref 局部变量【指针既视感】 而ref参数的行为与此不同。使用ref参数，不会创建开辟新的空间，而是调用放提供一个现有的包含初始值的空间。可以理解为一个空间同时被两个地址指向：一个是调用方使用的该变量的表示，另一个是形参的名称。
-*   弃元【(\_, \_, foo) = bar.baz();，配合元组，你可以给，但我可以不要。】 弃元相当于未赋值的变量；它们没有值。 因为只有一个弃元变量，甚至不为该变量分配存储空间，所以弃元可减少内存分配。 因为它们使代码的意图清楚，增强了其可读性和可维护性。 using System; using System.Collections.Generic; public class Example { public static void Main() { var (\_, \_, \_, pop1, \_, pop2) = QueryCityDataForYears("New York City", 1960, 2010);
+* 本地函数【内部函数，让我想起了 Delphi】 public class C { public void M() { int result = add(100, 200); // 本地函数 add int add(int a, int b) { return a + b; } } }
+* ref 局部变量【指针既视感】 而ref参数的行为与此不同。使用ref参数，不会创建开辟新的空间，而是调用放提供一个现有的包含初始值的空间。可以理解为一个空间同时被两个地址指向：一个是调用方使用的该变量的表示，另一个是形参的名称。
+* 弃元【(\_, \_, foo) = bar.baz();，配合元组，你可以给，但我可以不要。】 弃元相当于未赋值的变量；它们没有值。 因为只有一个弃元变量，甚至不为该变量分配存储空间，所以弃元可减少内存分配。 因为它们使代码的意图清楚，增强了其可读性和可维护性。 using System; using System.Collections.Generic; public class Example { public static void Main() { var (\_, \_, \_, pop1, \_, pop2) = QueryCityDataForYears("New York City", 1960, 2010);
 
                 Console.WriteLine($"Population change, 1960 to 2010: {pop2 - pop1:N0}");
             }
@@ -427,24 +427,24 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
 
 C# 8.0 发布日期：2019 年 9 月 C# 8.0 版是专门面向 .NET C# Core 的第一个主要 C# 版本。特性列了一大篇，实在是没法看了，下面就没有一一列举，脚本语言味儿越来越重，各种操作符、关键字更是玩出花来，心智负担越发沉重了。除了 模式匹配，别的特性完全不想碰。
 
-*   默认接口方法【抽象也能顺便带点儿实现，脑抽特性】
-*   模式匹配增强功能【来嘛，有点学不过来了啊】
-*   Null 合并赋值【??=】
-*   后面懒得列了…… C# 9 发布日期：2020 年 11 月 C# 9 随 .NET 5 一起发布。 它是面向 .NET 5 版本的任何程序集的默认语言版本。对于既存特性进行了 梳理与调整，然后引入了一大堆新特性，这是有 KPI 压力吗？老特性千万别给我搞没了，新特性我也保证不碰，咱们心照不宣吧。
-*   记录【record 关键字，只读数据类语法糖】
-*   仅限 Init 的资源库【public int Foo { get; init; } ，只读数据类语法糖之二】
-*   顶级语句【为了少写点代码微软也是拼了】
-*   模式匹配增强功能【继续增强……】
-*   函数指针【图穷匕见，高性能计算这一块与我似乎没有交集】
-*   后面懒得列了…… C# 10 发布日期：2021 年 11 月 C# 10 向 C# 语言添加了以下功能和增强功能： 记录结构 结构类型的改进 内插字符串处理程序 global using 指令 文件范围的命名空间声明 扩展属性模式 对 Lambda 表达式的改进 可使用 const 内插字符串 记录类型可密封 ToString() 改进型明确赋值 在同一析构中可同时进行赋值和声明 可在方法上使用 AsyncMethodBuilder 属性 CallerArgumentExpression 属性 增强的 #line pragma 警告波 6 C# 11 .NET 7 支援 C# 11 C# 11 已新增下列功能： 原始字串常值 泛型數學支援 泛型屬性 UTF-8 字串常值 字串插補運算式中的分行符號 清單模式 檔案本機類型 必要成員 自動預設結構 常數上的模式比 Span 對 string nameof擴充範圍 Numeric IntPtr ref 欄位和 scoped ref 已改善方法群組轉換至委派 警告波 7 C# 12 最新的 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/) 版本或 [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet)  C# 12 包括以下新增功能。 可以使用最新的 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/) 版本或 [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet) 尝试这些功能。
-*   主构造函数  - 在 Visual Studio 2022 版本 17.6 预览版 2 中引入。
-*   集合表达式  - 在 Visual Studio 2022 版本 17.7 预览版 5 中引入。
-*   内联数组  - 在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
-*   Lambda 表达式中的可选参数  - 在 Visual Studio 2022 版本 17.5 预览版 2 中引入。
-*   ref readonly [ 参数](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-12#ref-readonly-parameters) - 在 Visual Studio 2022 版本 17.8 预览版 2 中引入。
-*   任何类型的别名  - 在 Visual Studio 2022 版本 17.6 预览版 3 中引入。
-*   实验属性  - 已在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
-*   拦截器  - 预览功能 在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
+* 默认接口方法【抽象也能顺便带点儿实现，脑抽特性】
+* 模式匹配增强功能【来嘛，有点学不过来了啊】
+* Null 合并赋值【??=】
+* 后面懒得列了…… C# 9 发布日期：2020 年 11 月 C# 9 随 .NET 5 一起发布。 它是面向 .NET 5 版本的任何程序集的默认语言版本。对于既存特性进行了 梳理与调整，然后引入了一大堆新特性，这是有 KPI 压力吗？老特性千万别给我搞没了，新特性我也保证不碰，咱们心照不宣吧。
+* 记录【record 关键字，只读数据类语法糖】
+* 仅限 Init 的资源库【public int Foo { get; init; } ，只读数据类语法糖之二】
+* 顶级语句【为了少写点代码微软也是拼了】
+* 模式匹配增强功能【继续增强……】
+* 函数指针【图穷匕见，高性能计算这一块与我似乎没有交集】
+* 后面懒得列了…… C# 10 发布日期：2021 年 11 月 C# 10 向 C# 语言添加了以下功能和增强功能： 记录结构 结构类型的改进 内插字符串处理程序 global using 指令 文件范围的命名空间声明 扩展属性模式 对 Lambda 表达式的改进 可使用 const 内插字符串 记录类型可密封 ToString() 改进型明确赋值 在同一析构中可同时进行赋值和声明 可在方法上使用 AsyncMethodBuilder 属性 CallerArgumentExpression 属性 增强的 #line pragma 警告波 6 C# 11 .NET 7 支援 C# 11 C# 11 已新增下列功能： 原始字串常值 泛型數學支援 泛型屬性 UTF-8 字串常值 字串插補運算式中的分行符號 清單模式 檔案本機類型 必要成員 自動預設結構 常數上的模式比 Span 對 string nameof擴充範圍 Numeric IntPtr ref 欄位和 scoped ref 已改善方法群組轉換至委派 警告波 7 C# 12 最新的 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/) 版本或 [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet)  C# 12 包括以下新增功能。 可以使用最新的 [Visual Studio 2022](https://visualstudio.microsoft.com/vs/preview/) 版本或 [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet) 尝试这些功能。
+* 主构造函数  - 在 Visual Studio 2022 版本 17.6 预览版 2 中引入。
+* 集合表达式  - 在 Visual Studio 2022 版本 17.7 预览版 5 中引入。
+* 内联数组  - 在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
+* Lambda 表达式中的可选参数  - 在 Visual Studio 2022 版本 17.5 预览版 2 中引入。
+* ref readonly [ 参数](https://learn.microsoft.com/zh-cn/dotnet/csharp/whats-new/csharp-12#ref-readonly-parameters) - 在 Visual Studio 2022 版本 17.8 预览版 2 中引入。
+* 任何类型的别名  - 在 Visual Studio 2022 版本 17.6 预览版 3 中引入。
+* 实验属性  - 已在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
+* 拦截器  - 预览功能 在 Visual Studio 2022 版本 17.7 预览版 3 中引入。
 
 # C# .Net Base
 
@@ -744,52 +744,52 @@ ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创
 
 通常情况下，出现以下三种情形中的任一情况，都会执行 GC：
 
-*   分配超出第 0 代或大型对象阈值。 阈值是某代的属性。 垃圾回收器在其中分配对象时，会为代设置阈值。 超出阈值后，会在该代上触发 GC。 因此，分配小型或大型对象时，需要分别使用第 0 代和 LOH 的阈值。 当垃圾回收器分配到第 1 代和第 2 代中时，将使用它们的阈值。 运行此程序时，会动态调整这些阈值。 这是典型情况，大部分 GC 执行都因为托管堆上的分配。
-*   调用 [GC.Collect](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.collect) 方法。 如果调用无参数 [GC.Collect()](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.collect#system-gc-collect) 方法，或另一个重载作为参数传递到 [GC.MaxGeneration](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.maxgeneration#system-gc-maxgeneration)，将会一起收集 LOH 和剩余的托管堆。
-*   系统处于内存不足的状况。 要请求垃圾收集，可以调用下面的方法之一：System.GC // Perform a collection of generation 0 only.GC.Collect(0); 　　另外，可以触发GC的几种情况： 　　（1）主动调用GC.Clloect()方法，并不推荐这种主动调用的方式。 　　（2）系统报告低内存。 　　（3）CLR卸载AppDomain 　　（4）CLR正在关闭，应用程序退出。
+* 分配超出第 0 代或大型对象阈值。 阈值是某代的属性。 垃圾回收器在其中分配对象时，会为代设置阈值。 超出阈值后，会在该代上触发 GC。 因此，分配小型或大型对象时，需要分别使用第 0 代和 LOH 的阈值。 当垃圾回收器分配到第 1 代和第 2 代中时，将使用它们的阈值。 运行此程序时，会动态调整这些阈值。 这是典型情况，大部分 GC 执行都因为托管堆上的分配。
+* 调用 [GC.Collect](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.collect) 方法。 如果调用无参数 [GC.Collect()](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.collect#system-gc-collect) 方法，或另一个重载作为参数传递到 [GC.MaxGeneration](https://learn.microsoft.com/zh-cn/dotnet/api/system.gc.maxgeneration#system-gc-maxgeneration)，将会一起收集 LOH 和剩余的托管堆。
+* 系统处于内存不足的状况。 要请求垃圾收集，可以调用下面的方法之一：System.GC // Perform a collection of generation 0 only.GC.Collect(0); 　　另外，可以触发GC的几种情况： 　　（1）主动调用GC.Clloect()方法，并不推荐这种主动调用的方式。 　　（2）系统报告低内存。 　　（3）CLR卸载AppDomain 　　（4）CLR正在关闭，应用程序退出。
 
 # .NetCore
 
 .NET Core是Microsoft最新的通用开发平台。它可以在不同的平台上工作，并且已经被重新设计，使.NET变得快速，灵活和现代。这是微软的主要贡献之一。 开发人员现在可以使用.NET构建Android，iOS，Linux，Mac和Windows应用程序，全部使用开放源代码。 在本教程中，我们将介绍.NET Core和一些新的创新，包括.NET Framework更新，.NET标准和通用Windows平台更新等。 .NET Core的特性 以下是.NET Core的主要特性 - 1. 开源
 
-*   .NET Core是一个开源实现，使用MIT和Apache 2许可证发布。
-*   .NET Core是一个.NET基础项目，可在GitHub上找到。
-*   作为一个开放源代码项目，它促进了一个更加透明的开发过程，并促进一个积极和参与社区。 2. 跨平台
-*   在.NET Core中实现的应用程序可以运行，其代码可以重复使用，而不需要管平台目标是什么。
-*   它目前支持三种主要的操作系统(OS)：
-    *   Windows
-    *   Linux
-    *   MacOS
-*   受支持的操作系统(OS)，CPU和应用程序方案将随着时间的推移而增长，由微软，其他公司和个人提供。 3. 灵活的部署
-*   .NET Core应用程序有两种类型的部署 -
-    *   依赖于框架的部署
-    *   自包含的部署
-*   在依赖于框架的部署中，应用程序依赖于安装了应用程序和第三方依赖项的.NET Core的系统范围版本。
-*   通过自包含的部署，用于构建应用程序的.NET Core版本也与应用程序和第三方依赖项一起部署，并且可以与其他版本并行运行。 4. 命令行工具
-*   所有的产品方案都可以在命令行中执行。 5. 兼容
-*   .NET Core通过.NET标准库与.NET Framework，Xamarin和Mono兼容 6. 模块化
-*   .NET Core通过NuGet以较小的组装包发布。
-*   .NET Framework是一个包含大多数核心功能的大型程序集。
-*   .NET Core可作为更小的以功能为中心的软件包提供。
-*   这种模块化方法使开发人员能够通过在应用程序中包含他们需要的那些NuGet包来优化他们的应用程序。
-*   较小的应用程序表面积的好处包括更紧密的安全性，更少的服务，更高的性能以及降低付费使用模式的成本。 7. .NET Core平台 .NET核心平台包含以下主要部分 -
-*   .NET运行时  - 它提供了一个类型系统，程序集加载，垃圾回收器，本地互操作和其他基本服务。
-*   基础库  - 一组框架库，提供原始数据类型，应用程序组合类型和基本工具。
-*   SDK和编译器  - 一套SDK工具和语言编译器，支持.NET Core SDK中的基本开发人员体验。
-*   .NET应用程序主机  - 用于启动.NET Core应用程序。 它选择运行时间并承载运行时间，提供程序集加载策略并启动应用程序。同样的主机也用于以相同的方式启动SDK工具。
+* .NET Core是一个开源实现，使用MIT和Apache 2许可证发布。
+* .NET Core是一个.NET基础项目，可在GitHub上找到。
+* 作为一个开放源代码项目，它促进了一个更加透明的开发过程，并促进一个积极和参与社区。 2. 跨平台
+* 在.NET Core中实现的应用程序可以运行，其代码可以重复使用，而不需要管平台目标是什么。
+* 它目前支持三种主要的操作系统(OS)：
+    * Windows
+    * Linux
+    * MacOS
+* 受支持的操作系统(OS)，CPU和应用程序方案将随着时间的推移而增长，由微软，其他公司和个人提供。 3. 灵活的部署
+* .NET Core应用程序有两种类型的部署 -
+    * 依赖于框架的部署
+    * 自包含的部署
+* 在依赖于框架的部署中，应用程序依赖于安装了应用程序和第三方依赖项的.NET Core的系统范围版本。
+* 通过自包含的部署，用于构建应用程序的.NET Core版本也与应用程序和第三方依赖项一起部署，并且可以与其他版本并行运行。 4. 命令行工具
+* 所有的产品方案都可以在命令行中执行。 5. 兼容
+* .NET Core通过.NET标准库与.NET Framework，Xamarin和Mono兼容 6. 模块化
+* .NET Core通过NuGet以较小的组装包发布。
+* .NET Framework是一个包含大多数核心功能的大型程序集。
+* .NET Core可作为更小的以功能为中心的软件包提供。
+* 这种模块化方法使开发人员能够通过在应用程序中包含他们需要的那些NuGet包来优化他们的应用程序。
+* 较小的应用程序表面积的好处包括更紧密的安全性，更少的服务，更高的性能以及降低付费使用模式的成本。 7. .NET Core平台 .NET核心平台包含以下主要部分 -
+* .NET运行时  - 它提供了一个类型系统，程序集加载，垃圾回收器，本地互操作和其他基本服务。
+* 基础库  - 一组框架库，提供原始数据类型，应用程序组合类型和基本工具。
+* SDK和编译器  - 一套SDK工具和语言编译器，支持.NET Core SDK中的基本开发人员体验。
+* .NET应用程序主机  - 用于启动.NET Core应用程序。 它选择运行时间并承载运行时间，提供程序集加载策略并启动应用程序。同样的主机也用于以相同的方式启动SDK工具。
 
 # &#x20;.NetCore核心
 
 Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应用程序启动，在Program的Main方法是入口，通过调用CreateWebHostBuilder或者（CreateDefaultBuilder）创建WebHost的，WebHost会利用WebHostBuilder提供的服务器和中间件构建一个请求处理管道；这就是ASP.NET Core框架的核心（一个服务器和若干中间件构成的管道）。 // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 那么中间件就应用程序管道里面的一个组件，也是AOP的一种实现,用来拦截请求进行其他处理和响应，每一个组件都可以对管道中的请求进行拦截，也可以选择是否将请求传递给下一个中间件。  中间件通过RequestDelegate进行构建和处理，最后一个管道或者中断管道的中间件被称为终端中间件。  在中间件中：  HttpContext表示Http请求上下文，可以获取请求信息  是处理Http请求和响应的组件（代码段，一段处理逻辑），  每个组件选择是否将请求传递给管道中的下一个组件。  可以在调用管道中的下一个组件之前和之后执行一些逻辑。  这样的机制使得HTTP请求能够很好的被层层处理和控制，并且层次清晰处理起来甚是方便。  最后一个管道或者中断管道的中间件叫终端中间件； 请求委托（Request delegate）用于构建请求管道，处理每个HTTP请求 管道就是http请求抵达服务器到响应结果返回的中间的一系列的处理过程 2、中间件常用的方法 中间件中定义了Run、Use、Map、MapWhen几种方法，我们下面一一讲解这几种方法。 1、Run() Run()方法中只有一个RequestDelegate委托类型的参数，没有Next参数，所以Run()方法也叫终端中间件，不会将请求传递给下一个中间件，也就是发生了“短路” // Run方法向应用程序的请求管道中添加一个RequestDelegate委托 // 放在管道最后面，终端中间件 // Run方法向应用程序的请求管道中添加一个RequestDelegate委托 // 放在管道最后面，终端中间件 app.Run(handler: async context => { await context.Response.WriteAsync(text: "Hello World1\r\n"); }); app.Run(handler: async context => { await context.Response.WriteAsync(text: "Hello World2\r\n"); }); 2、Use()方法 Use方法的参数是一个Func委托，输入参数是一个RequestDelegate类型的委托，返回参数也是一个RequestDelegate类型的委托，这里表示调用下一个中间件 RequestDelegate是一个委托，有一个HttpContext类型的参数，HttPContext表示Http请求上下文，可以获取请求信息，返回值是Task类型  定义为：Public delegate Task RequestDelegate(HttpContext context) // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 3、自定义中间件 中间件遵循显示依赖原则，并在其构造函数中暴露所有依赖项。  中间件能够利用UseMiddleware扩展方法的优势，直接通过它们的构造函数注入服务。  依赖注入服务是自动完成填充的。 ASP.NET Core约定中间件类必须包括以下内容：
 
-*   具有类型为RequestDelegate参数的公共构造函数，
-*   必须有名为Invoke或InvokeAsync的公共方法，此方法必须满足两个条件：方法返回类型是Task、方法的第一个参数必须是HttpContext类型。 如下代码自定义了一个记录IP的中间件，新建一个类RequestIPMiddleware，代码如下： // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 然后创建一个扩展方法，对IApplicationBuilder进行扩展： using Microsoft.AspNetCore.Builder; namespace MiddlewareDemo.Middleware { public static class RequestIPExtensions { /// <summary> /// 扩展方法，对IApplicationBuilder进行扩展 /// </summary> /// \<param name="builder">\</param> /// \<returns>\</returns> public static IApplicationBuilder UseRequestIP(this IApplicationBuilder builder) { // UseMiddleware\<T> return builder.UseMiddleware\<RequestIPMiddleware>(); } } } 最后在Startup类的Configure方法中使用自定义中间件： app.UseRequestIP(); 4、中间件和过滤器的区别 中间件和过滤器都是一种AOP的思想，功能类似，那么他们有什么区别呢？
-*   过滤器更加贴合业务，它关注于应用程序本身，关注的是如何实现业务，比如对输出结果进行格式化，对请求的ViewModel进行数据校验，这时就肯定要使用过滤器了。过滤器是MVC的一部分，它可以拦截到你Action上下文的一些信息，而中间件是没有这个能力的。可以认为过滤器是附加性的一种功能，它只是中间件附带表现出来的特征。
-*   中间件是管道模型里重要的组成部分，不可或缺，而过滤器可以没有。 5、Asp.Net Core异常处理
-*   使用开发人员异常页面（The developer exception page）
-*   配置HTTP错误代码页 Configuring status code pages
-*   使用MVC过滤器 ExceptionFilter
-*   自定义异常捕获中间件 Middleware 1、使用开发人员异常页面（The developer exception page） public void Configure(IApplicationBuilder app, IHostingEnvironment env) { //判断是否是开发环境 if (env.IsDevelopment()) { app.UseDeveloperExceptionPage(); } else { app.UseExceptionHandler("/error"); } } 2、配置HTTP错误代码页 Configuring status code pages public void Configure(IApplicationBuilder app, IHostingEnvironment env) { if (env.IsDevelopment()) { //开发环境异常处理 app.UseBrowserLink(); app.UseDeveloperExceptionPage(); } else { //生产环境异常处理 app.UseExceptionHandler("/Home/Error"); } app.UseStatusCodePages();//使用HTTP错误代码页 } app.UseStatusCodePages支持多种扩展方法。其中一个方法接受一个lambda表达式: app.UseStatusCodePages(async context => { context.HttpContext.Response.ContentType = "text/plain"; await context.HttpContext.Response.WriteAsync( "Status code page, status code: " + context.HttpContext.Response.StatusCode); }); 还可以跳转到指定页面，并附加Response.StatusCode app.UseStatusCodePagesWithReExecute("/Home/Error/{0}"); 3、使用MVC过滤器 /// <summary> /// 自定义全局异常过滤器 /// </summary> public class GlobalExceptionFilter : IExceptionFilter {
+* 具有类型为RequestDelegate参数的公共构造函数，
+* 必须有名为Invoke或InvokeAsync的公共方法，此方法必须满足两个条件：方法返回类型是Task、方法的第一个参数必须是HttpContext类型。 如下代码自定义了一个记录IP的中间件，新建一个类RequestIPMiddleware，代码如下： // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 然后创建一个扩展方法，对IApplicationBuilder进行扩展： using Microsoft.AspNetCore.Builder; namespace MiddlewareDemo.Middleware { public static class RequestIPExtensions { /// <summary> /// 扩展方法，对IApplicationBuilder进行扩展 /// </summary> /// \<param name="builder">\</param> /// \<returns>\</returns> public static IApplicationBuilder UseRequestIP(this IApplicationBuilder builder) { // UseMiddleware\<T> return builder.UseMiddleware\<RequestIPMiddleware>(); } } } 最后在Startup类的Configure方法中使用自定义中间件： app.UseRequestIP(); 4、中间件和过滤器的区别 中间件和过滤器都是一种AOP的思想，功能类似，那么他们有什么区别呢？
+* 过滤器更加贴合业务，它关注于应用程序本身，关注的是如何实现业务，比如对输出结果进行格式化，对请求的ViewModel进行数据校验，这时就肯定要使用过滤器了。过滤器是MVC的一部分，它可以拦截到你Action上下文的一些信息，而中间件是没有这个能力的。可以认为过滤器是附加性的一种功能，它只是中间件附带表现出来的特征。
+* 中间件是管道模型里重要的组成部分，不可或缺，而过滤器可以没有。 5、Asp.Net Core异常处理
+* 使用开发人员异常页面（The developer exception page）
+* 配置HTTP错误代码页 Configuring status code pages
+* 使用MVC过滤器 ExceptionFilter
+* 自定义异常捕获中间件 Middleware 1、使用开发人员异常页面（The developer exception page） public void Configure(IApplicationBuilder app, IHostingEnvironment env) { //判断是否是开发环境 if (env.IsDevelopment()) { app.UseDeveloperExceptionPage(); } else { app.UseExceptionHandler("/error"); } } 2、配置HTTP错误代码页 Configuring status code pages public void Configure(IApplicationBuilder app, IHostingEnvironment env) { if (env.IsDevelopment()) { //开发环境异常处理 app.UseBrowserLink(); app.UseDeveloperExceptionPage(); } else { //生产环境异常处理 app.UseExceptionHandler("/Home/Error"); } app.UseStatusCodePages();//使用HTTP错误代码页 } app.UseStatusCodePages支持多种扩展方法。其中一个方法接受一个lambda表达式: app.UseStatusCodePages(async context => { context.HttpContext.Response.ContentType = "text/plain"; await context.HttpContext.Response.WriteAsync( "Status code page, status code: " + context.HttpContext.Response.StatusCode); }); 还可以跳转到指定页面，并附加Response.StatusCode app.UseStatusCodePagesWithReExecute("/Home/Error/{0}"); 3、使用MVC过滤器 /// <summary> /// 自定义全局异常过滤器 /// </summary> public class GlobalExceptionFilter : IExceptionFilter {
 
             readonly ILoggerFactory _loggerFactory;//采用内置日志记录
             readonly IHostingEnvironment _env;//环境变量
@@ -920,31 +920,31 @@ Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应�
 >
 > 代码分发系统 1、运行环境优化 做负载均衡和服务器加成 服务器配置升级 CPU 处理器 磁盘阵列  横向扩展 使用负载均衡、反向代理服务实现服务器集群 2、缓存应用  缓存是一种用空间换取时间的技术，通俗点也就是说把你得到的数据存放在内存 中一段时间，在这短时间内服务器不去读取数据库、或是真实的数据源，而是读取你存放在内存中的数据。 缓存是网站性能优化不可缺少的一种数据处理机制，他能有效的缓解数据库压力。 ASP.NET 中的缓存主要分为： 页面缓存  数据源缓存  自定义数据缓存  redis分布式缓存  增加缓存命中率  全文搜索使用ES 缓存系统  　　缓存分为文件缓存、内存缓存、数据库缓存。在大型Web应用中使用最多且效率最高的是内存缓存。最常用的内存缓存工具是Memcachd。使用正确的缓存系统可以达到实现以下目标： ![0](https://note.youdao.com/yws/res/30727/WEBRESOURCE29d18b16ed477cdcc816fdb68b31e2f8 "0")
 
-*   使用缓存系统可以提高访问效率，提高服务器吞吐能力，改善用户体验。
-*   减轻对数据库及存储集服务器的访问压力。
-*   Memcached服务器有多台，避免单点故障，提供高可靠性和可扩展性，提高性能。 3、数据库优化  搭建数据库集群 使用主从策略、读写分离
-*   读写分离 主从策略 主从库，主负责写，从是只读的；
-*   搭建集群
-*   分库分表
-*   合理使用索引，避免使用全表扫描
-*   搜索引擎ES（文档和索引结合，快的原因是分词 like “%word%”，es只需要查"word"这个词包含的文档id ） ELK
-*   使用ETL工具（Kettle） 由于Web前端采用了负载均衡集群结构提高了服务的有效性和扩展性，因此数据库必须也是高可靠的才能保证整个服务体系的高可靠性，如何构建一个高可靠的、可以提供大规模并发处理的数据库体系?
-*   使用SQL数据库，考虑到Web应用的数据库读多写少的特点，我们主要对读数据库做了优化，提供专用的读数据库和写数据库，在应用程序中实现读操作和写操作分别访问不同的数据库
-*   使用同步机制实现快速将主库(写库)的数据库复制到从库(读库)。一个主库对应多个从库，主库数据实时同步到从库
-*   写数据库有多台，每台都可以提供多个应用共同使用，这样可以解决写库的性能瓶颈问题和单点故障问题
-*   读数据库有多台，通过负载均衡设备实现负载均衡，从而达到读数据库的高性能、高可靠和高可扩展性
-*   数据库服务器和应用服务器分离。
-*   资源合理利用，合理释放资源数据库连接 的关闭 使用using()
-*   避免抛出异常最小化异常 尽量不要抛出异常 异常应极少。相对于其他代码流模式，引发和捕获异常的速度很慢。 因此，不应使用异常来控制正常的程序流
-*   使用异步 async/await 多个请求过来时，线程池分配足够的线程来处理多个请求，提高线程池的利用率
-*   返回多个数据源进行读取，减少数据库的连接 比方分页中返回，所有当前页数据 和数据总条数 一条sql 返回多个数据源 进行读取
-*   较少装箱拆箱操作，使用泛型，string和stringbuilder 8、Redis分布式缓存 主从模式：读写分离  哨兵模式：  心跳机制（每隔几分钟发送一个固定信息给服务端，服务端收到后回复一个固定信息如果服务端几分钟内没有收到客户端信息则视客户端断开）+哨兵裁决。主从切换，故障转移。 Cluster集群模式：无中心架构 面试题：redis内存操作速度快，缺点是受物理内存限制。持久化：RDB（定时，二进制，适合备份），AOF（日志方式，写，删，没有查询），缓存命中率，通过缓存取到数据，不需要去数据库查询，预热可以提高。 9、IIS经典模式和集成模式的区别 经典模式 兼容IIS 6，服务器通过 ISAPI 托管代码请求，在经典模式中，IIS拥有自身的管道，ASP.NET作为一个ISAPI扩展运行，只是IIS管道中的一项组成部分。 集成模式 将使用 IIS 和 ASP.NET 的集成请求处理管道来处理请求，可以通过Module自定义扩展。 10、MySql 引擎 Innodb 支持事务；支持行级锁和外键约束 ；高并发时可降低内存，全变扫描也会锁表；表空间大；没有保存行数 count() 扫描全表；没有全文索引  支持事务，对数据完整性要求高，中大型项目使用  MyISAM 不支持事务和行级锁和外键约束，操作时会锁表；表空间小；存储了标的行数，count(）不会扫描全表；有全文索引  关注效率空间和内存使用比较低，非事务安全的，在小型项目上可以使用 11、NET core 如何实现 动态扩展 如何 承载 高并发 1、动态扩展
-*   使用AOP思想的中间件和过滤器
-*   使用依赖注入 2、承载高并发 缓存 存储 负载
-*   缓解web服务器压力，使用多台服务器负载均衡，页面缓存技术
-*   缓解数据库读取压力，使用缓存机制 内存缓存、redis缓存、增加缓存命中率（粒度、缓存预热、有效期、更新缓存、多级缓存 服务器内存和nosql缓存配合）
-*   缓解数据库压力
-*   数据库分库分表、读写分离、数据库集群 4、使用消息队列，建立多个消费端，进行流量削峰
+* 使用缓存系统可以提高访问效率，提高服务器吞吐能力，改善用户体验。
+* 减轻对数据库及存储集服务器的访问压力。
+* Memcached服务器有多台，避免单点故障，提供高可靠性和可扩展性，提高性能。 3、数据库优化  搭建数据库集群 使用主从策略、读写分离
+* 读写分离 主从策略 主从库，主负责写，从是只读的；
+* 搭建集群
+* 分库分表
+* 合理使用索引，避免使用全表扫描
+* 搜索引擎ES（文档和索引结合，快的原因是分词 like “%word%”，es只需要查"word"这个词包含的文档id ） ELK
+* 使用ETL工具（Kettle） 由于Web前端采用了负载均衡集群结构提高了服务的有效性和扩展性，因此数据库必须也是高可靠的才能保证整个服务体系的高可靠性，如何构建一个高可靠的、可以提供大规模并发处理的数据库体系?
+* 使用SQL数据库，考虑到Web应用的数据库读多写少的特点，我们主要对读数据库做了优化，提供专用的读数据库和写数据库，在应用程序中实现读操作和写操作分别访问不同的数据库
+* 使用同步机制实现快速将主库(写库)的数据库复制到从库(读库)。一个主库对应多个从库，主库数据实时同步到从库
+* 写数据库有多台，每台都可以提供多个应用共同使用，这样可以解决写库的性能瓶颈问题和单点故障问题
+* 读数据库有多台，通过负载均衡设备实现负载均衡，从而达到读数据库的高性能、高可靠和高可扩展性
+* 数据库服务器和应用服务器分离。
+* 资源合理利用，合理释放资源数据库连接 的关闭 使用using()
+* 避免抛出异常最小化异常 尽量不要抛出异常 异常应极少。相对于其他代码流模式，引发和捕获异常的速度很慢。 因此，不应使用异常来控制正常的程序流
+* 使用异步 async/await 多个请求过来时，线程池分配足够的线程来处理多个请求，提高线程池的利用率
+* 返回多个数据源进行读取，减少数据库的连接 比方分页中返回，所有当前页数据 和数据总条数 一条sql 返回多个数据源 进行读取
+* 较少装箱拆箱操作，使用泛型，string和stringbuilder 8、Redis分布式缓存 主从模式：读写分离  哨兵模式：  心跳机制（每隔几分钟发送一个固定信息给服务端，服务端收到后回复一个固定信息如果服务端几分钟内没有收到客户端信息则视客户端断开）+哨兵裁决。主从切换，故障转移。 Cluster集群模式：无中心架构 面试题：redis内存操作速度快，缺点是受物理内存限制。持久化：RDB（定时，二进制，适合备份），AOF（日志方式，写，删，没有查询），缓存命中率，通过缓存取到数据，不需要去数据库查询，预热可以提高。 9、IIS经典模式和集成模式的区别 经典模式 兼容IIS 6，服务器通过 ISAPI 托管代码请求，在经典模式中，IIS拥有自身的管道，ASP.NET作为一个ISAPI扩展运行，只是IIS管道中的一项组成部分。 集成模式 将使用 IIS 和 ASP.NET 的集成请求处理管道来处理请求，可以通过Module自定义扩展。 10、MySql 引擎 Innodb 支持事务；支持行级锁和外键约束 ；高并发时可降低内存，全变扫描也会锁表；表空间大；没有保存行数 count() 扫描全表；没有全文索引  支持事务，对数据完整性要求高，中大型项目使用  MyISAM 不支持事务和行级锁和外键约束，操作时会锁表；表空间小；存储了标的行数，count(）不会扫描全表；有全文索引  关注效率空间和内存使用比较低，非事务安全的，在小型项目上可以使用 11、NET core 如何实现 动态扩展 如何 承载 高并发 1、动态扩展
+* 使用AOP思想的中间件和过滤器
+* 使用依赖注入 2、承载高并发 缓存 存储 负载
+* 缓解web服务器压力，使用多台服务器负载均衡，页面缓存技术
+* 缓解数据库读取压力，使用缓存机制 内存缓存、redis缓存、增加缓存命中率（粒度、缓存预热、有效期、更新缓存、多级缓存 服务器内存和nosql缓存配合）
+* 缓解数据库压力
+* 数据库分库分表、读写分离、数据库集群 4、使用消息队列，建立多个消费端，进行流量削峰
 
 # Winform
 
@@ -956,7 +956,7 @@ BeginInvoke 和 Invoke 有什么区别 如果从另外一个线程操作windows�
 
 WPF英文全称是Windows Presentation Foundation
 
-*   七 ResourceDictionary    提供包含元素和WPF 应用程序的其他元素使用的WPF 资源的一个哈希表/字典实现。    有利于项目中资源共享。&#x20;
+* 七 ResourceDictionary    提供包含元素和WPF 应用程序的其他元素使用的WPF 资源的一个哈希表/字典实现。    有利于项目中资源共享。&#x20;
 
 ## WPF 体系结构
 
@@ -2298,28 +2298,28 @@ Prism 7 和 8 相对于以往的版本最大的改变在于 View 和 ViewModel �
 
 ## WPF 需要学习
 
-*   binding（绑定源、绑定模式【default、OneWay、TwoWay、OntTime、OneWayToSource】、触发绑定更新的事件【Default、Explicit(手动BindingExpression.UpdayeSource())、PropertyChange、LostFocus】、优先级PriorityBinding），包括绑定到单一属性、实体、集合、值转换、触发机制、验证等
+* binding（绑定源、绑定模式【default、OneWay、TwoWay、OntTime、OneWayToSource】、触发绑定更新的事件【Default、Explicit(手动BindingExpression.UpdayeSource())、PropertyChange、LostFocus】、优先级PriorityBinding），包括绑定到单一属性、实体、集合、值转换、触发机制、验证等
 
-*   属性变更通知(INotifyPropertyChange 和ObservableCollection)
+* 属性变更通知(INotifyPropertyChange 和ObservableCollection)
 
-*   template（模板类型【控件模板、数据模板、面板模板】）
+* template（模板类型【控件模板、数据模板、面板模板】）
 
-*   模板选择器 <https://www.cnblogs.com/smiler/p/3222151.html>
+* 模板选择器 <https://www.cnblogs.com/smiler/p/3222151.html>
 
-*   style
+* style
 
-*   资源Resources，StaticResource/DynamicResource，静态资源在引用对象初始化时一次性设置完毕；对于动态资源、如果发生了改变则会重新应用资源
+* 资源Resources，StaticResource/DynamicResource，静态资源在引用对象初始化时一次性设置完毕；对于动态资源、如果发生了改变则会重新应用资源
 
-*   事件的三种方式（冒泡、直接、隧道），Routed Events（路由事件），附加事件（attached Events）& Commands （命令）
+* 事件的三种方式（冒泡、直接、隧道），Routed Events（路由事件），附加事件（attached Events）& Commands （命令）
 
-*   icommand 
+* icommand 
      public interface ICommand {
         event EventHandler CanExecuteChanged;
         bool CanExecute(object parameter);
         void Execute(object parameter);
       }
 
-*   什么是attached behavior（附加行为或者附加事件）?
+* 什么是attached behavior（附加行为或者附加事件）?
 
 # ASP.NET
 
@@ -2453,7 +2453,7 @@ Name </th> </tr>
 资料验证
 View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常用的ValidationSummary在这里也支持，而且MVC的架构让验证信息的输出也更加弹性： <h2>Create</h2>
 <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-<% using (Html.BeginForm()) {%> \<fieldset> \<legend>Fields\</legend> <p> \<label for="Name">Name:\</label>
+<% using (Html.BeginForm()) {> \<fieldset> \<legend>Fields\</legend> <p> \<label for="Name">Name:\</label>
 <%= Html.TextBox("Name") %> Required
 <%= Html.ValidationMessage("Name", "*") %> </p> <p> \<label for="Age">Age:\</label>
 <%= Html.TextBox("Age") %> Required
@@ -2470,21 +2470,21 @@ View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常
 <%= Html.ValidationMessage("Phone", "*") %> </p> <p> \<label for="Email">Email:\</label>
 <%= Html.TextBox("Email") %> Required
 <%= Html.ValidationMessage("Email", "*") %> </p> <p> \<input type="submit" value="Create" /> </p> \</fieldset>
-<% } %> <div>
+ } > <div>
 <%=Html.ActionLink("Back to List", "Index") %> </div>
 不同类型的输出
 每一个Controller中负责回应的方法，都会回传一个ActionResult物件的信息，ActionResult是一个执行结果物件的封装体，当MvcHandler执行完指令接到ActionResult时，就会依照它的内容来输出资料。目前MVC Framework支持的ActionResult有下列几种：
 
-*   ViewResult物件，这个物件内装载了IView接口的信息，以及IViewEngine的信息，实际产生输出资料的会是
-*   PartialViewResult物件，与ViewResult相似，但它回传的是"部分展示"，即用户控件的View。
-*   ContentResult物件，装载由用户自定义的 Content-Type 以及资料。
-*   EmptyResult物件，表示不回传任何东西。
-*   HttpUnauthorizedReuslt物件，表示动作没有被授权（即 HTTP 401）的错误消息。
-*   JavaScriptResult物件，表示回传的是JavaScript脚本。
-*   JsonResult物件，表示回传的是JSON资料。
-*   FileResult物件，表示回传的是一个文件资料。
-*   RedirectResult物件，表示回传的是一个重导向 (HTTP Redirect) 指令。
-*   RedirectToRouteResult物件，与 RedirectResult 类似，但是它是重导向给一个 Route 的路径。
+* ViewResult物件，这个物件内装载了IView接口的信息，以及IViewEngine的信息，实际产生输出资料的会是
+* PartialViewResult物件，与ViewResult相似，但它回传的是"部分展示"，即用户控件的View。
+* ContentResult物件，装载由用户自定义的 Content-Type 以及资料。
+* EmptyResult物件，表示不回传任何东西。
+* HttpUnauthorizedReuslt物件，表示动作没有被授权（即 HTTP 401）的错误消息。
+* JavaScriptResult物件，表示回传的是JavaScript脚本。
+* JsonResult物件，表示回传的是JSON资料。
+* FileResult物件，表示回传的是一个文件资料。
+* RedirectResult物件，表示回传的是一个重导向 (HTTP Redirect) 指令。
+* RedirectToRouteResult物件，与 RedirectResult 类似，但是它是重导向给一个 Route 的路径。
     透过多类型的ActionResult，开发人员可以自由决定要回传的资料的类型与格式。
 
 # WebapiA
