@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Web程序相关编程总结
-description: 包括Js,css,等各种web相关技术以及Vue等新兴UI框架的学习总结。
+title: Javascript前端相关编程总结
+description: 包括Javascript,CSS,等各种web前端相关技术以及Vue等新兴UI框架的学习总结。
 date: 2022-10-01 09:01:01
 updatedate: 2024-03-26 11:06:26
 ---
