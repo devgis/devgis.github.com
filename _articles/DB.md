@@ -7,7 +7,7 @@ updatedate: 2024-03-26 10:14:20
 ---
 
 - [数据库基础](#数据库基础)
-  - [ 数据库备份](#-数据库备份)
+  - [数据库备份](#数据库备份)
   - [锁](#锁)
     - [数据库角度](#数据库角度)
     - [程序员角度](#程序员角度)
@@ -17,10 +17,6 @@ updatedate: 2024-03-26 10:14:20
     - [死锁](#死锁)
   - [事务](#事务)
     - [ACID 原则](#acid-原则)
-      - [原子性 (Atomicity)：](#原子性-atomicity)
-      - [一致性 (Consistency)：](#一致性-consistency)
-      - [隔离性(Isolation)：](#隔离性isolation)
-      - [持久性(Durability)：](#持久性durability)
   - [事务隔离级别:](#事务隔离级别)
     - [read uncommited（读取未提交数据），](#read-uncommited读取未提交数据)
     - [read commited（读取已提交数据）读取的默认方式，](#read-commited读取已提交数据读取的默认方式)
@@ -71,7 +67,7 @@ updatedate: 2024-03-26 10:14:20
   - [DCL(数据控制语言 Data Control Language )](#dcl数据控制语言-data-control-language-)
   - [TCL（事务控制语言）](#tcl事务控制语言)
   - [CCL（指针控制语言）](#ccl指针控制语言)
-  - [ 常见函数](#-常见函数)
+  - [常见函数](#常见函数)
 - [Oracle](#oracle)
   - [数据库结构](#数据库结构)
     - [体系结构](#体系结构)
@@ -185,6 +181,8 @@ updatedate: 2024-03-26 10:14:20
       - [flashback](#flashback)
       - [show recyclebin](#show-recyclebin)
     - [exp/imp](#expimp)
+      - [EXP:有三种主要的方式（完全、用户、表）](#exp有三种主要的方式完全用户表)
+      - [IMP:具有三种模式（完全、用户、表）](#imp具有三种模式完全用户表)
     - [expdp/impdp](#expdpimpdp)
     - [expdp/impdp和exp/imp的区别](#expdpimpdp和expimp的区别)
   - [数据库集群技术](#数据库集群技术)
@@ -256,9 +254,10 @@ updatedate: 2024-03-26 10:14:20
     - [LiteDB的查询](#litedb的查询)
     - [LiteDB的查询示例](#litedb的查询示例)
 
-
 # 数据库基础
-## &#x20;数据库备份
+
+## 数据库备份
+
 冷备份发生在数据库已经正常关闭的情况下，将关键性文件拷贝到另外位置的一种说法 
 热备份是在数据库运行的情况下，采用归档方式备份数据的方法 
 冷备的优缺点： 
@@ -282,38 +281,47 @@ updatedate: 2024-03-26 10:14:20
 1．不能出错，否则后果严重。  
 2．若热备份不成功，所得结果不可用于时间点的恢复。  
 3．因难于维护，所以要特别仔细小心，不允许“以失败而告终”。
+
 ## 锁
+
 当并发事务同时访问一个资源时，有可能导致数据不一致，因此需要一种机制来将数据访问顺序化，以保证数据库数据的一致性。
+
 ### 数据库角度
-独占锁，Oracle称为排他锁（Exclusive Lock，也叫X锁）独占锁锁定的资源只允许进行锁定操作的程序使用，其它任何对它的操作均不会被接受。执行数据更新命令，即INSERT、 UPDATE 或DELETE 命令时，SQL Server 会自动使用独占锁。但当对象上有其它锁存在时，无法对其加独占锁。独占锁一直到事务结束才能被释放。
+
+独占锁，Oracle称为排他锁（Exclusive Lock，也叫X锁）独占锁锁定的资源只允许进行锁定操作的程序使用，其它任何对它的操作均不会被接受。执行数据更新命令，即INSERT、UPDATE 或DELETE 命令时，SQL Server 会自动使用独占锁。但当对象上有其它锁存在时，无法对其加独占锁。独占锁一直到事务结束才能被释放。
 共享锁（Shared Lock，也叫S锁）共享锁锁定的资源可以被其它用户读取，但其它用户不能修改它。在SELECT 命令执行时，SQL Server 通常会对对象进行共享锁锁定。通常加共享锁的数据页被读取完毕后，共享锁就会立即被释放。
 更新锁（Update Lock）更新锁是为了防止死锁而设立的。当SQL Server 准备更新数据时，它首先对数据对象作更新锁锁定，这样数据将不能被修改，但可以读取。等到SQL Server 确定要进行更新数据操作时，它会自动将更新锁换为独占锁。但当对象上有其它锁存在时，无法对其作更新锁锁定。
+
 ### 程序员角度
+
 乐观锁（Optimistic Lock）乐观锁假定在处理数据时，不需要在应用程序的代码中做任何事情就可以直接在记录上加锁、即完全依靠数据库来管理锁的工作。一般情况下，当执行事务处理时SQL Server会自动对事务处理范围内更新到的表做锁定。
 悲观锁（Pessimistic Lock）悲观锁对数据库系统的自动管理不感冒，需要程序员直接管理数据或对象上的加锁处理，并负责获取、共享和放弃正在使用的数据上的任何锁。
 Oracle中可以使用：
-    select * from t for update: 会等待行锁释放之后，返回查询结果。
-    select * from t for update nowait: 不等待行锁释放，提示锁冲突，不返回结果
-    select * from t for update wait 5: 等待5秒，若行锁仍未释放，则提示锁冲突，不返回结果
-    select * from t for update skip locked: 查询返回查询结果，但忽略有行锁的记录
-    【使用格式】
-    SELECT…FOR UPDATE 语句的语法如下：
-    　　SELECT … FOR UPDATE [OF column_list][WAIT n|NOWAIT][SKIP LOCKED];
-    其中：
-    　　OF 子句用于指定即将更新的列，即锁定行上的特定列。
-    　　WAIT 子句指定等待其他用户释放锁的秒数，防止无限期的等待。
+select * from t for update: 会等待行锁释放之后，返回查询结果。
+select * from t for update nowait: 不等待行锁释放，提示锁冲突，不返回结果
+select * from t for update wait 5: 等待5秒，若行锁仍未释放，则提示锁冲突，不返回结果
+select * from t for update skip locked: 查询返回查询结果，但忽略有行锁的记录
+【使用格式】
+SELECT…FOR UPDATE 语句的语法如下：
+SELECT … FOR UPDATE [OF column_list][WAIT n|NOWAIT][SKIP LOCKED];
+其中：
+OF 子句用于指定即将更新的列，即锁定行上的特定列。
+WAIT 子句指定等待其他用户释放锁的秒数，防止无限期的等待。
 SqlServer中可以使用显式事务：
-```
+
 begin transaction\
 select * from ls1 with (tablockx) where f_account_id=37
 ....
 ....
 update ls1 set .....
 commit;
-```
+
 悲观锁与乐观锁的优缺点:乐观锁适用于写入比较少的情况下，即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量。但如果经常产生冲突，上层应用会不断的进行重试操作，这样反倒是降低了性能，所以这种情况下用悲观锁就比较合适.
+
 ## 锁模式
+
 ## 共享 (S) 
+
 用于不更改或不更新数据的操作（只读操作），如 SELECT 语句。 更新 (U) 用于可更新的资源中。防止当多个会话在读取、锁定以及随后可能进行的资源更新时发生常见形式的死锁。 排它 (X) 用于数据修改操作，例如 INSERT、UPDATE 或 DELETE。确保不会同时同一资源进行多重更新。 意向锁 用于建立锁的层次结构。意向锁的类型为：意向共享 (IS)、意向排它 (IX) 以及与意向排它共享 (SIX)。 架构锁 在执行依赖于表架构的操作时使用。架构锁的类型为：架构修改 (Sch-M) 和架构稳定性 (Sch-S)。 大容量更新 (BU) 向表中大容量复制数据并指定了 TABLOCK 提示时使用。
 共享锁
 共享 (S) 锁允许并发事务读取 (SELECT) 一个资源。资源上存在共享 (S) 锁时，任何其它事务都不能修改数据。一旦已经读取数据，便立即释放资源上的共享 (S) 锁，除非将事务隔离级别设置为可重复读或更高级别，或者在事务生存周期内用锁定提示保留共享 (S) 锁。
@@ -325,10 +333,14 @@ commit;
 意向锁
 意向锁表示 SQL Server 需要在层次结构中的某些底层资源上获取共享 (S) 锁或排它 (X) 锁。例如，放置在表级的共享意向锁表示事务打算在表中的页或行上放置共享 (S) 锁。在表级设置意向锁可防止另一个事务随后在包含那一页的表上获取排它 (X) 锁。意向锁可以提高性能，因为 SQL Server 仅在表级检查意向锁来确定事务是否可以安全地获取该表上的锁。而无须检查表中的每行或每页上的锁以确定事务是否可以锁定整个表。
 意向锁包括意向共享 (IS)、意向排它 (IX) 以及与意向排它共享 (SIX)。
+
 ### 锁的范围
+
 锁粒度是被封锁目标的大小,封锁粒度小则并发性高,但开销大,封锁粒度大则并发性低但开销小
 SQL Server支持的锁粒度可以分为为行、页、键、键范围、索引、表或数据库获取锁
+
 ### 死锁
+
 当两个用户希望持有对方的资源时就会发生死锁.即两个用户互相等待对方释放资源时,oracle认定为产生了死锁,在这种情况下,将以牺牲一个用户作为代价,另一个用户继续执行,牺牲的用户的事务将回滚。
 场景
 1：用户 1 对 A 表进行 Update，没有提交。
@@ -337,7 +349,7 @@ SQL Server支持的锁粒度可以分为为行、页、键、键范围、索引�
 3：如果用户 2 此时对 A 表作 update,则会发生阻塞，需要等到用户一的事物结束。
 4：如果此时用户 1 又对 B 表作 update，则产生死锁。此时 Oracle 会选择其中一个用户进行会滚，使另一个用户继续执行操作。
 类似如下操作
-```
+
 增设table2(D,E)
 D E
 d1 e1
@@ -352,7 +364,7 @@ begin tran
 update table2 set D='d5' where E='e1'
 waitfor delay '00:00:10'
 update table1 set A='aa' where B='b2'commit tran
-```
+
 在 Oracle 系统中能自动发现死锁，并选择代价最小的，即完成工作量最少的事务予以撤消，释放该事务所拥有的全部锁，记其它的事务继续工作下去。
 解决办法： 
 1. 查找出被锁的表 
@@ -364,7 +376,7 @@ select b.username,b.sid,b.serial#,logon\_time 
 from v\$locked\_object a,v\$session b 
 where a.session\_id = b.sid order by b.logon\_time; 
 与Oracle类似，SQL Server提供了自动检测和处理死锁的功能。当系统检测到死锁时，SQL Server会选择一个运行撤消时花费最少的事务作为死锁牺牲品，并通知应用程序取消当前请求，以便事务可以继续进行。设置死锁优先级--设置死锁的优先级,调整一个查询会话由于死锁而被终止运行的可能性SET DeadLock\_Priority  Low | Normal | High | numeric-priority。
-```
+
 --是当前连接很有可能被终止运行
 set deadlock_priority Low 
  
@@ -377,12 +389,12 @@ set deadlock_priority High
 --数值优先级：-10到10的值，-10最有可能被终止运行，10最不可能被终止运行，
 --两个数字谁大，谁就越不可能在死锁中被终止
 set deadlock_priority 10
-```
+
 从系统性能上考虑，应该尽可能减少资源竞争，增大吞吐量，因此用户在给并发操作加锁时，应注意以下几点：
-* 1、 对于 UPDATE 和 DELETE 操作，应只锁要做改动的行，在完成修改后立即提交。
-* 2、 当多个事务正利用共享更新的方式进行更新，则不要使用共享封锁，而应采用共享更新锁，这样其它用户就能使用行级锁，以增加并行性。
-* 3、 尽可能将对一个表的操作的并发事务施加共享更新锁，从而可提高并行性。
-* 4、 在应用负荷较高的期间，不宜对基础数据结构（表、索引、簇和视图）进行修改
+* 1、对于 UPDATE 和 DELETE 操作，应只锁要做改动的行，在完成修改后立即提交。
+* 2、当多个事务正利用共享更新的方式进行更新，则不要使用共享封锁，而应采用共享更新锁，这样其它用户就能使用行级锁，以增加并行性。
+* 3、尽可能将对一个表的操作的并发事务施加共享更新锁，从而可提高并行性。
+* 4、在应用负荷较高的期间，不宜对基础数据结构（表、索引、簇和视图）进行修改
 如何避免死锁\
 1 使用事务时，尽量缩短事务的逻辑处理过程，及早提交或回滚事务；\
 2 设置死锁超时参数为合理范围，如：3分钟-10分种；超过时间，自动放弃本次操作，避免进程悬挂；\
@@ -390,17 +402,21 @@ set deadlock_priority 10
 4 .对所有的脚本和SP都要仔细测试，在正是版本之前。\
 5 所有的SP都要有错误处理（通过@error）\
 6 一般不要修改SQL SERVER事务的默认级别。不推荐强行加锁
+
 ## 事务
+
 ### ACID 原则
-#### 原子性 (Atomicity)：
-事务的原子性是指一个事务中包含的一条语句或者多条语句构成了一个完整的逻辑单元，这个逻辑单元具有不可再分的原子性。这个逻辑单元要么一起提交执行全部成功，要么一起提交执行全部失败。
-#### 一致性 (Consistency)：
-可以理解为数据的完整性，事务的提交要确保在数据库上的操作没有破坏数据的完整性，比如说不要违背一些约束的数据插入或者修改行为。一旦破坏了数据的完整性，SQL Server 会回滚这个事务来确保数据库中的数据是一致的。
-#### 隔离性(Isolation)：
-与数据库中的事务隔离级别以及锁相关，多个用户可以对同一数据并发访问而又不破坏数据的正确性和完整性。但是，并行事务的修改必须与其它并行事务的修改相互独立，隔离。但是在不同的隔离级别下，事务的读取操作可能得到的结果是不同的。
-#### 持久性(Durability)：
-数据持久化，事务一旦对数据的操作完成并提交后，数据修改就已经完成，即使服务重启这些数据也不会改变。相反，如果在事务的执行过程中，系统服务崩溃或者重启，那么事务所有的操作就会被回滚，即回到事务操作之前的状态。
+
+原子性 (Atomicity)：事务的原子性是指一个事务中包含的一条语句或者多条语句构成了一个完整的逻辑单元，这个逻辑单元具有不可再分的原子性。这个逻辑单元要么一起提交执行全部成功，要么一起提交执行全部失败。
+
+一致性 (Consistency)：可以理解为数据的完整性，事务的提交要确保在数据库上的操作没有破坏数据的完整性，比如说不要违背一些约束的数据插入或者修改行为。一旦破坏了数据的完整性，SQL Server 会回滚这个事务来确保数据库中的数据是一致的。
+
+隔离性(Isolation)：与数据库中的事务隔离级别以及锁相关，多个用户可以对同一数据并发访问而又不破坏数据的正确性和完整性。但是，并行事务的修改必须与其它并行事务的修改相互独立，隔离。但是在不同的隔离级别下，事务的读取操作可能得到的结果是不同的。
+
+持久性(Durability)：数据持久化，事务一旦对数据的操作完成并提交后，数据修改就已经完成，即使服务重启这些数据也不会改变。相反，如果在事务的执行过程中，系统服务崩溃或者重启，那么事务所有的操作就会被回滚，即回到事务操作之前的状态。
+
 ## 事务隔离级别:
+
 1、用于控制并发用户如何读写数据的操做。
 2、读操作默认使用共享锁；写操作需要使用排它锁。
 3、读操作能够控制他的处理的方式，写操作不能控制它的处理方式
@@ -415,7 +431,9 @@ snapshot（已经提交读隔离）（后两个是sql server 2005 里面 引入�
 隔离级别越高,读操作的请求锁定就越严格,
 锁的持有时间久越长;所以隔离级别越高,
 一致性就越高,并发性就越低,同时性能也相对影响越大.
+
 ### read uncommited（读取未提交数据），
+
 read uncommitted：最低的隔离级别：查询的时候不会请求共享锁，
 所以不会和排它锁产生冲突（不会等待排它锁执行完），
 查询效率非常高，速度飞快。但是缺点：会查到“脏数据”
@@ -425,11 +443,15 @@ read uncommitted：最低的隔离级别：查询的时候不会请求共享锁�
 适用性：
 适用于 像聊天软件的 聊天记录，会是软件的运行速度非常快。 但是不适用于 商务软件。尤其是银行
 set transaction isolation level read uncommitted;
+
 ### read commited（读取已提交数据）读取的默认方式，
+
 读取的默认隔离级别就是read committed 和上面正好相反。
 如果上面情况，采用read committed 隔离级别查询的话查到的就是还没有更改之前的数据。
 set transaction isolation level read committed;
+
 ### repeatable read（可重复读），
+
 查询的时候会加上共享锁，但是查询完成之后，共享锁就会被撤销。
 比如一些购票系统，如果查到票了，当买的时候就没有，这是不行的。
 所以要在查询到数据之后做一些延迟共享锁，进而阻塞排它锁来修改。
@@ -439,7 +461,9 @@ set transaction isolation level read committed;
 2、其他进行插入数据，并且插入的数据满足第一次开始事务时的 查询的筛选条件的时候；
 第二次查询的时候就会将新插入的数据 查询出来。这就叫做“幻读”（解决幻读，需要更高级别的隔离，就是下面的serializable）
 set transaction isolation level repeatable read;
+
 ### serializable（可序列化），
+
 更高级的 隔离。用户解决“幻读”（上面提到的）。
 就是使用上面的（repeatable read） 加上共享锁 并不撤销，如果锁定的 一行数据，
 那么 其他的进程 还可以对 其他的数据进行操作，也可以 进行新增和删除的操作。
@@ -447,7 +471,9 @@ set transaction isolation level repeatable read;
 那么就要 将表的结构也 锁定  （就需要使用 更强的 锁定）
 set transaction isolation level serializable;
 ISO只规定以上四级
+
 ### SNAPSHOT ISOLATION（快照，MSSQL独有），
+
 为数据产生一个临时数据库，当sql server 数据更新之前将当前数据库复制到 tempdb数据库里面，
 查询就是从tempdb数据库中查询，但是不能再 使用 snapshot 线程的事务内执行 修改操作，
 因为不能修改 旧版本数据库（tempdb），会报错。
@@ -458,38 +484,46 @@ set transaction isolation level snapshot;
 带来两个问题：
 1、当 另外一个事务 已经提交，但是这边的查询到数据还是没有修改。因为 每次查询到的快照是针对于 本次回话对应的那个 transaction 的，因为在这个事务里面是没有修改的，所以查询到的数据是没有修改的。
 2、（更新问题）因为 那边的数据已经是 飞凤公司了，但是这里还是  联邦,所以,在这个事务里面是不能对表进行修改,因为访问的是临时数据库,想要对 数据库修改是不可能的（sql server 就会报错，阻止修改）
+
 ## 存储过程
+
 存储过程是预编译，安全性高，也是大大提高了效率，存储过程可以重复使用以减少数据库开发人员的工作量，复杂的逻辑我们可以使用存储过程完成，在存储过程中我们可以使用临时表，还可以定义变量，拼接sql语句，调用时，只需执行这个存储过程名，传入我们所需要的参数即可。
 存储过程优缺点： 
 优点： 
 1. 存储过程增强了SQL语言的功能和灵活性。存储过程可以用流控制语句编写，有很强的灵活性，可以完成复杂的判断和较复杂的运算。 
 2. 可保证数据的安全性和完整性。 
 3． 通过存储过程可以使没有权限的用户在控制之下间接地存取数据库，从而保证数据的安全。 
-      通过存储过程可以使相关的动作在一起发生，从而可以维护数据库的完整性。 
+通过存储过程可以使相关的动作在一起发生，从而可以维护数据库的完整性。 
 3. 再运行存储过程前，数据库已对其进行了语法和句法分析，并给出了优化执行方案。这种已经编译好的过程可极大地改善SQL语句的性能。 由于执行SQL语句的大部分工作已经完成，所以存储过程能以极快的速度执行。 
 4. 可以降低网络的通信量, 不需要通过网络来传送很多sql语句到数据库服务器了 
 5. 使体现企业规则的运算程序放入数据库服务器中，以便集中控制 
-       当企业规则发生变化时在服务器中改变存储过程即可，无须修改任何应用程序。企业规则的特点是要经常变化，如果把体现企业规则的运算程序放入应用程序中，则当企业规则发生变化时，就需要修改应用程序工作量非常之大（修改、发行和安装应用程序）。如果把体现企业规则的 运算放入存储过程中，则当企业规则发生变化时，只要修改存储过程就可以了，应用程序无须任何变化。 
+ 当企业规则发生变化时在服务器中改变存储过程即可，无须修改任何应用程序。企业规则的特点是要经常变化，如果把体现企业规则的运算程序放入应用程序中，则当企业规则发生变化时，就需要修改应用程序工作量非常之大（修改、发行和安装应用程序）。如果把体现企业规则的 运算放入存储过程中，则当企业规则发生变化时，只要修改存储过程就可以了，应用程序无须任何变化。 
 缺点： 
 1. 可移植性差 
 2. 占用服务器端多的资源，对服务器造成很大的压力 
 3. 可读性和可维护性不好 
+
 ## 函数
 Oracle中function和procedure的区别？ 
 1. 可以理解函数是存储过程的一种 
 2. 函数可以没有参数,但是一定需要一个返回值，存储过程可以没有参数,不需要返回值 
 3. 函数return返回值没有返回参数模式，存储过程通过out参数返回值, 如果需要返回多个参数则建议使用存储过程 
 4. 在sql数据操纵语句中只能调用函数而不能调用存储过程
+
 ## 触发器
 触发器是一种特殊的存储过程，主要是通过事件触发而被执行。它可以强化约束来维护数据的完整性和一致性，可以跟踪数据库内的操作从而不允许未经许可的更新和变化。可以级联运算。
 常见的触发器有三种：分别应用于Insert , Update , Delete 事件。
+
 # 数据库优化
 这个问题说大不大，说难不难，很多人盲目说优化，其实这本身就是是有问题的。首先，为什么要优化，我们的需求，性能满足的时候还用的着优化吗?当然不了，优化自然是针对其中的问题，性能瓶颈来进行。如果接受的是严谨的教育，他所做的一切数据库操作自然都是规范合规，当然也是最佳，当然也根本无论谈论优化了。当然了，对于这些规范的操作可以进行总结，也可以视为数据库优化了。总结按照以下分类和方法进行优化。
+
 ## 硬件方面
 工欲善其事，必欲利其器，大内存，多核心cpu，高速硬盘，高带宽对于提升数据库性能有不少的帮助，当然这自然是以来用户预算，在足够的预算下对硬件的提升对整体数据库的提升有不少帮助。
+
 ## 软件方面
 合适的操作系统，Linux等操作系统的性能相当windows来说要好不少，当然也会让数据库发挥最佳性能。
 合适的数据库，有些数据库本身就不适合大数据量，如果数据量特别巨大，那么停止优化，切换数据库不失为最佳的选择。
+
 ## 数据库设计
 合适的字段
 合适的表设计
@@ -497,19 +531,23 @@ Oracle中function和procedure的区别？ 
 合适的索引
 读写分离
 大的数据表尽量使用独立的表空间
+
 ## 查询优化
-尽可能获取需要的最少信息&#x20;
+尽可能获取需要的最少信息
 减少函数，尤其是聚合函数的使用
-尽次可能单查询&#x20;
-问题诊断定位 执行计划检查&#x20;
+尽次可能单查询
+问题诊断定位 执行计划检查
 常见SQL语句的问题
 比如常用的字段建索引，联合查询考虑联合索引。（PS：如果你有基础，可以敞开谈谈聚集索引和非聚集索引的使用场景和区别）
 避免select \* 的写法、尽量不用in和not in 这种耗性能的用法等等。
 尽量避免大事务操作、减少循环算法，对于大数据量的操作，避免使用游标的用法等等。
+
 ## 程序的优化
-尽可能分页查询&#x20;
+尽可能分页查询
 缓存的使用，尽可能使用内存数据库进行换缓存避免数据重复查询增加服务器负担。
+
 # SQL语言
+
 ## ANSI SQL
 “美国国家标准化组织(ANSI)”是一个核准多种行业标准的组织。SQL作为关系型数据库所使用的标准语言，最初是基于IBM的实现1986年被批准的。1987年，“国际标准化组织(ISO)”把ANSI SQL作为国际标准。这个标准在1992年进行了修订(SQL-92)，1999年再次修订(SQL-99)。最新的是SQL-2011。
 最新为SQL ANSI-2011(ISO/IEC TR 19075)
@@ -521,9 +559,12 @@ ISO/IEC TR 19075-4:2015 1 Part 4: SQL with Routines and types using the JavaTM p
 ISO/IEC TR 19075-5:2016 1 Part 5: Row Pattern Recognition in SQL ISO/IEC JTC 1/SC 32
 ISO/IEC TR 19075-6:2017 1 Part 6: SQL support for JavaScript Object Notation (JSON) ISO/IEC JTC 1/SC 32
 ISO/IEC TR 19075-7:2017 1 Part 7: Polymorphic table functions in SQL ISO/IEC JTC 1/SC 32
+
 ## DDL
 其语句包括动词CREATE,ALTER和DROP。在数据库中创建新表或修改、删除表（CREATE TABLE 或 DROP TABLE）；为表加入索引等。
+
 ### create
+
 #### 常用数据类型
 varchar2(n)：变长字符串n<=4000
 char(n)：定长字符串n<=2000
@@ -534,15 +575,19 @@ binary\_double：双精度型，64位
 blob：大二进制对象，<=4G
 clob：大字符串对象，<=4G
 bfile：外部的二进制文件
+
 #### 表
+
 #### 主键
 在创建表时定义主键
 使用alter table语句定义主键
 使用alter table修改主键状态
+
 #### 外键
 在创建表时定义外键
 使用alter table语句定义外键
 使用alter table修改外键状态
+
 #### 约束
 check约束
 Check约束用以限制单列的可能取值范围，需要在Check约束中指定逻辑表达式，该逻辑表达式必须返回逻辑值（TRUE或FALSE），在Check中，把UNKNOWN值认为是TRUE。
@@ -590,28 +635,50 @@ create table dbo.dt_check
     constraint ck_sex check(sex in('M','F'))
 not null约束
 unique约束
+
 #### 索引
+
 #### 视图
+
 #### 序列
+
 #### 同义词
+
 ### drop
+
 ### alter
+
 ## DML（DML：Data Manipulation Language）
+
 ### insert
+
 #### 插入数据
+
 #### 复制表数据
+
 create table…as select…
 insert into…select
+
 ### update
+
 ### merge
+
 ### delete
+
 ### truncate
+
 ## DQL（DQL: Data Query Language）
+
 ### select
+
 #### from子句
+
 #### 投影
+
 #### where子句
+
 #### 比较运算符
+
 \=
 <>
 <
@@ -634,7 +701,9 @@ distinct
 *
 
 /
+
 ### 基本函数
+
 字符函数
 concat(c1,c2)
 length(c)
@@ -671,11 +740,15 @@ STDDEV
 VARIANCE
 group by
 having子句
+
 ### 集合操作
+
 UNION
 INTERSECT
 MINUS
+
 ### 子查询
+
 表连接
 内连接 inner join
 外连接
@@ -684,15 +757,23 @@ MINUS
 全外连接
 case语句
 decode函数
+
 ## DCL(数据控制语言 Data Control Language )
+
 它的语句通过GRANT或REVOKE实现权限控制，确定单个用户和用户组对数据库对象的访问。某些RDBMS可用GRANT或REVOKE控制对表单个列的访问。
 grant
 revoke
+
 ## TCL（事务控制语言）
+
 它的语句能确保被DML语句影响的表的所有行及时得以更新。包括COMMIT（提交）命令、SAVEPOINT（保存点）命令、ROLLBACK（回滚）命令。
+
 ## CCL（指针控制语言）
+
 它的语句，像DECLARE CURSOR，FETCH INTO和UPDATE WHERE CURRENT用于对一个或多个表单独行的操作。
-## &#x20;常见函数
+
+## 常见函数
+
 * sign() decode()函数用法（sql server ,oracle,mysql支持）
 sign()函数根据某个值是0、正数还是负数，分别返回0、1、-1 ,例如： 
     decode ()函数说明：
@@ -706,24 +787,26 @@ sign()函数根据某个值是0、正数还是负数，分别返回0、1、-1 ,�
 若表达式expression值与condition\_01值匹配，则返回result\_01，若不匹配，则继续判断； 若表达式expression值与condition\_02值匹配，则返回result\_02，若不匹配，则继续判断；
 。。。。。
 select courseid, coursename ,score ,decode（sign(score-60),-1,'fail','pass') as mark from course
+
 * pivot unpivot 行业转换函数（sql server ,mysql支持）
+* 
 select \* from tb
 \--------------------------------结果------------------------------------------------------------------------------------
-姓名         课程         分数\
+姓名     课程     分数\
 \---------- ---------- -----------\
-张三         语文         74\
-张三         数学         83\
-张三         物理         93\
-李四         语文         74\
-李四         数学         84\
-李四         物理         94\
+张三     语文     74\
+张三     数学     83\
+张三     物理     93\
+李四     语文     74\
+李四     数学     84\
+李四     物理     94\
 \
-现在的问题是：我想根据姓名统计这个人的三门成绩，即：姓名   语文   数学  物理
+现在的问题是：我想根据姓名统计这个人的三门成绩，即：姓名  语文  数学  物理
 \--------------------------------结果------------------------------------------------------------------------------------
-姓名         语文          数学          物理\
+姓名     语文      数学      物理\
 \---------- ----------- ----------- -----------\
-李四         74          84          94\
-张三         74          83          93
+李四     74      84      94\
+张三     74      83      93
 \
 首先看看使用case when end结构的时候：
  select 姓名,\
@@ -736,41 +819,69 @@ group by 姓名
 select \* from tb pivot(max(分数) for 课程 in (语文,数学,物理))a
 unpivot 用法类似：
 select 姓名,课程,分数 from tb unpivot (分数 for 课程 in (\[语文],\[数学],\[物理]) ) t
+
 # Oracle
+
 ## 数据库结构
+
 ### 体系结构
 实例一般情况下Oracle数据库都是一个数据库包含一个实例
+
 #### 数据库
+
 ##### 数据文件
+
 表空间：SYSTEM表空间，SYSAUX表空间，撤销表空间，USERS表空间
 数据文件：系统数据，用户数据，控制文件，日志文件(重做日志文件，归档日志文件)
 说明：表空间是一个数据库的逻辑区域，每个表空间由一个或多个数据文件组成，一个数据文件只能属于一个表空间
+
 ### 服务器结构
+
 #### 系统全局区
+
 ##### 数据高速缓冲区
+
 ##### 重做日志缓冲区
+
 ##### 共享池
+
 ##### Large Pool
+
 #### 后台进程
+
 ##### DBWn
+
 ##### LGWR
+
 ##### SMON
+
 ##### PMON
+
 ##### ARCH
+
 #### 程序全局区
+
 ### 数据字典
+
 存放整个数据库实例重要信息的一组表，多数表归sys用户所有
+
 #### 数据字典构成
+
 ##### USER\_
 记录用户对象信息
+
 ##### ALL\_
 记录用户的对象信息及被授权访问的对象信息
+
 ##### DBA\_
 包含数据库实例的所有对象信息
+
 ##### V\$\_
 当前实例的动态视图
+
 ##### GV\_
 分布式环境下所有实例的动态视图
+
 #### 常用数据字典
 DBA\_TABLES(=TABS)
 DBA\_TAB\_COLUMNS(=COLS)
@@ -785,75 +896,140 @@ DBA\_SOUCE
 DBA\_SEGMENTS
 DBA\_EXTENTS
 DBA\_OBJECTS
+
 ### TCL
+
 commit
 rollback
 savepoint
+
 ## PL/SQL
+
 ### 概述
+
 ### PL/SQL编程
+
 #### 基本语言块
+
 #### 字符集
+
 #### 注释
+
 #### 数据类型
+
 #### 变量和常量
+
 #### 表达式和运算符
+
 #### 流程控制
+
 ##### if-then-elsif-then-else
+
 ##### case-when-else
+
 ##### loop-exit
+
 ##### for-loop
+
 ##### while-loop
+
 ### 过程和函数
+
 #### 过程
+
 #### 函数
+
 ### 错误处理
+
 #### 预定义异常
+
 ##### DUP\_VAL\_ON\_INDEX
+
 ##### LOGIN\_DENIED
+
 ##### NO\_DATA\_FOUND
+
 ##### TOO\_MANY\_ROWS
+
 ##### ZERO\_DIVIDE
+
 ##### VALUE\_ERROR
+
 ##### CASE\_NOT\_FOUND
+
 #### 自定义异常
+
 ##### RAISE
+
 #### 异常函数
+
 ##### SQLCODE
+
 ##### QLERRM
+
 ### 包
+
 #### 包头
+
 #### 包体
+
 #### 重载
+
 ### 集合
+
 #### 三种类型
+
 ##### index-by表
+
 ##### 嵌套表
+
 ##### 可变数组
+
 #### 属性和方法
+
 ##### COUNT
+
 ##### DELETE
+
 ##### EXISTS
+
 ##### EXTEND
+
 ##### FIRST/LAST
+
 ##### NEXT/PRIOR
+
 ### 游标
+
 #### 显示游标
+
 #### 隐式游标
+
 #### 游标for循环
+
 #### 游标变量
+
 ## 数据库管理
+
 ### 管理控制文件
+
 ### 管理日志文件
+
 ### 管理表空间和数据文件
+
 ### 模式对象管理
+
 ### 表分区和索引分区
+
 ### 用户管理与安全
+
 ### 数据完整性和数据约束
+
 ## 执行计划
+
 一：什么是Oracle执行计划？
 执行计划是一条查询语句在Oracle中的执行过程或访问路径的描述，注意，是查询语句。
- 二：怎样查看Oracle执行计划？
+二：怎样查看Oracle执行计划？
 以PLSQL为例：
 执行计划的常用列字段解释：
 基数（Rows）：Oracle估计的当前操作的返回结果集行数
@@ -861,7 +1037,7 @@ savepoint
 耗费（COST）、CPU耗费：Oracle估计的该步骤的执行成本，用于说明SQL执行的代价，理论上越小越好（该值可能与实际有出入）
 时间（Time）：Oracle估计的当前操作所需的时间
 1）：打开执行计划：
-在SQL窗口选中一条  SELECT 语句后，或者选中Tools > Explain Plan，或者按 F5 即可查看刚刚执行的这条查询语句的执行计划
+在SQL窗口选中一条 SELECT 语句后，或者选中Tools > Explain Plan，或者按 F5 即可查看刚刚执行的这条查询语句的执行计划
 ![](https://images2017.cnblogs.com/blog/1160610/201710/1160610-20171029163558336-1424648712.png)
 打开执行计划后，可以点击配置按钮进行显示配置。如图
 ![](https://images2017.cnblogs.com/blog/1160610/201710/1160610-20171029164100726-768187954.png)
@@ -870,13 +1046,13 @@ savepoint
 中文版图解。
 [![执行计划配置](https://images2015.cnblogs.com/blog/946400/201611/946400-20161118093801998-1582451944.png "执行计划配置")](http://images2015.cnblogs.com/blog/946400/201611/946400-20161118093801185-130140150.png)
  
-  三：看懂Oracle执行计划
+三：看懂Oracle执行计划
 ①：执行顺序：
 ![](https://images2017.cnblogs.com/blog/1160610/201710/1160610-20171029164746742-324961912.png)
  
 根据上图中description列的缩进来判断，缩进最多的最先执行，缩进相同时，最上面的最先执行，可以通过点击图中箭头，查看执行顺序。
 对图中动作的一些说明：
-1. 上图中 TABLE ACCESS BY …  即描述的是该动作执行时表访问（或者说Oracle访问数据）的方式；
+1. 上图中 TABLE ACCESS BY … 即描述的是该动作执行时表访问（或者说Oracle访问数据）的方式；
 表访问的几种方式：（非全部）
 * TABLE ACCESS FULL（全表扫描）
 * TABLE ACCESS BY INDEX ROWID（通过ROWID的表存取）
@@ -912,7 +1088,7 @@ a) INDEX UNIQUE SCAN（索引唯一扫描）：
 b) INDEX RANGE SCAN（索引范围扫描）：
 使用一个索引存取多行数据；
 发生索引范围扫描的三种情况：
-* 在唯一索引列上使用了范围操作符（如：>   <   <>   >=   <=   between）
+* 在唯一索引列上使用了范围操作符（如：>  <  <>  >=  <=  between）
 * 在组合索引上，只使用部分列进行查询（查询时必须包含前导列，否则会走全表扫描）
 * 对非唯一索引列上进行的任何查询
 c) INDEX FULL SCAN（索引全扫描）：
@@ -945,7 +1121,7 @@ Oracle先进入sex为'男'的入口，这时候使用到了 ('男', ename, job) 
 最后合并查询到的来自两个入口的结果集。
 \----------------------------------------------
  
-2. 上图中的 NESTED LOOPS … 描述的是表连接方式；
+1. 上图中的 NESTED LOOPS … 描述的是表连接方式；
 JOIN 关键字用于将两张表作连接，一次只能连接两张表，JOIN 操作的各步骤一般是串行的（在读取做连接的两张表的数据时可以并行读取）；
 表（row source）之间的连接顺序对于查询效率有很大的影响，对首先存取的表（驱动表）先应用某些限制条件（Where过滤条件）以得到一个较小的row source，可以使得连接效率提高。
 \-------------------------延伸阅读：驱动表（Driving Table）与匹配表（Probed Table）-------------------------
@@ -971,7 +1147,7 @@ c) 两边已排序的行放在一起执行合并操作（对两边的数据集�
 如果示例中的连接操作关联列 a.id，b.id 之前就已经被排过序了的话，连接速度便可大大提高，因为排序是很费时间和资源的操作，尤其对于有大量数据的表。
 故可以考虑在 a.id，b.id 上建立索引让其能预先排好序。不过遗憾的是，由于返回的结果集中包括所有字段，所以通常的执行计划中，即使连接列存在索引，也不会进入到执行计划中，除非进行一些特定列处理（如仅仅只查询有索引的列等）。
 排序-合并连接的表无驱动顺序，谁在前面都可以；
-排序-合并连接适用的连接条件有： <   <=   =   >   >= ，不适用的连接条件有： <>    like
+排序-合并连接适用的连接条件有： <  <=  =  >  >= ，不适用的连接条件有： <>   like
 （2） NESTED LOOPS（嵌套循环）：
 内部连接过程：
 a) 取出 row source 1 的 row 1（第一行数据），遍历 row source 2 的所有行并检查是否有匹配的，取出匹配的行放入结果集中
@@ -984,7 +1160,7 @@ c) ……
 嵌套循环连接有一个其他连接方式没有的好处是：可以先返回已经连接的行，而不必等所有的连接操作处理完才返回数据，这样可以实现快速响应。
 应尽可能使用限制条件（Where过滤条件）使驱动表（row source 1）返回的行数尽可能少，同时在匹配表（row source 2）的连接操作关联列上建立唯一索引（UNIQUE INDEX）或是选择性较好的非唯一索引，此时嵌套循环连接的执行效率会变得很高。若驱动表返回的行数较多，即使匹配表连接操作关联列上存在索引，连接效率也不会很高。
 （3）HASH JOIN（哈希连接） :
-哈希连接只适用于等值连接（即连接条件为  =  ）
+哈希连接只适用于等值连接（即连接条件为 = ）
 HASH JOIN对两个表做连接时并不一定是都进行全表扫描，其并不限制表访问方式；
 内部连接过程简述：
 a) 取出 row source 1（驱动表，在HASH JOIN中又称为Build Table） 的数据集，然后将其构建成内存中的一个 Hash Table（Hash函数的Hash KEY就是连接操作关联列），创建Hash位图（bitmap）
@@ -1019,28 +1195,44 @@ OPTIMAL 模式是从驱动表（也称Build Table）上获取的结果集比较�
 Ⅲ：当把匹配表完整的扫描了一遍后，可能已经返回了一部分匹配的数据了。接下来还有Hash Table中一部分在磁盘上的Hash Bucket数据以及匹配表中部分被写入到磁盘上的待匹配数据未处理，现在Oracle会把磁盘上的这两部分数据重新匹配一次，然后返回最终的查询结果。
 3\): MULTIPASS HASH JOIN：
 当内存特别小或者相对而言Hash Table的数据特别大时，会使用 MULTIPASS 模式。MULTIPASS会多次读取磁盘数据，应尽量避免使用该模式。
+
 ## 数据库优化
+
 ### 系统调整
+
 ### SQL语句优化
+
 ##### 不要用\*代替列名
+
 ##### 尽量减少表查询的次数
+
 ##### 用not exists代替in/not in
+
 ##### 用not exists代替distinct
+
 ##### 有效利用共享游标
 以合理的方式使用函数
+
 #### 表的连接方法
+
 ##### 选择from表的顺序
 \###### 小表放在最右
+
 ##### 选择驱动表
+
 ##### where子句的连接顺序
 \###### 能够过滤掉最多记录的的条件放在最右
+
 #### 有效使用索引
+
 ##### 索引列的选择
 \###### where从句频繁使用的列
 \###### 频繁用于表连接的列
 \###### 不要将频繁修改的列用作索引
 \###### 用于函数中的列应当考虑建立函数索引
+
 ##### 复合索引有时比单列索引有更好的性能
+
 ##### 避免对大表的全表扫描
 \###### 导致全表扫描的情况
 查询的表没有索引
@@ -1048,6 +1240,7 @@ OPTIMAL 模式是从驱动表（也称Build Table）上获取的结果集比较�
 条件中有LIKE且使用了%
 对索引列使用了函数
 条件中有IS NULL或IS NOT NULL
+
 ##### 监视索引是否被使用
 \###### alter index idx\_name monitoring usage;
 （1）      选择最有效率的表名顺序(只在基于规则的优化器中有效)：
@@ -1076,7 +1269,7 @@ d. ORACLE为管理上述3种资源中的内部花费
 避免使用HAVING子句, HAVING 只会在检索出所有记录之后才对结果集进行过滤. 这个处理需要排序,总计等操作. 如果能通过WHERE子句限制记录的数目,那就能减少这方面的开销. (非oracle中)on、where、having这三个都可以加条件的子句中，on是最先执行，where次之，having最后，因为on是先把不符合条件的记录过滤后才进行统计，它就可以减少中间运算要处理的数据，按理说应该速度是最快的，where也应该比having快点的，因为它过滤数据后才进行sum，在两个表联接时才用on的，所以在一个表的时候，就剩下where跟having比较了。在这单表查询统计的情况下，如果要过滤的条件没有涉及到要计算字段，那它们的结果是一样的，只是where可以使用rushmore技术，而having就不能，在速度上后者要慢如果要涉及到计算的字段，就表示在没计算之前，这个字段的值是不确定的，根据上篇写的工作流程，where的作用时间是在计算之前就完成的，而having就是在计算后才起作用的，所以在这种情况下，两者的结果会不同。在多表联接查询时，on比where更早起作用。系统首先根据各个表之间的联接条件，把多个表合成一个临时表后，再由where进行过滤，然后再计算，计算完后再由having进行过滤。由此可见，要想过滤条件起到正确的作用，首先要明白这个条件应该在什么时候起作用，然后再决定放在那里
 （12） 减少对表的查询：
 在含有子查询的SQL语句中,要特别注意减少对表的查询.例子：
-     SELECT  TAB\_NAME FROM TABLES WHERE (TAB\_NAME,DB\_VER) = ( SELECT
+SELECT  TAB\_NAME FROM TABLES WHERE (TAB\_NAME,DB\_VER) = ( SELECT
 TAB\_NAME,DB\_VER FROM  TAB\_COLUMNS  WHERE  VERSION = 604)
 （13） 通过内部函数提高SQL效率.：
 复杂的SQL往往牺牲了执行效率. 能够掌握上面的运用函数解决问题的方法在实际工作中是非常有意义的
@@ -1104,7 +1297,7 @@ ORDER BY  4 DESC;
 ALTER  INDEX  REBUILD 
 （18） 用EXISTS替换DISTINCT：
 当提交一个包含一对多表信息(比如部门表和雇员表)的查询时,避免在SELECT子句中使用DISTINCT. 一般可以考虑用EXIST替换, EXISTS 使查询更为迅速,因为RDBMS核心模块将在子查询的条件一旦满足后,立刻返回结果. 例子：
-       (低效): 
+  (低效): 
 SELECT  DISTINCT  DEPT\_NO,DEPT\_NAME  FROM  DEPT D , EMP E 
 WHERE  D.DEPT\_NO = E.DEPT\_NO 
 (高效): 
@@ -1258,8 +1451,8 @@ union在进行表链接后会筛选掉重复的记录，所以在表链接后会
 2. oracle使用的脚本语言为PL-SQL，而sql server使用的脚本为T-SQL 
 微观上： 从数据类型,数据库的结构等等回答
 2. 如何使用Oracle的游标？ 
-1\).  oracle中的游标分为显示游标和隐式游标 
-2\).  显示游标是用cursor...is命令定义的游标，它可以对查询语句(select)返回的多条记录进行处理；隐式游标是在执行插入 (insert)、删除(delete)、修改(update)和返回单条记录的查询(select)语句时由PL/SQL自动定义的。 
+1. oracle中的游标分为显示游标和隐式游标 
+2. 显示游标是用cursor...is命令定义的游标，它可以对查询语句(select)返回的多条记录进行处理；隐式游标是在执行插入 (insert)、删除(delete)、修改(update)和返回单条记录的查询(select)语句时由PL/SQL自动定义的。 
 3. 显式游标的操作：打开游标、操作游标、关闭游标；PL/SQL隐式地打开SQL游标，并在它内部处理SQL语句，然后关闭它
 5. Oracle中有哪几种文件？ 
 数据文件（一般后缀为.dbf或者.ora），日志文件(后缀名.log)，控制文件（后缀名为.ctl）
@@ -1272,31 +1465,31 @@ union在进行表链接后会筛选掉重复的记录，所以在表链接后会
 4. 建立合适的索引（减少IO） 
 5. 将索引数据和表数据分开在不同的表空间上（降低IO冲突） 
 6. 建立表分区，将数据分别存储在不同的分区上（以空间换取时间，减少IO） 
-   逻辑上优化： 
+  逻辑上优化： 
 1. 可以对表进行逻辑分割，如中国移动用户表，可以根据手机尾数分成10个表，这样对性能会有一定的作用 
 2. Sql语句使用占位符语句，并且开发时候必须按照规定编写sql语句（如全部大写，全部小写等）oracle解析语句后会放置到共享池中 
-如： select \* from Emp where name=?  这个语句只会在共享池中有一条，而如果是字符串的话，那就根据不同名字存在不同的语句，所以占位符效率较好 
+如： select \* from Emp where name=? 这个语句只会在共享池中有一条，而如果是字符串的话，那就根据不同名字存在不同的语句，所以占位符效率较好 
 3. 数据库不仅仅是一个存储数据的地方，同样是一个编程的地方，一些耗时的操作，可以通过存储过程等在用户较少的情况下执行，从而错开系统使用的高峰时间，提高数据库性能 
 4. 尽量不使用\*号，如select \* from Emp，因为要转化为具体的列名是要查数据字典，比较耗时 
 5. 选择有效的表名 
 对于多表连接查询，可能oracle的优化器并不会优化到这个程度， oracle 中多表查询是根据FROM字句从右到左的数据进行的，那么最好右边的表（也就是基础表）选择数据较少的表，这样排序更快速，如果有link表（多对多中间表），那么将link表放最右边作为基础表，在默认情况下oracle会自动优化，但是如果配置了优化器的情况下，可能不会自动优化，所以平时最好能按照这个方式编写sql 
 6. Where字句 规则 
 Oracle 中Where字句时从右往左处理的，表之间的连接写在其他条件之前，能过滤掉非常多的数据的条件，放在where的末尾， 另外!=符号比较的列将不使用索引，列经过了计算（如变大写等）不会使用索引（需要建立起函数）， is null、is not null等优化器不会使用索引 
-7. 使用Exits Not Exits 替代 In  Not in 
+7. 使用Exits Not Exits 替代 In Not in 
 8. 合理使用事务，合理设置事务隔离性 
 数据库的数据操作比较消耗数据库资源的，尽量使用批量处理，以降低事务操作次数
 8. Oracle分区是怎样优化数据库的? 
 Oracle的分区可以分为：列表分区、范围分区、散列分区、复合分区。 
-1\).  增强可用性：如果表的一个分区由于系统故障而不能使用，表的其余好的分区仍可以使用； 
-2\).  减少关闭时间：如果系统故障只影响表的一部份分区，那么只有这部份分区需要修复，可能比整个大表修复花的时间更少； 
-3\).  维护轻松：如果需要得建表，独产管理每个公区比管理单个大表要轻松得多； 
-4\).  均衡I/O：可以把表的不同分区分配到不同的磁盘来平衡I/O改善性能； 
-5\).  改善性能：对大表的查询、增加、修改等操作可以分解到表的不同分区来并行执行，可使运行速度更快 
-6\).  分区对用户透明，最终用户感觉不到分区的存在。
+1. 增强可用性：如果表的一个分区由于系统故障而不能使用，表的其余好的分区仍可以使用； 
+2. 减少关闭时间：如果系统故障只影响表的一部份分区，那么只有这部份分区需要修复，可能比整个大表修复花的时间更少； 
+3. 维护轻松：如果需要得建表，独产管理每个公区比管理单个大表要轻松得多； 
+4. 均衡I/O：可以把表的不同分区分配到不同的磁盘来平衡I/O改善性能； 
+5. 改善性能：对大表的查询、增加、修改等操作可以分解到表的不同分区来并行执行，可使运行速度更快 
+6. 分区对用户透明，最终用户感觉不到分区的存在。
 9. Oracle是怎样分页的？ 
 Oracle中使用rownum来进行分页, 这个是效率最好的分页方法，hibernate也是使用rownum来进行oralce分页的 
 select \* from 
-  ( select rownum r,a from tabName where rownum <= 20 ) 
+ ( select rownum r,a from tabName where rownum <= 20 ) 
 where r > 10 
 11. Oracle中使用了索引的列，对该列进行where条件查询、分组、排序、使用聚集函数，哪些用到了索引？ 
 均会使用索引， 值得注意的是复合索引（如在列A和列B上建立的索引）可能会有不同情况 
@@ -1305,16 +1498,17 @@ Order by使用索引的条件极为严格，只有满足如下情况才可以使
 1. order by中的列必须包含相同的索引并且索引顺序和排序顺序一致 
 2. 不能有null值的列 
 所以排序的性能往往并不高，所以建议尽量避免order by
+
 ## 常见问题
 * oracle 导入导出定时备份
 expdp\impdp及exp\imp
 系统定时任务
 * Oralce怎样存储文件，能够存储哪些文件？ 
-Oracle 能存储 clob、nclob、 blob、 bfile 
-Clob  可变长度的字符型数据，也就是其他数据库中提到的文本型数据类型 
+Oracle 能存储 clob、nclob、blob、bfile 
+Clob 可变长度的字符型数据，也就是其他数据库中提到的文本型数据类型 
 Nclob 可变字符类型的数据，不过其存储的是Unicode字符集的字符数据 
-Blob  可变长度的二进制数据 
-Bfile  数据库外面存储的可变二进制数据 
+Blob 可变长度的二进制数据 
+Bfile 数据库外面存储的可变二进制数据 
 * 比较truncate和delete 
 1. Truncate 和delete都可以将数据实体删掉，truncate 的操作并不记录到 rollback日志，所以操作速度较快，但同时这个数据不能恢复 
 2. Delete操作不腾出表空间的空间 
@@ -1332,7 +1526,7 @@ Bfile  数据库外面存储的可变二进制数据 
 最高效的删除重复记录方法 ( 因为使用了ROWID)例子：
 DELETE  FROM  EMP E  WHERE  E.ROWID > (SELECT MIN(X.ROWID) 
 FROM  EMP X  WHERE  X.EMP\_NO = E.EMP\_NO);
-* &#x20;rowid, rownum的定义 
+* rowid, rownum的定义 
 1. rowid和rownum都是虚列 
 2. rowid是物理地址，用于定位oracle中具体数据的物理存储位置 
 3. rownum则是sql的输出结果排序，从下面的例子可以看出其中的区别。 
@@ -1340,231 +1534,227 @@ FROM  EMP X  WHERE  X.EMP\_NO = E.EMP\_NO);
 游标类似指针，游标可以执行多个不相关的操作.如果希望当产生了结果集后,对结果集中的数据进行多 种不相关的数据操作 
 函数可以理解函数是存储过程的一种； 函数可以没有参数,但是一定需要一个返回值，存储过程可以没有参数,不需要返回值；两者都可以通过out参数返回值, 如果需要返回多个参数则建议使用存储过程；在sql数据操纵语句中只能调用函数而不能调用存储过程 
 * 使用oracle 伪列删除表中重复记录： 
-Delete  table t  where t.rowid!=(select  max(t1.rowid)  from  table1 t1 where  t1.name=t.name)
+Delete table t where t.rowid!=(select max(t1.rowid) from table1 t1 where t1.name=t.name)
+
 ## 备份与恢复
+
 ### RMAN(Recovery Manager)工具
-oracle之rman入门指南
-　　这篇文章主要介绍RMAN的常用方法，其中包含了作者一些自己的经验，里面的实验也基本全在WIN 2K和ORACLE 8.1.6环境下测试成功（因为这个环境比较容易实现）。
-　　
-　　本文借鉴了网上一些高手的相关文章，希望大侠们不要见怪，此处一并谢过。
-　　
-　　因为篇幅有限，一些技术细节不能一一覆盖了，只希望能够帮助新手入门的作用，想真正熟练掌握RMAN，必须经过较长时间的实践磨练才可以，尤其需要在工程中获得宝贵的故障解决经验。
-　　
-　　1.什么是RMAN？
-　　RMAN可以用来备份和还原数据库文件、归档日志和控制文件。它也可以用来执行完全或不完全的数据库恢复。
-　　
-　　注意：RMAN不能用于备份初始化参数文件和口令文件。
-　　
-　　RMAN启动数据库上的Oracle服务器进程来进行备份或还原。备份、还原、恢复是由这些进程驱动的。
-　　
-　　RMAN可以由OEM的Backup Manager GUI来控制，但在本文章里不作重点讨论。
-　　
-　　2. Terminology 专业词汇解释
-　　2.1. Backup sets 备份集合
-　　
-　　备份集合有下面的特性：
-　　
-　　包括一个或多个数据文件或归档日志
-　　
-　　以oracle专有的格式保存
-　　
-　　有一个完全的所有的备份片集合构成
-　　
-　　构成一个完全备份或增量备份
-　　
-　　2.2. Backup pieces 备份片
-　　
-　　一个备份集由若干个备份片组成。每个备份片是一个单独的输出文件。一个备份片的大小是有限制的；如果没有大小的限制， 备份集就只由一个备份片构成。备份片的大小不能大于使用的文件系统所支持的文件长度的最大值。
-　　
-　　2.3. Image copies 镜像备份
-　　
-　　镜像备份是独立文件（数据文件、归档日志、控制文件）的备份。它很类似操作系统级的文件备份。它不是备份集或 备份片，也没有被压缩。
-　　
-　　2.4. Full backup sets 全备份集合
-　　
-　　全备份是一个或多个数据文件中使用过的数据块的的备份。没有使用过的数据块是不被备份的，也就是说，oracle 进行备份集合的压缩。
-　　
-　　2.5. Incremental backup sets 增量备份集合
-　　
-　　增量备份是指备份一个或多个数据文件的自从上一次同一级别的或更低级别的备份以来被修改过的数据块。 与完全备份相同，增量备份也进行压缩。
-　　
-　　2.6. File multiplexing
-　　
-　　不同的多个数据文件的数据块可以混合备份在一个备份集中。
-　　
-　　2.7. Recovery catalog resyncing 恢复目录同步
-　　
-　　使用恢复管理器执行backup、copy、restore或者switch命令时，恢复目录自动进行更新，但是有关日志与归档日志信息没有自动记入恢复目录。需要进行目录同步。使用resync catalog命令进行同步。
-　　
-　　RMAN>resync catalog;
-　　RMAN-03022：正在编译命令：resync
-　　RMAN-03023：正在执行命令：resync
-　　RMAN-08002：正在启动全部恢复目录的 resync
-　　RMAN-08004：完成全部 resync
-　　
-　　3. 恢复目录
-　　3.1.恢复目录的概念
-　　
-　　恢复目录是由RMAN使用、维护的用来放置备份信息的仓库。RMAN利用恢复目录记载的信息去判断如何执行需要的备份恢复操作。
-　　
-　　恢复目录可以存在于ORACLE数据库的计划中。
-　　
-　　虽然恢复目录可以用来备份多个数据库，建议为恢复目录数据库创建一个单独的数据库。
-　　
-　　恢复目录数据库不能使用恢复目录备份自身。
-　　
-　　3.2.建立恢复目录
-　　
-　　第一步，在目录数据库中创建恢复目录所用表空间：
-　　
-　　SQL> create tablespace rman\_ts datafile 'd:\oracle\oradata\rman\rman\_ts.dbf' size 20M;
-　　
-　　表空间已创建。
-　　
-　　第二步，在目录数据库中创建RMAN 用户并授权：
-　　
-　　SQL> create user rman identified by rman default tablespace rman\_ts temporary tablespace temp quota unlimited on rman\_ts;
-　　
-　　用户已创建。
-　　
-　　SQL> grant recovery\_catalog\_owner to rman ;
-　　
-　　授权成功。
-　　SQL> grant connect, resource to rman ;
-　　
-　　授权成功。
-　　
-　　第三步，在目录数据库中创建恢复目录
-　　
-　　C:>rman catalog rman/rman
-　　
-　　恢复管理器：版本8.1.6.0.0 - Production
-　　
-　　RMAN-06008：连接到恢复目录数据库
-　　RMAN-06428：未安装恢复目录
-　　RMAN>create catalog tablespace rman\_ts;
-　　RMAN-06431：恢复目录已创建
-　　
-　　注意：虽然使用RMAN不一定必需恢复目录，但是推荐使用。因为恢复目录记载的信息大部分可以通过控制文件来记载，RMAN在恢复数据库时使用这些信息。不使用恢复目录将会对备份恢复操作有限制。
-　　
-　　3.3.使用恢复目录的优势
-　　
-　　可以存储脚本；
-　　
-　　记载较长时间的备份恢复操作；
-　　
-　　4. 启动RMAN
-　　RMAN为交互式命令行处理界面，也可以从企业管理器中运行。
-　　
-　　为了使用下面的实例，先检查环境符合：
-　　
-　　the target database is called "his" and has the same TNS alias
-　　
-　　user rman has been granted "recovery\_catalog\_owner "privileges
-　　
-　　目标数据库的连接用户为internal帐号，或者以其他SYSDBA类型帐号连接
-　　
-　　the recovery catalog database is called "rman" and has the same TNS alias
-　　
-　　the schema containing the recovery catalog is "rman" (same password)
-　　
-　　在使用RMAN前，设置NLS\_DATE\_FORMAT 和NLS\_LANG环境变量，很多RMAN LIST命令的输出结果是与日期时间相关的，这点在用户希望执行以时间为基准的恢复工作也很重要。
-　　
-　　下例是环境变量的示范：
-　　
-　　NLS\_LANG= SIMPLIFIED CHINESE\_CHINA.ZHS16GBK
-　　NLS\_DATE\_FORMAT=DD-MON-YYYY HH24\:MI\:SS
-　　
-　　为了保证RMAN使用时能连接恢复目录，恢复目录数据库必须打开，目标数据库至少要STARTED（unmount），否则RMAN会返回一个错误，目标数据库必须置于归档模式下。
-　　
-　　4.1.使用不带恢复目录的RMAN
-　　
-　　设置目标数据库的 ORACLE\_SID ，执行：
-　　
-　　% rman nocatalog
-　　RMAN> connect target
-　　RMAN> connect target internal/@his
-　　
-　　4.2.使用带恢复目录的RMAN
-　　
-　　% rman rman\_ts rman/rman\@rman
-　　RMAN> connect target
-　　% rman rman\_ts rman/rman\@rman target internal/@his
-　　
-　　4.3.使用RMAN
-　　
-　　一旦连接到目标数据库，可以通过交互界面或者事先存储的脚本执行指定RMAN命令， 下面是一个使用RMAN交互界面的实例：
-　　
-　　RMAN> resync catalog;
-　　RMAN-03022：正在编译命令：resync
-　　RMAN-03023：正在执行命令：resync
-　　RMAN-08002：正在启动全部恢复目录的 resync
-　　RMAN-08004：完成全部 resync
-　　
-　　使用脚本的实例：
-　　
-　　RMAN> execute script alloc\_1\_disk;
-　　
-　　创建或者替代存储的脚本：
-　　
-　　RMAN> replace script alloc\_1\_disk {
-　　2> allocate channel d1 type disk;
-　　3> }
-　　
-　　5.注册或者注销目标数据库
-　　5.1.注册目标数据库
-　　
-　　数据库状态：
-　　
-　　恢复目录状态：打开
-　　
-　　目标数据库：加载或者打开
-　　
-　　目标数据库在第一次使用RMAN之前必须在恢复目录中注册：
-　　
-　　第一步，启动恢复管理器，并且连接目标数据库：
-　　
-　　C:>rman target internal/oracle\@his catalog rman/rman\@rman
-　　
-　　恢复管理器：版本8.1.6.0.0 - Production
-　　
-　　RMAN-06005：连接到目标数据库：HIS (DBID=3021445076)
-　　RMAN-06008：连接到恢复目录数据库
-　　
-　　第二步，注册数据库：
-　　
-　　RMAN> register database;
-　　RMAN-03022：正在编译命令：register
-　　RMAN-03023：正在执行命令：register
-　　RMAN-08006：注册在恢复目录中的数据库
-　　RMAN-03023：正在执行命令：full resync
-　　RMAN-08002：正在启动全部恢复目录的resync
-　　RMAN-08004：完成全部resync
-　　
-　　5.2.注销目标数据库
-　　
-　　RMAN提供了一个注销工具，叫DBMS\_RCVCAT工具包，请注意一旦注销了该目标数据库，就不可以使用恢复目录中含有的备份集来恢复数据库了。
-　　
-　　为了能注销数据库，需要获得数据库的标识码（DB\_ID）和数据库键值（DB\_KEY）。其中连接目标数据库时将会获得DB\_ID。
-　　
-　　C:>rman target internal/oracle\@his catalog rman/rman\@rman
-　　
-　　恢复管理器：版本8.1.6.0.0 - Production
-　　
-　　RMAN-06005：连接到目标数据库：HIS (DBID=3021445076)
-　　RMAN-06008：连接到恢复目录数据库
-　　
-　　其中DBID=3021445076，利用DBID=3021445076查询数据库键值码：
-　　
-　　连接到目标数据库，查询db表：
-　　
-　　SQL> select \* from db;
-　　
-　　DB\_KEY DB\_ID CURR\_DBINC\_KEY
-　　---------- ---------- --------------
-　　1 3021445076 2
-　　
-　　获得DB\_KEY＝1，这样，该目标数据库DB\_KEY＝1，DBID=3021445076，利用两个值使用DBMS\_RCVCAT工具包就可以注销数据库：
+
+1.什么是RMAN？
+RMAN可以用来备份和还原数据库文件、归档日志和控制文件。它也可以用来执行完全或不完全的数据库恢复。
+
+注意：RMAN不能用于备份初始化参数文件和口令文件。
+
+RMAN启动数据库上的Oracle服务器进程来进行备份或还原。备份、还原、恢复是由这些进程驱动的。
+
+RMAN可以由OEM的Backup Manager GUI来控制，但在本文章里不作重点讨论。
+
+1. Terminology 专业词汇解释
+2.1. Backup sets 备份集合
+
+备份集合有下面的特性：
+
+包括一个或多个数据文件或归档日志
+
+以oracle专有的格式保存
+
+有一个完全的所有的备份片集合构成
+
+构成一个完全备份或增量备份
+
+2.2. Backup pieces 备份片
+
+一个备份集由若干个备份片组成。每个备份片是一个单独的输出文件。一个备份片的大小是有限制的；如果没有大小的限制， 备份集就只由一个备份片构成。备份片的大小不能大于使用的文件系统所支持的文件长度的最大值。
+
+2.3. Image copies 镜像备份
+
+镜像备份是独立文件（数据文件、归档日志、控制文件）的备份。它很类似操作系统级的文件备份。它不是备份集或 备份片，也没有被压缩。
+
+2.4. Full backup sets 全备份集合
+
+全备份是一个或多个数据文件中使用过的数据块的的备份。没有使用过的数据块是不被备份的，也就是说，oracle 进行备份集合的压缩。
+
+2.5. Incremental backup sets 增量备份集合
+
+增量备份是指备份一个或多个数据文件的自从上一次同一级别的或更低级别的备份以来被修改过的数据块。 与完全备份相同，增量备份也进行压缩。
+
+2.6. File multiplexing
+
+不同的多个数据文件的数据块可以混合备份在一个备份集中。
+
+2.7. Recovery catalog resyncing 恢复目录同步
+
+使用恢复管理器执行backup、copy、restore或者switch命令时，恢复目录自动进行更新，但是有关日志与归档日志信息没有自动记入恢复目录。需要进行目录同步。使用resync catalog命令进行同步。
+
+RMAN>resync catalog;
+RMAN-03022：正在编译命令：resync
+RMAN-03023：正在执行命令：resync
+RMAN-08002：正在启动全部恢复目录的 resync
+RMAN-08004：完成全部 resync
+
+3. 恢复目录
+3.1.恢复目录的概念
+
+恢复目录是由RMAN使用、维护的用来放置备份信息的仓库。RMAN利用恢复目录记载的信息去判断如何执行需要的备份恢复操作。
+
+恢复目录可以存在于ORACLE数据库的计划中。
+
+虽然恢复目录可以用来备份多个数据库，建议为恢复目录数据库创建一个单独的数据库。
+
+恢复目录数据库不能使用恢复目录备份自身。
+
+3.2.建立恢复目录
+
+第一步，在目录数据库中创建恢复目录所用表空间：
+
+SQL> create tablespace rman\_ts datafile 'd:\oracle\oradata\rman\rman\_ts.dbf' size 20M;
+
+表空间已创建。
+
+第二步，在目录数据库中创建RMAN 用户并授权：
+
+SQL> create user rman identified by rman default tablespace rman\_ts temporary tablespace temp quota unlimited on rman\_ts;
+
+用户已创建。
+
+SQL> grant recovery\_catalog\_owner to rman ;
+
+授权成功。
+SQL> grant connect, resource to rman ;
+
+授权成功。
+
+第三步，在目录数据库中创建恢复目录
+
+C:>rman catalog rman/rman
+
+恢复管理器：版本8.1.6.0.0 - Production
+
+RMAN-06008：连接到恢复目录数据库
+RMAN-06428：未安装恢复目录
+RMAN>create catalog tablespace rman\_ts;
+RMAN-06431：恢复目录已创建
+
+注意：虽然使用RMAN不一定必需恢复目录，但是推荐使用。因为恢复目录记载的信息大部分可以通过控制文件来记载，RMAN在恢复数据库时使用这些信息。不使用恢复目录将会对备份恢复操作有限制。
+
+3.3.使用恢复目录的优势
+
+可以存储脚本；
+
+记载较长时间的备份恢复操作；
+
+4. 启动RMAN
+RMAN为交互式命令行处理界面，也可以从企业管理器中运行。
+
+为了使用下面的实例，先检查环境符合：
+
+the target database is called "his" and has the same TNS alias
+
+user rman has been granted "recovery\_catalog\_owner "privileges
+
+目标数据库的连接用户为internal帐号，或者以其他SYSDBA类型帐号连接
+
+the recovery catalog database is called "rman" and has the same TNS alias
+
+the schema containing the recovery catalog is "rman" (same password)
+
+在使用RMAN前，设置NLS\_DATE\_FORMAT 和NLS\_LANG环境变量，很多RMAN LIST命令的输出结果是与日期时间相关的，这点在用户希望执行以时间为基准的恢复工作也很重要。
+
+下例是环境变量的示范：
+
+NLS\_LANG= SIMPLIFIED CHINESE\_CHINA.ZHS16GBK
+NLS\_DATE\_FORMAT=DD-MON-YYYY HH24\:MI\:SS
+
+为了保证RMAN使用时能连接恢复目录，恢复目录数据库必须打开，目标数据库至少要STARTED（unmount），否则RMAN会返回一个错误，目标数据库必须置于归档模式下。
+
+4.1.使用不带恢复目录的RMAN
+
+设置目标数据库的 ORACLE\_SID ，执行：
+
+% rman nocatalog
+RMAN> connect target
+RMAN> connect target internal/@his
+
+4.2.使用带恢复目录的RMAN
+
+% rman rman\_ts rman/rman\@rman
+RMAN> connect target
+% rman rman\_ts rman/rman\@rman target internal/@his
+
+4.3.使用RMAN
+
+一旦连接到目标数据库，可以通过交互界面或者事先存储的脚本执行指定RMAN命令， 下面是一个使用RMAN交互界面的实例：
+
+RMAN> resync catalog;
+RMAN-03022：正在编译命令：resync
+RMAN-03023：正在执行命令：resync
+RMAN-08002：正在启动全部恢复目录的 resync
+RMAN-08004：完成全部 resync
+
+使用脚本的实例：
+
+RMAN> execute script alloc\_1\_disk;
+
+创建或者替代存储的脚本：
+
+RMAN> replace script alloc\_1\_disk {
+2> allocate channel d1 type disk;
+3> }
+
+5.注册或者注销目标数据库
+5.1.注册目标数据库
+
+数据库状态：
+
+恢复目录状态：打开
+
+目标数据库：加载或者打开
+
+目标数据库在第一次使用RMAN之前必须在恢复目录中注册：
+
+第一步，启动恢复管理器，并且连接目标数据库：
+
+C:>rman target internal/oracle\@his catalog rman/rman\@rman
+
+恢复管理器：版本8.1.6.0.0 - Production
+
+RMAN-06005：连接到目标数据库：HIS (DBID=3021445076)
+RMAN-06008：连接到恢复目录数据库
+
+第二步，注册数据库：
+
+RMAN> register database;
+RMAN-03022：正在编译命令：register
+RMAN-03023：正在执行命令：register
+RMAN-08006：注册在恢复目录中的数据库
+RMAN-03023：正在执行命令：full resync
+RMAN-08002：正在启动全部恢复目录的resync
+RMAN-08004：完成全部resync
+
+5.2.注销目标数据库
+
+RMAN提供了一个注销工具，叫DBMS\_RCVCAT工具包，请注意一旦注销了该目标数据库，就不可以使用恢复目录中含有的备份集来恢复数据库了。
+
+为了能注销数据库，需要获得数据库的标识码（DB\_ID）和数据库键值（DB\_KEY）。其中连接目标数据库时将会获得DB\_ID。
+
+C:>rman target internal/oracle\@his catalog rman/rman\@rman
+
+恢复管理器：版本8.1.6.0.0 - Production
+
+RMAN-06005：连接到目标数据库：HIS (DBID=3021445076)
+RMAN-06008：连接到恢复目录数据库
+
+其中DBID=3021445076，利用DBID=3021445076查询数据库键值码：
+
+连接到目标数据库，查询db表：
+
+SQL> select \* from db;
+
+DB\_KEY DB\_ID CURR\_DBINC\_KEY
+---------- ---------- --------------
+1 3021445076 2
+
+获得DB\_KEY＝1，这样，该目标数据库DB\_KEY＝1，DBID=3021445076，利用两个值使用DBMS\_RCVCAT工具包就可以注销数据库：
 一、冷备份介绍：
 冷备份数据库是将数据库关闭之后备份所有的关键性文件包括数据文件、控制文件、联机REDO LOG文件，将其拷贝到另外的位置。此外冷备份也可以包含对参数文件和口令文件的备份，但是这两种备份是可以根据需要进行选择的。，冷备份实际也是一种物理备份，是一个备份数据库物理文件的过程。因为冷备份要备份除了重做日志以外的所有数据库文件，因此也被成为完全的数据库备份。它的优缺点如下所示：
 1、优点：
@@ -1652,120 +1842,113 @@ SQL> alter  tablespace users online;
 Tablespace altered.
 SQL> select tablespace\_name,online\_status from dba\_data\_files;
 TABLESPACE\_NAME                ONLINE\_ ------------------------------ ------- USERS                          ONLINE SYSAUX                         ONLINE UNDOTBS1                       ONLINE SYSTEM                         SYSTEM
+
 ### 闪回技术
+
 #### flashback
+
 #### show recyclebin
+
 ### exp/imp
 基本语法和实例：\
-    1、EXP:\
-      有三种主要的方式（完全、用户、表）\
-      1、完全：\
-          EXP SYSTEM/MANAGER BUFFER=64000 FILE=C:\FULL.DMP FULL=Y\
-          如果要执行完全导出，必须具有特殊的权限\
-      2、用户模式：\
-          EXP SONIC/SONIC    BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC\
-          这样用户SONIC的所有对象被输出到文件中。\
-      3、表模式：\
-          EXP SONIC/SONIC    BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC TABLES=(SONIC)\
-          这样用户SONIC的表SONIC就被导出\
-    2、IMP:\
-      具有三种模式（完全、用户、表）\
-      1、完全：\
-          IMP SYSTEM/MANAGER BUFFER=64000 FILE=C:\FULL.DMP FULL=Y\
-      2、用户模式：\
-          IMP SONIC/SONIC    BUFFER=64000 FILE=C:\SONIC.DMP FROMUSER=SONIC TOUSER=SONIC\
-          这样用户SONIC的所有对象被导入到文件中。必须指定FROMUSER、TOUSER参数，这样才能导入数据。\
-      3、表模式：\
-          EXP SONIC/SONIC    BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC TABLES=(SONIC)\
-          这样用户SONIC的表SONIC就被导入。
-\
+#### EXP:有三种主要的方式（完全、用户、表）
+1、完全：EXP SYSTEM/MANAGER BUFFER=64000 FILE=C:\FULL.DMP FULL=Y如果要执行完全导出，必须具有特殊的权限
+2、用户模式：EXP SONIC/SONIC   BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC这样用户SONIC的所有对象被输出到文件中。
+3、表模式：EXP SONIC/SONIC   BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC TABLES=(SONIC)这样用户SONIC的表SONIC就被导出
+#### IMP:具有三种模式（完全、用户、表）
+1、完全：IMP SYSTEM/MANAGER BUFFER=64000 FILE=C:\FULL.DMP FULL=Y\
+2、用户模式：IMP SONIC/SONIC   BUFFER=64000 FILE=C:\SONIC.DMP FROMUSER=SONIC TOUSER=SONIC这样用户SONIC的所有对象被导入到文件中。必须指定FROMUSER、TOUSER参数，这样才能导入数据。\
+3、表模式：EXP SONIC/SONIC   BUFFER=64000 FILE=C:\SONIC.DMP OWNER=SONIC TABLES=(SONIC)这样用户SONIC的表SONIC就被导入。
+
 ORACLE数据库有两类备份方法。第一类为物理备份，该方法实现数据库的完整恢复，但数据库必须运行在归挡模式下（业务数据库在非归挡模式下运行），且需要极大的外部存储设备，例如磁带库；第二类备份方式为逻辑备份，业务数据库采用此种方式，此方法不需要数据库运行在归挡模式下，不但备份简单，而且可以不需要外部存储设备。\
-　　\
-　　数据库逻辑备份方法\
-　　\
-　　ORACLE数据库的逻辑备份分为三种模式：表备份、用户备份和完全备份。\
-　　\
-　　表模式\
-　　\
-　　备份某个用户模式下指定的对象（表）。业务数据库通常采用这种备份方式。\
-　　\
-　　若备份到本地文件，使用如下命令：\
-　　\
-　　exp icdmain/icd rows=y indexes=n compress=n buffer=65536\
-　　feedback=100000 volsize=0\
-　　file=exp\_icdmain\_csd\_yyyymmdd.dmp\
-　　log=exp\_icdmain\_csd\_yyyymmdd.log\
-　　tables=icdmain.commoninformation,icdmain.serviceinfo,icdmain.dealinfo\
-　　\
-　　若直接备份到磁带设备，使用如下命令：\
-　　exp icdmain/icd rows=y indexes=n compress=n buffer=65536\
-　　feedback=100000 volsize=0\
-　　file=/dev/rmt0\
-　　log=exp\_icdmain\_csd\_yyyymmdd.log\
-　　tables=icdmain.commoninformation,icdmain.serviceinfo,icdmain.dealinfo\
-　　\
-　　注：在磁盘空间允许的情况下，应先备份到本地服务器，然后再拷贝到磁带。出于速度方面的考虑，尽量不要直接备份到磁带设备。\
-　　\
-　　用户模式\
-　　\
-　　备份某个用户模式下的所有对象。业务数据库通常采用这种备份方式。\
-　　若备份到本地文件，使用如下命令：\
-　　exp icdmain/icd owner=icdmain rows=y indexes=n compress=n buffer=65536\
-　　feedback=100000 volsize=0\
-　　file=exp\_icdmain\_yyyymmdd.dmp\
-　　log=exp\_icdmain\_yyyymmdd.log\
-　　若直接备份到磁带设备，使用如下命令：\
-　　exp icdmain/icd owner=icdmain rows=y indexes=n compress=n buffer=65536\
-　　feedback=100000 volsize=0\
-　　file=/dev/rmt0\
-　　log=exp\_icdmain\_yyyymmdd.log\
-　　注：如果磁盘有空间，建议备份到磁盘，然后再拷贝到磁带。如果数据库数据量较小，可采用这种办法备份。
+\
+数据库逻辑备份方法\
+\
+ORACLE数据库的逻辑备份分为三种模式：表备份、用户备份和完全备份。\
+\
+表模式\
+\
+备份某个用户模式下指定的对象（表）。业务数据库通常采用这种备份方式。\
+\
+若备份到本地文件，使用如下命令：\
+\
+exp icdmain/icd rows=y indexes=n compress=n buffer=65536\
+feedback=100000 volsize=0\
+file=exp\_icdmain\_csd\_yyyymmdd.dmp\
+log=exp\_icdmain\_csd\_yyyymmdd.log\
+tables=icdmain.commoninformation,icdmain.serviceinfo,icdmain.dealinfo\
+\
+若直接备份到磁带设备，使用如下命令：\
+exp icdmain/icd rows=y indexes=n compress=n buffer=65536\
+feedback=100000 volsize=0\
+file=/dev/rmt0\
+log=exp\_icdmain\_csd\_yyyymmdd.log\
+tables=icdmain.commoninformation,icdmain.serviceinfo,icdmain.dealinfo\
+\
+注：在磁盘空间允许的情况下，应先备份到本地服务器，然后再拷贝到磁带。出于速度方面的考虑，尽量不要直接备份到磁带设备。\
+\
+用户模式\
+\
+备份某个用户模式下的所有对象。业务数据库通常采用这种备份方式。\
+若备份到本地文件，使用如下命令：\
+exp icdmain/icd owner=icdmain rows=y indexes=n compress=n buffer=65536\
+feedback=100000 volsize=0\
+file=exp\_icdmain\_yyyymmdd.dmp\
+log=exp\_icdmain\_yyyymmdd.log\
+若直接备份到磁带设备，使用如下命令：\
+exp icdmain/icd owner=icdmain rows=y indexes=n compress=n buffer=65536\
+feedback=100000 volsize=0\
+file=/dev/rmt0\
+log=exp\_icdmain\_yyyymmdd.log\
+注：如果磁盘有空间，建议备份到磁盘，然后再拷贝到磁带。如果数据库数据量较小，可采用这种办法备份。
  
-　　以下为详细的导入导出实例：
-　　一、数据导出：
+以下为详细的导入导出实例：
+一、数据导出：
  
-　　1、 将数据库TEST完全导出，用户名system 密码manager 导出到D：\daochu.dmp中
+1、将数据库TEST完全导出，用户名system 密码manager 导出到D：\daochu.dmp中
  
-　　exp system/manager\@TEST file=d：\daochu.dmp full=y
+exp system/manager\@TEST file=d：\daochu.dmp full=y
  
-　　2、 将数据库中system用户与sys用户的表导出
+2、将数据库中system用户与sys用户的表导出
  
-　　exp system/manager\@TEST file=d：\daochu.dmp owner=（system，sys）
+exp system/manager\@TEST file=d：\daochu.dmp owner=（system，sys）
  
-　　3、 将数据库中的表table1 、table2导出
+3、将数据库中的表table1 、table2导出
  
-　　exp system/manager\@TEST file=d：\daochu.dmp tables=（table1，table2）
+exp system/manager\@TEST file=d：\daochu.dmp tables=（table1，table2）
  
-　　4、 将数据库中的表table1中的字段filed1以"00"打头的数据导出
+4、将数据库中的表table1中的字段filed1以"00"打头的数据导出
  
-　　exp system/manager\@TEST file=d：\daochu.dmp tables=（table1） query=\\" where filed1 like '00%'\\"
+exp system/manager\@TEST file=d：\daochu.dmp tables=（table1） query=\\" where filed1 like '00%'\\"
  
-　　上面是常用的导出，对于压缩我不太在意，用winzip把dmp文件可以很好的压缩。
+上面是常用的导出，对于压缩我不太在意，用winzip把dmp文件可以很好的压缩。
  
-　　不过在上面命令后面 加上 compress=y  就可以了
+不过在上面命令后面 加上 compress=y 就可以了
  
-　　二、数据的导入
+二、数据的导入
  
- 　 1、将D：\daochu.dmp 中的数据导入 TEST数据库中。
+1、将D：\daochu.dmp 中的数据导入 TEST数据库中。
  
-　　imp system/manager\@TEST  file=d：\daochu.dmp
+imp system/manager\@TEST file=d：\daochu.dmp
  
-　　上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。
+上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。
  
-　　在后面加上 ignore=y 就可以了。
+在后面加上 ignore=y 就可以了。
  
-　　2 将d：\daochu.dmp中的表table1 导入
+2 将d：\daochu.dmp中的表table1 导入
  
-　　imp system/manager\@TEST  file=d：\daochu.dmp  tables=（table1）
+imp system/manager\@TEST file=d：\daochu.dmp tables=（table1）
  
-　　基本上上面的导入导出够用了。不少情况我是将表彻底删除，然后导入。
+基本上上面的导入导出够用了。不少情况我是将表彻底删除，然后导入。
  
-　　注意：
+注意：
  
-　　你要有足够的权限，权限不够它会提示你。
+你要有足够的权限，权限不够它会提示你。
  
-　　数据库时可以连上的。可以用tnsping TEST 来获得数据库TEST能否连上。
+数据库时可以连上的。可以用tnsping TEST 来获得数据库TEST能否连上。
+
 ### expdp/impdp
+
 ### expdp/impdp和exp/imp的区别
 1、exp和imp是客户端工具程序，它们既可以在客户端使用，也可以在服务端使用。
 2、expdp和impdp是服务端的工具程序，他们只能在oracle服务端使用，不能在客户端使用。
@@ -1774,9 +1957,9 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
  
 二、expdp导出步骤
 （1）创建逻辑目录：
-　　　第一步：在服务器上创建真实的目录；（注意：第三步创建逻辑目录的命令不会在OS上创建真正的目录，所以要先在服务器上创建真实的目录。如下图：）
+　第一步：在服务器上创建真实的目录；（注意：第三步创建逻辑目录的命令不会在OS上创建真正的目录，所以要先在服务器上创建真实的目录。如下图：）
 　![](https://images2017.cnblogs.com/blog/1223704/201709/1223704-20170905095737960-458597655.png)
-　　　第二步：用sys管理员登录sqlplus；
+　第二步：用sys管理员登录sqlplus；
 [![复制代码](https://assets.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")
     oracle@ypdbtest:/home/oracle/dmp/vechcore>sqlplus
     SQL*Plus: Release 11.2.0.4.0 Production on Tue Sep 5 09:20:49 2017
@@ -1788,10 +1971,10 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
     With the Partitioning, OLAP, Data Mining and Real Application Testing options
     SQL>
 [![复制代码](https://assets.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")
-　　　第三步：创建逻辑目录；
+　第三步：创建逻辑目录；
     SQL> create directory data_dir as '/home/oracle/dmp/user';
     Directory created.
-　　　第四步：查看管理员目录，检查是否存在；
+　第四步：查看管理员目录，检查是否存在；
 [![复制代码](https://assets.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")
     SQL> select * from dba_directories;
     OWNER                          DIRECTORY_NAME
@@ -1801,51 +1984,51 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
     SYS                            DATA_DIR
     /home/oracle/dmp/user
 [![复制代码](https://assets.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")
-　　　　第五步：用sys管理员给你的指定用户赋予在该目录的操作权限。
+　　第五步：用sys管理员给你的指定用户赋予在该目录的操作权限。
     SQL> grant read,write on directory data_dir to user;
     Grant succeeded.
 （2）用expdp导出dmp，有五种导出方式：
-　　　　第一种：“full=y”，全量导出数据库；
+　　第一种：“full=y”，全量导出数据库；
     expdp user/passwd@orcl dumpfile=expdp.dmp directory=data_dir full=y logfile=expdp.log;
-　　　　第二种：schemas按用户导出；
+　　第二种：schemas按用户导出；
     expdp user/passwd@orcl schemas=user dumpfile=expdp.dmp directory=data_dir logfile=expdp.log;
-　　　　第三种：按表空间导出；
+　　第三种：按表空间导出；
     expdp sys/passwd@orcl tablespace=tbs1,tbs2 dumpfile=expdp.dmp directory=data_dir logfile=expdp.log;
-　　　　第四种：导出表；
+　　第四种：导出表；
     expdp user/passwd@orcl tables=table1,table2 dumpfile=expdp.dmp directory=data_dir logfile=expdp.log;
-　　　　第五种：按查询条件导；
+　　第五种：按查询条件导；
     expdp user/passwd@orcl tables=table1='where number=1234' dumpfile=expdp.dmp directory=data_dir logfile=expdp.log;
 \
 三、impdp导入步骤
 （1）如果不是同一台服务器，需要先将上面的dmp文件下载到目标服务器上，具体命令参照：<http://www.cnblogs.com/promise-x/p/7452972.html>
 （2）参照“expdp导出步骤”里的前三步，建立逻辑目录；
 （3）用impdp命令导入，对应五种方式：
-　　　　第一种：“full=y”，全量导入数据库；
+　　第一种：“full=y”，全量导入数据库；
     impdp user/passwd directory=data_dir dumpfile=expdp.dmp full=y;
-　　　　第二种：同名用户导入，从用户A导入到用户A；
+　　第二种：同名用户导入，从用户A导入到用户A；
     impdp A/passwd schemas=A directory=data_dir dumpfile=expdp.dmp logfile=impdp.log;
-　　　　第三种：①从A用户中把表table1和table2导入到B用户中；
+　　第三种：①从A用户中把表table1和table2导入到B用户中；
     impdp B/passwdtables=A.table1,A.table2 remap_schema=A:B directory=data_dir dumpfile=expdp.dmp logfile=impdp.log;
-　　　　　　　　②将表空间TBS01、TBS02、TBS03导入到表空间A\_TBS，将用户B的数据导入到A，并生成新的oid防止冲突；
+　　　　　　②将表空间TBS01、TBS02、TBS03导入到表空间A\_TBS，将用户B的数据导入到A，并生成新的oid防止冲突；
     impdp A/passwd remap_tablespace=TBS01:A_TBS,TBS02:A_TBS,TBS03:A_TBS remap_schema=B:A FULL=Y transform=oid:n 
     directory=data_dir dumpfile=expdp.dmp logfile=impdp.log
-　　　　第四种：导入表空间；
+　　第四种：导入表空间；
     impdp sys/passwd tablespaces=tbs1 directory=data_dir dumpfile=expdp.dmp logfile=impdp.log;
-　　　　第五种：追加数据；
+　　第五种：追加数据；
     impdp sys/passwd directory=data_dir dumpfile=expdp.dmp schemas=system table_exists_action=replace logfile=impdp.log; 
     --table_exists_action:导入对象已存在时执行的操作。有效关键字:SKIP,APPEND,REPLACE和TRUNCATE
  
 四、expdp关键字与命令
 
- （1）关键字　　　　　　　　　  　　说明 (默认)
+ （1）关键字　　　　　　　　　 　　说明 (默认)
 
  ATTACH　　　　　　　　　　　　　　　连接到现有作业, 例如 ATTACH \[=作业名]。
- COMPRESSION　　　　  　　　　　　　减小转储文件内容的大小, 其中有效关键字  值为: ALL, (METADATA\_ONLY), DATA\_ONLY 和 NONE。
- CONTENT　　　　　　　　　 　　　　   指定要卸载的数据, 其中有效关键字  值为: (ALL), DATA\_ONLY 和 METADATA\_ONLY。
- DATA\_OPTIONS　　　　　　  　　　　   数据层标记, 其中唯一有效的值为: 使用CLOB格式的 XML\_CLOBS-write XML 数据类型。
+ COMPRESSION　　　　 　　　　　　　减小转储文件内容的大小, 其中有效关键字 值为: ALL, (METADATA\_ONLY), DATA\_ONLY 和 NONE。
+ CONTENT　　　　　　　　　 　　　　  指定要卸载的数据, 其中有效关键字 值为: (ALL), DATA\_ONLY 和 METADATA\_ONLY。
+ DATA\_OPTIONS　　　　　　  　　　　  数据层标记, 其中唯一有效的值为: 使用CLOB格式的 XML\_CLOBS-write XML 数据类型。
  DIRECTORY　　　　　　　　 　　　　　供转储文件和日志文件使用的目录对象，即逻辑目录。
  DUMPFILE　　　　　　　　　　　　　　目标转储文件 (expdp.dmp) 的列表,例如 DUMPFILE=expdp1.dmp, expdp2.dmp。
- ENCRYPTION　　　　　　　　  　　　　加密部分或全部转储文件, 其中有效关键字值为: ALL, DATA\_ONLY, METADATA\_ONLY,ENCRYPTED\_COLUMNS\_ONLY 或 NONE。
+ ENCRYPTION　　　　　　　　 　　　　加密部分或全部转储文件, 其中有效关键字值为: ALL, DATA\_ONLY, METADATA\_ONLY,ENCRYPTED\_COLUMNS\_ONLY 或 NONE。
  ENCRYPTION\_ALGORITHM　　　　　　指定应如何完成加密, 其中有效关键字值为: (AES128), AES192 和 AES256。
  ENCRYPTION\_MODE　　　　　　　　　`生成加密密钥的方法, 其中有效关键字值为: DUAL, PASSWORD` `和 (TRANSPARENT)。`
  ENCRYPTION\_PASSWORD　　　　　　用于创建加密列数据的口令关键字。
@@ -1855,24 +2038,24 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
  FILESIZE　　　　　　　　　　　　  　　以字节为单位指定每个转储文件的大小。
  FLASHBACK\_SCN　　　　　　　　 　　用于将会话快照设置回以前状态的 SCN。 -- 指定导出特定SCN时刻的表数据。
  FLASHBACK\_TIME　　　　　　　　　　用于获取最接近指定时间的 SCN 的时间。-- 定导出特定时间点的表数据，注意FLASHBACK\_SCN和FLASHBACK\_TIME不能同时使用。
- FULL　　　　　　　　　　　　　　  　　导出整个数据库 (N)。　　
+ FULL　　　　　　　　　　　　　　 　　导出整个数据库 (N)。　　
  HELP　　　　　　　　　　　　　　 　　显示帮助消息 (N)。
- INCLUDE　　　　　　　　　　　　  　　包括特定的对象类型, 例如 INCLUDE=TABLE\_DATA。
+ INCLUDE　　　　　　　　　　　　 　　包括特定的对象类型, 例如 INCLUDE=TABLE\_DATA。
  JOB\_NAME　　　　　　　　　　　  　　要创建的导出作业的名称。
  LOGFILE　　　　　　　　　　　　  　　日志文件名 (export.log)。
- NETWORK\_LINK　　　　　　　　   　　链接到源系统的远程数据库的名称。
+ NETWORK\_LINK　　　　　　　　  　　链接到源系统的远程数据库的名称。
  NOLOGFILE　　　　　　　　　　　　　不写入日志文件 (N)。
- PARALLEL　　　　　　　　　　　   　　更改当前作业的活动 worker 的数目。
+ PARALLEL　　　　　　　　　　　  　　更改当前作业的活动 worker 的数目。
  PARFILE　　　　　　　　　　　　  　　指定参数文件。
  QUERY　　　　　　　　　　　　　 　　用于导出表的子集的谓词子句。--QUERY = \[schema.]\[table\_name:] query\_clause。
  REMAP\_DATA　　　　　　　　　   　　指定数据转换函数,例如 REMAP\_DATA=EMP.EMPNO\:REMAPPKG.EMPNO。
  REUSE\_DUMPFILES　　　　　　　　　覆盖目标转储文件 (如果文件存在) (N)。
- SAMPLE　　　　　　　　　　　　  　　要导出的数据的百分比。
+ SAMPLE　　　　　　　　　　　　 　　要导出的数据的百分比。
  SCHEMAS　　　　　　　　　　　  　　要导出的方案的列表 (登录方案)。　　
- STATUS　　　　　　　　　　　　  　　在默认值 (0) 将显示可用时的新状态的情况下,要监视的频率 (以秒计) 作业状态。　　
- TABLES　　　　　　　　　　　　  　　标识要导出的表的列表 - 只有一个方案。--\[schema\_name.]table\_name\[:partition\_name]\[,…]
+ STATUS　　　　　　　　　　　　 　　在默认值 (0) 将显示可用时的新状态的情况下,要监视的频率 (以秒计) 作业状态。　　
+ TABLES　　　　　　　　　　　　 　　标识要导出的表的列表 - 只有一个方案。--\[schema\_name.]table\_name\[:partition\_name]\[,…]
  TABLESPACES　　　　　　　　　 　　标识要导出的表空间的列表。
- TRANSPORTABLE　　　　　　　　　   指定是否可以使用可传输方法, 其中有效关键字值为: ALWAYS, (NEVER)。
+ TRANSPORTABLE　　　　　　　　　  指定是否可以使用可传输方法, 其中有效关键字值为: ALWAYS, (NEVER)。
  TRANSPORT\_FULL\_CHECK　　 　　　验证所有表的存储段 (N)。 
  TRANSPORT\_TABLESPACES　　　　  要从中卸载元数据的表空间的列表。
  VERSION　　　　　　　　　　　　　　要导出的对象的版本, 其中有效关键字为:(COMPATIBLE), LATEST 或任何有效的数据库版本。
@@ -1885,10 +2068,10 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
  FILESIZE　　　　　　　　　　　　 　后续 ADD\_FILE 命令的默认文件大小 (字节)。
  HELP　　　　　　　　　　　　　　　总结交互命令。
  KILL\_JOB　　　　　　　　　　　　　分离和删除作业。
- PARALLEL　　　　　　　　　　　  　 更改当前作业的活动 worker 的数目。PARALLEL=\<worker 的数目>。
+ PARALLEL　　　　　　　　　　　 　 更改当前作业的活动 worker 的数目。PARALLEL=\<worker 的数目>。
  \_DUMPFILES　　　　　　　　　　 　 覆盖目标转储文件 (如果文件存在) (N)。
- START\_JOB　　　　　　　　　　   　启动/恢复当前作业。
- STATUS　　　　　　　　　　　　  　 在默认值 (0) 将显示可用时的新状态的情况下,要监视的频率 (以秒计) 作业状态。STATUS\[=interval]。
+ START\_JOB　　　　　　　　　　  　启动/恢复当前作业。
+ STATUS　　　　　　　　　　　　 　 在默认值 (0) 将显示可用时的新状态的情况下,要监视的频率 (以秒计) 作业状态。STATUS\[=interval]。
  STOP\_JOB　　　　　　　　　　　 　 顺序关闭执行的作业并退出客户机。STOP\_JOB=IMMEDIATE 将立即关闭数据泵作业。
 
  
@@ -1897,8 +2080,8 @@ ORACLE数据库有两类备份方法。第一类为物理备份，该方法实�
 （1）关键字　　　　　　　　　　　　说明 (默认)
 
 ATTACH　　　　　　　　　　　　　　　连接到现有作业, 例如 ATTACH \[=作业名]。
-CONTENT　　　　　　　　　 　　　　   指定要卸载的数据, 其中有效关键字  值为: (ALL), DATA\_ONLY 和 METADATA\_ONLY。
-DATA\_OPTIONS　　　　　　  　　　　   数据层标记,其中唯一有效的值为\:SKIP\_CONSTRAINT\_ERRORS-约束条件错误不严重。
+CONTENT　　　　　　　　　 　　　　  指定要卸载的数据, 其中有效关键字 值为: (ALL), DATA\_ONLY 和 METADATA\_ONLY。
+DATA\_OPTIONS　　　　　　 　　　　  数据层标记,其中唯一有效的值为\:SKIP\_CONSTRAINT\_ERRORS-约束条件错误不严重。
 DIRECTORY　　　　　　　　　　　　　供转储文件,日志文件和sql文件使用的目录对象，即逻辑目录。
 DUMPFILE　　　　　　　　　　　　　　要从(expdp.dmp)中导入的转储文件的列表,例如 DUMPFILE=expdp1.dmp, expdp2.dmp。
  ENCRYPTION\_PASSWORD　　　　　　用于访问加密列数据的口令关键字。此参数对网络导入作业无效。
@@ -1910,52 +2093,61 @@ DUMPFILE　　　　　　　　　　　　　　要从(expdp.dmp)中导入的�
  HELP　　　　　　　　　　　　　　　　 显示帮助消息(N)。
  INCLUDE　　　　　　　　　　　　　　 包括特定的对象类型, 例如 INCLUDE=TABLE\_DATA。
  JOB\_NAME　　　　　　　　　　　　　 要创建的导入作业的名称。
- LOGFILE　　　　　　　　　　　　　　  日志文件名(import.log)。
+ LOGFILE　　　　　　　　　　　　　　 日志文件名(import.log)。
  NETWORK\_LINK　　　　　　　　　　　链接到源系统的远程数据库的名称。
  NOLOGFILE　　　　　　　　　　　　　不写入日志文件。　　
- PARALLEL　　　　　　　　　　　　　   更改当前作业的活动worker的数目。
- PARFILE　　　　　　　　　　　　　　  指定参数文件。
+ PARALLEL　　　　　　　　　　　　　  更改当前作业的活动worker的数目。
+ PARFILE　　　　　　　　　　　　　　 指定参数文件。
  PARTITION\_OPTIONS　　　　　　　　 指定应如何转换分区,其中有效关键字为\:DEPARTITION,MERGE和(NONE)。
  QUERY　　　　　　　　　　　　　　　用于导入表的子集的谓词子句。
  REMAP\_DATA　　　　　　　　　　　　指定数据转换函数,例如REMAP\_DATA=EMP.EMPNO\:REMAPPKG.EMPNO。
  REMAP\_DATAFILE　　　　　　　　　　在所有DDL语句中重新定义数据文件引用。
  REMAP\_SCHEMA　　　　　　　　　　 将一个方案中的对象加载到另一个方案。
- REMAP\_TABLE　　　　　　　　　　　  表名重新映射到另一个表,例如 REMAP\_TABLE=EMP.EMPNO\:REMAPPKG.EMPNO。
+ REMAP\_TABLE　　　　　　　　　　　 表名重新映射到另一个表,例如 REMAP\_TABLE=EMP.EMPNO\:REMAPPKG.EMPNO。
  REMAP\_TABLESPACE　　　　　　　　将表空间对象重新映射到另一个表空间。
  REUSE\_DATAFILES　　　　　　　　　 如果表空间已存在, 则将其初始化 (N)。
- SCHEMAS　　　　　　　　　　　　　   要导入的方案的列表。
- SKIP\_UNUSABLE\_INDEXES　　　　　  跳过设置为无用索引状态的索引。
- SQLFILE　　　　　　　　　　　　　　  将所有的 SQL DDL 写入指定的文件。
- STATUS　　　　　　　　　　　　　　  在默认值(0)将显示可用时的新状态的情况下,要监视的频率(以秒计)作业状态。　　
- STREAMS\_CONFIGURATION　　　　   启用流元数据的加载。
+ SCHEMAS　　　　　　　　　　　　　  要导入的方案的列表。
+ SKIP\_UNUSABLE\_INDEXES　　　　　 跳过设置为无用索引状态的索引。
+ SQLFILE　　　　　　　　　　　　　　 将所有的 SQL DDL 写入指定的文件。
+ STATUS　　　　　　　　　　　　　　 在默认值(0)将显示可用时的新状态的情况下,要监视的频率(以秒计)作业状态。　　
+ STREAMS\_CONFIGURATION　　　　  启用流元数据的加载。
  TABLE\_EXISTS\_ACTION　　　　　　　导入对象已存在时执行的操作。有效关键字:(SKIP),APPEND,REPLACE和TRUNCATE。
- TABLES　　　　　　　　　　　　　　  标识要导入的表的列表。
+ TABLES　　　　　　　　　　　　　　 标识要导入的表的列表。
  TABLESPACES　　　　　　　　　　　 标识要导入的表空间的列表。　
  TRANSFORM　　　　　　　　　　　　要应用于适用对象的元数据转换。有效转换关键字为\:SEGMENT\_ATTRIBUTES,STORAGE,OID和PCTSPACE。
  TRANSPORTABLE　　　　　　　　　  用于选择可传输数据移动的选项。有效关键字为: ALWAYS 和 (NEVER)。仅在 NETWORK\_LINK 模式导入操作中有效。
  TRANSPORT\_DATAFILES　　　　　　 按可传输模式导入的数据文件的列表。
  TRANSPORT\_FULL\_CHECK　　　　　验证所有表的存储段 (N)。
  TRANSPORT\_TABLESPACES　　　　 要从中加载元数据的表空间的列表。仅在 NETWORK\_LINK 模式导入操作中有效。
-  VERSION　　　　　　　　　　　　　  要导出的对象的版本, 其中有效关键字为:(COMPATIBLE), LATEST 或任何有效的数据库版本。仅对 NETWORK\_LINK 和 SQLFILE 有效。
+ VERSION　　　　　　　　　　　　　 要导出的对象的版本, 其中有效关键字为:(COMPATIBLE), LATEST 或任何有效的数据库版本。仅对 NETWORK\_LINK 和 SQLFILE 有效。
 
 （2）命令　　　　　　　　　　　　说明
 
  CONTINUE\_CLIENT　　　　　　　　　返回到记录模式。如果处于空闲状态, 将重新启动作业。
  EXIT\_CLIENT　　　　　　　　　　　　退出客户机会话并使作业处于运行状态。
- HELP　　　　　　　　　　　　　　　   总结交互命令。
- KILL\_JOB　　　　　　　　　　　　　   分离和删除作业。
+ HELP　　　　　　　　　　　　　　　  总结交互命令。
+ KILL\_JOB　　　　　　　　　　　　　  分离和删除作业。
  PARALLEL　　　　　　　　　　　　　 更改当前作业的活动 worker 的数目。PARALLEL=\<worker 的数目>。
- START\_JOB　　　　　　　　　　　　  启动/恢复当前作业。START\_JOB=SKIP\_CURRENT 在开始作业之前将跳过作业停止时执行的任意操作。
+ START\_JOB　　　　　　　　　　　　 启动/恢复当前作业。START\_JOB=SKIP\_CURRENT 在开始作业之前将跳过作业停止时执行的任意操作。
  STATUS　　　　　　　　　　　　　　 在默认值 (0) 将显示可用时的新状态的情况下,要监视的频率 (以秒计) 作业状态。STATUS\[=interval]。
  STOP\_JOB　　　　　　　　　　　　　顺序关闭执行的作业并退出客户机。STOP\_JOB=IMMEDIATE 将立即关闭数据泵作业。
+
 ## 数据库集群技术
+
 ### RAC应用
+
 ### ASM
+
 ### 容灾和数据卫士
+
 ### 故障诊断
+
 ## 商业智能与数据仓库
+
 ### 多维数据库
+
 ### 数据挖掘
+
 ## Oracle事务隔离级别
 设置一个事务的隔离级别：
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
@@ -1971,13 +2163,14 @@ Read Uncommited	Y	Y	Y
 Read Commited	N	Y	Y
 Repeatable read	N	N	Y
 Serialized	N	N	N
+
 ## 索引
 创建标准索引： 
-CREATE  INDEX 索引名 ON 表名 (列名)  TABLESPACE 表空间名; 
+CREATE INDEX 索引名 ON 表名 (列名) TABLESPACE 表空间名; 
 创建唯一索引: 
-CREATE unique INDEX 索引名 ON 表名 (列名)  TABLESPACE 表空间名; 
+CREATE unique INDEX 索引名 ON 表名 (列名) TABLESPACE 表空间名; 
 创建组合索引: 
-CREATE INDEX 索引名 ON 表名 (列名1,列名2)  TABLESPACE 表空间名; 
+CREATE INDEX 索引名 ON 表名 (列名1,列名2) TABLESPACE 表空间名; 
 创建反向键索引: 
 CREATE INDEX 索引名 ON 表名 (列名) reverse TABLESPACE 表空间名; 
 索引使用原则： 
@@ -2006,17 +2199,18 @@ E、如果既有单字段索引，又有这几个字段上的复合索引，一�
 3. 索引需要占物理空间，除了数据表占数据空间之外，每一个索引还要占一定的物理空间，如果要建立聚簇索引，那么需要的空间就会更大 
 4. 当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，降低了数据的维护速度 
 22. 怎样创建一个视图,视图的好处, 视图可以控制权限吗? 
-create view 视图名 as select 列名 \[别名]  …  from 表 \[unio \[all] select … ] ] 
+create view 视图名 as select 列名 \[别名] … from 表 \[unio \[all] select … ] ] 
 好处： 
 1. 可以简单的将视图理解为sql查询语句，视图最大的好处是不占系统空间 
 2. 一些安全性很高的系统，不会公布系统的表结构，可能会使用视图将一些敏感信息过虑或者重命名后公布结构 
+
 ## 锁
 oracle的锁又几种,定义分别是什么; 
-1.  行共享锁 (ROW SHARE) 
-2.  行排他锁(ROW EXCLUSIVE) 
+1. 行共享锁 (ROW SHARE) 
+2. 行排他锁(ROW EXCLUSIVE) 
 3 . 共享锁(SHARE) 
-4.  共享行排他锁(SHARE ROW EXCLUSIVE) 
-5.  排他锁(EXCLUSIVE) 
+4. 共享行排他锁(SHARE ROW EXCLUSIVE) 
+5. 排他锁(EXCLUSIVE) 
 使用方法： 
 SELECT \* FROM order\_master WHERE vencode="V002" 
 FOR UPDATE WAIT 5; 
@@ -2047,9 +2241,8 @@ DML 语句能够自动地获得所需的表级锁（TM）与行级（事务）�
 TM 锁用于确保在修改表的内容时，表的结构不会改变，例如防止在 DML 语句执行期间相关的表被移除。当用户对表执行 DDL 或 DML 操作时，将获取一个此表的表级锁。
 当事务获得行锁后，此事务也将自动获得该行的表锁(共享锁),以防止其它事务进行 DDL 语句影响记录行的更新。
 事务也可以在进行过程中获得共享锁或排它锁，只有当事务显示使用 LOCK TABLE 语 句显示的定义一个排它锁时，事务才会获得表上的排它锁,也可使用 LOCK TABLE 显示的定义一个表级的共享锁。
-TM 锁包括了 SS、 SX、 S、 X 等多种模式，在数据库中用 0－6 来表示。不同的 SQL 操作产生不同类型的 TM 锁.
+TM 锁包括了 SS、SX、S、X 等多种模式，在数据库中用 0－6 来表示。不同的 SQL 操作产生不同类型的 TM 锁.
 TM 锁类型表
-
 
 | 锁模式 | 锁描述  | 解释  | SQL操作  |
 | 0 | none | :-- | :-- | 
@@ -2144,23 +2337,24 @@ oracle使用不同类型的系统锁来保护内部数据库和内存结构.
 这些机制是用户无法访问的。
 4.内部闩锁 
 内部闩锁：这是ORACLE中的一种特殊锁，用于顺序访问内部系统结构。当事务需向缓冲区写入信息时，为了使用此块内存区域，ORACLE首先必须取得这块内存区域的闩锁，才能向此块内存写入信息。 
+
 ## 主从同步
-1 利用Oracle自身组件   
+1 利用Oracle自身组件  
 DG方案
-        DG方案也叫ADG方案，英语全称Physical Standby(Active DataGuard)。支持恢复与只读并行，但由于并不是日志的逻辑应用机制，在读写分离的场景中最为局限 ，将生产机的logfiles传递给容灾机，通过Redo Apply技术来保障数据镜像能力，物理上提供了与生产数据库在数据块级的一致性镜像，也叫physical方式。Physical方式支持异步传输方式，但容灾机处在恢复状态，不可用；
+    DG方案也叫ADG方案，英语全称Physical Standby(Active DataGuard)。支持恢复与只读并行，但由于并不是日志的逻辑应用机制，在读写分离的场景中最为局限 ，将生产机的logfiles传递给容灾机，通过Redo Apply技术来保障数据镜像能力，物理上提供了与生产数据库在数据块级的一致性镜像，也叫physical方式。Physical方式支持异步传输方式，但容灾机处在恢复状态，不可用；
 Logical Standby
-        通过SQL Apply（即Log Miner）技术，将接收到的日志文件还原成SQL语句，并在逻辑备份数据库上执行，从而达到数据一致性的目的，也叫logical 方式。logical方式只支持同步传输方式，但容灾机可以处在read-only状态
+    通过SQL Apply（即Log Miner）技术，将接收到的日志文件还原成SQL语句，并在逻辑备份数据库上执行，从而达到数据一致性的目的，也叫logical 方式。logical方式只支持同步传输方式，但容灾机可以处在read-only状态
 Streams
-        实时将数据复制到另外一个库供读取。最灵活，但最不稳定。
+    实时将数据复制到另外一个库供读取。最灵活，但最不稳定。
 2 选择商业化第三方的产品
 GoldenGate 虽然属于第三方，但是已经被Oracle收购！
-      老牌的Shareplex，还是本土DSG公司的RealSync和九桥公司的DDS，或是Oracle新贵GoldenGate，都是可供选择的目标。
-      随着GoldenGate被Oracle收购和推广，个人认为GoldenGate在容灾、数据分发和同步方面将大行其道。
+   老牌的Shareplex，还是本土DSG公司的RealSync和九桥公司的DDS，或是Oracle新贵GoldenGate，都是可供选择的目标。
+   随着GoldenGate被Oracle收购和推广，个人认为GoldenGate在容灾、数据分发和同步方面将大行其道。
 DSG RealSync同步du软件的实现方案：
 扩展知识：
  读写分离的重点其实就是数据同步，能实现数据实时同步的技术很多，基于OS层(例如VERITAS VVR)，基于存储复制(中高端存储大多都支持)，基于应用分发或者基于数据库层的技术。因为数据同步可能并不是单一的DB整库同步，会涉及到业务数据选择以及多源整合等问题，因此OS复制和存储复制多数情况并不适合做读写分离的技术首选。
-        基于日志的Oracle复制技术，Oracle自身组件可以实现，同时也有成熟的商业软件。选商业的独立产品还是Oracle自身的组件功能，这取决于多方面的因素。比如团队的相应技术运维能力、项目投入成本、业务系统的负载程度等。
-|         | Oracle DataGuard                                | Oracle GoldenGate                                                                                            |
+    基于日志的Oracle复制技术，Oracle自身组件可以实现，同时也有成熟的商业软件。选商业的独立产品还是Oracle自身的组件功能，这取决于多方面的因素。比如团队的相应技术运维能力、项目投入成本、业务系统的负载程度等。
+|        | Oracle DataGuard                                | Oracle GoldenGate                                                                                            |
 | :------ | :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------- |
 | 原理      | 复制归档日志或在线日志                                     | 抽取在线日志中的数据变化，转换为GGS自定义的数据格式存放在本地队列或远端队列中                                                                     |
 | 稳定性     | 作为灾备的稳定性极高                                      | 稳定性不如DataGuard                                                                                               |
@@ -2173,13 +2367,21 @@ DSG RealSync同步du软件的实现方案：
 | 异构数据库支持 | 单一数据库解决方案，仅运行在Oracle数据库上，源端和目标端操作系统必须相同，版本号可以不同 | 可以在不同类型和版本的数据库之间进行数据复制。如ORACLE，DB2，SYBASE，SQL SERVER，INFORMIX、Teradata等。   适用于不同操作系统如windows、Linux、unix、aix等 |
 | 带宽占用    | 使用Oracle Net传输日志，可通过高级压缩选项进行压缩，压缩比在2-3倍         | 利用TCP/IP传输数据变化，集成数据压缩，提供理论可达到9：1压缩比的数据压缩特性                                                                   |
 | 拓扑结构    | 可以实现一对多模式                                       | 可以实现一对一、一对多、多对一、双向复制等多种拓扑结构                                                                                  |
+
 # MSSQL
+
 ## 存储过程
+
 ## 索引
+
 ### 聚集索引
+
 ### 非聚集索引
+
 ## 数据优化
+
 ## 并发
+
 ## 锁
 这里锁分为两个部分，一个是锁的范围（行锁、页面锁、表锁），另一个是锁的粒度（共享锁、持有锁等）
 在锁定数据的时候要配合锁的范围和粒度。
@@ -2285,41 +2487,34 @@ SELECT \* FROM table WITH (TABLOCKX) 其他事务不能读取表,更新和�
  
 \
 \--查看锁信息
-exec   sp\_who
+exec  sp\_who
 \----------------------------------------------\
 create table #t(req\_spid int,obj\_name sysname)
 declare @s nvarchar(4000)\
-    ,@rid int,@dbname sysname,@id int,@objname sysname
-declare tb cursor for \
-    select distinct req\_spid,dbname=db\_name(rsc\_dbid),rsc\_objid\
-    from master..syslockinfo where rsc\_type in(4,5)\
+   ,@rid int,@dbname sysname,@id int,@objname sysname
+declare tb cursor for select distinct req\_spid,dbname=db\_name(rsc\_dbid),rsc\_objidfrom master..syslockinfo where rsc\_type in(4,5)\
 open tb\
 fetch next from tb into @rid,@dbname,@id\
 while @@fetch\_status=0\
-begin\
-    set @s='select @objname=name from \['+\@dbname+']..sysobjects where id=@id'\
-    exec sp\_executesql @s,N'@objname sysname out,@id int',@objname out,@id\
-    insert into #t values(@rid,@objname)\
-    fetch next from tb into @rid,@dbname,@id\
+beginset @s='select @objname=name from \['+\@dbname+']..sysobjects where id=@id'exec sp\_executesql @s,N'@objname sysname out,@id int',@objname out,@idinsert into #t values(@rid,@objname)fetch next from tb into @rid,@dbname,@id\
 end\
 close tb\
 deallocate tb
 select 进程id=a.req\_spid\
-    ,数据库=db\_name(rsc\_dbid)\
-    ,类型=case rsc\_type when 1 then 'NULL 资源（未使用）'\
-        when 2 then '数据库'\
-        when 3 then '文件'\
-        when 4 then '索引'\
-        when 5 then '表'\
-        when 6 then '页'\
-        when 7 then '键'\
-        when 8 then '扩展盘区'\
-        when 9 then 'RID（行 ID)'\
-        when 10 then '应用程序'\
-    end\
-    ,对象id=rsc\_objid\
-    ,对象名=b.obj\_name\
-    ,rsc\_indid\
+   ,数据库=db\_name(rsc\_dbid)\
+   ,类型=case rsc\_type when 1 then 'NULL 资源（未使用）'\
+   when 2 then '数据库'\
+   when 3 then '文件'\
+   when 4 then '索引'\
+   when 5 then '表'\
+   when 6 then '页'\
+   when 7 then '键'\
+   when 8 then '扩展盘区'\
+   when 9 then 'RID（行 ID)'\
+   when 10 then '应用程序'end\
+   ,对象id=rsc\_objid\
+   ,对象名=b.obj\_name\
+   ,rsc\_indid\
 from master..syslockinfo a left join #t b on a.req\_spid=b.req\_spid
 go\
 drop table #t
@@ -2327,10 +2522,10 @@ drop table #t
  
 1 如何锁一个表的某一行\
 /\*\
-        测试环境：windows 2K server + Mssql 2000\
-        所有功能都进行测试过，并有相应的结果集，如果有什么疑义在论坛跟帖\
-        关于版权的说明：部分资料来自互联网，如有不当请联系版主，版主会在第一时间处理。\
-        功能：sql遍历文件夹下的文本文件名,当然你修改部分代码后可以完成各种文件的列表。\
+  测试环境：windows 2K server + Mssql 2000\
+  所有功能都进行测试过，并有相应的结果集，如果有什么疑义在论坛跟帖\
+  关于版权的说明：部分资料来自互联网，如有不当请联系版主，版主会在第一时间处理。\
+  功能：sql遍历文件夹下的文本文件名,当然你修改部分代码后可以完成各种文件的列表。\
 \*/
 \
 A 连接中执行
@@ -2350,8 +2545,11 @@ SELECT \* FROM table WITH (HOLDLOCK) \
 其他事务可以读取表，但不能更新删除
 SELECT \* FROM table WITH (TABLOCKX) \
 其他事务不能读取表,更新和删除
+
 ## 灾难恢复
+
 ## 行列转换
+
 ## Sql Server事务隔离级别
 设置Sql Server事务隔离级别
 查看 当前 Sql Server 事务隔离级别 的设置： DBCC Useroptions -> isolation level 这一项的 Value 既是当前的设置值
@@ -2372,6 +2570,7 @@ READ COMMITTED	是	是
 REPEATABLE READ	否	否
 SNAPSHOT ISOLATION	否	否
 SERIALIZABLE	否	否
+
 ## 数据库分页
 数据分页往往有三种常用方案。
 第一种，把数据库中存放的相关数据，全部读入PHP/Java/C#代码/内存，再由代码对其进行分页操作（速度慢，简易性高）。
@@ -2380,11 +2579,11 @@ SERIALIZABLE	否	否
 本文下面重点阐述上述【第二种】方案在SQL Server上的使用（其它种类数据库由于Sql语句略有差异，所以需要调整，但方案也类似）
 1、ROW\_NUMBER() OVER()方式（SQL2012以下推荐使用）
 示例：
-&#x20;SELECT \* FROM (SELECT ROW\_NUMBER() OVER(ORDER BY menuId) AS RowId,\* FROM sys\_menu ) AS r WHERE RowId BETWEEN 1 AND 10
+SELECT \* FROM (SELECT ROW\_NUMBER() OVER(ORDER BY menuId) AS RowId,\* FROM sys\_menu ) AS r WHERE RowId BETWEEN 1 AND 10
 用[子查询](https://so.csdn.net/so/search?q=%E5%AD%90%E6%9F%A5%E8%AF%A2\&spm=1001.2101.3001.7020)新增一列行号（ROW\_NUMBER）RowId查询，比较高效的查询方式，只有在SQL Server2005或更高版本才支持。
 BETWEEN 1 AND 10 是指查询第1到第10条数据（闭区间），在这里面需要注意的是OVER的括号里面可以写多个排序字段。
 通用用法​​​​​​​
-&#x20;\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT \* FROM (SELECT ROW\_NUMBER() OVER(ORDER BY 排序字段) AS RowId,\* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)\*pageSize + 1) AND (pageIndex \* PageSize)
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT \* FROM (SELECT ROW\_NUMBER() OVER(ORDER BY 排序字段) AS RowId,\* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)\*pageSize + 1) AND (pageIndex \* PageSize)
 2、offset fetch next方式（SQL2012及以上的版本才支持：推荐使用 ）
 示例：​​​​​​​
 \--offset fetch next方式查询，最高效的查询方式，只有在SQL Server2012或更高版本才支持SELECT \* FROM sys\_menu ORDER BY menuId offset 0 ROWS FETCH NEXT 10 ROWS ONLY
@@ -2403,7 +2602,7 @@ next是取接下来的多少行，
 \--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize menuId, \*FROM sys\_menu WHERE menuId NOT IN (SELECT TOP ((pageSize-1)\*pageIndex) menuId FROM sys\_menu)
 4、通过升序与降序方式进行查询分页（不推荐）
 示例：​​​​​​​
-&#x20;\--查询第11-20条记录SELECT \* FROM( SELECT TOP 10 \* FROM( SELECT TOP 20 \* FROM sys\_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
+\--查询第11-20条记录SELECT \* FROM( SELECT TOP 10 \* FROM( SELECT TOP 20 \* FROM sys\_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
 这条语句首先查询前20条记录，然后在倒序查询前10条记录（即倒数10条记录），
 这个时候就已经获取到了11-20条记录，但是他们的顺序是倒序，所以最后又进行升序排序。
 通用方法​​​​​​​
@@ -2428,14 +2627,15 @@ using DeveloperSharp.Structure.Model;using DeveloperSharp.Framework.QueryEngine;
 代码如下：​​​​​​​
 using DeveloperSharp.Extension;//Table扩展所在的命名空间----------------------------- class Program { static void Main(string\[] args) { TestData td = new TestData(); //分页 var pp = td.PagePartition("select top 5000 \* from t\_Order where Id>10 order by Id desc", 20, 162); List\<Product> Products = pp.Table.ToList\<Product>(); foreach (var P in Products) { Console.WriteLine(P.Name); } Console.ReadLine(); } }
 Product类代码如下：​​​​​​​
-&#x20;public class Product { public string Id { get; set; } public string Name { get; set; } public int Quantity { get; set; } }
+public class Product { public string Id { get; set; } public string Name { get; set; } public int Quantity { get; set; } }
 此处的PagePartition方法有两个重载方法，其详细功能说明如下：​​​​​​​
 PagePartition声明：public PagePiece PagePartition(string RecordSet, string Id, int PageSize, int PageIndex)用途：分页功能(有主键)参数：（1）string RecordSet --需要分页的记录集，可以是表、视图、或者SQL语句（2）string Id --主键（3）int PageSize --页面大小（4）int PageIndex --当前页码返回：PagePiece --页片实体PagePartition声明：public PagePiece PagePartition(string RecordSet, int PageSize, int PageIndex)用途：分页功能(无主键)参数：（1）string RecordSet -- 需要分页的记录集，可以是表、视图、或者SQL语句 （2）int PageSize --页面大小（3）int PageIndex --当前页码返回：PagePiece --页片实体
 注意：
-（1）     当你需要分页的数据表有“主键”字段时，使用“分页功能(有主键)”。反之，使用“分页功能(无主键)”。
-（2）     RecordSet是你需要分页的“数据总集”的SQL语句。该SQL语句的形式丰富多样，可以带条件、排序、甚至还能是多表的联合查询、等。
-（3）     此方法符合最开始的【第二种】方案，是在SQL Server内部进行的分页操作。而且可以不依赖于排序/排序Id。
+（1）    当你需要分页的数据表有“主键”字段时，使用“分页功能(有主键)”。反之，使用“分页功能(无主键)”。
+（2）    RecordSet是你需要分页的“数据总集”的SQL语句。该SQL语句的形式丰富多样，可以带条件、排序、甚至还能是多表的联合查询、等。
+（3）   此方法符合最开始的【第二种】方案，是在SQL Server内部进行的分页操作。而且可以不依赖于排序/排序Id。
 <https://blog.csdn.net/mzl87/article/details/128609918>
+
 ## 执行计划
 使用SQL执行计划
 看SQL语句执行计划有三种方式：①快捷键按Ctrl+L；②选中要执行的SQL然后点击右键，弹出的菜单里面选“显示估计的执行计划”；③按Ctrl+M打开显示执行计划窗口，选择每次执行SQL都会显示出相应的执行计划
@@ -2462,13 +2662,13 @@ SQL Server查找数据记录的几种方式：
 ![](https://img2023.cnblogs.com/blog/637434/202212/637434-20221206105949533-2081417458.png)
 2.表格的执行计划：
 输入以下语句来获取表格样式的执行计划
-```
+
   set statistics profile on 
   
   select *,name from test_index where name='Tom' 
   union  ALL    
   select *,name from test_index where age>=12
-```
+
 如下图，执行查询后，得到二个表格，上面的表格显示了查询的结果，下面的表格显示了查询的执行过程。相比图形方式展示的执行计划， 这种表格可能在展现上不太直观，但是它能反映更多的信息，而且尤其在比较复杂的查询时看起来更容易，因为对于复杂的查询，【执行计划】的步骤太多，图形方式会造成图形过大，不容易观察，需要上下左右不停拖动。\
 ![](https://img2023.cnblogs.com/blog/637434/202212/637434-20221206110104206-1690740487.png)
 字段解释：\
@@ -2476,10 +2676,15 @@ SQL Server查找数据记录的几种方式：
 【Executes】：表示某个执行步骤被执行的次数。\
 【Stmt Text】：表示要执行的步骤的描述。\
 【EstimateRows】：表示要预期返回多少行数据。
+
 ## 镜像
+
 ## log shipping（日志传送）
+
 ## 发布订阅
+
 ## always on
+
 ## 主从同步 方案比较
 sqlserver 数据库 sql
 1、使用SQL Server数据库镜像：SQL Server数据库镜像是一种可以实现实时同步的技术，它可以将一个数据库的数据实时复制到另一个数据库，从而实现实时同步。
@@ -2494,12 +2699,16 @@ always on 是 是（只读） 4(sql 2012) 8(sql 2014) 库 否 域 非域环境�
 | 读写分离方案       | 实时同步 | 副本数据是否直接可读         | 副本数                     | 最小粒度  | 副本建立索引 | 环境         | 缺点                                         |
 | :----------- | :--- | :----------------- | :---------------------- | :---- | :----- | :--------- | :----------------------------------------- |
 | 镜像           | 是    | 否（需要开启快照，只读）       | 1                       | 库     | 否      | 域/非域(使用证书) | 在高安全模式下对主库                                 |
-| log shipping | 否    | 是（只读）              | N                       | 库     | 否      | UNC方式可访问   | 副本库在做resotre时会断开已连接用户连接/可能影响常规日志备份         |
+| log shipping | 否    | 是（只读）              | N                       | 库     | 否      | UNC方式可访问  | 副本库在做resotre时会断开已连接用户连接/可能影响常规日志备份         |
 | 发布订阅         | 是    | 是（读写，但写可能会产生数据不一致） | N                       | 表（查询) | 是      | 域/非域       | 在主库上有大量DML操作时，对分发服务器会有一定影响，且订阅数据库可能有数据同步延迟 |
 | always on    | 是    | 是（只读）              | 4(sql 2012) 8(sql 2014) | 库     | 否      | 域          | 非域环境无法使用                                   |
+
 ## CLR扩展
+
 ## 其他知识点
+
 # MySQL
+
 ## Ubuntu Docker部署mysql
 1.创建安装目录 mnt为硬盘挂载目录，根据实际情况修改
 sudo mkdir -p /mnt/mysql
@@ -2621,7 +2830,7 @@ innodb\_buffer\_pool\_load\_now：立刻通过加载数据页来预热InnoDB缓�
 MyISAM参数key\_buffer\_size：所有线程所共有的MyISAM表索引缓存，这块缓存被索引块使用。增大这个参数可以增加索引的读写性能，在主要使用MyISAM存储引擎的系统中，可设置这个参数为机器总内存的25%。如果将这个参数设置很大，比如设为机器总内存的50%以上，机器会开始page且变得异常缓慢。可以通过SHOW STATUS 语句查看 Key\_read\_requests,Key\_reads,Key\_write\_requests, and Key\_writes这些状态值。正常情况下Key\_reads/Key\_read\_requests 比率应该小于0.01。数据库更新和删除操作频繁的时候，Key\_writes/Key\_write\_requests 比率应该接近1。
 key\_cache\_block\_size：key缓存的块大小，默认值是1024字节。
 myisam\_sort\_buffer\_size：在REPAIR TABLE、CREATE INDEX 或 ALTER TABLE操作中，MyISAM索引排序使用的缓存大小。
-myisam\_max\_sort\_file\_size：当重建MyISAM索引的时候，例如执行REPAIR TABLE、 ALTER TABLE、 或 LOAD DATA INFILE命令，MySQL允许使用的临时文件的最大容量。如果MyISAM索引文件超过了这个值且磁盘还有充裕的空间，增大这个参数有助于提高性能。
+myisam\_max\_sort\_file\_size：当重建MyISAM索引的时候，例如执行REPAIR TABLE、ALTER TABLE、或 LOAD DATA INFILE命令，MySQL允许使用的临时文件的最大容量。如果MyISAM索引文件超过了这个值且磁盘还有充裕的空间，增大这个参数有助于提高性能。
 myisam\_repair\_threads：如果这个参数的值大于1，则MyISAM表在执行Repair操作的排序过程中，在创建索引的时候会启用并行，默认值为1。
 InnoDB参数innodb\_buffer\_pool\_size：InnDB存储引擎缓存表和索引数据所使用的内存大小。默认值是128MB。在以InnDB存储引擎为主的系统中，可以将这个参数设为机器物理内存的80%。同时需要注意：
 设置较大物理内存时是否会引擎页的交换而导致性能下降；
@@ -2654,6 +2863,7 @@ innodb\_flush\_log\_at\_trx\_commit：当提交相关的I/O操作被批量重新
 innodb\_flush\_log\_at\_timeout：写入或刷新日志的时间间隔。这个参数是在MySQL 5.6.6版本引入的。在MySQL 5.6.6版本之前，刷新的频率是每秒刷新一次。innodb\_flush\_log\_at\_timeout参数的默认值也是1秒刷新一次。
 innodb\_lock\_wait\_timeout：InnDB事务等待行锁的时间长度。默认值是50秒。当一个事务锁定了一行，这时另外一个事务想访问并修改这一行，当等待时间达到innodb\_lock\_wait\_timeout参数设置的值时，MySQL会报错"ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction"，同时会回滚语句（不是回滚整个事务）。如果想回滚整个事务，需要使用--innodb\_rollback\_on\_timeout参数启动MySQL。在高交互性的应用系统或OLTP系统上，可以减小这个参数来快速显示用户的反馈或把更新放入队列稍后处理。在数据仓库中，为了更好的处理运行时间长的操作，可以增大这个参数。这个参数只应用在InnoDB行锁上，这个参数对表级锁无效。这个参数不适用于死锁，因为发生死锁时，InnoDB会立刻检测到死锁并将发生死锁的一个事务回退。
 innodb\_fast\_shutdown：InnoDB关库模式。如果这个参数为0，InnoDB会做一个缓慢关机，在关机前会做完整的刷新操作，这个级别的关库操作会持续数分钟，当缓存中的数据量很大时，甚至会持续几个小时；如果数据库要执行版本升级或降级，需要执行这个级别的关库操作，以保证所有的数据变更都写入到数据文件。如果这个参数的值是1（默认值），为了节省关库时间，InnoDB会跳过新操作，而是在下一次开机的时候通过crash recovery方式执行刷新操作。如果这个参数的值是2，InnoDB会刷新日志并以冷方式关库，就像MySQL宕机一样，没有提交的事务会丢失，在下一次开启数据库时，crash recovery所需要的时间更长；在紧急或排错情形下，需要立刻关闭数据库时，会使用这种方式停库。
+
 ## MySQL事务隔离级别
 查看事物隔离级别
 SELECT @@tx\_isolation;
@@ -2672,11 +2882,14 @@ set session transaction isolation level serializable;
 读已提交（READ COMMITTED）	×	√	√
 可重复读（REPEATABLE READ）	×	×	√
 串行化（SERIALIZABLE）	×	×	×
+
 ## 锁
+
 ## 执行计划
 大家好，我是只谈技术不剪发的 Tony 老师。今天给大家深入分析一下 MySQL 中的执行计划。
 执行计划（execution plan，也叫查询计划或者解释计划）是 MySQL 服务器执行 SQL 语句的具体步骤。例如，通过索引还是全表扫描访问表中的数据，连接查询的实现方式和连接的顺序，分组和排序操作的实现方式等。
 负责生成执行计划的组件就是优化器，优化器利用表结构、字段、索引、查询条件、数据库的统计信息和配置参数决定 SQL 语句的最佳执行方式。如果想要解决慢查询的性能问题，首先应该查看它的执行计划。
+
 ## 获取执行计划
 MySQL 提供了 [EXPLAIN](https://link.zhihu.com/?target=https%3A//dev.mysql.com/doc/refman/8.0/en/explain.html) 语句，用于获取 SQL 语句的执行计划。该语句的基本形式如下：
     {EXPLAIN | DESCRIBE | DESC}
@@ -2700,8 +2913,10 @@ MySQL 中的执行计划包含了 12 列信息，这些字段的含义我们在�
 除了使用 EXPLAIN 语句之外，很多管理和开发工具都提供了查看图形化执行计划的功能，例如 MySQL Workbench 中显示以上查询的执行计划如下：
 ![](https://pic1.zhimg.com/80/v2-644b2b3d90524a9f7564f42fd0f172dc_720w.webp)
 当然，这种方式最终也是执行了 EXPLAIN 语句。
+
 ## 解读执行计划
 理解执行计划中每个字段的含义可以帮助我们知悉 MySQL 内部的操作过程，找到性能问题的所在并有针对性地进行优化。在执行计划的输出信息中，最重要的字段就是 type。
+
 ## type 字段
 type 被称为连接类型（join type）或者访问类型（access type），它显示了 MySQL 如何访问表中的数据。
 访问类型会直接影响到查询语句的性能，性能从好到差依次为：
@@ -2824,6 +3039,7 @@ ALL表示全表扫描，这是一种 I/O 密集型的操作，通常意味着存
     --|-----------|--------|----------|----|-------------|---|-------|---|----|--------|-----------|
      1|SIMPLE     |employee|          |ALL |             |   |       |   |  25|    10.0|Using where|
 显然，针对这种查询语句，我们可以通过为 salary 字段创建一个索引进行优化。
+
 ## Extra 字段
 执行计划输出中的 Extra 字段通常会显示更多的信息，可以帮助我们发现性能问题的所在。上文中我们已经介绍了一些 Extra 字段的信息，需要重点关注的输出内容包括：
 * Using where，表示将经过 WHERE 条件过滤后的数据传递给下个数据表或者返回客户端。如果访问类型为 ALL 或者 index，而 Extra 字段不是 Using where，意味着查询语句可能存在问题（除非就是想要获取全部数据）。
@@ -2848,6 +3064,7 @@ ALL表示全表扫描，这是一种 I/O 密集型的操作，通常意味着存
     | -- | ------------ | -------- | ---------- | ---- | -------------- | --- | -------- | --- | ---- | -------- | --------------- |
     | 1  | SIMPLE       | employee |            | ALL  |                |     |          |     | 25   | 100.0    | Using temporary |
 示例中的分组操作需要使用临时表，同样可以通过增加索引进行优化。
+
 ## 访问谓词与过滤谓词
 在 SQL 中，WHERE 条件也被称为谓词（predicate）。MySQL 数据库中的谓词存在以下三种使用方式：
 * 访问谓词（access predicate），在执行计划的输出中对应于 key\_len 和 ref 字段。访问谓词代表了索引叶子节点遍历的开始和结束条件。
@@ -2900,6 +3117,7 @@ MySQL 执行计划中不会显示每个条件对应的谓词类型，而只是�
     --|-----------|-----|----------|----|-------------|--------|-------|-----|----|--------|-----------|
      1|SIMPLE     |test |          |ref |test_idx     |test_idx|5      |const|   1|   33.33|Using where|
 其中，Extra 字段中显示为 Using where，表示访问表中的数据然后再应用查询条件 col3=1；key = test\_idx 表示使用索引进行查找，key\_len = 5 就是 col1 字段的长度（可空字段长度加 1）；ref = const 表示常量等值比较；filtered = 33.33 意味着经过查询条件比较之后只保留三分之一的数据。因此，该语句中的 WHERE 条件是一个表级过滤谓词，意味着数据库需要访问表中的数据然后再应用该条件。
+
 ## 完整字段信息
 下表列出了 MySQL 执行计划中各个字段的作用：
 | 列名             | 作用                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -2916,6 +3134,7 @@ MySQL 执行计划中不会显示每个条件对应的谓词类型，而只是�
 | rows           | 执行查询需要检查的行数，对于 InnoDB 是一个估计值。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 |                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | Extra          | 包含了额外的信息。例如 Using temporary 表示使用了临时表，Using filesort 表示需要额外的排序操作等。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+
 ## 格式化参数
 MySQL EXPLAIN 语句支持使用 FORMAT 选项指定不同的输出格式：
     {EXPLAIN | DESCRIBE | DESC}
@@ -2985,6 +3204,7 @@ MySQL EXPLAIN 语句支持使用 FORMAT 选项指定不同的输出格式：
         -> Hash
             -> Table scan on e1  (cost=2.75 rows=25)
 从结果可以看出，该执行计划使用了 Inner hash join 实现两个表的连接查询。
+
 ## 执行计划中的分区表信息
 如果 SELECT 语句使用了分区表，可以通过 EXPLAIN 命令查看涉及的具体分区。执行计划输出的 partitions 字段显示了数据行所在的表分区。首先创建一个分区表：
     create table trb1 (id int primary key, name varchar(50), purchased date)
@@ -3014,6 +3234,7 @@ MySQL EXPLAIN 语句支持使用 FORMAT 选项指定不同的输出格式：
     --|-----------|-----|----------|-----|-------------|-------|-------|---|----|--------|-----------|
      1|SIMPLE     |trb1 |p0,p1     |range|PRIMARY      |PRIMARY|4      |   |   4|   100.0|Using where|
 结果显示查询访问了分区 p0 和 p1。
+
 ## 获取额外的执行计划信息
 除了直接输出的执行计划之外，EXPLAIN 命令还会产生一些[额外信息](https://link.zhihu.com/?target=https%3A//dev.mysql.com/doc/refman/8.0/en/explain-extended.html)，可以使用`SHOW WARNINGS`命令进行查看。例如：
     explain
@@ -3036,6 +3257,7 @@ MySQL EXPLAIN 语句支持使用 FORMAT 选项指定不同的输出格式：
     2 rows in set (0.00 sec)
 SHOW WARNINGS 命令输出中的 Message 显示了优化器如何限定查询语句中的表名和列名、应用了重写和优化规则后的查询语句以及优化过程的其他信息。
 目前只有 SELECT 语句相关的额外信息可以通过 SHOW WARNINGS 语句进行查看，其他语句（DELETE、INSERT、REPLACE 和UPDATE）显示的信息为空。
+
 ## 获取指定连接的执行计划
 EXPLAIN 语句也可以用于获取指定连接中正在执行的 SQL 语句的执行计划，语法如下：
     EXPLAIN [FORMAT = {TRADITIONAL | JSON | TREE}] FOR CONNECTION connection_id;
@@ -3060,6 +3282,7 @@ EXPLAIN 语句也可以用于获取指定连接中正在执行的 SQL 语句的�
     --|-----------|-----------|----------|----|-------------|---|-------|---|------|--------|-----|
      1|SIMPLE     |large_table|          |ALL |             |   |       |   |244296|   100.0|     |
 如果指定会话没有正在运行的语句，EXPLAIN 命令将会返回空结果。
+
 ## 获取实际运行的执行计划
 MySQL 8.0.18 增加了一个新的命令：`EXPLAIN ANALYZE`。该语句用于运行一个语句并且产生 EXPLAIN 结果，包括执行时间和迭代器（iterator）信息，可以获取优化器的预期执行计划和实际执行计划之间的差异。
     {EXPLAIN | DESCRIBE | DESC} ANALYZE select_statement
@@ -3129,6 +3352,7 @@ MySQL 8.0.18 增加了一个新的命令：`EXPLAIN ANALYZE`。该语句用于�
         -> Single-row index lookup on d using PRIMARY (dept_id=e.dept_id)  (cost=0.35 rows=1) (actual time=0.009..0.009 rows=1 loops=1)
 估计返回的行数变成了 1，和实际执行结果相同。
 除了本文介绍的各种 EXPLAIN 语句之外，MySQL 还提供了优化器跟踪（optimizer trace）功能，可以获取关于优化器的更多信息，具体可以参考 [MySQL Internals\:Tracing the Optimizer](https://link.zhihu.com/?target=https%3A//dev.mysql.com/doc/internals/en/optimizer-tracing.html)。
+
 ## 优化
 1、MySQL的复制原理以及流程
 (1)、复制基本原理流程
@@ -3141,7 +3365,7 @@ MySQL 的复制是基于如下 3 个线程的交互（ 多线程复制里面应�
 1.在 MySQL5.5 以及之前， slave 的 SQL 线程执行的 relay log 的位置只能保存在文件（ relay-log.info）里面，并且该文件默认每执行 10000 次事务做一次同步到磁盘， 这意味着 slave 意外 crash 重启时， SQL 线程执行到的位置和数据库的数据是不一致的，将导致复制报错，如果不重搭复制，则有可能会 导致数据不一致。 MySQL 5.6 引入参数 relay\_log\_info\_repository，将该参数设置为 TABLE 时， MySQL 将 SQL 线程执行到的位置存到mysql.slave\_relay\_log\_info 表，这样更新该表的位置和 SQL 线程执行的用户事务绑定成一个事务，这样 slave 意外宕机后， slave 通过 innodb 的崩溃 恢复可以把 SQL 线程执行到的位置和用户事务恢复到一致性的状态。 2. MySQL 5.6 引入 GTID 复制，每个 GTID 对应的事务在每个实例上面最多执行一次， 这极大地提高了复制的数据一致性； 3. MySQL 5.5 引入半同步复制， 用户安装半同步复制插件并且开启参数后，设置超时时间，可保证在超时时间内如果 binlog 不传到 slave 上面，那么用户提交事务时不会返回，直到超时后切成异步复制，但是如果切成异步之前用户线程提交时在 master 上面等待的时候，事务已经提交，该事务对 master 上面的其他 session 是可见的，如果这时 master 宕机，那么到 slave 上面该事务又不可见了，该问题直到 5.7 才解决； 4. MySQL 5.7 引入无损半同步复制，引入参 rpl\_semi\_sync\_master\_wait\_point，该参数默认为 after\_sync，指的是在切成半同步之前，事务不提交，而是接收到 slave 的 ACK 确认之后才提交该事务，从此，复制真正可以做到无损的了。 5.可以再说一下 5.7 的无损复制情况下， master 意外宕机，重启后发现有 binlog没传到 slave 上面，这部分 binlog 怎么办？？？分 2 种情况讨论， 1 宕机时已经切成异步了， 2 是宕机时还没切成异步？？？ 这个怎么判断宕机时有没有切成异步呢？？？ 分别怎么处理？？？
 ![0](https://note.youdao.com/yws/res/31259/WEBRESOURCE3e60088800c897d17ecff23f62b3e5ab "0")
 延时性：
-&#x20;5.5 是单线程复制， 5.6 是多库复制（对于单库或者单表的并发操作是没用的）， 5.7 是真正意义的多线程复制，它的原理是基于 group commit， 只要 master 上面的事务是 group commit 的，那 slave 上面也可以通过多个 worker线程去并发执行。 和 MairaDB10.0.0.5 引入多线程复制的原理基本一样。
+5.5 是单线程复制， 5.6 是多库复制（对于单库或者单表的并发操作是没用的）， 5.7 是真正意义的多线程复制，它的原理是基于 group commit， 只要 master 上面的事务是 group commit 的，那 slave 上面也可以通过多个 worker线程去并发执行。 和 MairaDB10.0.0.5 引入多线程复制的原理基本一样。
 (4)、工作遇到的复制 bug 的解决方法
 5.6 的多库复制有时候自己会停止，我们写了一个脚本重新 start slave;待补充…
 2、MySQL中myisam与innodb的区别，至少5点
@@ -3172,7 +3396,7 @@ redo：在页修改的时候，先写到 redo log buffer 里面， 然后写到 
 (3)、事务是如何通过日志来实现的，说得越深入越好
 基本流程如下： 因为事务在修改页时，要先记 undo，在记 undo 之前要记 undo 的 redo， 然后修改数据页，再记数据页修改的 redo。 Redo（里面包括 undo 的修改） 一定要比数据页先持久化到磁盘。 当事务需要回滚时，因为有 undo，可以把数据页回滚到前镜像的 状态，崩溃恢复时，如果 redo log 中事务没有对应的 commit 记录，那么需要用 undo把该事务的修改回滚到事务开始之前。 如果有 commit 记录，就用 redo 前滚到该事务完成时并提交掉。
 5、MySQL binlog的几种日志录入格式以及区别
-(1)、 各种日志格式的涵义
+(1)、各种日志格式的涵义
 1.Statement：每一条会修改数据的sql都会记录在binlog中。 优点：不需要记录每一行的变化，减少了binlog日志量，节约了IO，提高性能。(相比row能节约多少性能 与日志量，这个取决于应用的SQL情况，正常同一条记录修改或者插入row格式所产生的日志量还小于Statement产生的日志量， 但是考虑到如果带条 件的update操作，以及整表删除，alter表等操作，ROW格式会产生大量日志，因此在考虑是否使用ROW格式日志时应该跟据应用的实际情况，其所 产生的日志量会增加多少，以及带来的IO性能问题。) 缺点：由于记录的只是执行语句，为了这些语句能在slave上正确运行，因此还必须记录每条语句在执行的时候的 一些相关信息，以保证所有语句能在slave得到和在master端执行时候相同 的结果。另外mysql 的复制, 像一些特定函数功能，slave可与master上要保持一致会有很多相关问题(如sleep()函数， last\_insert\_id()，以及user-defined functions(udf)会出现问题). 使用以下函数的语句也无法被复制： \* LOAD\_FILE() \* UUID() \* USER() \* FOUND\_ROWS() \* SYSDATE() (除非启动时启用了 --sysdate-is-now 选项) 同时在INSERT ...SELECT 会产生比 RBR 更多的行级锁 2.Row:不记录sql语句上下文相关信息，仅保存哪条记录被修改。 优点： binlog中可以不记录执行的sql语句的上下文相关的信息，仅需要记录那一条记录被修改成什么了。所以rowlevel的日志内容会非常清楚的记录下 每一行数据修改的细节。而且不会出现某些特定情况下的存储过程，或function，以及trigger的调用和触发无法被正确复制的问题 缺点:所有的执行的语句当记录到日志中的时候，都将以每行记录的修改来记录，这样可能会产生大量的日志内容,比 如一条update语句，修改多条记录，则binlog中每一条修改都会有记录，这样造成binlog日志量会很大，特别是当执行alter table之类的语句的时候， 由于表结构修改，每条记录都发生改变，那么该表每一条记录都会记录到日志中。 3.Mixedlevel: 是以上两种level的混合使用，一般的语句修改使用statment格式保存binlog，如一些函数，statement无法完成主从复制的操作，则 采用row格式保存binlog,MySQL会根据执行的每一条具体的sql语句来区分对待记录的日志形式， 也就是在Statement和Row之间选择 一种.新版本的MySQL中队row level模式也被做了优化，并不是所有的修改都会以row level来记录，像遇到表结构变更的时候就会以statement模式来记录。至于update或者delete等修改数据的语句，还是会记录所有行的变更。
  (2)、适用场景
 在一条 SQL 操作了多行数据时， statement 更节省空间， row 更占用空间。但是 row模式更可靠。
@@ -3186,7 +3410,7 @@ id:每个被独立执行的操作的标志，表示对象被操作的顺序。�
 (2)、profile的意义以及使用场景
 Profile 用来分析 sql 性能的消耗分布情况。当用 explain 无法解决慢 SQL 的时候，需要用profile 来对 sql 进行更细致的分析，找出 sql 所花的时间大部分消耗在哪个部分，确认 sql的性能瓶颈。
 (3)、explain 中的索引问题
-Explain 结果中，一般来说，要看到尽量用 index(type 为 const、 ref 等， key 列有值)，避免使用全表扫描(type 显式为 ALL)。比如说有 where 条件且选择性不错的列，需要建立索引。 被驱动表的连接列，也需要建立索引。被驱动表的连接列也可能会跟 where 条件列一起建立联合索引。当有排序或者 group by 的需求时，也可以考虑建立索引来达到直接排序和汇总的需求。
+Explain 结果中，一般来说，要看到尽量用 index(type 为 const、ref 等， key 列有值)，避免使用全表扫描(type 显式为 ALL)。比如说有 where 条件且选择性不错的列，需要建立索引。 被驱动表的连接列，也需要建立索引。被驱动表的连接列也可能会跟 where 条件列一起建立联合索引。当有排序或者 group by 的需求时，也可以考虑建立索引来达到直接排序和汇总的需求。
 8、备份计划，mysqldump以及xtranbackup的实现原理
 (1)、备份计划
 视库的大小来定，一般来说 100G 内的库，可以考虑使用 mysqldump 来做，因为 mysqldump更加轻巧灵活，备份时间选在业务低峰期，可以每天进行都进行全量备份(mysqldump 备份 出来的文件比较小，压缩之后更小)。100G 以上的库，可以考虑用 xtranbackup 来做，备份速度明显要比 mysqldump 要快。一般是选择一周一个全备，其余每天进行增量备份，备份时间为业务低峰期。
@@ -3240,7 +3464,7 @@ Read Uncommitted:可以读取其他 session 未提交的脏数据。 Read Commit
 5、对于有丰富的数据库设计经验
 这个对于数据库设计我真的没有太多的经验，我也就只能问问最基础的， mysql 中varchar(60) 60 是啥含义， int(30)中 30 是啥含义？ 如果他都回答对了，那么我就问 mysql中为什么要这么设计呢？ 如果他还回答对了，我就继续问 int(20)存储的数字的上限和下限是多少？这个问题难道了全部的 mysql dba 的应聘者，不得不佩服提出这个问题的金总的睿智啊，因为这个问题回答正确了， 那么他确实认认真真地研究了 mysql 的设计中关于字段类型的细节。至 于丰富的设计数据库的经验，不用着急，这不我上面还有更加厉害的 dba吗，他会搞明白的，那就跟我无关了。 varchar(60)的 60 表示最多可以存储 60 个字符。int(30)的 30 表示客户端显示这个字段的宽度。 为何这么设计？说不清楚，请大家补充 。 int(20)的上限为 2147483647(signed)或者4294967295(unsigned)。
 6 、关于 mysql 参数优化的经验
-首先问他它们线上 mysql 数据库是怎么安装的，如果说是 rpm 安装的，那么我就直接问调优参数了，如果是源码安装的，那么我就要问编译中的一些参数了，比如 my.cnf 以及存储引擎以及字符类型等等。然后从以下几个方面问起： （ 1） mysql 有哪些 global 内存参数，有哪些 local 内存参数。 Global: innodb\_buffer\_pool\_size/innodb\_additional\_mem\_pool\_size/innodb\_log\_buffer\_size/key\_buffer\_size/query\_cache\_size/table\_open\_cache/table\_definition\_cache/thread\_cache\_size Local: read\_buffer\_size/read\_rnd\_buffer\_size/sort\_buffer\_size/join\_buffer\_size/binlog\_cache\_size/tmp\_table\_size/thread\_stack/bulk\_insert\_buffer\_size （ 2） mysql 的写入参数需要调整哪些？重要的几个写参数的几个值得含义以及适用场景， 比如 innodb\_flush\_log\_at\_trx\_commit 等。 (求补充) sync\_binlog 设置为 1，保证 binlog 的安全性。 innodb\_flush\_log\_at\_trx\_commit： 0：事务提交时不将 redo log buffer 写入磁盘(仅每秒进行 master thread 刷新，安全 性最差，性能最好) 1：事务提交时将 redo log buffer 写入磁盘(安全性最好，性能最差， 推荐生产使用) 2：事务提交时仅将 redo log buffer 写入操作系统缓存(安全性和性能都居中，当 mysql宕机但是操作系统不宕机则不丢数据，如果操作系统宕机，最多丢一秒数据) innodb\_io\_capacity/innodb\_io\_capacity\_max：看磁盘的性能来定。如果是 HDD 可以设置为 200-几百不等。如果是 SSD，推荐为 4000 左右。 innodb\_io\_capacity\_max 更大一些。 innodb\_flush\_method 设置为 O\_DIRECT。 （ 3） 读取的话，那几个全局的 pool 的值的设置，以及几个 local 的 buffer 的设置。 Global: innodb\_buffer\_pool\_size:设置为可用内存的 50%-60%左右，如果不够，再慢慢上调。 innodb\_additional\_mem\_pool\_size：采用默认值 8M 即可。 innodb\_log\_buffer\_size:默认值 8M 即可。 key\_buffer\_size\:myisam 表需要的 buffer size，选择基本都用 innodb，所以采用默认的 8M 即可。 Local: join\_buffer\_size： 当 sql 有 BNL 和 BKA 的时候，需要用的 buffer\_size(plain index scans, range index scans 的时候可能也会用到)。默认为 256k，建议设置为 16M-32M。 read\_rnd\_buffer\_size：当使用 mrr 时，用到的 buffer。默认为 256k，建议设置为16-32M。 read\_buffer\_size:当顺序扫描一个 myisam 表，需要用到这个 buffer。或者用来决定memory table 的大小。或者所有的 engine 类型做如下操作：order by 的时候用 temporaryfile、 SELECT INTO … OUTFILE 'filename' 、 For caching results of nested queries。默认为 128K，建议为 16M。 sort\_buffer\_size： sql 语句用来进行 sort 操作(order by,group by)的 buffer。如果 buffer 不够，则需要建立 temporary file。如果在 show global status 中发现有大量的 Sort\_merge\_passes 值，则需要考虑调大 sort\_buffer\_size。默认为 256k，建议设置为 16-32M。 binlog\_cache\_size： 表示每个 session 中存放 transaction 的 binlog 的 cache size。默认 32K。一般使用默认值即可。如果有大事务，可以考虑调大。 thread\_stack： 每个进程都需要有，默认为 256K，使用默认值即可。 （ 4） 还有就是著名的 query cache 了，以及 query cache 的适用场景了，这里有一个陷阱， 就是高并发的情况下，比如双十一的时候， query cache 开还是不开，开了怎么保证高并发，不开又有何别的考虑？建议关闭，上了性能反而更差。
+首先问他它们线上 mysql 数据库是怎么安装的，如果说是 rpm 安装的，那么我就直接问调优参数了，如果是源码安装的，那么我就要问编译中的一些参数了，比如 my.cnf 以及存储引擎以及字符类型等等。然后从以下几个方面问起： （ 1） mysql 有哪些 global 内存参数，有哪些 local 内存参数。 Global: innodb\_buffer\_pool\_size/innodb\_additional\_mem\_pool\_size/innodb\_log\_buffer\_size/key\_buffer\_size/query\_cache\_size/table\_open\_cache/table\_definition\_cache/thread\_cache\_size Local: read\_buffer\_size/read\_rnd\_buffer\_size/sort\_buffer\_size/join\_buffer\_size/binlog\_cache\_size/tmp\_table\_size/thread\_stack/bulk\_insert\_buffer\_size （ 2） mysql 的写入参数需要调整哪些？重要的几个写参数的几个值得含义以及适用场景， 比如 innodb\_flush\_log\_at\_trx\_commit 等。 (求补充) sync\_binlog 设置为 1，保证 binlog 的安全性。 innodb\_flush\_log\_at\_trx\_commit： 0：事务提交时不将 redo log buffer 写入磁盘(仅每秒进行 master thread 刷新，安全 性最差，性能最好) 1：事务提交时将 redo log buffer 写入磁盘(安全性最好，性能最差， 推荐生产使用) 2：事务提交时仅将 redo log buffer 写入操作系统缓存(安全性和性能都居中，当 mysql宕机但是操作系统不宕机则不丢数据，如果操作系统宕机，最多丢一秒数据) innodb\_io\_capacity/innodb\_io\_capacity\_max：看磁盘的性能来定。如果是 HDD 可以设置为 200-几百不等。如果是 SSD，推荐为 4000 左右。 innodb\_io\_capacity\_max 更大一些。 innodb\_flush\_method 设置为 O\_DIRECT。 （ 3） 读取的话，那几个全局的 pool 的值的设置，以及几个 local 的 buffer 的设置。 Global: innodb\_buffer\_pool\_size:设置为可用内存的 50%-60%左右，如果不够，再慢慢上调。 innodb\_additional\_mem\_pool\_size：采用默认值 8M 即可。 innodb\_log\_buffer\_size:默认值 8M 即可。 key\_buffer\_size\:myisam 表需要的 buffer size，选择基本都用 innodb，所以采用默认的 8M 即可。 Local: join\_buffer\_size： 当 sql 有 BNL 和 BKA 的时候，需要用的 buffer\_size(plain index scans, range index scans 的时候可能也会用到)。默认为 256k，建议设置为 16M-32M。 read\_rnd\_buffer\_size：当使用 mrr 时，用到的 buffer。默认为 256k，建议设置为16-32M。 read\_buffer\_size:当顺序扫描一个 myisam 表，需要用到这个 buffer。或者用来决定memory table 的大小。或者所有的 engine 类型做如下操作：order by 的时候用 temporaryfile、SELECT INTO … OUTFILE 'filename' 、For caching results of nested queries。默认为 128K，建议为 16M。 sort\_buffer\_size： sql 语句用来进行 sort 操作(order by,group by)的 buffer。如果 buffer 不够，则需要建立 temporary file。如果在 show global status 中发现有大量的 Sort\_merge\_passes 值，则需要考虑调大 sort\_buffer\_size。默认为 256k，建议设置为 16-32M。 binlog\_cache\_size： 表示每个 session 中存放 transaction 的 binlog 的 cache size。默认 32K。一般使用默认值即可。如果有大事务，可以考虑调大。 thread\_stack： 每个进程都需要有，默认为 256K，使用默认值即可。 （ 4） 还有就是著名的 query cache 了，以及 query cache 的适用场景了，这里有一个陷阱， 就是高并发的情况下，比如双十一的时候， query cache 开还是不开，开了怎么保证高并发，不开又有何别的考虑？建议关闭，上了性能反而更差。
 7、关于熟悉 mysql 的锁机制
 gap 锁， next-key 锁，以及 innodb 的行锁是怎么实现的，以及 myisam 的锁是怎么实现的等 Innodb 的锁的策略为 next-key 锁，即 record lock+gap lock。是通过在 index 上加 lock 实现的，如果 index 为 unique index，则降级为 record lock,如果是普通 index，则为 next-key lock，如果没有 index，则直接锁住全表。 myisam 直接使用全表扫描。
 8、 关于熟悉 mysql 集群的
@@ -3304,10 +3528,10 @@ mysql> select s.name 姓名,s.code 学号, -> sum(if(e.subject='语文',e.score,
  
 三、根据要求写出SQL语句
 表结构：
-　　student(s\_no,s\_name,s\_age,sex) 学生表
-　　teacher(t\_no,t\_name) 教师表
-　　course(c\_no,c\_name,t\_no) 课程表
-　　sc(s\_no,c\_no,score) 成绩表
+student(s\_no,s\_name,s\_age,sex) 学生表
+teacher(t\_no,t\_name) 教师表
+course(c\_no,c\_name,t\_no) 课程表
+sc(s\_no,c\_no,score) 成绩表
 基础表数据(个人铺的)：根据题目需要自行再铺入数据
 mysql> select \* from student; +------+--------+-------+------+ | s\_no | s\_name | s\_age | sex | +------+--------+-------+------+ | 1001 | 张三 | 23 | 男 | | 1002 | 李四 | 19 | 女 | | 1003 | 马五 | 20 | 男 | | 1004 | 甲六 | 17 | 女 | | 1005 | 乙七 | 22 | 男 | +------+--------+-------+------+ 5 rows in set (0.00 sec) mysql> select \* from teacher; +------+--------+ | t\_no | t\_name | +------+--------+ | 2001 | 叶平 | | 2002 | 赵安 | | 2003 | 孙顺 | | 2004 | 刘六 | +------+--------+ 4 rows in set (0.00 sec) mysql> select \* from course; +------+--------------+------+ | c\_no | c\_name | t\_no | +------+--------------+------+ | 001 | 企业管理 | 2001 | | 002 | 马克思 | 2002 | | 003 | UML | 2003 | | 004 | 数据库 | 2004 | +------+--------------+------+ 4 rows in set (0.05 sec) mysql> select \* from sc; +------+------+-------+ | s\_no | c\_no | score | +------+------+-------+ | 1001 | 001 | 93 | | 1001 | 002 | 86 | | 1001 | 004 | 92 | | 1002 | 003 | 100 | | 1003 | 001 | 93 | | 1003 | 004 | 99 | | 1004 | 002 | 75 | | 1004 | 003 | 59 | | 1002 | 002 | 50 | | 1005 | 003 | 60 | | 1005 | 002 | 60 | +------+------+-------+ 11 rows in set (0.00 sec)
 1、查询“001”课程比“002”课程成绩高的所有学生的学号。
@@ -3466,14 +3690,17 @@ mysql> select year, -> sum(if(month=1,amount,0)) M1, -> sum(if(month=2,amount,0)
  
  
 八、已知表A =login\_ftp记录着登录FTP服务器的计算机IP、时间等字段信息
-　　请写出SQL查询表A中存在ID重复三次以上的记录。
+请写出SQL查询表A中存在ID重复三次以上的记录。
 mysql> select IP from login\_ftp -> group by IP -> having count(\*)>3;
  
  
 九、创建存储过程，要求具有游标(遍历表)示例
 CREATE PROCEDURE curdemo() BEGIN DECLARE done INT DEFAULT FALSE; DECLARE a CHAR(16); DECLARE b, c INT; DECLARE cur1 CURSOR FOR SELECT id,data FROM test.t1; DECLARE cur2 CURSOR FOR SELECT i FROM test.t2; DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE; OPEN cur1; OPEN cur2; read\_loop: LOOP FETCH cur1 INTO a, b; FETCH cur2 INTO c; IF done THEN LEAVE read\_loop; END IF; IF b < c THEN INSERT INTO test.t3 VALUES (a,b); ELSE INSERT INTO test.t3 VALUES (a,c); END IF; END LOOP; CLOSE cur1; CLOSE cur2; END;
+
 # Postgresql
+
 ## PGPool
+
 ## 执行计划
 [PostgreSQL](https://so.csdn.net/so/search?q=PostgreSQL\&spm=1001.2101.3001.7020)为每个收到查询产生一个查询计划。 选择正确的计划来匹配查询结构和数据的属性对于好的性能来说绝对是最关键的，因此系统包含了一个复杂的规划器来尝试选择好的计划。 你可以使用EXPLAIN命令察看规划器为任何查询生成的查询计划。
 执行计划命令
@@ -3523,6 +3750,7 @@ Buffers，缓冲命中数\
 shared read，代表数据来自disk(磁盘)而并非cache(缓存)，当再次执行sql，会发现变成shared hit，说明数据已经在cache中\
 Planning Time，生成执行计划的时间\
 Execution Time，执行执行计划的时间
+
 ####
 PostgreSQL中数据扫描方式很多，常见有如下几种
 1、seq scan
@@ -3701,7 +3929,9 @@ Index Cond: ((c\_ajbh)::text = (aj.c\_ajbh)::text)\
 Filter: ((c\_zblx)::text = '0020002'::text)\
 Planning Time: 0.852 ms\
 Execution Time: 38.255 ms
+
 # NoSQL
+
 ## 键值数据库
 Redis
 BerkeleyDB
@@ -3709,26 +3939,31 @@ Memcached
 Project Voldemort
 Riak
 LevelDB
+
 ## 文档数据库
 MongoDB
 CouchDB
 RavenDB
 Terrastore
 OrientDB
+
 ## 列族数据库
 HBase
 Amazon SimpleDB
 Cassdndra
 Hypertable
 BigTable(google)
+
 ## 图数据库
 FlockDB
 HyperGraphDB
 Infinite Graph
 Neo4J
 OrientDB
+
 # LiteD
 LiteDB是一个小型的.NET平台开源的NoSQL类型的轻量级文件数据库。特点是小和快，dll文件只有200K大小，而且支持LINQ和命令行操作，数据库是一个单一文件，类似Sqlite。官方网站：<http://www.litedb.org/>
+
 ## 特点
 1.NoSQL文件存储。这是和传统关系型数据库的主要区别；支持实体类的字段更新；
 2.类似MongoDB的简单API；
@@ -3756,21 +3991,26 @@ Serverless NoSQL 文档存储
 Shell 命令行 - 试试这个在线版本
 相当快 - 这里是与 SQLite 的对比结果
 开源，对所有人免费 - 包括商业应用
+
 ## LiteDB使用基本案例
+
 ### 创建实体类
-    public class Customer
-    {
-      public int Id { get; set; }
-      public string Name { get; set; }
-      public string[] Phones { get; set; }
-      public bool IsActive { get; set; }
-    }
+
+public class Customer
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string[] Phones { get; set; }
+    public bool IsActive { get; set; }
+}
+
 ### 使用Demo
+
 使用过程首先要添加dll应用，以及引入命名空间：
 using LiteDB;
 下面是测试代码，会在当前目录下创建一个sample.db的数据库文件：
 //打开或者创建新的数据库
-```
+
 using (var db = new LiteDatabase("sample.db"))
 {
   //获取 customers 集合，如果没有会创建，相当于表
@@ -3793,15 +4033,20 @@ using (var db = new LiteDatabase("sample.db"))
   //使用LINQ语法来检索
   var results = col.Find(x => x.Name.StartsWith("Jo"));
 }
-```
+
 上述过程很清楚，根据注释理解几乎不用费神。
+
 ## 使用场景
+
 1.桌面或者本地小型的应用程序
 2.小型web应用程序
 3.单个数据库账户或者单个用户数据的存储
 4.少量用户的并发写操作的应用程序
+
 ## LiteDB的技术细节
+
 ### LiteDB的工作原理
+
 LiteDB是虽然单个文件类型的数据库，但是数据库有很多信息，例如索引，集合，文件等。为了管理这些信息，LiteDB实现了数据库页的概念。
 页 是一个拥有4096 字节的 存储相同信息的地址块。也是操作磁盘文件(读写)的最小单元。LiteDB有6种页类型。其作用也不一样，分布是：Header Page，Collection Page，Index Page， Data Page，Extend Page，Empty Page。
 Data Page的作用是存储核心的数据，是以序列化后的BSON格式来存储。
@@ -3811,7 +4056,9 @@ var db = new LiteDatabase("MyData.db");
 这种情况比较好用，可以打开或者创建新的数据库，同样也可以使用连接名称来获取，例如：
 var db = new LiteDatabase("userdb");
 这样会直接从connectionStrings找到这个名称的连接。包括了文件名称，使用模式，以及版本信息。一般情况下直接使用第一种即可。LiteDB的数据库连接完整形式是：filename=C:\Path\mydb.db; journal=false; version=5　　
+
 ### LiteDB的查询
+
 LiteDB的查询必须在相关的查询字段上使用索引，如果没有索引，会默认去创建索引。上面例子中就是创建字段的索引，并查询。LiteDB中查询有2种方法：
 1.使用静态的帮助类Query;
 2.使用Linq方式，就是类似Demo的方法;
@@ -3827,37 +4074,43 @@ Query.StartsWith 查找以某个字符串开头的数据
 Query.Contains 查找保护某个字符串的数据，这个查询只扫描索引
 Query.And 2个查询的交集
 Query.Or 2个查询结果的并集
-    var results = collection.Find(Query.EQ("Name", "John Doe"));
-    var results = collection.Find(Query.GTE("Age", 25));
-    var results = collection.Find(Query.And(
-      Query.EQ("FirstName", "John"), Query.EQ("LastName", "Doe")
-    ));
-    var results = collection.Find(Query.StartsWith("Name", "Jo"));
+
+var results = collection.Find(Query.EQ("Name", "John Doe"));
+var results = collection.Find(Query.GTE("Age", 25));
+var results = collection.Find(Query.And(
+    Query.EQ("FirstName", "John"), Query.EQ("LastName", "Doe")
+));
+var results = collection.Find(Query.StartsWith("Name", "Jo"));
+
 注意LiteDB不支持这种表达式：CreationDate == DueDate。
 下面介绍使用Linq的查询的几个主要方法：
 FindAll: 查找表或者集合中所有的结果记录
 FindOne:返回第一个或者默认的结果
 FindById: 通过索引返回单个结果
 Find: 使用查询表达式或者linq表达式查询返回结果
-    collection.EnsureIndex(x => x.Name);
-    var result = collection
-      .Find(Query.EQ("Name", "John Doe")) 
-      .Where(x => x.CreationDate >= x.DueDate.AddDays(-5)) 
-      .OrderBy(x => x.Age)
-      .Select(x => new
-      { 
-        FullName = x.FirstName + " " + x.LastName, 
-        DueDays = x.DueDate - x.CreationDate 
-      });
-当然还有一些方法如：Count() , Exists(),Min() , Max()等方法。。比较好理解。看看linq表达式的查询案例：
-    var collection = db.GetCollection<Customer>("customer");
-    var results = collection.Find(x => x.Name == "John Doe");
-    var results = collection.Find(x => x.Age > 30);
-    var results = collection.Find(x => x.Name.StartsWith("John") && x.Age > 30);
-### LiteDB的查询示例
-namespace DEVGIS.FA.FAOutTest.Views
-{
+
+collection.EnsureIndex(x => x.Name);
+var result = collection
+    .Find(Query.EQ("Name", "John Doe")) 
+    .Where(x => x.CreationDate >= x.DueDate.AddDays(-5)) 
+    .OrderBy(x => x.Age)
+    .Select(x => new
+    { 
+    FullName = x.FirstName + " " + x.LastName, 
+    DueDays = x.DueDate - x.CreationDate 
+    });
     
+当然还有一些方法如：Count() , Exists(),Min() , Max()等方法。。比较好理解。看看linq表达式的查询案例：
+
+var collection = db.GetCollection<Customer>("customer");
+var results = collection.Find(x => x.Name == "John Doe");
+var results = collection.Find(x => x.Age > 30);
+var results = collection.Find(x => x.Name.StartsWith("John") && x.Age > 30);
+
+### LiteDB的查询示例
+
+namespace DEVGIS.OutTest.Views
+{
     /// <summary>
     /// SelectDevices.xaml 的交互逻辑
     /// </summary>
@@ -3865,12 +4118,12 @@ namespace DEVGIS.FA.FAOutTest.Views
     {
     public TestLiteDB() : base("")
     {
-    InitializeComponent();
-    this.Loaded += TestLiteDB_Loaded;
+  InitializeComponent();
+  this.Loaded += TestLiteDB_Loaded;
     }
     private void TestLiteDB_Loaded(object sender, RoutedEventArgs e)
     {
-     InitDB();
+   InitDB();
     }
     public void InitDB()
     {
