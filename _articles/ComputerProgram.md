@@ -1,11 +1,10 @@
 ---
 layout: post
 title: 计算机编程
-description: 计算机科学相关学习内容总结,各种编程语言以及计算机数据结构等总结梳理
+description: 计算机编程一些基础理论如数据结构算法等问题的学习研究，当然主流的编程语言单独成编。
 date: 2022-10-01 09:01:01
-updatedate: 2023-11-03 09:19:01
+updatedate: 2024-03-26 11:03:56
 ---
-
 - [数据结构](#数据结构)
   - [数据结构分类](#数据结构分类)
     - [逻辑结构](#逻辑结构)
@@ -17,95 +16,19 @@ updatedate: 2023-11-03 09:19:01
   - [递归](#递归)
   - [排序](#排序)
   - [字符串与模式匹配](#字符串与模式匹配)
+- [面向对象](#面向对象)
+  - [面向对象设计原则](#面向对象设计原则)
+- [UML](#uml)
+- [Gof设计模式](#gof设计模式)
+  - [创建型模式](#创建型模式)
+  - [结构型模式](#结构型模式)
+  - [行为型模式](#行为型模式)
+- [消息队列](#消息队列)
+  - [常见](#常见)
+  - [两种模式](#两种模式)
+- [CCPP](#ccpp)
 - [Php](#php)
-  - [Pyplot，画出各种你想要的图](#pyplot画出各种你想要的图)
-- [Python](#python)
-  - [语言特点](#语言特点)
-    - [跨平台](#跨平台)
-      - [可远行于](#可远行于)
-        - [各大操作系统](#各大操作系统)
-    - [解释型脚本语言](#解释型脚本语言)
-      - [内建](#内建)
-        - [高级的数据结构](#高级的数据结构)
-    - [面向对象的语言](#面向对象的语言)
-      - [便于](#便于)
-        - [数据和逻辑](#数据和逻辑)
-    - [动态语言](#动态语言)
-      - [变量本身](#变量本身)
-        - [类型不固定](#类型不固定)
-        - [可随意转换](#可随意转换)
-        - [不需要声明](#不需要声明)
-    - [不用考虑](#不用考虑)
-      - [内存问题](#内存问题)
-    - [可处理的数据量](#可处理的数据量)
-      - [无限制](#无限制)
-    - [默认编码](#默认编码)
-      - [UTF-8](#utf-8)
-  - [运行程序](#运行程序)
-    - [两种模式](#两种模式)
-      - [脚本式编程](#脚本式编程)
-        - [一次性执行](#一次性执行)
-      - [交互式编程](#交互式编程)
-        - [逐行输入](#逐行输入)
-    - [远行脚本](#远行脚本)
-      - [命令行/终端模式](#命令行终端模式)
-        - [python \*.py](#python-py)
-      - [Linux下可执行脚本](#linux下可执行脚本)
-        - [首行添加](#首行添加)
-        - [赋予权限](#赋予权限)
-        - [运行脚本](#运行脚本)
-      - [IPython](#ipython)
-        - [%run \*.py](#run-py)
-  - [代码格式](#代码格式)
-    - [缩进](#缩进)
-      - [用【缩进深度】区分](#用缩进深度区分)
-        - [语句【代码块】](#语句代码块)
-    - [行长](#行长)
-      - [每行不超过80字符](#每行不超过80字符)
-    - [空行](#空行)
-      - [将程序的不同部分分开](#将程序的不同部分分开)
-    - [\\ ](#)
-      - [继续上一行](#继续上一行)
-      - [跨行特例](#跨行特例)
-        - [闭合操作符](#闭合操作符)
-        - [三引号](#三引号)
-    - [;](#-1)
-      - [在同一行](#在同一行)
-        - [连接多个语句](#连接多个语句)
-    - [:](#-2)
-      - [分开代码块(组)](#分开代码块组)
-        - [头\&体](#头体)
-  - [变量](#变量)
-    - [内涵](#内涵)
-      - [存储了一个值](#存储了一个值)
-        - [与【变量】相关联的信息](#与变量相关联的信息)
-    - [命名规则](#命名规则)
-      - [只能包含](#只能包含)
-        - [字母、数字和下划线](#字母数字和下划线)
-      - [不能](#不能)
-        - [以【数字】打头](#以数字打头)
-        - [包含【空格】](#包含空格)
-        - [使用python保留字：用于【特殊用途】的单词](#使用python保留字用于特殊用途的单词)
-      - [建议](#建议)
-        - [简短又具有描述性](#简短又具有描述性)
-        - [使用【小写字母】](#使用小写字母)
-        - [慎用](#慎用)
-  - [变量赋值](#变量赋值)
-    - [赋值符](#赋值符)
-      - [=](#-3)
-    - [增量赋值](#增量赋值)
-      - [+=](#-4)
-    - [多重赋值](#多重赋值)
-      - [x=y=z=1](#xyz1)
-    - [多元赋值](#多元赋值)
-      - [x,y,z=1,2,'a'](#xyz12a)
-        - [\*var收集多余的值](#var收集多余的值)
-      - [通常【元组】需要【小括号】](#通常元组需要小括号)
-      - [建议](#建议-1)
-        - [加上【小括号】以增加【可读性】](#加上小括号以增加可读性)
-        - [(x,y,z)=(1,2,'a')](#xyz12a-1)
-    - [变量交换](#变量交换)
-      - [x,y=y,x](#xyyx)
+  - [ IIS PHP配置](#-iis-php配置)
 - [LabView](#labview)
   - [LabⅥEW基础知识](#labⅵew基础知识)
   - [前面板设计](#前面板设计)
@@ -140,4857 +63,1753 @@ updatedate: 2023-11-03 09:19:01
   - [文件管理](#文件管理)
   - [数据采集](#数据采集)
   - [通信技术](#通信技术)
-- [插件式框架](#插件式框架)
-  - [Main](#main)
-    - [Log4Net配置](#log4net配置)
-      - [log4net.Config.XmlConfigurator.Configure();](#log4netconfigxmlconfiguratorconfigure)
-    - [Log4Net初始化](#log4net初始化)
-    - [MEF初始化](#mef初始化)
-      - [new FABuilder().Load();](#new-fabuilderload)
-  - [Plugin实现层](#plugin实现层)
-    - [服务实现层](#服务实现层)
-      - [FACommonService](#facommonservice)
-        - [FALoggerService](#faloggerservice)
-        - [FAMessageService](#famessageservice)
-      - [FACommonViews](#facommonviews)
-        - [DebugPanel.xaml](#debugpanelxaml)
-        - [DebugPanelViewModel](#debugpanelviewmodel)
-        - [DebugPanel.Xaml.cs](#debugpanelxamlcs)
-    - [插件实现层](#插件实现层)
-      - [MyFAPlugin1](#myfaplugin1)
-        - [MyFAPlugin1](#myfaplugin1-1)
-      - [MyFAPlugin2](#myfaplugin2)
-        - [MyFAPlugin2](#myfaplugin2-1)
-    - [FAStaticData](#fastaticdata)
-  - [Controls](#controls)
-    - [Conveter](#conveter)
-      - [ProjectVisableConverter](#projectvisableconverter)
-    - [DialogCloser](#dialogcloser)
-    - [FADialog](#fadialog)
-    - [FAWindow](#fawindow)
-  - [Plugin接口层](#plugin接口层)
-    - [Plugin插件模型接口层](#plugin插件模型接口层)
-      - [FAPluginBase](#fapluginbase)
-      - [FAView](#faview)
-      - [FAViewModel](#faviewmodel)
-    - [服务接口层](#服务接口层)
-      - [IDebugOut](#idebugout)
-      - [IFALogger](#ifalogger)
-      - [IFAMessageBox](#ifamessagebox)
-    - [Plugin插件模型接口层](#plugin插件模型接口层-1)
-      - [MessageReceivedEventArgs](#messagereceivedeventargs)
-  - [Core](#core)
-    - [FABuilder](#fabuilder)
-  - [Viwes](#viwes)
-    - [CreateProject](#createproject)
-      - [Xaml](#xaml)
-      - [ViewModel](#viewmodel)
-    - [MainWindow](#mainwindow)
-      - [Xaml](#xaml-1)
-  - [概述](#概述)
-    - [网格计算](#网格计算)
-    - [Oracle 11g新特性](#oracle-11g新特性)
-      - [ViewModel](#viewmodel-1)
-    - [SelectDevices](#selectdevices)
-      - [Xaml](#xaml-2)
-      - [ViewModel](#viewmodel-2)
-    - [ViewLocator](#viewlocator)
-  - [外部包依赖](#外部包依赖)
-    - [Dirkster.AvalonDock](#dirksteravalondock)
-      - [Dirkster.AvalonDock.Themes.VS2013](#dirksteravalondockthemesvs2013)
-    - [Fluent.Ribbon](#fluentribbon)
-    - [log4net](#log4net)
-    - [MEF](#mef)
-      - [System.ComponentModel.Composition](#systemcomponentmodelcomposition)
-    - [Dirkster.AvalonDock](#dirksteravalondock-1)
-    - [log4net](#log4net-1)
-  - [LanguageResource实现多语言支持](#languageresource实现多语言支持)
-  - [HTTP](#http)
-- [认证授权](#认证授权)
-  - [认证](#认证)
-  - [Token](#token)
-    - [SAML](#saml)
-    - [JWT](#jwt)
-    - [SSO 与CAS](#sso-与cas)
-  - [授权](#授权)
-    - [OAuth 授权](#oauth-授权)
-- [gRPC](#grpc)
-  - [gRPC 概述](#grpc-概述)
-  - [gRPC 服务项目模板](#grpc-服务项目模板)
-  - [ASP.NET Core gRPC 服务项目模板提供了一个入门版服务：](#aspnet-core-grpc-服务项目模板提供了一个入门版服务)
-  - [使用 .NET 客户端调用 gRPC 服务](#使用-net-客户端调用-grpc-服务)
 
 
-## 数据结构
-
-### 数据结构分类
-
-#### 逻辑结构
-
-> 集合结构
-
-> 线性结构
-
-> 树形结构
-
-> 图形结构
-
-#### 线性结构
-
-> 顺序存储结构
-
-> 链式存储结构
-
-### 指针与数组
-
-> 指针
-
-> > 内存与地址
-
-> > 指针的语法
-
-> > 使用指针变量
-
-> > 函数与参数传递
-
-> 数组
-
-> > 结构型数据类型
-
-> > 数组定义与初始化
-
-> > 数组与指针
-
-> > 数组的抽象数据类型
-
-> 动态内存管理
-
-> > 关键词new 和delete
-
-> > 避免内存错误
-
-### 链表
-
-> 单向链表
-
-> > 单向链表的结构
-
-> > 单向链表的操作算法
-
-> > 有序链表的合并算法
-
-> 单向循环链表
-
-> > 单向循环链表的结构
-
-> > 单向循环链表的实现
-
-> > 约瑟夫环的问题
-
-> > 魔术师发牌问题
-
-> > 拉丁方阵的问题
-
-> 双向循环链表
-
-> > 双向循环链表的结构
-
-> > 双向循环链表的实现
-
-> > 维吉尼亚加密法问题
-
-> 游标类的设计与实现
-
-> > 游标类的结构
-
-> > 游标类的实现
-
-> > 遍历
-
-> > 元素的插入与删除
-
-> 先进先出与后进先出
-
-> 排队的智慧
-
-> 优先级队列--兼谈页面置换算法
-
-### 集合与字典
-
-> 集合的概念，运算，实现
-
-> > 位向量集合
-
-> > 单链表集合
-
-> 字典
-
-> > 字典的概念
-
-> > 搜索运算
-
-> 散列
-
-> > 散列的概念
-
-> > 散列函数
-
-> > 字符串散列
-
-> > 处理散列冲突
-
-> 不相交集
-
-> > 不相交集的概念
-
-> > 不相交集的实现
-
-> > 犯罪团伙的问题
-
-> > 路径压缩的实现
-
-> STL 中的set
-
-## 算法
-
-> 算法复杂度
-
-> >（O(n)渐进表示法）
-
-> > 时间复杂度
-
-> > 空间复杂度
-
-### 递归
-
-> 递归的概念，定义，原则，递归和非递归的转化
-
-> 分治法
-
-> > > 分治法简述
-
-> > > 汉诺塔问题
-
-> > > 传染病问题
-
-> 回溯法
-
-> > > 回溯法简述
-
-> > > 迷宫问题
-
-> > > 八皇后问题
-
-> 树
-
-> > 花开二枝分外香--二叉树及相关算法
-
-> > > 二叉树的定义
-
-> > > 二叉树的性质
-
-> > > 二叉树的实现
-
-> > > 二叉树的遍历算法
-
-> > > 二叉树线索化算法
-
-> > 从树到森林
-
-> > > 树的存储表示
-
-> > > 树的实现
-
-> > > 树与森林的遍历算法
-
-> > > 森林与二叉树的转换
-
-> > 哈夫曼树--***优二叉树编码算法
-
-> > > 哈夫曼编码
-
-> > > 构造哈夫曼树
-
-> > > 哈夫曼编码的实现
-
-> 堆
-
-> > 堆的概念
-
-> > 堆的建立
-
-> > 堆的操作
-
-> 图
-
-> > 图的存储与表示
-
-> > > 图的邻接矩阵表示
-
-> > > 图的邻接表表示
-
-> > > 两种表示法的比较
-
-> > 图的遍历
-
-> > > 欧拉路径与欧拉回路
-
-> > > 哈密尔顿路径与哈密尔顿回路
-
-> > > 广度优先遍历算法
-
-> > > 深度优先遍历算法
-
-> > 最短短路径问题
-
-> > > 固定起点***短路径问题
-
-> > > 非固定起点***短路径问题
-
-> > > ***短路径的动态规划解法
-
-> > 图的最小生成树
-
-> > > 图的最小生成树的定义
-
-> > > 克鲁斯卡尔算法
-
-> > > 普里姆算法
-
-> 树形搜索结构
-
-> > 二叉搜索树
-
-> > > 二叉搜索树的概念
-
-> > > 二叉搜索树的操作
-
-> > > 二叉搜索树的实现
-
-> > > 二叉搜索树的分析
-
-> > 自平衡的二叉搜索树--**L 树
-
-> > > **L 树的概念
-
-> > > **L 树的旋转
-
-> > > **L 树的实现
-
-> > 树中亦有"红与黑"
-
-> > > 红黑树的概念
-
-> > > 红黑树的操作
-
-> > > 红黑树的实现
-
-> > 基于Trie 树的单词检索
-
-> > > Trie 树的概念
-
-> > > Trie 树的表示
-
-> > > Trie 树的实现
-
-### 排序
-
-> 插入排序
-
-> > 直接插入排序
-
-> > 二分插入排序
-
-> > 希尔排序
-
-> 选择排序
-
-> > 直接选择排序
-
-> > 堆排序
-
-> 交换排序
-
-> > 冒泡排序
-
-> > 鸡尾酒排序
-
-> > 快速排序
-
-> 归并排序
-
-> 计数排序
-
-> 线性表
-
-> > 顺序表(增，删，查，改，销毁)
-
-> > > 静态顺序表
-
-> > > 动态顺序表
-
-> 链表(增，删，查，改，销毁)
-
-> > 单链表
-
-> > > 无头双链表
-
-> > > 有头单链表
-
-> > 双链表
-
-> > > 无头双链表
-
-> > > 有头双链表
-
-> > > 无头循环双链表
-
-> > > 有头循环双链表
-
-> > 三链表
-
-> > 链表的逆序
-
-> > > 无头链表的删除和插入
-
-> > > 链表带环问题
-
-> 栈和队列
-
-> > 栈和队列的创建
-
-> > 栈和队列的初始化
-
-> > 栈的增容
-
-> > 入栈，出栈，入队，出队
-
-> > 取得栈顶，队头和队尾元素
-
-> > 求栈和队列的大小，判断栈和队列是否为空
-
-> > 栈
-
-> 一种特殊的线性表，其只允许在固定的一端进行插入和删除元素操作
-
-> > 顺序队列
-
-> > >顺序栈
-
-> > >链式栈
-
-> > >栈的应用
-
-> 队列
-
-> > 循环队列
-
-> > 优先级队列
-
-> > 队列的应用
-
-> 树形结构
-
-> > 节点
-
-> > 节点的度
-
-> > 叶节点
-
-> > 分支节点
-
-> > 祖先节点
-
-> > 双亲节点
-
-> > 兄弟节点
-
-> > 孩子节点
-
-> > 树的深度
-
-> > 树的表示方法
-
-> > > 双亲表示法
-
-> > > 孩子表示法
-
-> > > 双亲孩子表示法
-
-> > > 孩子兄弟表示法
-
-> > > 树的存储形式
-
-> > > > 二叉树
-
-> > 二叉树的存储
-
-> > > 顺序存储结构
-
-> > > 链式存储结构
-
-> > 二叉树的基本操作
-
-> > > 二叉树的创建
-
-> > > 二叉树的遍历(递归和非递归)
-
-> > > > 前序遍历
-
-> > > > 中序遍历
-
-> > > > 后序遍历
-
-> > > > 后序遍历
-
-> > > 二叉树的增、删、查、改、销毁
-
-> > > 线索化二叉树
-
-> > > > 堆
-
-> > 堆的概念,创建
-
-> > > 大堆
-
-> > > 小堆
-
-> > > 堆的插入和删除
-
-> > > 堆的应用
-
-> > > > 优先级队列
-
-> > > > 海量数据top K问题
-
-> > > > 堆排序（高校排序算法）
-
-> > > > huffman树
-
-> 搜索
-
-> > 线性查找
-
-> > > 顺序查找：从前往后依次遍历O(n)
-
-> > > 顺序有序查找：二分查找O(log(N))
-
-> > > 索引顺序表
-
-> > 树形查找
-
-> > > 二叉树结构
-
-> 二叉搜索树
-
-> 平衡树
-
- > AVL树
-
- > 红黑树
-
-> > > 多叉树结构
-
-> B-树
-
-> B+树
-
-> B*树
-
-> > 哈希查找
-
-> > > 哈希表
-
-> > > > 哈希冲突及解决方法
-
-> > > 哈希函数
-
-> > > > 哈希冲突——开散列
-
-> > > > 哈希冲突——闭散列
-
-> > > 哈希表变形
-
-> > > > 哈希表变形——位图
-
-> > > > 哈希表变形——布隆过滤器
-
-> 排序
-
-> > 插入排序
-
-> > > 直接插入排序
-
-> > > 希尔排序
-
-> > 选择排序
-
-> > > 选择排序
-
-> > > 堆排序
-
-> > 交换排序
-
-> > > 冒泡排序
-
-> > > 快速排序
-
-> > 归并排序
-
-### 字符串与模式匹配
-
-> 文本的匹配
-
-> > BF 算法
-
-> > MP 算法
-
-> > KMP 算法
-
-> > BM 算法
-
-> > BMH 算法
-
-> 文本的模糊匹配
-
-> > 全局编辑距离
-
-> > 局部***佳对准
-
-> > N 元距离模型
-
-## Php
-
-### Pyplot，画出各种你想要的图
-
-> https://blog.csdn.net/qq_42257666/article/details/122439666
-
-## Python
-
-### 语言特点
-
-#### 跨平台
-
-##### 可远行于
-
-###### 各大操作系统
-
-#### 解释型脚本语言
-
-##### 内建
-
-###### 高级的数据结构
-
-#### 面向对象的语言
-
-##### 便于
-
-###### 数据和逻辑
-
-####### 相分离
-
-#### 动态语言
-
-##### 变量本身
-
-###### 类型不固定
-
-###### 可随意转换
-
-###### 不需要声明
-
-#### 不用考虑
-
-##### 内存问题
-
-#### 可处理的数据量
-
-##### 无限制
-
-#### 默认编码
-
-##### UTF-8
-
-### 运行程序
-
-#### 两种模式
-
-##### 脚本式编程
-
-###### 一次性执行
-
-####### 源代码脚本
-
-##### 交互式编程
-
-###### 逐行输入
-
-####### 再执行
-
-#### 远行脚本
-
-##### 命令行/终端模式
-
-###### python *.py
-
-##### Linux下可执行脚本
-
-###### 首行添加
-
-####### #!/usr/local/bin/python
-
-####### #!/usr/bin/env python
-
-###### 赋予权限
-
-####### chmod 755 *.py
-
-###### 运行脚本
-
-####### *.py
-
-##### IPython
-
-###### %run *.py
-
-### 代码格式
-
-#### 缩进
-
-##### 用【缩进深度】区分
-
-###### 语句【代码块】
-
-#### 行长
-
-##### 每行不超过80字符
-
-#### 空行
-
-##### 将程序的不同部分分开
-
-#### \ 
-
-##### 继续上一行
-
-##### 跨行特例
-
-###### 闭合操作符
-
-####### [],{},()
-
-###### 三引号
-
-####### 常用于【多行注释】
-
-#### ;
-
-##### 在同一行
-
-###### 连接多个语句
-
-#### :
-
-##### 分开代码块(组)
-
-###### 头&体
-
-### 变量
-
-#### 内涵
-
-##### 存储了一个值
-
-###### 与【变量】相关联的信息
-
-#### 命名规则
-
-##### 只能包含
-
-###### 字母、数字和下划线
-
-##### 不能
-
-###### 以【数字】打头
-
-###### 包含【空格】
-
-###### 使用python保留字：用于【特殊用途】的单词
-
-####### 关键字
-
-####### 函数名
-
-##### 建议
-
-###### 简短又具有描述性
-
-###### 使用【小写字母】
-
-###### 慎用
-
-####### 小写字母l
-
-####### 大写字母O
-
-####### 易与1&0混淆
-
-### 变量赋值
-
-#### 赋值符
-
-##### =
-
-#### 增量赋值
-
-##### +=
-
-#### 多重赋值
-
-##### x=y=z=1
-
-#### 多元赋值
-
-##### x,y,z=1,2,'a'
-
-###### *var收集多余的值
-
-##### 通常【元组】需要【小括号】
-
-##### 建议
-
-###### 加上【小括号】以增加【可读性】
-
-###### (x,y,z)=(1,2,'a')
-
-#### 变量交换
-
-##### x,y=y,x
-
-## LabView
-
-### LabⅥEW基础知识
-
-> LabⅥEW编程环境
-
-> > 前面板
-
-> > 程序框图
-
-> > 菜单栏
-
-> > 工具栏
-
-> > 项目浏览器窗口
-
-> Xcontrol
-
-> > XControl对于用户来说，和普通的控件没有区别，但XControl对于开发者来说，除了有自定义外观外，还能自定义行为。
-
-> > 可以将控件的功能封装起来，使其和应用程序代码分离。同时有助于重用。
-
-> 创建XControl
-
-> > 新建XCtrl：
-
-> > Data.ctl: 指定了XCtrl的数据类型；
-
-> > State.ctl: 指定了除数据类型之外其他影响XCtrl外观的信息，其他所有数据的定义放在此处；
-
-> > Init.vi: 当XCtrl第一次被放置在前面板上或含有XCtrl的vi第一次被载入内存时，初始化显示状态。
-
-> > 新建Method，定义XCtrl支持的方法（类似于类的成员函数），用于操作State中的数据；这里实现各种具体的操作。
-
-> > 新建Property，定义了XCtrl的可读取属性（类似于LabVIEW类的accessor的工作），用于读取XCtrl中的数据；
-
-> > 修改facade vi，用于定制XControl的外观，创建各种状态改变事件。
-
-> > X控件的本质是为控件事先定义好一系列可以响应的事件，之后使用控件时，就可以在控件的属性或调用节点中看到这些事件，像操作普通控件一样，调用这些节点来执行特定操作。
-
-> > 以LabVIEW自带的摄氏华氏温度转换XCtrl为例：
-
-### 前面板设计
-
-> 前面板
-
-> >  “工具”选板
-
-> >  图标/连接器
-
-> >  选板可见性设置
-
->  前面板控件
-
-> >  “控件”选板
-
-> >  控件样式
-
->  对象的设置
-
-> >  选择对象
-
-> >  删除对象
-
-> >  变更对象位置
-
-> >  属性节点
-
->  设置前面板的外观
-
-> >  改变对象的大小
-
-> >  改变对象的颜色
-
-> >  设置对象的字体
-
-> 菜单设计
-
-> > 菜单编辑器
-
-> >  “菜单”函数
-
-### 程序框图与程序结构
-
-> 程序框图
-
-> 循环结构
-
-> >  For循环及并行循环
-
-> >  移位寄存器
-
-> >  While循环
-
-> >  反馈节点
-
-> 条件结构
-
-> 顺序结构
-
-> 事件结构
-
-> 程序框图禁用结构
-
-> 条件禁用结构
-
-> 定时循环
-
-> 定时循环和定时顺序结构
-
-> 配置定时循环和定时顺序结构
-
-> 同步开始定时结构和中止定时结构的执行
-
-> 公式节点
-
-> 程序逻辑的公式节点
-
-### 数值字符串与布尔运算
-
-> 数值控件
-
-> 数值型控件
-
-> 布尔型控件和单选按钮
-
-> 字符串与路径控件
-
-> 数值运算
-
-> 数值函数
-
-> 三角函数
-
-> 字符串运算
-
-> 字符串常量
-
-> 字符串函数
-
-> 其余运算
-
-> 布尔运算
-
-> 比较运算
-
-> 定时运算
-
-> 图形与声音运算
-
-### 数组、矩阵与簇
-
-> 数组控件
-
-##### 数组、矩阵和簇控件
-
-##### 列表框、树形控件和表格
-
-##### 容器控件
-
-##### 实例——数组分类
-
-> 数组
-
-##### 数组的组成
-
-##### 实例——创建数组控件
-
-##### 实例——创建多维数组控件
-
-##### 数组函数
-
-##### 实例——比较数组
-
-##### 实例——选项卡数组
-
-> 簇
-
-##### 簇的组成
-
-##### 创建簇
-
-##### 实例——创建簇控件
-
-##### 实例——调整“簇”控件顺序
-
-##### 簇函数
-
-##### 实例——使用“捆绑”函数创建“簇”控件
-
-> 矩阵
-
-##### 创建矩阵
-
-##### 矩阵函数
-
-##### 实例——创建矩阵控件
-
-##### 实例——矩阵变换
-
-#### 综合实例——矩形的绘制
-
-### 数据图形显示
-
-> 图形控件
-
-> 图形和图表
-
-> 下拉列表与枚举控件
-
-> I/O控件
-
-> 修饰控件
-
-> 对象和应用程序的引用
-
-> .NET与ActiveX控件
-
-> 图表图形
-
-> 波形图
-
-> 波形图表
-
-> > XY图
-
-> > 强度图
-
-> > 强度图表
-
-> > 二维图形
-
-> > 罗盘图
-
-> > 误差线图
-
-> > 羽状图
-
-> > XY曲线矩阵
-
-> > 三维图形
-
-> > 三维曲面图
-
-> > 三维参数图
-
-> > 三维曲线图
-
-> > 极坐标图
-
-### 数学函数
-
-> 数学函数运算
-
-> 线性代数Ⅵ
-
-> 特殊矩阵
-
-> 矩阵的基本运算
-
-> 矩阵的分解
-
-> 特征值
-
-> 线性方程组
-
-> 初等与特殊函数
-
-> 指数函数
-
-> 双曲函数
-
-> 离散数学
-
-> 贝塞尔曲线
-
-> Gamma函数
-
-> 超几何函数
-
-> 椭圆积分函数
-
-> 指数积分函数
-
-> 误差函数
-
-> 椭圆与抛物函数
-
-> 拟合Ⅵ
-
-> 曲线拟合
-
-> 拟合函数
-
-> 内插与外推Ⅵ
-
-> 概率与统计Ⅵ
-
-> 累积分布函数（连续）
-
-> 逆累积分布函数（连续
-
-> 累积分布函数（离散）
-
-> 逆累积分布函数（离散）
-
-> 方差分析Ⅵ
-
-> 很优化Ⅵ
-
-> 微分方程Ⅵ
-
-> 多项式Ⅵ
-
-### 波形运算
-
-> 波形数据
-
-> 变体函数
-
-> 时间标识
-
-> 波形生成
-
-> 基本函数发生器
-
-> 正弦波形
-
-> 公式波形
-
-> 基本混合单频
-
-> 混合单频与噪声波形
-
-> 基本带幅值混合单频
-
-> 混合单频信号发生器
-
-> 均匀白噪声波形
-
-> 周期性随机噪声波形
-
-> 伯努利噪声波形
-
-> 仿真信号
-
-> 基本波形函数
-
-> 获取波形成分
-
-> 创建波形
-
-> “设置波形属性”函数和“获取波形属性”函数
-
-> “索引波形数组”函数
-
-> “获取波形子集”函数
-
-> 模拟波形
-
-> 数字波形Ⅵ和函数
-
-> 波形调理
-
-> 数字FIR滤波器
-
-> 数字IIR滤波器
-
-> 按窗函数缩放
-
-> 波形对齐（连续）
-
-> 波形对齐（单次）
-
-> 连续卷积（FIR）
-
-> 滤波器
-
-> 对齐和重采样
-
-> 触发与门限
-
-> 波形测量
-
-> 基本平均直流——均方根
-
-> 瞬态特性测量
-
-> 提取单频信息
-
-> 快速傅里叶变换频谱（幅度——相位）
-
-> 频率响应函数（幅度——相位）
-
-> 频谱测量
-
-> 失真测量
-
-> 幅值和电平测量
-
-> 波形监测
-
-> 信号生成与处理
-
-> 信号生成
-
-> 基于持续时间的信号发生器
-
-> 混合单频与噪声
-
-> 高斯调制正弦波
-
-> 正弦信号
-
-> 正弦波
-
-> 均匀白噪声
-
-> 任意波形发生器
-
-> 信号运算
-
-> 卷积和相关ExpressⅥ
-
-> 缩放和映射
-
-> 窗
-
-> 滤波器
-
-> 巴特沃斯滤波器
-
-> 切比雪夫滤波器
-
-> FIR加窗滤波器
-
-> 贝塞尔滤波器
-
-> 谱分析
-
-> 变换
-
-> FFT
-
-> FHT
-
-> 反FFT
-
-> 反FHT
-
-> 逐点
-
-#### 信号生成
-
-> 信号运算
-
-> > 滤波器
-
-> > 谱分析
-
-> > 变换
-
-> > 线性代数
-
-### 文件管理
-
-> 文件数据
-
-> 路径
-
-> 文件I/O格式
-
-> 文件操作
-
-> 文件常量
-
-> 文件类型
-
-> 文本文件
-
-> 带分隔符电子表格文件
-
-> 二进制文件
-
-> 配置文件
-
-> TDMS
-
-> 存储/数据插件
-
-> Zip文件
-
-> XML格式
-
-> 波形文件I/O函数
-
-> 不错文件函数
-
-> 数据记录文件的创建和读取
-
-> 记录前面板数据
-
-> 数据与XML格式间的相互转换
-
-### 数据采集
-
-> 数据采集基础
-
-> DAQ功能概述
-
-### 通信技术
-
-> 串行通信技术
-
-> 串行通信介绍
-
-> ⅥSA配置串口
-
-> DataSocket技术
-
-> > 读取DataSocket
-
-> > 写入DataSocket
-
-> > 打开DataSocket
-
-> > 关闭DataSocket
-
-> TCP
-
-> > TCP侦听
-
-> > 打开TCP连接
-
-> > 读取TCP数据
-
-> > 写入TCP数据
-
-> UDP通信
-
-## 插件式框架
-
-### Main
-
-#### Log4Net配置
-
-##### log4net.Config.XmlConfigurator.Configure();
-
-#### Log4Net初始化
-
-#### MEF初始化
-
-##### new FABuilder().Load();
-
-### Plugin实现层
-
-#### 服务实现层
-
-##### FACommonService
-
-###### FALoggerService
-
-using DEVGIS.FA.Plugin.Interfaces;
-
-using DEVGIS.FA.Plugin.Services;
-
-using log4net;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Reflection;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.FACommonService
-
-{
-
-  [Export(typeof(IFALogger))]
-
-  public class FALoggerService : IFALogger
-
-  {
-
-    ILog logger;
-
-    public FALoggerService()
-
-    {
-
-      logger = log4net.LogManager.GetLogger("RollingLogFileAppender"); 
-
-    }
-
-    public bool IsDebugEnabled => true;
-
-    public bool IsInfoEnabled => true;
-
-    public bool IsWarnEnabled => true;
-
-    public bool IsErrorEnabled => true;
-
-    public bool IsFatalEnabled => true;
-
-    public void Debug(object message)
-
-    {
-
-      logger.Debug(message);
-
-    }
-
-    public void Debug(object message, Exception exception)
-
-    {
-
-      logger.Debug(message, exception);
-
-    }
-
-    public void DebugFormat(string format, params object[] args)
-
-    {
-
-      logger.DebugFormat(format, args);
-
-    }
-
-    public void Error(object message)
-
-    {
-
-      logger.Error(message);
-
-    }
-
-    public void Error(object message, Exception exception)
-
-    {
-
-      logger.Error(message, exception);
-
-    }
-
-    public void ErrorFormat(string format, params object[] args)
-
-    {
-
-      logger.ErrorFormat(format, args);
-
-    }
-
-    public void Fatal(object message)
-
-    {
-
-      logger.Fatal(message);
-
-    }
-
-    public void Fatal(object message, Exception exception)
-
-    {
-
-      logger.Fatal(message, exception);
-
-    }
-
-    public void FatalFormat(string format, params object[] args)
-
-    {
-
-      logger.FatalFormat(format, args);
-
-    }
-
-    public void Info(object message)
-
-    {
-
-      logger.Info(message);
-
-    }
-
-    public void Info(object message, Exception exception)
-
-    {
-
-      logger.Info(message, exception);
-
-    }
-
-    public void InfoFormat(string format, params object[] args)
-
-    {
-
-      logger.InfoFormat(format, args);
-
-    }
-
-    public void Warn(object message)
-
-    {
-
-      logger.Warn(message);
-
-    }
-
-    public void Warn(object message, Exception exception)
-
-    {
-
-      logger.Warn(message, exception);
-
-    }
-
-    public void WarnFormat(string format, params object[] args)
-
-    {
-
-      logger.WarnFormat(format, args);
-
-    }
-
-  }
-
+# 数据结构
+
+## 数据结构分类
+
+### 逻辑结构
+
+集合结构
+线性结构
+树形结构
+图形结构
+
+### 线性结构
+
+顺序存储结构
+链式存储结构
+
+## 指针与数组
+
+指针
+内存与地址
+指针的语法
+使用指针变量
+函数与参数传递
+数组
+结构型数据类型
+数组定义与初始化
+数组与指针
+数组的抽象数据类型
+动态内存管理
+关键词new 和delete
+避免内存错误
+
+## 链表
+
+单向链表
+单向链表的结构
+单向链表的操作算法
+有序链表的合并算法
+单向循环链表
+单向循环链表的结构
+单向循环链表的实现
+约瑟夫环的问题
+魔术师发牌问题
+拉丁方阵的问题
+双向循环链表
+双向循环链表的结构
+双向循环链表的实现
+维吉尼亚加密法问题
+游标类的设计与实现
+游标类的结构
+游标类的实现
+遍历
+元素的插入与删除
+先进先出与后进先出
+排队的智慧
+优先级队列--兼谈页面置换算法
+
+## 集合与字典
+
+集合的概念，运算，实现
+位向量集合
+单链表集合
+字典
+字典的概念
+搜索运算
+散列
+散列的概念
+散列函数
+字符串散列
+处理散列冲突
+不相交集
+不相交集的概念
+不相交集的实现
+犯罪团伙的问题
+路径压缩的实现
+STL 中的set
+
+# 算法
+
+算法复杂度
+（O(n)渐进表示法）
+时间复杂度
+空间复杂度
+
+## 递归
+
+递归的概念，定义，原则，递归和非递归的转化
+分治法
+分治法简述
+汉诺塔问题
+传染病问题
+回溯法
+回溯法简述
+迷宫问题
+八皇后问题
+树
+花开二枝分外香--二叉树及相关算法
+二叉树的定义
+二叉树的性质
+二叉树的实现
+二叉树的遍历算法
+二叉树线索化算法
+从树到森林
+树的存储表示
+树的实现
+树与森林的遍历算法
+森林与二叉树的转换
+哈夫曼树--\*\*\*优二叉树编码算法
+哈夫曼编码
+构造哈夫曼树
+哈夫曼编码的实现
+堆
+堆的概念
+堆的建立
+堆的操作
+图
+图的存储与表示
+图的邻接矩阵表示
+图的邻接表表示
+两种表示法的比较
+图的遍历
+欧拉路径与欧拉回路
+哈密尔顿路径与哈密尔顿回路
+广度优先遍历算法
+深度优先遍历算法
+最短短路径问题
+固定起点\*\*\*短路径问题
+非固定起点\*\*\*短路径问题
+\*\*\*短路径的动态规划解法
+图的最小生成树
+图的最小生成树的定义
+克鲁斯卡尔算法
+普里姆算法
+树形搜索结构
+二叉搜索树
+二叉搜索树的概念
+二叉搜索树的操作
+二叉搜索树的实现
+二叉搜索树的分析
+自平衡的二叉搜索树--\*\*L 树
+\*\*L 树的概念
+\*\*L 树的旋转
+\*\*L 树的实现
+树中亦有"红与黑"
+红黑树的概念
+红黑树的操作
+红黑树的实现
+基于Trie 树的单词检索
+Trie 树的概念
+Trie 树的表示
+Trie 树的实现
+
+## 排序
+
+插入排序
+直接插入排序
+二分插入排序
+希尔排序
+选择排序
+直接选择排序
+堆排序
+交换排序
+冒泡排序
+鸡尾酒排序
+快速排序
+归并排序
+计数排序
+线性表
+顺序表(增，删，查，改，销毁)
+静态顺序表
+动态顺序表
+链表(增，删，查，改，销毁)
+单链表
+无头双链表
+有头单链表
+双链表
+无头双链表
+有头双链表
+无头循环双链表
+有头循环双链表
+三链表
+链表的逆序
+无头链表的删除和插入
+链表带环问题
+栈和队列
+栈和队列的创建
+栈和队列的初始化
+栈的增容
+入栈，出栈，入队，出队
+取得栈顶，队头和队尾元素
+求栈和队列的大小，判断栈和队列是否为空
+栈
+一种特殊的线性表，其只允许在固定的一端进行插入和删除元素操作
+顺序队列
+顺序栈
+链式栈
+栈的应用
+队列
+循环队列
+优先级队列
+队列的应用
+树形结构
+节点
+节点的度
+叶节点
+分支节点
+祖先节点
+双亲节点
+兄弟节点
+孩子节点
+树的深度
+树的表示方法
+双亲表示法
+孩子表示法
+双亲孩子表示法
+孩子兄弟表示法
+树的存储形式
+二叉树
+二叉树的存储
+顺序存储结构
+链式存储结构
+二叉树的基本操作
+二叉树的创建
+二叉树的遍历(递归和非递归)
+前序遍历
+中序遍历
+后序遍历
+后序遍历
+二叉树的增、删、查、改、销毁
+线索化二叉树
+堆
+堆的概念,创建
+大堆
+小堆
+堆的插入和删除
+堆的应用
+优先级队列
+海量数据top K问题
+堆排序（高校排序算法）
+huffman树
+搜索
+线性查找
+顺序查找：从前往后依次遍历O(n)
+顺序有序查找：二分查找O(log(N))
+索引顺序表
+树形查找
+二叉树结构
+二叉搜索树
+平衡树
+AVL树
+红黑树
+多叉树结构
+B-树
+B+树
+B\*树
+哈希查找
+哈希表
+哈希冲突及解决方法
+哈希函数
+哈希冲突——开散列
+哈希冲突——闭散列
+哈希表变形
+哈希表变形——位图
+哈希表变形——布隆过滤器
+排序
+插入排序
+直接插入排序
+希尔排序
+选择排序
+选择排序
+堆排序
+交换排序
+冒泡排序
+快速排序
+归并排序
+
+## 字符串与模式匹配
+
+文本的匹配
+BF 算法
+MP 算法
+KMP 算法
+BM 算法
+BMH 算法
+文本的模糊匹配
+全局编辑距离
+局部\*\*\*佳对准
+N 元距离模型
+
+# 面向对象
+
+面向对象说到底就是一种思想，任何事物都可以看作是一个对象，称之为OOP(Object Oriented Programming)。
+面向对象就是把一个人或事务的属性，比如名字，年龄这些定义在一个实体类里面。存和取的时候直接使用存取实体类就把这个人的名字，年龄这些全部存了，这个实体类就叫对象，这种思想就叫面向对象。
+特征：抽象，继承，多态。
+优点：模块化便于维护，复用性强，可靠性和灵活性，可读性和可扩展性。
+访问修饰符
+public:公开，访问无限制
+internal：本项目内可以访问
+internal protected：本项目的父子类可以访问 C# 7.2之后有protected internal
+protected：子类可以访问
+private：受保护的，只能在奔类中使用，对外完全封闭
+多态的理解
+解释：同一操作作用于不同的对象，实现不同的结果。
+作用：增强代码的灵活性，重用性，可读性
+&#x20;实现：通过派生类，覆写基类的虚方法、重写基类的override方法。
+构造函数
+&#x20;概念：构造函数的方法名与类型相同、没有返回类型
+作用：完成对类的对象初始化
+创建一个类的新对象时，系统会自动调用该构造函数初始化新对象，
+如果没有写定义，那么系统会自动提供一个不带任何参数的public 构造函数
+重写和重载的区别
+重写方法：关键字用override修饰，派生类重写基类的方法，方法命名、返回类型，参数必须相同，
+重载方法：方法名必须相同，参数列表必须不相同，返回类型可以不相同。
+作用：重写主要是实现面向对象的多态性、重载主要是实现实例化不同的对象
+class和struct的异同?
+&#x20;相同点：
+都可以实现接口
+不同点：
+1.class是引用类型，struct是值类型
+2.class允许继承、被继承，struct不允许，只能继承接口
+3.class可以初始化变量，struct不可以
+4.class可以有无参的构造函数，struct不可以，必须是有参的构造函数，而且在有参的构造函数必须初始化所有成员
+使用场景：
+1.Class比较适合大的和复杂的数据，表现抽象和多级别的对象层次时。Struct适用于作为经常使用的一些数据组合成的新类型，表示诸如点、矩形等主要用来存储数据的轻量级对象时，偏简单值。
+2.Struct有性能优势，Class有面向对象的扩展优势。
+构造函数是否能被重写？
+构造器Constructor不能被继承，因此不能重写，但可以被重载
+7.简述一下面向对象的三大特性
+封装、继承、多态。
+封装：是通过把对象的属性的实现细节隐藏起来，仅对外提供公共的访问方法。
+继承：是通过子类继承基类、继承抽象类、继承接口实现的。
+多态：是通过重写基类的override 方法、重写虚方法实现的。
+好处是，方便维护、易扩展。
+缺点是：比面向过程性能低。
+抽象类和接口有什么区别？
+相同点：都不能直接实例化
+1.抽象类用abstract修饰、接口用interface修饰
+2.抽象类中的方法可以实现，也可以不实现，有抽象方法的类一定要用abstract修饰，接口中的方法不允许实现
+3.抽象类只能单继承，接口支持多继承
+4.抽象类有构造方法，接口不能有构造方法
+5.接口只负责功能的定义，通过接口来规范类的，（有哪些功能），而抽象类即负责功能的定义有可以实现功能（实现了哪些功能）
+类的执行顺序
+执行顺序：父类，子类，静态块，静态字段，非静态块，非静态字段，构造器，方法
+接口是否可继承接口？抽象类是否可实现（implements）接口？抽象类是否可继承实现类（concrete class）？
+接口可以继承接口，抽象类可以实现接口，抽象类可以继承实现类，但前提是实现类必须有明确的构造函数。
+谈谈你对设计模式的认识？结合你用得最多的一种设计模式说说它的使用。
+什么是匿名类，有什么好处
+匿名类型提供了一种方便的方法，可用来将一组只读属性封装到单个对象中，而无需首先显式定义一个类型。 类型名由编译器生成，并且不能在源代码级使用。 每个属性的类型由编译器推断。可结合使用 [new](https://learn.microsoft.com/zh-cn/dotnet/csharp/language-reference/operators/new-operator) 运算符和对象初始值设定项创建匿名类型。
+var v = new { Amount = 108, Message = "Hello" };
+有哪些引用类型，有哪些值类型，有什么区别
+引用类型：类、接口、委托、字符串、数组
+值类型：整形、浮点型、结构体、枚举、bool
+值类型和引用类型的区别在于，值类型的变量直接存放实际的数据，而引用类型的变量存放的则是数据的地址，即对象的引用。
+默认值，值类型是0，引用类型null。
+C#中有没有静态构造函数，如果有是做什么用的？
+有.
+特点：
+静态构造函数既没有访问修饰符，也没有参数。
+在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数来初始化类。
+无法直接调用静态构造函数。在程序中，用户无法控制何时执行静态构造函数。
+用途：
+当类使用日志文件时，将使用这种构造函数向日志文件中写入项。
+怎样理解静态变量？静态成员和非静态成员的区别？
+静态变量属于类，而不属于对象；并对所有对象所享；静态成员在加类的时候就被加载。
+在项目中为什么使用接口？接口的好处是什么？什么是面向接口开发？
+接口是一种约束，描述类的公共方法/公共属性，不能有任何的实现
+好处是：结构清晰，类之间通信简单易懂，扩展性好，提高复用性。
+面向接口开发就是指面向抽象协议编程，实现者在实现时
+属性能在接口中声明吗？
+可以，不能有访问修饰符，不能初始化赋值。
+什么时候用重载？什么时候用重写？
+当一个类需要用不同的实现来做同一件事情，此时应该用重写，而重载是用不同的输入做同一件事情
+静态方法可以访问非静态变量吗？如果不可以为什么？
+静态方法和非静态变量不是同一生命周期，静态方法属于类，非静态变量属于具体的对象，静态方法和具体的对象没有任何关联
+IOC容器IOC即控制反转，是一种设计思想，在之前的项目中，当我们需要一个对象时，需要new一个对象，而IOC的设计思想是我们将需要的对象注入到一个容器中，就会获得我们所需要的资源 。
+IOC和DI IOC是控制反转，DI是依赖注入，控制反转的解释有些模棱两可，而依赖注入就很明确，我们将需要的对象注入到容器中，获取所需要的资源。
+IOC控制反转：正常情况下程序开发是上端调用下端，依赖下端，依赖倒置原则告诉我们，上端不要依赖下端，要依赖抽象，上端只依赖抽象，细节交给第三方工厂（容器）来决定，这就是IOC，就是控制反转——使系统架构可以更稳定，支持扩展。
+AOP(Aspect Oriented Programming)，意为：面向切面编程，通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是OOP的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。
+
+## 面向对象设计原则
+
+\*\*1. 单一职责原则（Single Responsibility Principle）\*\*每一个类应该专注于做一件事情。
+\*\*2. 里氏替换原则（Liskov Substitution Principle）\*\*超类存在的地方，子类是可以替换的。
+\*\*3. 依赖倒置原则（Dependence Inversion Principle）\*\*实现尽量依赖抽象，不依赖具体实现。
+\*\*4. 接口隔离原则（Interface Segregation Principle）\*\*应当为客户端提供尽可能小的单独的接口，而不是提供大的总的接口。
+\*\*5. 迪米特法则（Law Of Demeter）\*\*又叫最少知识原则，一个软件实体应当尽可能少的与其他实体发生相互作用。
+\*\*6. 开闭原则（Open Close Principle）\*\*面向扩展开放，面向修改关闭。
+\*\*7. 组合/聚合复用原则（Composite/Aggregate Reuse Principle CARP）\*\*尽量使用合成/聚合达到复用，尽量少用继承。原则： 一个类中有另一个类的对象。
+
+# UML
+
+在UML的定义中，描述类和对象之间的关系，包括以下几种方式：依赖（Dependency）、关联（Association）、聚合（Aggregation）、组合（Composition）、泛化（Generalization）和实现（Realization）。现分别说明如下：
+**1. 依赖（Dependency）**
+在uml中，“依赖”表示为带箭头的虚线，箭头指向被依赖的元素。是类与类之间的连接，表示为一个类依赖于另一个类的定义，其中一个类的变化将影响另一个类。依赖总是单向的，不应该存在双向依赖，这一点要特别注意。更具体的说，依赖可以理解为：一个类（A）对不在其实例作用域内的另一个类或对象（B）的任何类型的引用。大致包含以下几种情况：
+（1）局部变量；
+（2）方法的参数；
+（3）静态方法的调用；
+      
+下面是依赖关系的uml示意图：
+![](https://images0.cnblogs.com/i/612035/201403/111744185531764.jpg)
+**2. 关联（Association）**
+在uml中，关联表示为带箭头的实线。关联可以是单向的，也可以是双向的。如果是双向关联，则可以表示为双向箭头，或者没有箭头。一般来说，系统设计应表现为单向关联，这样利于维护。一个关联可以附加“多重性”的修饰符，表示两个类之间的数量关系。关联可以理解为：一个类（A）持有另一个类或对象（B）。具体表现为：
+（1）成员变量
+下面是关联关系的uml示例图：
+![](https://images0.cnblogs.com/i/612035/201403/111744285725798.jpg)
+上面的关联表示，一个Employee持有(has)0个或多个TimeCard。
+**3. 聚合（Aggregation）**
+在uml中，聚合关系表示为空心的菱形箭头线。聚合关系是关联关系的一种，表示一种“强”关联关系。对比与关联关系，两个类是处于同一个层次的。而聚合关系，两个类处于不同的层次，强调了一个整体/局部的关系。例如一辆汽车有一个引擎，4个轮胎。
+在聚合关系中，体现了一种“弱拥有”的概念。也就是说，对象A拥有对象B，但B并不是A的组成部分。更具体的表现为，如果A由B聚合而成，则A包含B的全局对象，但B对象可以不在A对象创建时创建。回到前面的例子，汽车对象由轮胎对象聚合而成，但是轮胎对象的生命期并不受汽车对象的左右。当汽车对象销毁时，轮胎对象也可以单独存在！
+下面是聚合关系的uml示意图：
+![](https://images0.cnblogs.com/i/612035/201403/111744383634376.jpg)
+从代码上看，聚合和关联没有任何区别。这里仅仅体现一种概念上的含义。在创建ClassA的时候，不一定需要同时创建ClassB的实例。
+**4. 组合（Composition）**
+在uml中，组合关系表示为实心菱形箭头线。组合也叫合成。合成关系强调了比聚合关系更加强的整体/部分的关联，例如人和四肢。和聚合关系所不同的是，在组合关系中，虽然局部不一定随着整体的销毁而销毁，但整体要么负责保持局部的存活状态，要么负责将其销毁。也就是说，组合关系中，局部的存活期一定是小于，最多是等于整体的存活期的。
+下面是组合关系的uml示例图：
+![](https://images0.cnblogs.com/i/612035/201403/111744514015124.jpg)
+\*\* \*\*
+**5. 泛化（Generalization）与实现（Realization）**
+泛化也就是通常所谓的继承关系，在uml中表示为一个带空心三角的实线。表示为is-a的关系，是对象间耦合度最大的一种关系，子类继承父类的所有细节，并可以在此基础上添加自己的特性。
+下面是泛化关系的uml图：
+![](https://images0.cnblogs.com/i/612035/201403/111745081298983.jpg)
+所谓实现就是对接口的定义实现，很简单。表现为带箭头的虚线。下面的实现的uml图：
+![](https://images0.cnblogs.com/i/612035/201403/111745177764833.jpg)
+类图基本符号可拆分为虚线，箭头，实线，空心右三角，实心右三角，空心菱形和实心菱形。由这些基本的图形进行组合构成了类图的基本符号。这里要注意这几个符号的顺序，代表了类与类之间关系的耦合程度。越向右耦合度越高。
+其中虚线+箭头是表示即依赖的关系
+依赖关系: 是一种使用的关系,  即一个类的实现需要另一个类的协助, 所以要尽量不使用双向的互相依赖.
+ ![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOgAAAAwCAIAAACUpqFtAAAXvklEQVR4nO1d+3cT95XnT9g9e/bX3XO6u21CwAkJFIhlmySkr/BI0oAdvwikSZrTbNOGx+kjbTfdds/2lSYloWmThjzAGGzrZQK2CQkBgzUvSZYtaSQbjJ9oRpYfYLCM9b2f/eE7I8uWbGzDIrPre+6xvxp95+rO3M/cuXO/9/udJQBAIAAAAxERAcQbxqdbT/MTSyAiRkQMIAIY3Yy0/+dEgHn6ksZmYNcBll3F0onAxtl4ghiBCAQwgJYAABiBGIEfQQLEwGiBEYcqAxHXzWxzpbN8au9IMtwV8RMJRkhM8lgLhhgxECNK8CYDEcaXUMq1dweRcUwgLHrc+RCBEmRc83fe2SOwJSAGIHF9fLijT5dDuhjSRVWTgrqkzpEz7hKcfvtc5Yd0KaSJQV0ODl/sZYkEzLvGInDnQQQiAjGMj40PX7wUNUwf5Od57taZjdHnz5oU0sSgxk1/fRxES/gFN9ze41z3nSM5m5z55fa8Equl2G4pccyfS2fckv7trGTaLaW2/NLKnI2Ogu9c7rgEgMwAJ9swuDOJEYCh9l77I88dydlcm19uyy21W8oclrK5mzvJM3w7Hyw5LcV2S7E1r9RRUFpx7wbbI9uH27sB8BgXuuA/snRD8K+vx7zHNLFGE626WJOJp9ue+q01UzdrCs8gYSbhmlgT9R4PvPtG5dINuhwyTj0tAnc+ROYfXQgeWbZZ/eD1fu/RiFCtzcs0mRpT2tbJHeZq+up+7zH1ozcrl23QBD+AJdzmmivgLCiP+Y4D3UDQ5EAap29P3ZK+S0YhgRl/YjoOAirQG/PVOfKLdVkFzy0setz5EI+yGABNCDgKyofUY0DXjSySbvpk2w/4Uz6qgDoNHuZq96ScnqFwnWNdmQFcfhy6EHRaSjWhCggQZIIMysRQABmQAYWMhsS3EEmATCQCIpFAJAISkdGHSAATwQSQAIimkLmyBAQ0V7UjtziqhCeMsAjceZCZA9WEoC2/RJeqgBCYmDToNMw7iKYRFSKJSCByEbm43YkkIplBZpCIRHO7QCSB5m50ksn4xWBUrnZYyjQxgCRwNSHgsJRormogyBUyD0Ax2Q0oBIVBBilESgIKQSESCTLITVAAH9AGdAAhwAuSiRSQArQCbcB5IAw0AwqDRJAACXBzybNjGQhqrhp7bnFUCWXN5P+3SBeDjrziqFwNqCBpmjPvBhSQBJJACiASiYYjI5kgM3iAEHAeCAFuQCKIBBeDYm5XAQ4S7oBmafEkS0AoKludllJNDCINuDUzAxdQiBRDXVKIZEAhJjO4AT9wtsdfJTQdFL32vlEv4AMpIHcifiYSsrrFgy7xsLf9xMh1N5EbBnDnpP0icG89zRa4pKTYSwYkYtzdSoAfONcTqBKbKqRmR++oB/ARExncgDt+6ahPPCQ2Oy7FPYA3DVezN/3NAZcHCQmSQNwBc5fppfHTinPXC+sfWLv67lX597/wh70XrriBFkDRPL9+dv2K++/78mrL2s2v/qZlSAaaU+SnOt2Zve8icG89zQW4CuMNkgAJ5AbJgJvGT7sdu7/7jVUPrr57Vf6qZ/+w9/yVFqAVaL7c9dYfd6zIW/Gv96+9b9t/7w0PzOkGe2uBS24ihUE02kwhtII+b6kq+9qjm/5j/wcupfa07fsvrsr59k/eCF9rB50Srdu++tLOD49XCEK1Ev5s+LpE4EGwPPXsLAL3ttOsQwUZUBh/mCHRfHrxgU4FqsvXr9/06v79LuXoF9Uvv7R62dZX32q7dgEjtiM/XbGm6Nn9n3782UcvPLdhW4Xr83H4s+JxebysgGRAYiQTuQHf1Y59fylb8f19f+tBF9ANnBH2bX/4m68c7W7G5Rr7b1a/7HCMYRToBVoAmSai+yRYZ3MtLgJ3DmSMLd6IZgdcBZB44AfIDAIYh4f/6oV9721b/vK+9zpZJ9ALnPG8U/7whp31XcJI65uv3f/ob499DowA/qGOE/qQyODNksfljhYykZAggcEDNHYc/9GzeTuszeeAAEgA3Imxsx1tnw+MNV/t2P/Rc197/cDeU6JN9h2LkRfwgEmZPK6y6HFvP80GuAQ3m3AuEoNMTCJ4gaa2+p8+l7etNnAa8Bs942c72s8MXf+ireHnz1l+UNtY1eK1ir66q2gzQ8TsANdN8DDwJIicQAvopOfI8yu3/6y+vQnwgXjywgsEAUVTfvujL63d/LVllkeXP/JYyfsnP72a8INn3CbOxSzjnkXg3oDmkRmcQ1aBw5dkIjeRyOADnRSqX/jqjl+c6GwCfICUgAi0AmHgM6/tpXVPlv34F1u2PrFs5ZoVuw9WR+KB7MW4cDMoDE1ETcTkBHygzzxHXlz9zM9PtJ0DvGYGrgUIA0Jv42s7H9ryu4PvKL6aTz/++a++seuk71QCrdxzA545an/7gHurksO3LclMRIwxxlhK9ZH5LyVsSH7gn2cPXII8TgIxGeQmEhi8oM+k6udXbf/Zsc5GwMOffwheIAycazlU9M8rl235459lX5XzdxtXPrjhzdOfjiNwa2PcoMNSprmsswoVIDESE5CJZIIPEC7U/fg7lm325jNAEJAIXjBx4GJDdLgxPiL2a02jUIELV1ve+PXSx/7iPDoCP/jj3Zy1D0ZcNTaLAVyCUVjKTUVJoNCkxqSNROkbARiFk5hUnXxDOZRJDtLk0K3Qh2bUJ9nT+DFGjCUrVY061omORIyMwltdCDrySnWpGggic/w2cf6Z+VhGJAFeoKm97kfPWsqqg6eAACATmoGmgYunhkfqlOrn73/ie5VBCejHpXfeLPvSTyoqdGqfI3DdJhrVqFLjzCvVhJsALhhPhPGxkODVi/v+UrZ85zsfRNALdANS8Mj3yh4prnA1DF+VOroUwkWgfdj3+1dXPv7XY8euZQDuDe4gDApBAdSIq8aWW6xzj0tgALcQptwoKYkMo5ok1XIMMI1qOJ8EkDDlTKKkHJilERPIRGKyHCIkiNhs5GCSnFuizwSGaeJqmSBmXuHmOeEdNCHosJRochWg3hC4SWCQ4Zv9Ixf+/Nfy5d9/570e6gEuAlJb9cvlj263Ntd1Nv7Xd9c/U+VvBKLoe/dPpXf/8khljNrm7nH5iN1NApd4oKMAMoMInn+mU62HSx5e99iu9/e7lNpzzp3F937l3h2v+Qebuj772ZYN2/5w+IAoH679eM8PX37t7IUzgC9TLmwm7YkpjBQgMCVUIEp5fJ6M2wwfzOr+pFsiIMG9JKU4RjZR5ntjOWTIYVPkTABrejmUIgcGmBIwpnhMkjOzPsnQgDEyvS6BxuNjUXegvzmUugdjzBBOBEATVEdeqS5XAyrNlFVIYkg2xx0kQivotP9w2cMF39r1t7+5FGdjzQ/K773rge2/UAbDGHA4X1v70u//80TTAcdvt6wt2PGx5ws2n3SYbAz5KjXOvLL5e1wGNxnpaIkgM5KAFho7efrDHQ8VrPjqmqUPrLlv3Su/bLwkAf7r0Zrq32x4qGDpypX3fvPJl22tjePknd+jJZHMPa49t2SiVoHAUm+cKbfvdDRzJE0xfdJLTdqFTTQzy8FUOakYmiRnZn3S5MxHHzOWRXIKAwDgak/02Lf/3fn157vrmzSldcB/fuKXjYkPPMYticrVQJBBpJlQ5TYTuqnDts0UP3nmw2cfffjeVWvueWDNfbk7XzsbEYEA4LvW+/a+lx4sWPkvq3If2FPp1BPzCHDdacBVMS/gmoKYDKaAFAaRkQI0g50J+Sqbzn58Tra1D7sBL+AGmjF6MuA5dLaxwtt6Mo4WwENMmOsBmMPcgYjLOhEqcAOTiVjTWSZvphPzpygFJSk+MIkSjoiJLxnmL4fRxBU0sxy6gRzz+GarTxLGfPpgYnQs6lM7j52pe/yVygeeqH9yZ0ftqf6Wifok8Pqq2XrcCZMlexJTgFYkTod9R86dPdik2MLDCr+jEimA+3KnXTl3UPI5B5kHUIjm+mzDgZcMFW7C43LgEuPFX8ZAGjOidRVoN4psUtAGtANhwAcIM+o3LWoTxDNoQa2pxlFQPhDoSp76CY+bYs2plLYpvU+GLbPoNCs5t1ef9F4x//lYa1g719JQuqv2Wy92HTvb71Mvd0cADAa6nQVlulgFhGaMcc2HJFJSogWZGfVivL4qDKg8JUrEn909QAAIASqgEGQiOUXg7FNjEhCKKtbpYtwaIGBCdkqFm5K8RzAoBA9BYRAYZJAHUMBEkIsMVQRAJJIZuYlkQCDIRApPRDCjUE2aRn5mJijEyxolW82awtAHn0REX9SrJq7FCRi/Fo961b4zStQdHI/HASRGx/q9am+j0u9Vx6/FASTiY1GP2teoRD3q9VHeJ97P9/KGEqNjABLxeNQb7G2U+j3qOO9zLd7vUXsblahbHR8dAzA+Ohb1qn2NStRr9omP9XvUvkal36smzL2i3mBfoxT1qOPxMa5PlMvxhgx9RuNJfbjkFH1Urs94fCzqMeVcS0o294ob+uheLnmiT79b7W2UdXMvIgyGL2pSa1fdmYu1p09s2V25fKN93Q7tbEvn0SZbbmG/UsMzQtObQAGMEVMQB65IJDEoxEQ+KsEgE2TiDpIkRgrxQVZzlJgxN83a4iksEUQgqMnVDkuZLqSWNboCzoLygUmF5Mnabc6hlDb/GDKLfPkW3j+U0nmKkNDkvabInw0HgItXOj4/vPzrB+96vGpNcX3R7iudlwBc6eyrL9p1MGdD/VM7r/RpAK526w1P7zmQs7H+6d1XOiMARnr0+qd2V+RsrN+y57KxV+TE03sO5Ww6UbTnarcOYKRXayjceSDnsYaiXVe6jD4NhbsP5Gysf2r31V4dwJVurf7pXRU5G+uLdg91XgJwtUdv2LLnUM6mE4V7RjojXJ+Gop0HczbUF+4a6dUBjPRE64u4Pnsu8z5dkfqtuytyNtY/tXu4RwMw0h1pKN5TmbPpxNN7rnZpAEYu6Q1bdh3Meay+cNeVi4Y+hpytu0f6uD56XdHuQzkbTzy95/LFSwBGurWGLXsO5myo37J7pFszjuLp3RX3bf7iu7+KD14Z6dU6a0+/9/er9/7dXfv+4d7D96wfvXQW6EmpAU/nUBoGktuDKdYPm/hRUyrBQ5OBMSfm0lqBnsG247UFZZorpZA8Kofsa4qC+9/S3fWXBNslwaYJdl1w6IJDF5xmI52n+8o5u25zYE2w64I1qhwPffRn68on2g7V655gLNCeiMcBSozGY/72iOiLtbYnxq7z8C4WOB8RfTF/eyJ+HUAifj3mP2/0MX3VQOB8RPQN+NsTo2NElIiPxVrbI6IvFmg3fPC1sZj/fERqibUm5YwNBIzfSvpgvtdAa/v4tTgR16fN+PUxYy9DQ78pOT42RZ9ERn1aJu01PhpP0+d6zNzL8Nzx68ZRJI80PjYQuNDfGr7c0UdEQxc6ez6VbPnPvPNPq975xxUH/m1dh+PjqNygCVZ9VnafgWcJidnb3akJDk2o0ZX6toq37WsLo1LKw9mg/8LhuzccvPsh+7oim2Wr3VLktBQuKHbkbXFYttQWFFd8eX3l3U+OdOspkd+NY0jGpq5zMWUvyiQnfcsN5Sw0fVI/XO7o6/ep3Z+Kzo0vHH3sxUhj8+Xzfb0NYsU936pY+rBjXaE921ZOZ7tlq8NS6MgrdK7bWnn3+sPLNg0FOgAs4QMoUTlkW1Osfrg31toQlZ1R2RlVHAuKdcWpK45YS4P6wds1q0v7Pe2pdppujH7KaCcfDk0vm7ohRNLlJDdm3IvStqTLIT5UcdP6cDmpud70vQZDHZ1HTx/f/ErFA48ff/yHnZ+cHgxf5F8NhbpseWXqgbdiLfUL0e6yPSrbo4o91tIQPrjX/uDTPIXPFwRBxBW055fHfMeAHnPWW2qEkTHcuf2sAp2xlqOOgjJdDifxkWr4KThOfuSU9E9EZI4XZOh5e+TwuoJbog+l5aeTNH4t3vu5UvvNF2o3vNBd19TX5In52gwhAACtKeDMLx8K1wF9M4a22TI6/3U/0DMYrrcXlERcLQCWcPU1IWg3JkuqmBiMnuVD321hMjJrmqsqOQDBzCz9FDNP8UnpHzGRus2AjymNO0PO5LGMZIeBwIVTz/6y/Uh90sUaHRglKAFAF1SnpUyXDNMvOLtDBhRCExDQFKs1r1gTWzlwCYAmBh2WUs1lBUKAxOdnYiJplX02M2iq5rLaLaXGyFkmvM7QSBZPzezYMiLgDpJDKTQ2PDKodvC+DKlrwjFCAkBECNotZZpUBfiT07NTkpVZN70CyAQXEIjK1ba8kmQel0+uD9pzSyOuGkA1VZdNvbN+wckw5jpz4NrsuaVmdRhLmglpNMmfmff3dNOm+rBZykl3ePOTc6v0mbnPFFXNXyXGTS+GrPnll3h1GEuOOsmTG1m3vgwEorLVkV8SMaanEwBEXH5HfulAy3Ggd+6ZttvDPF/YFWutcxSU8AVBGJLVeVMMdgNbZgTELGkhy8n09dQ2mSPM/L/uCjrXlQ2Gj6fEuKG0RnY5yGPcobb6owVlERcPFQAAuqzaVhepH7wddZ/QZbum2KKyIyo7U/5mnZ1R2R51H1c/2GtfvbXf0wbD42Zcz3X+OPh/QskTFFVU29rC8IG3o+4GXbZGZf4gn3ras2p3xRFV7FHFGnXXtR3cZ3+wKCpPyePetengXQ/ZC4pslq323CJHbpHDUjgNb80GFzkshbUFRZVfWV/5lU1DoU7z9C+4hYjvEDKu+YHAhYplGyvuWl+7rpgnTe25W7Jk4oxc6LAU2S2FzoIth+56pHL5E4OBi5icxy0Jvr9Xlxo0l0NrcmpNTq3JsYDY5Yy4HLrUoL7/lnVNUb+3DcZdchG48yIyQgZNCdofLA5/vFeXTnCjR5rs2Te3wU6tqVZrckaabLpUHz7wJ9uDxVE5jJRF74L2/G2xluMpedxkUUF6KjdbyTwV6Iq1fOIsKI/y1RqNqQOLNFeiZDWk5vLXFpQMhj4BejMVlmSXw0BbslZhKHy8tqBYS41xNTFot5RGhBpABV/wy8ibppdxZYn5wlXGDIjS1EXvFmkelByx0IWgI68kItUA6k2sR/i/xUQ8oeQCglHZZs8riYgpAxDmao02IATIMKYbLKh8nsSriTVXzcRqjQyLHndelOJxm4L23HJdtgJBIpdZzrrQmK/WWGOzlJrpsOQiqbnFEWMAQgZ4vXCyhtedMtlSnmMF+61hIjdIAoKaq9qRW8aBS5RYjHHnTUaMK6iOvO2aVAMEp1mlJZtMxhK3CuDXlWp7XqkmppQ1RgS/Lbco4qoGQnyFM2JKCnazzwxuggj4NFeVLTlyNm06bJFuTIz4AESw1lKuS1YgwIyRqgXEBIX4ok/w64rVllcamVRILgZslmLNZQVUYiIzwovU0FbJdrijABLg11w1DhO4N5O3XyRmjPb77ZYSXawBApMfbJJnPusPOQLQBAR0yWqzmJMleTpMawo68reZS+lnLIPP+iCKH2gFumMtdbXrSnkWejGrMF8i/tI4AJdcfse6siG1Ps30U/I52WKuQAvQNRQ+bi+YvJS+JgQPL90UePf1fu/xiMRfXsLZpos2s2HNKtfoYnXM80ng3dcPL93YL/NahWkLFRZpZkqesogQrFq+ObT/zZi3ThOP6GKVLlbrYnXKu0Oq014/czvZpok2Xazu99SpH75x+J4NmtAKYAk3+vD5bvu6bZU5mx155ba8Emt+sd14xQ9/eVCp+Te55bZz3janpfxo3rYjOZtt+TsuX+gDAGL8JalZsv4dTGQ+nA2f73Gs3344Z2Nt/jZ7btnkdz+VZtnoljJHXqnDUua0lNXmbTuSs9nxyDPm66L4EYxfH+7o0eSgJqi6GNIkVRODmpjxNWuhrLAmhXUppIshXVYHO3oSiXFgouQpuyC4I4kX2oDYeOLyxZ6I7NdEVRezY9wZ7a7qYigqhaJiMCoHLnf2sOsJYljCQHfmczmv0Fv0uPMj4lVid+ipI2JLKFl7D0bGUmnGskEL6ph4dSp/TzIAELGEUUi+SPMjAiWQ4BOGUtfvy7ZeGYgYxvn8pgRP3fO3p5uqct9FWGCY5ZS+dtwCVPKOITKX40suXbrwfBUAmOtYERJ8sI/G+aX1P3WtLPbciTjDAAAAAElFTkSuQmCC)
+指C5可能要用到C6的一些方法，也可以这样说，要完成C5里的所有功能，一定要有C6的方法协助才行。C5依赖于C6的定义，一般是在C5类的头文件中包含了C6的头文件。ROSE对依赖关系不产生属性。
+形式上一般是A中的某个方法把B的对象作为参数使用(假设A依赖于B)。
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKYAAABPCAIAAADuoSlqAAAFsUlEQVR4nO2cTZLbKBSAOUwymanc4B2Ic+gIVLu7dAq2VE2lqjPF3EEbknKy1iHIAgseCCT807Js3ldZuDFGij/eAyEjZonGYPc+AWJrSHlzkPLmmCk3GvhglQQx3uN8iA8nr9yInqv0HcW7K/uBET1jHWMXtDNw1jHQFx544KxjTCqjgXUMtLHWutfo38pJufp8qG1/t8yUK8kKym+FEf1FXWfgFysfBTgTA8faXEbzzbNeLDcT1a9of59EyhWPur2Pqmx0ukLO5VRfqmxToAX0AvX7RPmpHRU+Fd5FkcgVUo4jtKYfjAKciYEnzUfK5Uo3Nxq4FuDPaK39fZKJchCj4pEkxzw6jei9afyu4qGrG9EztqTclYTvL0wjBh4+GCV23IeM6CusT4PSKACpinP7el4zGrxRowEl8Hz7+yRV7nzUK8+rWnRQ204yhTQaXLOzQZithmfpTJIorxjOcf2dj9klsHI3CSnOZ/ai/JpBPTmTeGwuDtXZCk+h3Nrp2xeQiZtq5cncfuBx0sy2E9Jl6GrR6Kp4SOzXXzucjhs5Tlp184ooSz+ncpfSY+Vp9LtE6ud0XFmrZJIY/CQHfW35dqzFuboXQoZ2lAyVuYyH82sT+3x8iBWmyn39aZo2/8hjkFV+s8xJ7JCg/OXl8+Hw5Xh8//nzW/n1p5eXzw2+/vHj37e3r29vX3/9+m/x+wmv7yh1maD89299PH4/HL68vv5Tfv3/8fj9cPjr9fXv1l4fj+/H4/va9xNe31HqMnRbpTlIeXOQ8uYg5c1BypujSvmooetY17F+05WHQTJ32K6jdYLbcUaUjxq2VW6ttdboHvTA73DkZyVVHiKrF7oHjVayM8oHPoVhmgB079uBHv30oFReYhS9VNYq2e/8LvTjECkfJOum5epRQ9etKlf+LoPumRwyNQfJukltqXwBDa7VQVJuvxFYuZKLDjLKR9F3frwNyq1VMpTjG5Kl8gJK+loD7y68K07EXKNcSZQGxikeUwaej+ZSeVwF9aiqTkKskiZ2JFXJKHBnykcRBuNR9KhyNAlA4VkqL5Am81KnIs4inb6F6VVQiLNxFG7+4q3rQErwH8GN4NgslWcwvq7rZn5aSVP3a6GlmOYg5c1BypuDlDcHKW8OUt4cpLw5SHlz5JQbAYzBfFMa8RRklBsB5PuJIeXNQcqbY74njTFY/+UC8bhQlDcHKW8OUt4cdF3eHLT61hykvDlIeXOQ8uYg5c1BypuDlDfHAyiP99AkKNmtb2cUwFI+7Nm6fh3LpEe9cKVD8fJnjYDzb4g8gPI1VrbSOQQgySb666bnwlnpOIpX3a/yPQVVXlgOjQ9YxXbKoy1GfoPhZAvtXQobl4pPr0A7XuVwhnK8luy+2+k58CEMT+WcZxOC4iFo5yYEsPhptbHyCjnZWgJAKJ804oMWAx3/nyI2jfJoI2O0PZFF5bHCxR2vVYndotyOv4NESdwb+PSc+SBW8dABcqvSqa84t9dFIzqN+OSnYpP0K8XzaX8fyvGG8bAL9fSgiMAgFx9lkDxFBG+ALTOPcruoPFeu+HJmTmXMorxiOI/sosJi8pi9u8rWY/lpGzreabyh8oRNlVdMIU490ggAgTNKMoI8mHI320qeQhP/mY7NucSOHote9wCSknI8vV5TnuRQLMWXLCgvZeCovmvACIinb2g2V5nYp7w+P8odZuyjhvRhAvkHkBT3tUePl5B8dThHQ+ps7hMmY6eLIV/GVZit+Y/h0Tk3zwqFs4u0qqu0+ejvLtI4h3wzhemb4sXZwxNcpO2JC66ZPuSASxmFlN+YTX9S1OpSDHEepLw5SHlzkPLmIOXNQcqbI7cnbeNLS2JbMlG++XICsSn5DUqFBZ3Lf9pB7AdS3hzZ6VvdrV3iMamPcuJJqFZevv9KPBa1M3a6eHsaKq/L13/RQTwKtPrWHH8A6C2cF6QJy5sAAAAASUVORK5CYII=)
+实线+箭头表示关联的关系
+关联关系: 是一种拥有的关系, 可以分为双向关联, 单向关联和自身关联.\
+双向关联是指双方都拥有对方的引用, 都可以调用对方的公共属性和方法.
+单向关联是指只有某一方拥有另一方的引用, 这样只有拥有对方者可以调用对方的公共属性和方法.
+自身关联是指拥有一个自身的引用.
+ ![](data\:image/png;base64,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)
+C3->C4：表示相识关系，指C3知道C4，C3可以调用C4的公共属性和方法。没有生命期的依赖。一般是表示为一种引用。
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHAAAACQCAIAAABfxnieAAAE8UlEQVR4nO2dzbWrIBRGT10URB2UwIwqmFIARTixBIvwDVBBRTQv3/XqXd+ehZhIdg4/ug4oI4Eiv12BvwaFgqFQMBQKpiV0iMoYMUZc7G+rUKLT6czGqDhY58NcJeuW8purdJHzCB2iullop43R3XR264yYJLTT2eNgnbPDnbW6yCS08zKFhLPRqVhUtSI0x882eKNbvkc5Z0/LK/TRzTYbPFpo5+cYmJr5qdCw/OLoxHeVIzsvZhZ3VF4n+Kap+a9/cJMPvvkLK0JzTybGZKHjGHwuL8PsqLzGidCJTpvHRuinQoMvQniIylcNdboeiUflC310l6Kv848M0qnJF8qCXwXdTuhgcyc4WFccvOp8O710I0flR6yjL3dIUeWPlgPXo5gGpTxoZEFlO1211mU6ZYzyXi0fKb+k/LlH5Q3yGaT0n8fOJ/ehBAmFgqFQMBQKhkLBUCgYCgVDoWAKob1VIsrefevzj5GF9lbR5vdQKBgKBTMJDVpENe+qkWswQsFQKBgKBcN5KBheKYGhUDAUCoZCwVAoGAoFQ6FgPhbaedlkky2080nX+Sl/lv+J0E2+44b780kfhUQnxqgYy5ThcZzDLeXYpAyYRVN0KnZFKvFa7l5oI3KP81KDFhHRJ2lQz0PGKfeoTBnOOUw5a6zThdDCY3H8OH+qGqH78mZe6suFbtLt0suG0Orxy8trQk/SKF9KErpNWT4TWj9+eUmhqzTtJcc9KxisW/WhxfHfNfnjvNR3N/kpzXM7dJSLWKJOb6VpU3H8Eq1H+aSHeaZjPS91+rZ3C21Mg8hHSLHg5Q/2aPfDS08wFAqGQsFQKBgKBUOhYG4SerT+Pb3pa+vBequ+mdYPVhmRs0V7+3qKETEiRtnBqvXHgxcxZ3W6Q+jR+vdEVMbb9ZLuEMIitLf6Qu5FVJUFejsjp/XMvvb/R1TirXW/L7S5/n1a1rk5Jl12TpzlsvTWyRxWIqWFwSpvl3eLE5QfWXIO+5asTouzfe2YVNdcyZ8XerxcO99X2UnvrRJlr2dbHUWoETXf3lFu/q6oVHG7Qk1Og3YHJxusmiL34UKLjSHSpW8+bOo/e6uuZa2eN/nF1y6ip+A9Fpo7VhEjcnRY4pYmf7py+Nq2GA0+EDoGX/2TeutO/7xmt5C4aVCqrn/PAITOrTjopbs8EDp3iJV6luXB7ycJe6Fzi18Kbpo2Hax/H8ei4X+15UXQZj34pGF6GqPmd4tudNfkd+W7elaafNDbm7ac2H9D0LtJCIWCoVAwFAqGQsFQKBgKBUOhYIq1ni/MKnggOUKDplEAq6WJNaHb21OkDYWCKQeltGie5r7iNELJZ5wJ3d3vI21ORnlOpz6lPQ+t3O8jbXilBIZCwVAoGAoFQ6FgKBQMhYJ52fOU0pvVfNKH8KbnKSUq+aRP4mXPU6rnkz6JNz1PqZFP+hze9DylRj7pc3jn85SeHaGveZ5S5uFCx9c8T2kcUfmkPwYn9mAoFAyFgqFQMBQKhkLBUCgYCgXDfezB8EkLYCgUDIWC4fOUwDBCwVAoGAoFw3koGF4pgaFQMBQKhkLBUCgYCgVDoWAoFAyFgqFQMBQKhkLBUCgYCgVDoWAoFAyFgqFQMBQKhkLBUCgYCgVDoWC4fygY7h8KhttdgqFQMNw/FAz3DwXD/UPBcP9QMNw/FAyvlMBQKJh/lbiXcogcluoAAAAASUVORK5CYII=)
+实线+空心右三角表示的是泛化，即类的继承关系。
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAACACAIAAAAnNLjJAAAL20lEQVR4nO1dbXIbxxHtBZ0cJxWRoGMpyU+LpOQDxBZFS1W5QCxZclkfdnKG2ARA0jlE5KpUbBFkJZaInZ2F/N8iaOcOkcWdfi8/ZmaxVGRXKA1E0EHXFAUCi9157J7unp7uliieKh1BgiQBAKDytND3cPTTJglSAZIKAdX/Ej4CNF52KijMHCSpqogghSBIVQKg4jRhahBqcho4RlB5BMszv04/PUfEFOLf8x9UBBVKnCJsSqgqFYdQP22vLsSLH+MbqvxvHk4zKUEQTqlhzv61BM0x1oeAU8Cd7HSPTX5lBR0CANLU7ErPO12XX3Sz9qkYm9Km1/N+pSEodnku/m7WJu2xRoWvKu6RA7AkLLVwKKj5Ez4gLGmoe1TrUChLonzCf0ItUJBDakFYICeO91DSdmThuRCSAXPMySE5JC1hiD2loZZkQT6k5pUapVFapSVK0hxyQBiyhFpqoSyP+9BXA8xSc6IEcsKQFiwdrNKSpmLuXzjukUNqrtUeWVIL0pJlZJeZOmCeCcqSNH6KbjzRgjTUgi4KnubhW5qTpWNOL8BTKIp0FhzCmbBaOPQTBYoI1TrmznMJJVFWWpAlNXcIf5dpFEUgJwse3FqWLJOfZ9I6v/lX0hAlYRxzoOC3f7wgq39nrjQaYejozpJc6YcFOX3ASKtf/i6Tc1vfFlQLbl3LspWtz8lSaR0s2fuDSNZa22YBfUgaslB2b4hkrdVdlmSpOpg6YMDfuivy3rYhDWkIw501ab29w9Kx/Oazs5nI0vXLS7K64wakJcr9z85lIsvXL6/I2hcckF5upwzY96MPLsrVvuZ+ckrrUJDW8QG1ONju7jPn6PabcukLFnS2wsPR9sYBcu7fuZj9vk+vS48tjZMXxZ23ZfnWY68P6JVBSc3D6qIlDPZvLbUu97VwzKmWHJADHHy8Iqt9mhczZZO3Y7uXZfnOfmQXYR2KqBUHcKZiwdGH5+XSrisIqzSqhiy5f2e5dWnXFS/ArlcBDI9vX5TL2xzQMwSPSEsOAG+1DDjkwZ3l7PJ9NdF2DamWB3fOy6X7zEnrppBjxL3uklzrF4QJ9nd0d0ne2BxZb7WUlqMP3pp79z4tOaCzjpYsuf/Rebm0Hf2V6QOmBXeuSPZGb5TDDRy610Tk/U50lAak4f7HF2RthwXcAMiBgjBudOtia20HBsinUnmgPOQA/3g3k5a0Mskku9GFWjL4vqTlvteKDwJLtVBajP50Xt6+T8uoSKcMGIfg0PvBwTlESQ68HBIlUDjukSVpVA38PiC4Jg8c99zxHcUXA2ZOxZgBq4HBnIox41gE1pPTMWYcGwN7EeX76scM2P+BKJ78pCcD7KQN1MyOzezYT5xjJ67HZ3bsB4A9pY7PneOx7ZYsJpMWlA6WLkQ+6GwjUp9gfCq/DGkpoBIV4V9IfUJLEs7nQ6DXSgYMyB1z0lBzH65yzIE81f272Xw9eWpIDiAojiGbRTXgBtDJ2vWWPtnwx4Kpb9uRhVrQagiHUEEE40UTTom0a8wHnkqgAOqo6IvERp87ulmbbMw//pQ6kSCkDJAke5JY3deyl1AI/djIFlknRSCIHgBBA25FkHTQjWwxoeJ65gzlBY5UfoxjsuBn77MG6vyUhrpv5K10ZKHTmk8yutl8N5vvyXxXznTlTE/CO+nu3/ZZHCFVTAGnpAoVR1JxQJKHKTNzlHCk9mS+J/P1r+nu7x8SEuBCBgv1+QY6IYW0H6c9aXez9jgFaMI0cWCMmmpdFjqyMM6YnDC9EmBAJy7xbtZ+NSmREwfmNe1Gtujh9KQ96Sd6ehVrbF3mfdYnwY4sKKHVxLPrJg5MiV5r0XvYnntdWfhJrDGF93oYPYFO1q4mj2ziwDayxdqABoFsQJ0cJQPmUEWfkyT99gFgJ2Jophp3svZTDfny/p3kqjIZMKXzM6ui9feOqVeDTQAke9I+knYcvfCE2JIBG1dX1Mn74A/t2+k36TEdmeQzu6eXp3TAGjsizw1V7cTN0hGRA0iu+w0iI2+P3uTlKSHHYmkJxgnVXVmos8br8hmSVARLreM/R1pKuMZi1CRC6MiCahU+qqUu8ueQ2JT2eGsYP001n3Qcc7F+RkNoqCdtNvL3n3Hq4XQjW3TNfRRTMi6dHdPALiXo+Em2EN5tRooic2prNo5HgGmtdjJgT3E4NsFRN4RAX3NxMewI/00XLiPZWKKp5pNQK7owLQR9WKk7MtGozb1pruN8dd0aXMptdUKXKsphXGAbc693ZKGTtXutxV5r0Z+MbMy93mstbkp7XeZ7rUUfYwpFX0kpHTCndQAsFtspSTj1ZVA9aR8JrijCwmvagykURU/BT6xVRdytKDH2QhSHUNaRzMnEClIaaB97raN8/l+N0aOuB9awyL5syF+MyPBU80mo7oMFq0tB6TUKQmi211ocXwyOkURnsfnFl6fEoviUingAQLJZ8NmTtjcGY9Uf19gRVzgRvYoolacf8fQnQTNgL00zYGloBuylaQYsDf10gQGuefocKJ2ldKiUTul6jUBAwvvXd6t9N++gCupGH3GLXu/tkz2bINmRxXDsGAvk0z0gzhnjHbr4wNIkHhceqhXhlG5T5hl30AlZVvvNzfkDCI1K6iYsjeCZJhpRPCKe6NSnuX/zLwRSKxdFsdEXor6iJ+2evJ5kdGRhU9pbstiR+Y4s9KT9Z5nfksVU969D6E0IyrrthTsiHd1sPl2OSVmxqBhycnSclpPm/kfOBjCOMgifCWiSJNezM2SZZoQsKksX8lbA0oXcowTDn26HkyqOQ9FCPdpzBjWwRBxDWfFIE4GYUZWIY439K6KSANL18/ieX5GWMKTvlxDaWzzhA6WJCXDGoaCz5PB7mliCaqmFY/liqUgTzzCtmFN9gwgD7IVqUw7pW0aojXV/OWmAYoxTLVn4CmO64dQBI03FQh9/+Ja89prMZSIrW5+Txtejqw6Uhgd3VuSdPoakVRoe3LogmWRzmci1Xc/SqeQY+muSndt6PARy4pP3RC5s3nPhgtLx02siWWutT6O04CcfSHZzZ+Bgtb/amvvNxn5BTl8TBfLz3rLc7PvK2Bwoqv5leW31S1o4s791tiVzK9evnpdLfS0Ig/4VWbn7HSxplPc2VuRm374A0yYPbHR3Ra7cZw7shYJ1XwENS9qD+1sjljq682brap829FvRvPJ1tti61pJru1Mpiuxfyi58dMC6kcrAq4dKC2quXgHu374gV2ORuqkLi0cbb2TLdw+8jpk6YNtX5PztfW+vEHwODxJeJbLg6PaSrO7QVLRE6fuwPN44J7IaK9fz4z534sCeHNxYyt7p0/gZ+0x0qj3kQ//6CXLuf7Qka7ssia8P+ZA03/TOtrJffzYy5DD2XZgyYMC9rRV5b8eS3s4aju4uZ7/d+jZ0hyAMRx8uydpOkFU76v6qNfdun7HG3Tdxmj5ge+yvtbJzmwfG0RDdayJz1zcdcyJa5P2P35RLfRqyxL9uX5SzfxmVvrcHOaims1GJ0gI5ti+3JMtEMvmZvN+NHdNMsGbf3V2S1b4WSrt9Q1otEWllcyLSyjK5uVsCe1MHDJWf1qPYM8e79ib4SjSEccEG1O6Vb2liyYKuoFpMo1bk0K8Qx5JaUnMgr9u8Mb6omJMGriBj5xyYirG32nSKYthKaO5QkEN1hUOhNPB6X+sNy4A0jrk3YkpDFkBOPprGvlTkMHQjoQEKuEHQGfyaKMmcWigfwQ1cKHIZVvBfGcTeQA/r9mJTBexkxqz4dMyxVMGcyY6ZKNbAfBvHqR/HB6bFqRizNTYGdvLrZzJr7KRnPClgJ26gZnZsJoqc2bFpGLM1NgZ28uvnpdZYsz6/fjdh24tJj/XszBgN4g+lMBZh1KedCBxLdFQ74bGenanTi/1RrYNGYGzkII+Lek+eG//L6Gbz45nXh+sKGR9Aa32EmzIdYtKj21xjOj5MD/8hjVbumUyQdAkskx11UkyzloEKqStKEPOBTiMFFRhBkipeKB00dI5QNBl6CkhZZ4iN+Rb6eTAuMH9p0oqFiROOvvQaH+4/XWiIK0v0CVsAAAAASUVORK5CYII=)
+如果两个类存在泛化的关系时就使用，例如父和子，动物和老虎，植物和花等。 
+泛化关系: 是一种继承关系, 表示一般与特殊的关系, 它指定了子类如何特化父类的所有特征和行为.
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK0AAABQCAIAAADkwWLTAAAFeElEQVR4nO2dT44bKRSHOcxkMqPcgANxDo6A2t3iFGyRRiN1RswdalOJnKzrEC8LquAVBlxtu+2O/fvUCxtjDO99/KlyOi0IACJx6w6AD8HagzFINZB30kw36g+4DRUPRmOVL+t5pc+UYzRWCC3ECe0MSmghw4kfPCihhXB+DFJoIcOYXvEu9kgIa+IU4OW8Zr/8kPhZqcGN/bkhaw+8Ew0PLsVo7Ek+DepkDyYjY7gHxXPjnRBuHidP2xikcJ4GVWSoVd6Ci7WlP7cle+CVXmaHFmz+VedxLFQqTSjHzclNyWCkNSxuhQdzOz6/K78akyO0EFp55gEr37RITEbGcA8qNz8Z6bqyt/L9Jg+CkWkE/f7cmnI9kGbyapW5yOE8Ho1N6eevepUlH40VoudBLMlBykeTQeU3rvYFLtZo7AYVlj1tMjLl42g6L+FBSvMYJHtXrT+3ZuVBTNJ2D+r56yZmazvFWXUMMjbLF4PaUrSVq3iQ1/zN77oVyYN4esk/h9n6EB6cc1DgTEZa06vwqB4QLSmp7pybPSiuLAa12hvr7eTVM/s3KDbRvcr7wvlXLkuXxXqtXh/Z3uZBPNusFvnf2IO4I6w9KNeJuA6nw6Py+fIrpSedjlhs6u0Q8aXeGuNyO/mqTgvl1keEs/eF2I5ln7C+aMw/y7LRKp8jt/YgjWk5D2694LwVhx5caOEFvxWzB09Pn3a7z/v96/fv/7Yf//H09OkBH3/79s/Ly5eXly8/fvzXjc/psbqtBJQ8+Pkz7Pdfd7vPz89/tx//v99/3e3+fH7+69Ee7/ev+/3rsficHqvbSkD4nglE4AEgggcgAg8AETwAkeMeTEFqLbQW9uq3QQYVP1lrGSZj0w2jWG4P7iouPa28dG5PXOxE5aV+fAZ3gbh5JWakGY1Mt6tiuTz4NqhV3mHrejAFeWUPBqX1cpNvMlYLHT2YjNVqIO+KZA8qpX9wS+ULEmzdg7mH7xYfr4RYMj8aKZZno5FCefKqyHervM/Kg8GJNKGKYVfGmWdrqXywqR1p2f3XVnmFMdj+v9A48IDDF49YWwmRwzn3RIbAF5x5mFoLNxAt0UhDC1aGwdh1/fyJB/HprBOdOJfw6V+lle+TPeCTaAqyGGrNA58SFewcu6Lm4IRe8t0qr9NN87EKgytvjZce0KwCX3Dmx1OQjn0/xDxg6Wf1D0dH3fJ+nA+GeSydl/bAu25iKuOc0uQQaQ7NTeVyHqxWeY2TPRiD3bYpcHeJpb/jQbV+errNgyNxLvnwHnjHRC6CkhlUfd63yhNjsP2vu2oeTMZuP84ebnzHPKjXT0/fxYPRSNlfON9hX2A99k6X+q/GM5m8wU/GssqreA0qzc1WeQt27qPK0a92TtRNdRr7wurskveFeaRrrVb1z9sXOnGudp1llJ8a54ILe0D8HJc7xxfz1ZKezkFaS+fy8Yo3wtf/VnmH/AlMAnY8nU9sRPN2wMv750QiCnbudnmam9hhMKj4UrxuZPWT0634NOPWiHMPI0WiuGjMLMtGq7zP495HOnJQfzAe1AN2BfuW3fp+eVAPQAE8AETwAETgASCCByACDwBRxYPRyDd+dQ3ugNKD0UhI8IDAA0AED0Ck+P3GrV9LgDsD6wEgggcgAg8AEe4fgAjuJwIieAAi8AAQwQMQgQeACB6ACDwARPAAROABIIIHIAIPABE8ABF4AIjgAYjAA0AED0AEHgAieAAi8AAQwQMQgQeACB6ACDwARJXfbxQf5S9Pg2tSrgdeQYRHpPJ7bTUPTvgLH+B3Ah4Aoto5Mf4nCEj4Y7FxPQB3zjYPlm3hOn0C12fT9QKuJ++eLfcP1n8RBNwjuJ8IiOABiMADQAQPQOQX5iSGkvfa/WwAAAAASUVORK5CYII=)
+实现（Realization）
+实现关系: 是一种类与接口的关系, 表示类是接口所有特征和行为的实现
+![](data\:image/png;base64,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)
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAADjCAIAAAB7DVoJAAAUE0lEQVR4nO2dTZLsqNWGWYz/vvAOWBCb6ImWQPTtDlbBlGiHI9oOvj1oIjvKHmsR8gABB3RQSpWqzKTyfeIObpEIoZQenSMkJWIBAHSLeHYHAACfZ0/gyUvpp+PlAIAHsyOwU4NyJ8qrOkKEf0Yf742z4s5Tw+RlWO+RdkJlNd6zQgCeSVPgC8LvrKXRzko9f7p7n+R4JycvITDol5bA94TfldWNUSWX1ohn1RqcSVNM5Jy1HIQwUoWaoyoWGVMjTLA9J7DXctMfALqAF/iSq19tgg9OkSx68jJ5sm2tLpm1DCnuqMJSOWCOLsmmTZ0GnxJYDGuOgGt70B2swBeE32VUwq51nc2CFSkrCc7p01rgIH9sLS8+p7Apttexn0yhN/0B4MVhBL4k/Dqb7RKDSDJfJLBTQ7603l7HQmDwJmwFviL8lmnzktPpiwRO5QtJs3fayZtQX+hCYNA1tcDXDD6vgTcEyXRLSf70m8wZbxyFkn4qbjul8aTUjnWhsvRTuvGTBr3EIJVNd4O4dnLPaoFTI5v+ANAHlcBFanqgHADwTPAoJQAdA4EB6BgIDEDHQGAAOgYCA9AxEBiAjoHAAHTMUYFnL4dBDIMwD3/OYVRhzcMg/ayNdcuyjFbkwlNNmftuZ8/ahPXe2Q4Al3AuAs9ePljgUQ1DfNYxyGPJg1RG+lE9/pSyzNpAYPAKMALn6Ga0N9KTA5UROMfHOjh7k9qRhjwa3SpnmLxpv26/RmNnk0ur4crGHtmRVK4j5+SNGAZpbKjpbLGIS40wwRYCgxehFni0OcbNXg7DTYFdksSbbAytOVoxRFFb5TxEzi1ehrWNlmTRszZJwq1mdcnkTdhcZ8NSMUVfFjfm7ZIk7DdaBuAp1M9C212jGIFTaKtCHg1hAw2jrXKOHYGdTUuPKguWDeQWZwQO8sfW8uJTThSKvJ1tB4AncafAzpIQPceYWDMqPtK2yhNJMG5Rct4orpOvEHi05IKgaJNtB4AnwaTQRNGYWUZqgWdtyHu5hlQuLp5JiGyVtyjHjVOCX6TNS06nLxKYnjhSmr3TDgBPghnEorkjM6RThrx0e2kYpLUyLVIkoCRVbpXvkNcQRMrJbTiZpEE389tPJleLXTZ6Lm47pS1L7agxVDZ6TgPd5MrAWJVGv7l27t0FAHwePMgBQMdAYAA6BgID0DEQGICOgcAAdAwEBqBjIDAAHQOBAeiYhsCTlkJIjZ84B+ClacxOqCXsBeD1gcAAdAwEBqBjGIGdEkLuvuUHAHgNEIEB6BgIDEDHQGAAOgb3gQHoGDyJBUDHQGAAOgYCA9AxEBiAjoHAAHQMBAagYyAwAB1zl8CjFdXsZ4n9+YTL+R8AAJ/k3ghczT9a8fj5hAF4KwqBw4S53qeJw1Y5QziNk3kWcdUb6cc0DUkt81bgncjcnpfYKSGEUDemUQLg/agjsDflVH9kDqQ8C9CoiMDEW1J/iUuxEXhbvjsvMQQGgIcRuJqOMPy5IzBbP/15TOAb05oCAFi2Ahdp8AGB+frpTwgMwNfBpdDEJW9yCr0qN2tTXAOT+vel0O15iZFCA8DDROAwzW891DSTkSqvwkfhNhKpn6Jxaz7h5jzDCz8v8doaBAaA5UYKDQB4Zba3kdYbOc/qEADgOHiUEoCOgcAAdAwEBqBjIDAAHQOBAeiYZwo8eSm5xzxa5QCAiicK7NTAPpvRKueqWvEU1Z0VYlj/FY+eAfBYnibw48OvNhc9yzVrifvk4DV4lsD3ht/JyxAAqe2hUFkVw2NsatZyyDGzCJv0I6KlNmvjcUVrUzT2FouMaaV1UpAXMVobqee99QJwiucIfFX43dafvEyyVZ+yETgbFZalLgUnQ8moCue3yo0uNa5NPkE4K0R8z3nyUgzr6vbWC8BhniLwBVe/AVZgRV57vCHwJjIL2oFy8WKprW9lU7EPTrFm7q8XgMM8QeALr37vFbglGLd4hhHYqaGIqDcE3l8vAId5vMCXhd/ltMDRsVHRa9rmWeO4wLRk1nIoUmjSiFPxo2eNn4NvxqMFvij8OsWloGlkS415VCk3O24Gt5ZlieNV5Ud1+0nIsnJ1fRsKpbKytQi958StF4BzPFjgItU8UA4A2AOPUgLQMRAYgI6BwAB0DAQGoGMgMAAdA4EB6BgIDEDHQGDwzXBKSP02D7m9lsCPn/h7fyLymjBFRJgkgvv/ilwfq5y0FBWSvLGYPlRKSU2aF1JPeVmpy/bzM1tM+zeP3aqrVYvNhRrN5taklNdrw65XyyNdvgBNt2jSUn7t4+tTejTvzG9EvJbAp0jzNt3P8YnIJy3zseNUOpAmsrdpCKDl9CCo6iexy0PWKXLQbI/m1EjqiD5iUb2O2zLQjabtCLr9XyAVv95DXb4bsnMbBdeuzgrp44pOPFj7UIHTFN7GT8sYpxE3emlHwjBZhPFTrKDGhU7UVMyltDMReV4dF2yvFZhWiuWFinV9wimByUcnjq3Yu7pLRXDOH21CNtm01krJMuuqQoxe0429RCIVN9e7TFrpuAzZhNRM0atJy7zO6sO0CrV2jXzGnJAOB2EuM7qRGjllSLSnb+SkfvINPDoCF6qMKk3qzXyaCO7FF+vTvGdsBG5Ng7qMjs6iVk6edk5gdq9QIem+LzLhktxS09IvEdixB3Ndp9mNzKQld1RpWWqoXKqbo3ZeQXnJ6lRx7mDXG04Helq4kwibp6QOkfokf6CpRNXvuvCrrq5rgWM0Tv17FYGXxdk4I+F2IrWWwKxd5wQug/Y9AtMITAVmz7WtCFy1+bkUmnx0QmASgKeyvDgzFf1rtU7PT9NaUDbr4uV9TPalpk3uDRM01ks3dtKq+k62y9ANpest4q0q907jiuDgdcIFEbgQeI8nXAOvjm3C7/KFAjubpz6tZyFvrpdjR+D1/+XpvJUql+RjstCqzNnYA7Fe/jblqSQuWQTTyu2dMwfpaXwPs/Y3th8DcXn22LucbayXysYG4Lo+t8dupBj3CfwJiuveOoXe4zk/qWONZucxPSlwbGFUaZ5hfiLyWZtiFvIvicBFNGavjfPBVCZj5TVza2DoMoHLJUOjxIo6oaTrSp4XayS5dLG9uaVoSFqdzPWLnpPesevd7oBi45jL1KJOWpg2w9n66BR6mbyK79PWg1gxg2aXe84o9OxlGX6PTgheiJfHpcj5ipuIfCGDZGlGcjvurJenGCaJl5JST/T+T6ippRBSc6lUEriZXpFbM3pTVDdUruKWxUfbKbtEliIXrs3+k5bKjVVuWm8B0Rnbq6aKM1a9gjx0NdEdwG2Z1FM9rrX+QS58Y125zdXvGcT6HPl30spj0Km9PdvxbSQAroHN1R98G6nJjbAPgcFbwt+7KnjwgxyfAwID0DEQGICOgcAAdAwEBqBjIDAAHQOBAegYRuD9G8cAgNeBj8BPumcNADgHL3D7PZD6uTkAwBOBwAB0TGsQK/zMC0wF4KU5FYEBAK/FGYF330sEADyeE6PQuL0EwKtx/D7we/1eNgBdgCexAOgYCAxAx0BgADoGAgPQMRAYgI6BwAB0DAQGoGMgMAAdA4EB6BgIDEDHQGAAOgYCA9AxEBiAjoHAAHQMBAagYyAwAB0DgQHoGAgMQMdAYAA6BgID0DEQGICOgcAAdMyewJOX0jM/JNsqBwA8mB2BnRrYn3FvlWcmL8Ugyn9Sz6QJKx55Cgj9UePDVgjAg2gKfE/4TXWcXbXRphD48UxeQmDw/WjPTvjZ8FvUtnXcS8F5cxZwKsVqr3KFWcsUxk2elkmbtZHY4O2kQPnUFCaIAd+ExuRmF139bgVutaNNrDlrSfSmoXvykjq8jCpbPar9ADt5mdJ4XMODbwMr8DXhdzku8KwlMTN/SsPvNniO6riHRQp9ZkEAXhlG4AsHnz8nMBHMKdOezRQCg7dnK/Bl4Xc5l0LnVFmbnELvjVc3PQyX00VvITD4ltQCXxV+yztJyaU0UrX5iGTL0hTrCuNVZf26nfI0UQucOqPGeOXMjKIB0B+VwE4N7P2eVvmXgEEmAA7yQo9S5ki7c90LACC8kMAAgLNAYAA6BgID0DEQGICOgcAAdAwncHjowdknv0AEALhFU+BJm+2DV/ffDp7izaLz7YzhHaVPrjg8v2FdeKgjP6rJvep0k/vfZ26/ldWszL+twW8XeBc4gZ0VDYGvYvrk+8Gj+rTA6SWnUdUyzFoa/ZSE4/gjK833mXe2C7wBtcD1M4pRGDZyhkKlbKxvHduU9FoaTQ7USuC1HfKQZPkOYXqKkghMn9U8YvWsZX6UsnB1dYM8IL1GPKu2r0AxkTM8BGqkin0sFhkV6Wbt6jmB2feZ29sF3gE+Aks9O1UoF9hGzkmb5C391KkcDiZthNgTOJTkozJHw1HlBYsUmp4RJm0OOBzT/1nL8j2HuObizafJy+TJVjPmbapskXI0YI4urSu/89xqp037febmdoF3gHudUJtTAvPi7Rp1tJ0qr528DM0yP7plP3nsjiotSt+d2n97qfk6ZGwtL16+0nyPwHibCmypBCYJHzfU9CoC33MxXOIsfx64SOBi1G97HQuBwZ3wEVi5RUsmph0WuBqvjpnlbjs5QcwnDhIfQ1oevb3o9aj6BwPS1lwjMP2hgpRm77STeoX3mcExGIFD8lwKXEfmEKrSyJZyOZYlr2juyAzpbENeup+jbW6HhsgwrJQvg+9LoXNyG1aVf1Xvp99a7w9z7zOndqyL1+lTuvFDkn2pbLob1H4velm2AuN9ZtCiJfBlOSoA4OsoBP755z/++PHnj4/f//3vv7f//4eff/7jG/7/X//626+//vXXX//6n//8c/f7ef539ayDCTyeQuD//td/fPzjx48///LL/7X///8fH//48eNPv/zyl3f7/8fH7x8fv9/6fp7/XT3rYAKPBy8zANAxEBiAjoHAAHQMBAagYyAwAB1zVODZy2EQwyDMw58fGFVY8zBIP2tj3TJrs5bkf0W/RjWYb/RizmjDxjMf7e+X0V6wv7bf/9qjWHiqqTv3S9r132n/3sO5CDx7+WCBRzUM8RnCsPOCwGH/jWoIT2A9vF+Pxhte4MDX7Rf2+1+ZvJF+VE/45tMBABiB89nV6Oq4YQ6UfH6uT/bepHakIY8ct8oZJm92X1FPAuceNs/QabOM1zZXmHJ3aDAJgc3oOTZoD7wq75QQQtx+p88bMQzSexraliWG07Cm0N30lXoj/ZgSj1rm7X7Zicw7+7dm9/tfo7Gz6ateDVc2HhH5S2P2S/jmpbGhprPFIi41wgRbCJyoBR5tPsfOXlbHCiewSzvJm7zHaM3RiiGK2irnIQcHy1bgdS2bHexlrDl5Q44JukGzNkVCGI6hUOLsgYetjwq8rA7T0BbfPvQyH/Ukuq3Oz3X9JS7FxsFt+f7+3WzQ3vcfezpa8qXN2iQJt3uhLpm8Cd1xNiwVU/RlcWM+riRzmobAgXpuJLtrFHOglNejJE6RU2hxtLXKOa4SePKmPMiY8MttwdcdJfRktxBvdwRm66c/jwl8Y//W7HwDzqa9R/dCNpBbvLlfYmt58XLXQOAWdwrsLDmFV0dVZlR8pG2VJ0rx2AY+ITA5sIroUfO1AtepzS2B+frpzy8RuP39kyun4lR8kcDF6FvRJtvOG8Ok0GSXx8wmUh8QszbkfVdDKhcHHPGsVd6iHLekCeBeA1wKnTvuZW5zb1z0tMAnU+hiXCCn0GtHZ22Ka2BS/74Uemf/bml8//WJL51PrhGYnjhSmr3TzhvDDGLR3IUZUihPuWmwZBiktXkMpsxN89HWKt8hr0EUqRqX95LbG9VHUzV2NrPtl0NIzRSuwSmB16+rHmqayUiVV+GjcBuJ1E8nwdZ+ae6vhd+/u12tvv/8TYZe59HB334yuVrsgtEzv19SO2oMldOQYXmn0FiVRr/b+/ddeccHOV7h/H1j+BeAY7yRwCRXePJvFZBkADMhg7t4I4EB+H5AYAA6BgID0DEQGICOgcAAdAwEBqBjGgJPWgoht5MjAQBeCV7gSUvYC8DrA4EB6BgIDEDHsHMjCSHxiB8AHYAIDEDHQGAAOgYCA9AxuA8MQMfgSSwAOgYCA9AxEBiAjoHAAHQMBAagYyAwAB3zTIEnLyX3c+StcgBAxRMFdmpgfwO9VU6YtRyEyP8O/Zb66zB5KQax86v2zgqcwsARnibwveF3VCJNlzCqV3ZYG6Zvk5eHpqUAYJdnCXxH+A1QgUvttTkXmXN9IyX5pfW6nRD2jVShZFTFKmhSQCYxKjOFHHUnL5VPn+Z+huAshiICrxHbKm67nFoLpfaqWhB8e54j8AVXv6XA6U9tyBE8KnFr6gO6Rmeze3w7s5ZBwhjzUyDVRpKZq6UoTgR8BBaDjJOc1lvNliRvq7NVnKVKS9j7fjxF4LvD79IQeNaynIbMWXlrFqQUwcpwyrYz6zVEx7WvAm8iLQ2St1PoUR0RmKmf+tNYCnx7niDwNYPPbAr9GYHLNlOkPSXw4lQ71D9M4G074NvzeIGvCL9LJXBelqay+14t2/qkTb6dpsB748a5KTLYdo3AZT+LtB+8B48W+Jrw2x4cqj66OdJLRqrKwaFtO6nEumVch4voDaFmU2M9+JRGquLldBq1ovl8XqRdv+inNEih344HC+zUwOa0rXJwAlwDvyF4lLJ7yG0w/BTh2wGBAegYCAxAx0BgADoGAgPQMRAYgI6BwAB0TGNuJPG6b+cBABJ8BHYKBgPQAc2pVTiBnRICEzYA8DpAYAA6pjWIFSYJhqkAvDSnIjAA4LU4I3DMoL+6TwCAg5wYhcbtJQBejeP3gZ3CRTEALwaexAKgYyAwAB0DgQHoGAgMQMdAYAA6BgID0DH/A71tN3IFejezAAAAAElFTkSuQmCC)
+泛化和实现的区别就在于子类是否继承了父类的实现, 如有继承则关系为泛化, 反之为实现.
+实线+空心菱形表示的是聚合的关系
+![](data\:image/png;base64,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)
+聚合：表示C9聚合C10，但是C10可以离开C9而独立存在（独立存在的意思是在某个应用的问题域中这个类的存在有意义。）
+![](data\:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAACOCAIAAACT5JDFAAAFDUlEQVR4nO2dzZmsIBBFiYuAiIMQ2BEFWwIgCDeGYBC+hX8lgjr9bO843vPNpmla7dNliU6JqicIFHoDXgq9YzjlvUvaWmWt8qn99gZlNGZYs7U6dc6HuGk3zc2bdAk/iPcu6Zu9N2bR2jlvlR29x2B1mvt41925VZeQe2+CGgPJu+R1Et+o4H2JunxXSH5ejvbeHbYXaJOvxLIM/L5vwvQbPIiV9ybMETXklkPvcRaTvApNoWcTlJ381trLxFANZBHvnfN2WfNjkN5j2BVR8D7s/NOf+PYxLO0yaGvtJXa8yzXrlPS7vMcgdoiu9u0bU47rWvtMm/ypBPIn8owwG8N6B869d25J0Ou9fXVgaMycu2rtNdbHTJkFV32OFvMbyY+ry3Fv8SiTwypFzONLa3UIev6IXIjMJ7X2HZY1SOk/SVe/E543YaB3DPSOgd4x0DsGesdA7xjoHUPJe+u0Utrdfan9VRS8t05T+rehdwz0jiH3Ho1SevfyLLkCxjsGesdA7xg4fsfA81UM9I6B3jHQOwZ6x0DvGOgdw+fem6CywtWZ/Xr5dVXaS/mveM8KtTPur5d/EIv35IfiWnmDRd9PwTsU4A3V8bPN5HVqRGHu+jfYet/ZD+p199EopZR5YA3kHqt4T16tb7BY6iCXAtXGCO9Ct+jfT58qxvu2fbfu/h3eswLg4eWO92L/+eU57wf133+SzHt+g8eR93L/+SW919jkmdW9SEueGU11zq/yu+j/f3mmXnf/ijwzlrHnR7/VXS1meGsYR4r+c+zX6uWrdfR9ue5+XNorvO+MC8mFZOPIcSQH3KCXwOsEGOgdA71joHcM9I6B3jHc7X1/PpnthATLGdun9wd3TlulfnpPd2OUVcoqZbXrnBbbqaxSflNcNKzFKmXPneHd6r02n8x4iWE7EcR6npkz7pIu/D5S3LntXPTJn61z2prYR5N7j8ZOxbyNOfUb3+i9Pp/MyMa7uAR34uOt82oKUqVkjHdOBze/K5YiPzJXQbfO78fsxntjtNjO7OPDdY68/O5G77vzmhQ75N5PzLtRi3er9HRlT8/WktbiEpQe1W/DOd/OI++rQvZ3exdzSkzWNvvHuCtc7L3MvXlmX1zBu8jph3mm7/sfee9jKAo6FFfwLnL6YZrq+/7+4+refDLbHaJNYWo5fVydQi+aOZVXvPeNKYxMNu0xZMOh7Q7RuiCWGUrpPVvF3ePI4nwyYnq4cYhZ6H9yHBmNXR8/5xFeiMu7IsVv8symPRtE2u2hWPZfB3s05X8e8Lzpq0RTuZGA3jHQOwZ6x0DvGOgdA71joHcMpfkJ/lyR0C+kEO/RUPzXKd8nX/Jevp5JPoPeMRSPq8MkNBT8Rc7HO7mS094r15HJZ5wdz3B8eS0nx+/V68jkM3i+ioHeMdA7BnrHQO8Y6B0DvWN49vNXv1Evfw+PfP7qhfXyKB75/NWR/6yXh/LM569WOnxQt43iqc9fLXZ4iXf081evqJdH8eTnr15RL4/ikc9fvbJeHgTPmzDQOwZ6x0DvGOgdA71joHcM9I6Bz2/CwOeVYaB3DPSOgc9fxcB4x0DvGOgdA8fvGHi+ioHeMdA7BnrHQO8Y6B0DvWOgdwz0joHeMdA7BnrHQO8Y6B0DvWOgdwz0joHeMdA7BnrHQO8Y6B0DvWPg/O8YOP87Bs5DjoHeMXD+dwyc/x0D53/HwPnfMXD+dww8X8VA7xj+AeBBT9HLTl7WAAAAAElFTkSuQmCC)
+实线+实心菱形则表示组合的关系
+![](data\:image/png;base64,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)
+组合（也有人称为包容）：一般是实心菱形加实线箭头表示，如上图所示，表示的是C8被C7包容，而且C8不能离开C7而独立存在。
+但这是视问题域而定的，例如在关心汽车的领域里，轮胎是一定要组合在汽车类中的，因 为它离开了汽车就没有意义了。但是在卖轮胎的店铺业务里，就算轮胎离开了汽车，它也是有意义的， 这就可以用聚合了。在《敏捷开发》中还说到，A组合B，则A需要知道B的生存周期，即可能A负责生成或者释放B，或者A通过某种途径知道B的生成和释放。
+代码和聚合是一样的。具体如何区别，可能就只能用语义来区分了。
+那依赖和聚合\组合、关联等有什么不同呢？
+关联是类之间的一种关系，例如老师教学生，老公和老婆，水壶装水等就是一种关系。这种关系是非常明显的，在问题领域中通过分析直接就能得出。
+依赖是一种弱关联，只要一个类用到另一个类，但是和另一个类的关系不是太明显的时候（可以说是“uses”了那个类），就可以把这种关系看成是依 赖，依赖也可说是一种偶然的关系，而不是必然的关系，就是“我在某个方法中偶然用到了它，但在现实中我和它并没多大关系”。例如我和锤子，我和锤子本来是 没关系的， 但在有一次要钉钉子的时候，我用到了它，这就是一种依赖，依赖锤子完成钉钉子这件事情。
+组合是一种整体-部分的关系，在问题域中这种关系很明显，直接分析就可以得出的。例如轮胎是车的一部分，树叶是树的一部分，手脚是身体的一部分这种的关系，非常明显的整体-部分关系。
+上述的几种关系（关联、聚合/组合、依赖）在代码中可能以指针、引用、值等的方式在另一个类中出现，不拘于形式，但在逻辑上他们就有以上的区别。
+这里还要说明一下，所谓的这些关系只是在某个问题域才有效，离开了这个问题域，可能这些关系就不成立了，例如可能在某个问题域中，我是一个木匠，需 要拿着锤 子去干活，可能整个问题的描述就是我拿着锤子怎么钉桌子，钉椅子，钉柜子；既然整个问题就是描述这个，我和锤子就不仅是偶然的依赖关系了，我和锤子的关系 变得非常的紧密，可能就上升为组合关系（让我突然想起武侠小说的剑不离身，剑亡人亡...）。这个例子可能有点荒谬，但也是为了说明一个道理，就是关系和 类一样，它们都是在一个问题领域中才成立的，离开了这个问题域，他们可能就不复存在了。
+
+# Gof设计模式
+
+## 创建型模式
+
+Singleton（单例模式）：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/42ed5232e1964cb391f1a24637fae57c.png "在这里插入图片描述")
+Prototype（原型模式）：用原型实例指定创建对象的种类，并且通过拷贝这个原型来创建新的对象。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/dce8478648f14fa384efc5406eb8b221.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Builder（建造者模式）：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/9c0696fb7ab344fabc359198aaae108e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Factory Method(工厂模式)：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a6f35922847e438b8df99837cb8c8ace.png "在这里插入图片描述")
+Factory Method使一个类的实例化延迟到其子类。
+&#x20;Abstract Factory（抽象工厂模式）：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/24f0a26b39e64a6e8165758ada249749.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+
+## 结构型模式
+
+Bridge（桥接模式）：将抽象部分与它的实现部分分离，使它们都可以独立地变化。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/fa08717533da4a2d8cd0a424c071779d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Facade（外观模式）：为子系统中的一组接口提供一个一致的界面， Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/e65ecfc356c04b2a8ceb0c8a2f6ae547.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Composite(组合模式)：将对象组合成树形结构以表示“部分-整体”的层次结构。它使得客户对单个对象和复合对象的使用具有一致性。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/8bbc0ba13a9f4af5992a832b4a9a8377.png "在这里插入图片描述")
+Decorator(装饰模式)：动态地给一个对象添加一些额外的职责。就扩展功能而言， 它比生成子类方式更为灵活。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/f6c53a0e057b4240aa9ed36a634c8d52.png "在这里插入图片描述")
+Adapter（适配器模式）：将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/abc9522be1cd4668a96c516a4819fc82.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Proxy（代理模式）：为其他对象提供一个代理以控制对这个对象的访问。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/48b43b9fc153440f8be85dd709ecf796.png "在这里插入图片描述")
+Flyweight（享元模式）：运用共享技术有效地支持大量细粒度的对象。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/5d8ab7a3564f463a92738c3b3aa394a9.png "在这里插入图片描述")
+
+## 行为型模式
+
+Iterator（迭代器模式）：提供一种方法顺序访问一个聚合对象中各个元素, 而又不需暴露该对象的内部表示。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/3a2edd57f2b744ea9fc7f9aec9e84d80.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+Interpreter（解析器模式）：给定一个语言, 定义它的文法的一种表示，并定义一个解释器, 该解释器使用该表示来解释语言中的句子。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/c2b22189d3294678af0fd35bafefc0ef.png "在这里插入图片描述")
+Observer（观察者模式）：定义对象间的一种一对多的依赖关系,以便当一个对象的状态发生改变时,所有依赖于它的对象都得到通知并自动刷新。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/b94af4bb5b6a477cbf564f5a4f6ebdd1.png "在这里插入图片描述")
+Mediator（中介者模式）：用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/cad568c443a9461b9d8958aff6798ef4.png "在这里插入图片描述")
+Visitor（访问者模式）：表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a7374e5cac3f4a52ba8111e53535d696.png "在这里插入图片描述")
+Memento（备忘录模式）：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到保存的状态。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/62cb898581cd4d2dbb809a83def9ef95.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaml5dXp6eg==,size_20,color_FFFFFF,t_70,g_se,x_16 "在这里插入图片描述")
+State（状态模式）：允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它所属的类。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/a53e4ee60b934c9a9ba2ecc73353bfec.png "在这里插入图片描述")
+Strategy（策略模式）：定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。本模式使得算法的变化可独立于使用它的客户。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/28da7ce8950b44bcad95f4322fb5d42e.png "在这里插入图片描述")
+Template Method（模板方法模式）：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/e9276b926cf14f028808d6cd97143a16.png "在这里插入图片描述")
+Command（命令模式）：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可取消的操作。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2c3ae052313c4ce4aa116d9ac4fc48b1.png "在这里插入图片描述")
+Chain of Responsibility（职责链模式）：为解除请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。 将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/ba011f6c993747b6bea6c6e1b319e30b.png "在这里插入图片描述")
+
+# 消息队列
+
+所谓的\*\*消息中间件大道至简：一发一存一消费，没有最好的消息中间件，只有最合适的消息中间件。 \*\*
+
+## 常见
+
+ActiveMQ
+Apache出品，Java开发，目前所占的市场份额不多。
+
+RabbitMQ
+Erlang语言实现AMQP协议的消息中间件，并发能力很强，性能及其好，延时很低（达到微妙级），特点：可靠性，可用性，扩展性，功能丰富。
+
+Kafka
+LinkedIn使用Scala开发的分布式，多分区，多副本且基于zookeeper协调的分布式消息系统，提供了超高的吞吐量，毫秒级延迟，极高的可用性和可靠性。
+
+RocketMQ
+阿里出品，Java开发，高吞吐，高可用，适合大规模分布式应用，经过多次双十一的洗礼，实力不容小觑。
+
+MSMQ的介绍
+MSMQ全称是Microsoft Message Queue——微软消息队列。它是一种异步传输模式，可以在不同的应用之间实现相互通信，相互通信的应用可以分布在同一台机器上，也可以分布于相连的网络空间中的任一位置。
+
+## 两种模式
+
+***
+
+小结 消息队列主要分为**两种模式**：点对点模式（一个生产者对口一个消费者）和发布/订阅模式（一对多）。&#x20;
+
+# CCPP
+
+对于 Web 性能优化，您有哪些了解和经验吗？
+前端优化
+1.求下面函数的返回值（ 微软）
+int func(x){int countx =0;while(x){countx ++;x = x&(x-1);}return countx;}
+假定x = 9999。 答案：8
+思路：将x转化为2进制，看含有的1的个数。
+2. 什么是“引用”？申明和使用“引用”要注意哪些问题？
+答：引用就是某个目标变量的“别名”(alias)，对应用的操作与对变量直接操作效果完全相同。申明一个引用的时候，切记要对其进行初始化。引用声明完毕后，相当于目标变量名有两个名称，即该目标原名称和引用名，不能再把该引用名作为其他变量名的别名。声明一个引用，不是新定义了一个变量，它只表示该引用名是目标变量名的一个别名，它本身不是一种数据类型，因此引用本身不占存储单元，系统也不给引用分配存储单元。不能建立数组的引用。
+3. 将“引用”作为函数参数有哪些特点？
+（1）传递引用给函数与传递指针的效果是一样的。这时，被调函数的形参就成为原来主调函数中的实参变量或对象的一个别名来使用，所以在被调函数中对形参变量的操作就是对其相应的目标对象（在主调函数中）的操作。
+（2）使用引用传递函数的参数，在内存中并没有产生实参的副本，它是直接对实参操作；而使用一般变量传递函数的参数，当发生函数调用时，需要给形参分配存储单元，形参变量是实参变量的副本；如果传递的是对象，还将调用拷贝构造函数。因此，当参数传递的数据较大时，用引用比用一般变量传递参数的效率和所占空间都好。
+（3）使用指针作为函数的参数虽然也能达到与使用引用的效果，但是，在被调函数中同样要给形参分配存储单元，且需要重复使用"\*指针变量名"的形式进行运算，这很容易产生错误且程序的阅读性较差；另一方面，在主调函数的调用点处，必须用变量的地址作为实参。而引用更容易使用，更清晰。
+4. 在什么时候需要使用“常引用”？　
+如果既要利用引用提高程序的效率，又要保护传递给函数的数据不在函数中被改变，就应使用常引用。常引用声明方式：const 类型标识符 &引用名=目标变量名；
+例1
+int a;constint\&ra = a;ra = 1; // 错误
+a = 1; // 正确
+例2
+string foo( );void bar(string\&s)
+// 那么下面的表达式将是非法的：
+bar(foo( ));bar("hello world");
+原因在于foo( )和"hello world"串都会产生一个临时对象，而在C++中，这些临时对象都是const类型的。因此上面的表达式就是试图将一个const类型的对象转换为非const类型，这是非法的。
+引用型参数应该在能被定义为const的情况下，尽量定义为const 。
+5\. 将“引用”作为函数返回值类型的格式、好处和需要遵守的规则?
+格式：
+类型标识符 &函数名（形参列表及类型说明）{　　//函数体
 }
-
-###### FAMessageService
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-namespace DEVGIS.FA.FACommonService
-
-{
-
-  [Export(typeof(IFAMessageBox))]
-
-  public class FAMessageService : IFAMessageBox
-
-  {
-
-    public string Title = "FA";
-
-    public void ShowDebug(string message)
-
-    {
-
-      MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-    }
-
-    public void ShowError(string message, Exception ex=null)
-
-    {
-
-      if (ex == null)
-
-      {
-
-        MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Error);
-
-      }
-
-      else
-
-      {
-
-        MessageBox.Show($"{message}/r/n{ex.ToString()}/r/n{ex.Message}/r/n{ex.StackTrace}/r/n", Title, MessageBoxButton.OK, MessageBoxImage.Error);
-
-      }
-
-      
-
-    }
-
-    public void ShowInfo(string message)
-
-    {
-
-      MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Information);
-
-    }
-
-    public bool ShowQuestion(string message)
-
-    {
-
-      if (MessageBox.Show(message, Title, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-
-      {
-
-        return true;
-
-      }
-
-      else
-
-      {
-
-        return false;
-
-      }
-
-    }
-
-    public void ShowWarn(string message)
-
-    {
-
-      MessageBox.Show(message, Title, MessageBoxButton.OK, MessageBoxImage.Warning);
-
-    }
-
-  }
-
+好处：在内存中不产生被返回值的副本；（注意：正是因为这点原因，所以返回一个局部变量的引用是不可取的。因为随着该局部变量生存期的结束，相应的引用也会失效，产生runtime error!
+注意：
+（1）不能返回局部变量的引用。这条可以参照Effective C++\[1]的Item 31。主要原因是局部变量会在函数返回后被销毁，因此被返回的引用就成为了"无所指"的引用，程序会进入未知状态。
+（2）不能返回函数内部new分配的内存的引用(这个要注意啦，很多人没意识到，哈哈。。。）。 这条可以参照Effective C++\[1]的Item 31。虽然不存在局部变量的被动销毁问题，可对于这种情况（返回函数内部new分配内存的引用），又面临其它尴尬局面。例如，被函数返回的引用只是作为一个临时变量出现，而没有被赋予一个实际的变量，那么这个引用所指向的空间（由new分配）就无法释放，造成memory leak。
+（3）可以返回类成员的引用，但最好是const。 这条原则可以参照Effective C++\[1]的Item 30。主要原因是当对象的属性是与某种业务规则（business rule）相关联的时候，其赋值常常与某些其它属性或者对象的状态有关，因此有必要将赋值操作封装在一个业务规则当中。如果其它对象可以获得该属性的非常量引用（或指针），那么对该属性的单纯赋值就会破坏业务规则的完整性。
+（4）流操作符重载返回值申明为“引用”的作用：
+流操作符<<和>>，这两个操作符常常希望被连续使用，例如：cout <<"hello" << endl;　因此这两个操作符的返回值应该是一个仍然支持这两个操作符的流引用。可选的其它方案包括：返回一个流对象和返回一个流对象指针。但是对于返回一个流对象，程序必须重新（拷贝）构造一个新的流对象，也就是说，连续的两个<<操作符实际上是针对不同对象的！这无法让人接受。对于返回一个流指针则不能连续使用<<操作符。 因此，返回一个流对象引用是惟一选择。这个唯一选择很关键，它说明了引用的重要性以及无可替代性，也许这就是C++语言中引入引用这个概念的原因吧。 赋值操作符=。这个操作符象流操作符一样，是可以连续使用的，例如：x = j = 10;或者(x=10)=100;赋值操作符的返回值必须是一个左值，以便可以被继续赋值。因此引用成了这个操作符的惟一返回值选择。
+例3
+＃include 
+int\&put(int n);int vals\[10];int error = -1;
+void main(){　　put(0) = 10; // 以put(0)函数值作为左值，等价于vals\[0]=10;
+　　put(9) = 20; // 以put(9)函数值作为左值，等价于vals\[9]=20;
+　　cout << vals\[0];　　cout << vals\[9];}
+int\&put(int n){　　if (n>=0&& n<=9 ) 
+　　{
+ 　　　　return vals\[n]; 
+ 　　}
+　　else 
+　　{
+　　　　cout << "subscript error"; 
+ 　　　　return error;
+ 　　}
 }
-
-##### FACommonViews
-
-###### DebugPanel.xaml
-
-<inplug:FAView x:Class="DEVGIS.FA.FACommonViews.Views.DebugPanel"
-
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-
-       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-
-       xmlns:local="clr-namespace:DEVGIS.FA.FACommonViews.Views"
-
-       xmlns:facontrols="clr-namespace:DEVGIS.FA.Controls;assembly=FAControls"
-
-       xmlns:localvm="clr-namespace:DEVGIS.FA.FACommonViews.ViewModels"
-
-       xmlns:inplug="clr-namespace:DEVGIS.FA.Plugin;assembly=FAPlugin"
-
-       mc:Ignorable="d" 
-
-       d:DesignHeight="300" d:DesignWidth="600" Width="600" Height="300" >
-
-  <!--<inplug:FAView.DataContext>
-
-    <localvm:DebugPanelViewModel/>
-
-  </inplug:FAView.DataContext>-->
-
-  <Grid>
-
-    <Grid.RowDefinitions>
-
-      <RowDefinition Height="30" />
-
-      <RowDefinition Height="*" />
-
-    </Grid.RowDefinitions>
-
-    <Grid.ColumnDefinitions>
-
-      <ColumnDefinition Width="*" />
-
-    </Grid.ColumnDefinitions>
-
-    <Label Content="显示输出来源" HorizontalAlignment="Left" Grid.Row="0" />
-
-    <!--Text="{Binding Message}"-->
-
-    <TextBlock Text="{Binding Message}" HorizontalAlignment="Left" Grid.Row="1"/>
-
-  </Grid>
-
-</inplug:FAView>
-
-###### DebugPanelViewModel
-
-using DEVGIS.FA.Plugin;
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Collections.ObjectModel;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.FACommonViews.ViewModels
-
-{
-
-  [Export(typeof(IDebugOut))]
-
-  [Export(typeof(FAViewModel))]
-
-  public class DebugPanelViewModel : FAViewModel, IDebugOut
-
-  {
-
-    public string message = "请输入";
-
-    public string Message
-
-    {
-
-      get
-
-      {
-
-        return message;
-
-      }
-
-      set
-
-      {
-
-        message = value;
-
-        RaisePropertyChanged("Message");
-
-      }
-
-    }
-
-    public void Debug(string Message)
-
-    {
-
-      this.Message= Message;
-
-    }
-
-  }
-
+（5）在另外的一些操作符中，却千万不能返回引用：+-\*/ 四则运算符。它们不能返回引用，Effective C++\[1]的Item23详细的讨论了这个问题。主要原因是这四个操作符没有side effect，因此，它们必须构造一个对象作为返回值，可选的方案包括：返回一个对象、返回一个局部变量的引用，返回一个new分配的对象的引用、返回一 个静态对象引用。根据前面提到的引用作为返回值的三个规则，第2、3两个方案都被否决了。静态对象的引用又因为((a+b) == (c+d))会永远为true而导致错误。所以可选的只剩下返回一个对象了。
+6\. “引用”与多态的关系？
+引用是除指针外另一个可以产生多态效果的手段。这意味着，一个基类的引用可以指向它的派生类实例（见：[C++中类的多态与虚函数的使用](http://www.cnblogs.com/fangyukuan/archive/2010/05/30/1747449.html)）。
+例4
+![0](https://note.youdao.com/yws/res/31242/WEBRESOURCE78b07563601efc1ecd5fe360f82dda5f "0")
+Class A;Class B : Class A{　　// ...
+};B b;A\&ref= b;
+![0](https://note.youdao.com/yws/res/31243/WEBRESOURCEbed7ae62397d2279746dc0d0a7b09403 "0")
+7\. “引用”与指针的区别是什么？
+指针通过某个指针变量指向一个对象后，对它所指向的变量间接操作。程序中使用指针，程序的可读性差；
+而引用本身就是目标变量的别名，对引用的操作就是对目标变量的操作。此外，就是上面提到的对函数传ref和pointer的区别。
+8. 什么时候需要“引用”？
+流操作符<<和>>、赋值操作符=的返回值、拷贝构造函数的参数、赋值操作符=的参数、其它情况都推荐使用引用。
+9. 结构与联合有和区别？
+1\. 结构和联合都是由多个不同的数据类型成员组成, 但在任何同一时刻, 联合中只存放了一个被选中的成员（所有成员共用一块地址空间）, 而结构的所有成员都存在（不同成员的存放地址不同）。 
+2\. 对于联合的不同成员赋值, 将会对其它成员重写, 原来成员的值就不存在了, 而对于结构的不同成员赋值是互不影响的。
+10. 下面关于“联合”的题目的输出？
+a)
+![0](https://note.youdao.com/yws/res/31244/WEBRESOURCEb3c8c5dce4f36a25a999af22919902cf "0")
+＃include union{　　int i;　　char x\[2];}a;void main(){　　a.x\[0] =10;　　a.x\[1] =1;　　printf("%d",a.i);}
+![0](https://note.youdao.com/yws/res/31245/WEBRESOURCEb019019181e7effb87552c92c9ce480a "0")
+答案：266 (低位低地址，高位高地址，内存占用情况是Ox010A）
+b)
+![0](https://note.youdao.com/yws/res/31246/WEBRESOURCE06d0394d0cccf42554019c419cfa88a1 "0")
+main(){union{ /\*定义一个联合\*/
+int i;struct{ /\*在联合中定义一个结构\*/
+char first;char second;}half;}number;number.i=0x4241; /\*联合成员赋值\*/printf("%c%c\n", number.half.first, mumber.half.second);number.half.first='a'; /\*联合中结构成员赋值\*/number.half.second='b';printf("%x\n",number.i);getch();}
+![0](https://note.youdao.com/yws/res/31247/WEBRESOURCE9f1a25ec0a5d38bc1349c87a5d59d7db "0")
+答案： AB   (0x41对应'A',是低位；Ox42对应'B',是高位）
+       6261 (number.i和number.half共用一块地址空间）
+11. 已知strcpy的函数原型：char \*strcpy(char \*strDest, const char \*strSrc)其中strDest 是目的字符串，strSrc 是源字符串。不调用C++/C 的字符串库函数，请编写函数 strcpy。
+答案：
+![0](https://note.youdao.com/yws/res/31248/WEBRESOURCE3021025f561243bb04955a4e021f60ce "0")
+/\*编写strcpy函数（10分）已知strcpy函数的原型是char \*strcpy(char \*strDest, const char \*strSrc);其中strDest是目的字符串，strSrc是源字符串。（1）不调用C++/C的字符串库函数，请编写函数 strcpy（2）strcpy能把strSrc的内容复制到strDest，为什么还要char \* 类型的返回值？答：为了 实现链式表达式。 // 2分例如 int length = strlen( strcpy( strDest, “hello world”) );\*/#include #include 
+char\*strcpy(char\*strDest, constchar\*strSrc){assert((strDest!=NULL) && (strSrc !=NULL)); // 2分
+char\* address = strDest; 　　// 2分
+while( (\*strDest++=\*strSrc++) !='\0' )　　　　　　　// 2分
+NULL;return address ; 　　　// 2分
 }
-
-###### DebugPanel.Xaml.cs
-
-using DEVGIS.FA.Controls;
-
-using DEVGIS.FA.Plugin;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Controls;
-
-using System.Windows.Data;
-
-using System.Windows.Documents;
-
-using System.Windows.Input;
-
-using System.Windows.Media;
-
-using System.Windows.Media.Imaging;
-
-using System.Windows.Navigation;
-
-using System.Windows.Shapes;
-
-namespace DEVGIS.FA.FACommonViews.Views
-
-{
-
-  [Export(typeof(FAView))]
-
-  /// <summary>
-
-  /// SelectDevices.xaml 的交互逻辑
-
-  /// </summary>
-
-  public partial class DebugPanel:FAView
-
-  {
-
-    public DebugPanel():base("DebugPanelViewModel")
-
-    {
-
-      InitializeComponent();
-
-    }
-
-  }
-
+![0](https://note.youdao.com/yws/res/31249/WEBRESOURCEed795423459858bb4137c25d704cf682 "0")
+另外strlen函数如下：
+![0](https://note.youdao.com/yws/res/31250/WEBRESOURCE90f38b7eb6d3d5597ea29fad1aa6b078 "0")
+\#include#include
+int strlen( constchar\*str ) // 输入参数const
+{assert( str != NULL ); // 断言字符串地址非0
+int len = 0;while( (\*str++) !='\0' ){len++;}return len;}
+![0](https://note.youdao.com/yws/res/31251/WEBRESOURCE0761f14b61d1afb96f1e3dcbd210097d "0")
+12\. 已知String类定义如下：
+![0](https://note.youdao.com/yws/res/31252/WEBRESOURCEbb5e45425550d2880b6153bbc53ae8ba "0")
+class String{public:　　String(const char \*str = NULL); // 通用构造函数
+　　String(const String \&another); // 拷贝构造函数
+　　\~String(); // 析构函数
+　　String& operater =(const String \&rhs); // 赋值函数
+private:　　char\* m\_data; // 用于保存字符串
+};
+![0](https://note.youdao.com/yws/res/31253/WEBRESOURCE383b9b839a7fab5c37e28d0863eee715 "0")
+尝试写出类的成员函数实现。
+答案：
+![0](https://note.youdao.com/yws/res/31254/WEBRESOURCEfc5afbc9e413d4c967507c942dc29422 "0")
+String::String(constchar\*str){if ( str == NULL ) // strlen在参数为NULL时会抛异常才会有这步判断
+{m\_data =newchar\[1] ;m\_data\[0] ='\0' ;}else{m\_data =newchar\[strlen(str) +1];strcpy(m\_data,str);}}String::String(const String \&another){m\_data =newchar\[strlen(another.m\_data) +1];strcpy(m\_data,other.m\_data);}String& String::operator=(const String \&rhs){if ( this==\&rhs)return\*this ;delete \[]m\_data; //删除原来的数据，新开一块内存
+m\_data =newchar\[strlen(rhs.m\_data) +1];strcpy(m\_data,rhs.m\_data);return\*this ;}String::\~String(){delete \[]m\_data ;}
+![0](https://note.youdao.com/yws/res/31255/WEBRESOURCE75797d78ec728c3c04179f1832014bb9 "0")
+13\. .h头文件中的ifndef/define/endif 的作用？
+答：防止该头文件被重复引用。
+14. ＃include 与＃include "file.h"的区别？
+答：前者是从Standard Library的路径寻找和引用file.h，而后者是从当前工作路径搜寻并引用file.h。
+15.在C++程序中调用被C 编译器编译后的函数，为什么要加extern “C”？
+首先，作为extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用。
+通常，在模块的头文件中对本模块提供给其它模块引用的函数和全局变量以关键字extern声明。例如，如果模块B欲引用该模块A中定义的全局变量和函数时只需包含模块A的头文件即可。这样，模块B中调用模块A中的函数时，在编译阶段，模块B虽然找不到该函数，但是并不会报错；它会在连接阶段中从模块A编译生成的目标代码中找到此函数
+extern "C"是连接申明(linkage declaration),被extern "C"修饰的变量和函数是按照C语言方式编译和连接的,来看看C++中对类似。
+C的函数是怎样编译的：
+作为一种面向对象的语言，C++支持函数重载，而过程式语言C则不支持。函数被C++编译后在符号库中的名字与C语言的不同。例如，假设某个函数的原型为：
+void foo( int x, int y );
+该函数被C编译器编译后在符号库中的名字为\_foo，而C++编译器则会产生像\_foo\_int\_int之类的名字（不同的编译器可能生成的名字不同，但是都采用了相同的机制，生成的新名字称为“mangled name”）。
+\_foo\_int\_int 这样的名字包含了函数名、函数参数数量及类型信息，C++就是靠这种机制来实现函数重载的。例如，在C++中，函数void foo( int x, int y )与void foo( int x, float y )编译生成的符号是不相同的，后者为\_foo\_int\_float。
+同 样地，C++中的变量除支持局部变量外，还支持类成员变量和全局变量。用户所编写程序的类成员变量可能与全局变量同名，我们以"."来区分。而本质上，编译器在进行编译时，与函数的处理相似，也为类中的变量取了一个独一无二的名字，这个名字与用户程序中同名的全局变量名字不同。
+未加extern "C"声明时的连接方式
+假设在C++中，模块A的头文件如下：
+// 模块A头文件　moduleA.h
+\#ifndef MODULE\_A\_H#define MODULE\_A\_H
+int foo( int x, int y );#endif　　
+在模块B中引用该函数：
+// 模块B实现文件　moduleB.cpp
+＃include "moduleA.h"foo(2,3);
+实际上，在连接阶段，连接器会从模块A生成的目标文件moduleA.obj中寻找\_foo\_int\_int这样的符号！
+加extern "C"声明后的编译和连接方式
+加extern "C"声明后，模块A的头文件变为：
+// 模块A头文件　moduleA.h
+\#ifndef MODULE\_A\_H#define MODULE\_A\_H
+extern"C"int foo( int x, int y );#endif　
+在模块B的实现文件中仍然调用foo( 2,3 )，其结果是：
+（1）模块A编译生成foo的目标代码时，没有对其名字进行特殊处理，采用了C语言的方式；
+（2）连接器在为模块B的目标代码寻找foo(2,3)调用时，寻找的是未经修改的符号名\_foo。
+如果在模块A中函数声明了foo为extern "C"类型，而模块B中包含的是extern int foo( int x, int y ) ，则模块B找不到模块A中的函数；反之亦然。
+所以，可以用一句话概括extern “C”这个声明的真实目的（任何语言中的任何语法特性的诞生都不是随意而为的，来源于真实世界的需求驱动。我们在思考问题时，不能只停留在这个语言是怎么做的，还要问一问它为什么要这么做，动机是什么，这样我们可以更深入地理解许多问题）：实现C++与C及其它语言的混合编程。　　
+明白了C++中extern "C"的设立动机，我们下面来具体分析extern "C"通常的使用技巧：
+extern "C"的惯用法 
+（1）在C++中引用C语言中的函数和变量，在包含C语言头文件（假设为cExample.h）时，需进行下列处理：
+extern"C"{　　＃include"cExample.h"}
+而在C语言的头文件中，对其外部函数只能指定为extern类型，C语言中不支持extern "C"声明，在.c文件中包含了extern"C"时会出现编译语法错误。
+C++引用C函数例子工程中包含的三个文件的源代码如下：
+/\* c语言头文件：cExample.h \*/#ifndef C\_EXAMPLE\_H#define C\_EXAMPLE\_H
+externint add(int x, inty);#endif
+/\* c语言实现文件：cExample.c \*/#include "cExample.h"
+int add( int x, int y ){　　return x + y;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+// c++实现文件，调用add：cppFile.cpp
+extern"C"{　　＃include"cExample.h"}int main(int argc, char\* argv\[]){　　add(2,3);　　return0;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+如果C++调用一个C语言编写的.DLL时，当包括.DLL的头文件或声明接口函数时，应加extern "C" {　}。
+（2）在C中引用C++语言中的函数和变量时，C++的头文件需添加extern "C"，但是在C语言中不能直接引用声明了extern "C"的该头文件，应该仅将C文件中将C++中定义的extern"C"函数声明为extern类型。
+C引用C++函数例子工程中包含的三个文件的源代码如下：
+//C++头文件cppExample.h
+\#ifndef CPP\_EXAMPLE\_H#define CPP\_EXAMPLE\_H
+extern"C"int add( int x, int y );#endif
+//C++实现文件 cppExample.cpp
+＃include"cppExample.h"
+int add( int x, int y ){　　return x + y;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+/\* C实现文件 cFile.c/\* 这样会编译出错：＃i nclude "cExample.h" \*/
+externint add( int x, int y );int main( int argc, char\* argv\[] ){　　add( 2, 3 );　　return0;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+16. 关联、聚合(Aggregation)以及组合(Composition)的区别？
+涉及到UML中的一些概念：
+关联是表示两个类的一般性联系，比如“学生”和“老师”就是一种关联关系；
+聚合表示has-a的关系，是一种相对松散的关系，聚合类不需要对被聚合类负责，如下图所示，用空的菱形表示聚合关系：
+从实现的角度讲，聚合可以表示为:
+class A {...}  class B { A\* a; .....}
+组合表示contains-a的关系，关联性强于聚合：组合类与被组合类有相同的生命周期，组合类要对被组合类负责，采用实心的菱形表示组合关系：
+实现的形式是:
+class A{...} class B{ A a; ...}
+17.面向对象的三个基本特征，并简单叙述之？
+1. 封装：将客观事物抽象成类，每个类对自身的数据和方法实行protection(private, protected,public)
+2. 继承：广义的继承有三种实现形式：实现继承（指使用基类的属性和方法而无需额外编码的能力）、可视继承（子窗体使用父窗体的外观和实现代码）、接口继承（仅使用属性和方法，实现滞后到子类实现）。前两种（类继承）和后一种（对象组合=>接口继承以及纯虚函数）构成了功能复用的两种方式。
+3. 多态：系统能够在运行时，能够根据其类型确定调用哪个重载的成员函数的能力，称为多态性。（见：C++中类的多态与虚函数的使用）
+18. 重载（overload)和重写(overried，有的书也叫做“覆盖”）的区别？
+常考的题目。
+从定义上来说：
+重载：是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。
+重写：是指子类重新定义父类虚函数的方法。
+从实现原理上来说：
+重载：编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的）。如，有两个同名函数：function func(p\:integer)\:integer;和function func(p\:string)\:integer;。那么编译器做过修饰后的函数名称可能是这样的：int\_func、str\_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载和多态无关！
+重写：和多态真正相关。当子类重新定义了父类的虚函数后，父类指针根据赋给它的不同的子类指针，动态的调用属于子类的该函数，这样的函数调用在编译期间是无法确定的（调用的子类的虚函数的地址无法给出）。因此，这样的函数地址是在运行期绑定的（晚绑定）。
+19. 多态的作用？
+主要是两个：
+1\. 隐藏实现细节，使得代码能够模块化；扩展代码模块，实现代码重用；
+2\. 接口重用：为了类在继承和派生的时候，保证使用家族中任一类的实例的某一属性时的正确调用。
+20\. Ado与Ado.net的相同与不同？
+除了“能够让应用程序处理存储于DBMS 中的数据“这一基本相似点外，两者没有太多共同之处。但是Ado使用OLE DB 接口并基于微软的COM 技术，而ADO.NET 拥有自己的ADO.NET 接口并且基于微软的.NET 体系架构。众所周知.NET 体系不同于COM 体系，ADO.NET 接口也就完全不同于ADO和OLE DB 接口，这也就是说ADO.NET 和ADO是两种数据访问方式。ADO.net 提供对XML 的支持。
+21. New delete 与mallocfree 的联系与区别?答案：都是在堆(heap)上进行动态的内存操作。用malloc函数需要指定内存分配的字节数并且不能初始化对象，new 会自动调用对象的构造函数。delete 会调用对象的destructor，而free 不会调用对象的destructor.
+（可以看看：[显式调用构造函数和析构函数](http://www.cnblogs.com/fangyukuan/archive/2010/08/28/1811119.html)）
+22. #define DOUBLE(x) x+x ，i = 5\*DOUBLE(5)； i 是多少？答案：i 为30。（注意直接展开就是了） 5 \* 5 + 5 
+23. 有哪几种情况只能用intializationlist 而不能用assignment?
+答案：当类中含有const、reference 成员变量；基类的构造函数都需要初始化表。
+24. C++是不是类型安全的？
+答案：不是。两个不同类型的指针之间可以强制转换（用reinterpret cast)。C#是类型安全的。
+25. main 函数执行以前，还会执行什么代码？答案：全局对象的构造函数会在main 函数之前执行，为malloc分配必要的资源，等等。
+26. 描述内存分配方式以及它们的区别?
+1） 从静态存储区域分配。内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。例如全局变量，static 变量。
+2） 在栈上创建。在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集。
+3） 从堆上分配，亦称动态内存分配。程序在运行的时候用malloc 或new 申请任意多少的内存，程序员自己负责在何时用free 或delete 释放内存。动态内存的生存期由程序员决定，使用非常灵活，但问题也最多。
+4\) 代码区。
+27.struct 和 class 的区别
+答案：struct 的成员默认是公有的，而类的成员默认是私有的。struct 和 class 在其他方面是功能相当的。
+从感情上讲，大多数的开发者感到类和结构有很大的差别。感觉上结构仅仅象一堆缺乏封装和功能的开放的内存位，而类就象活的并且可靠的社会成员，它有智能服 务，有牢固的封装屏障和一个良好定义的接口。既然大多数人都这么认为，那么只有在你的类有很少的方法并且有公有数据（这种事情在良好设计的系统中是存在 的!）时，你也许应该使用 struct 关键字，否则，你应该使用 class 关键字。 
+28.当一个类A 中没有生命任何成员变量与成员函数,这时sizeof(A)的值是多少，如果不是零，请解释一下编译器为什么没有让它为零。（Autodesk）答案：肯定不是零。举个反例，如果是零的话，声明一个class A\[10]对象数组，而每一个对象占用的空间是零，这时就没办法区分A\[0],A\[1]…了。
+29. 在8086 汇编下，逻辑地址和物理地址是怎样转换的？（Intel）
+答案：通用寄存器给出的地址，是段内偏移地址，相应段寄存器地址\*10H+通用寄存器内地址，就得到了真正要访问的地址。
+30. 比较C++中的4种类型转换方式？
+重点是static\_cast, dynamic\_cast和reinterpret\_cast的区别和应用。(以后再补上吧）
+31.分别写出BOOL,int,float,指针类型的变量a 与“零”的比较语句。
+答案：
+BOOL : 　if ( !a ) or if(a)int : 　　if ( a ==0)float : const EXPRESSION EXP =0.000001　　if ( a < EXP&& a >-EXP)pointer :　if ( a != NULL) or if(a == NULL)
+32.请说出const与#define 相比，有何优点？1） const 常量有数据类型，而宏常量没有数据类型。编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生意料不到的错误。
+2） 有些集成化的调试工具可以对const 常量进行调试，但是不能对宏常量进行调试。
+33.简述数组与指针的区别？
+数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。指针可以随时指向任意类型的内存块。
+(1)修改内容上的差别
+char a\[] = “hello”;
+a\[0] = ‘X’;
+char \*p = “world”; // 注意p 指向常量字符串
+p\[0] = ‘X’; // 编译器不能发现该错误，运行时错误
+(2) 用运算符sizeof 可以计算出数组的容量（字节数）。sizeof(p),p 为指针得到的是一个指针变量的字节数，而不是p 所指的内存容量。C++/C 语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。
+char a\[] ="hello world";char\*p = a;cout<\<sizeof(a) << endl; // 12 字节
+cout<\<sizeof(p) << endl; // 4 字节
+计算数组和指针的内存容量
+void Func(char a\[100]){　　cout<\<sizeof(a) << endl; // 4 字节而不是100 字节
 }
-
-#### 插件实现层
-
-##### MyFAPlugin1
-
-###### MyFAPlugin1
-
-using DEVGIS.FA.Plugin;
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.MyFAPlugin1
-
+34.类成员函数的重载、覆盖和隐藏区别？
+答案：
+a.成员函数被重载的特征：
+（1）相同的范围（在同一个类中）；
+（2）函数名字相同；
+（3）参数不同；
+（4）virtual 关键字可有可无。
+b.覆盖是指派生类函数覆盖基类函数，特征是：
+（1）不同的范围（分别位于派生类与基类）；
+（2）函数名字相同；
+（3）参数相同；
+（4）基类函数必须有virtual 关键字。
+c.“隐藏”是指派生类的函数屏蔽了与其同名的基类函数，规则如下：
+（1）如果派生类的函数与基类的函数同名，但是参数不同。此时，不论有无virtual关键字，基类的函数将被隐藏（注意别与重载混淆）。
+（2）如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有virtual 关键字。此时，基类的函数被隐藏（注意别与覆盖混淆）
+35\. There are twoint variables: a and b, don’t use “if”, “? :”, “switch”or other judgementstatements, find out the biggest one of the two numbers.
+答案：( ( a + b ) + abs( a- b ) ) / 2
+36. 如何打印出当前源文件的文件名以及源文件的当前行号？答案：
+cout << \_\_FILE\_\_ ;
+cout<<\_\_LINE\_\_ ;
+\_\_FILE\_\_和\_\_LINE\_\_是系统预定义宏，这种宏并不是在某个文件中定义的，而是由编译器定义的
+。
+37\. main 主函数执行完毕后，是否可能会再执行一段代码，给出说明？答案：可以，可以用\_onexit 注册一个函数，它会在main 之后执行int fn1(void), fn2(void), fn3(void),fn4 (void);
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+void main( void ){　　String str("zhanglin");　　\_onexit( fn1 );　　\_onexit( fn2 );　　\_onexit( fn3 );　　\_onexit( fn4 );　　printf( "This is executed first.\n" );}int fn1(){　　printf( "next.\n" );　　return0;}int fn2(){　　printf( "executed " );　　return0;}int fn3(){　　printf( "is " );　　return0;}int fn4(){　　printf( "This " );　　return0;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+The \_onexit function is passed the address of a function (func) to be called whenthe program terminates normally. Successive calls to \_onexit create a registerof functions that are executed in LIFO (last-in-first-out) order. The functionspassed to \_onexit cannot take parameters.
+38. 如何判断一段程序是由C 编译程序还是由C++编译程序编译的？
+答案：
+\#ifdef \_\_cplusplus　　cout<<"c++";#else　　cout<<"c";#endif
+注意，后面很多代码啊。代码不看也罢。
+39.文件中有一组整数，要求排序后输出到另一个文件中（面试官，超级喜欢考排序的。你要去面试，数据结构的那几个排序一定要非常熟悉，用笔也可以写出代码来，用笔写代码，就是这样变态啊，其实感觉没有必要这样笔试）
+答案：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+＃include＃include
+usingnamespace std;void Order(vector\<int>& data)//bubble sort
+{int count = data.size() ;int tag =false ; // 设置是否需要继续冒泡的标志位
+for ( int i =0 ; i < count ; i++){for ( int j =0 ; j < count - i -1 ; j++){if ( data\[j] > data\[j+1]){tag =true ;int temp = data\[j] ;data\[j] = data\[j+1] ;data\[j+1] = temp ;}}if ( !tag )break ;}}void main( void ){vector\<int>data;ifstream in("c:\\\data.txt");if ( !in){cout<<"file error!";exit(1);}int temp;while (!in.eof()){in>>temp;data.push\_back(temp);}in.close(); //关闭输入文件流
+Order(data);ofstream out("c:\\\result.txt");if ( !out){cout<<"file error!";exit(1);}for ( i =0 ; i < data.size() ; i++)out<"";out.close(); //关闭输出文件流
+}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+40\. 链表题：一个链表的结点结构
+struct Node{int data ;Node \*next ;};typedef struct Node Node ;
+(1)已知链表的头结点head,写一个函数把这个链表逆序 ( Intel)
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+Node \* ReverseList(Node \*head) //链表逆序
+{if ( head == NULL || head->next == NULL )return head;Node \*p1 = head ;Node \*p2 = p1->next ;Node \*p3 = p2->next ;p1->next = NULL ;while ( p3 != NULL ){p2->next = p1 ;p1 = p2 ;p2 = p3 ;p3 = p3->next ;}p2->next = p1 ;head = p2 ;return head ;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+(2)已知两个链表head1 和head2 各自有序，请把它们合并成一个链表依然有序。(保留所有结点，即便大小相同）
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+Node \* Merge(Node \*head1 , Node \*head2){if ( head1 == NULL)return head2 ;if ( head2 == NULL)return head1 ;Node \*head = NULL ;Node \*p1 = NULL;Node \*p2 = NULL;if ( head1->data < head2->data ){head = head1 ;p1 = head1->next;p2 = head2 ;}else{head = head2 ;p2 = head2->next ;p1 = head1 ;}Node \*pcurrent = head ;while ( p1 != NULL && p2 != NULL){if ( p1->data <= p2->data ){pcurrent->next = p1 ;pcurrent = p1 ;p1 = p1->next ;}else{pcurrent->next = p2 ;pcurrent = p2 ;p2 = p2->next ;}}if ( p1 != NULL )pcurrent->next = p1 ;if ( p2 != NULL )pcurrent->next = p2 ;return head ;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+(3)已知两个链表head1 和head2 各自有序，请把它们合并成一个链表依然有序，这次要求用递归方法进行。(Autodesk)答案：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+Node \* MergeRecursive(Node \*head1 , Node \*head2){if ( head1 == NULL )return head2 ;if ( head2 == NULL)return head1 ;Node \*head = NULL ;if ( head1->data < head2->data ){head = head1 ;head->next = MergeRecursive(head1->next,head2);}else{head = head2 ;head->next = MergeRecursive(head1,head2->next);}return head ;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+41. 分析一下这段程序的输出(Autodesk)
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+class B{public\:B(){cout<<"default constructor"<"destructed"\<int i)\:data(i) //B(int) works as a converter ( int ->instance of B)
+{cout<<"constructed by parameter "<< data \<private\:int data;};B Play( B b){return b ;}(1) results\:int main(int argc, char\* argv\[]) constructedby parameter 5{ destructed B(5)形参析构B t1 = Play(5); B t2 = Play(t1); 　 destructed t1形参析构return0;　　　　　　　　　　　　　　 destructed t2　注意顺序！} destructed t1(2) results\:int main(int argc, char\* argv\[]) constructedby parameter 5{ destructed B(5)形参析构B t1 = Play(5); B t2 = Play(10); 　 constructed by parameter 10
+return0;　　　　　　　　　　　　　　 destructed B(10)形参析构} destructed t2　注意顺序！destructed t1
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+42\. 写一个函数找出一个整数数组中，第二大的数（microsoft）
+答案：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+constint MINNUMBER =-32767 ;int find\_sec\_max( int data\[] , int count){int maxnumber = data\[0] ;int sec\_max = MINNUMBER ;for ( int i =1 ; i < count ; i++){if ( data\[i] > maxnumber ){sec\_max = maxnumber ;maxnumber = data\[i] ;}else{if ( data\[i] > sec\_max )sec\_max = data\[i] ;}}return sec\_max ;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+43. 写一个在一个字符串(n)中寻找一个子串(m)第一个位置的函数。
+KMP算法效率最好，时间复杂度是Ｏ(n+m)。
+44. 多重继承的内存分配问题：   比如有class A : public class B, public classC {}   那么A的内存结构大致是怎么样的？
+这个是compiler-dependent的, 不同的实现其细节可能不同。
+如果不考虑有虚函数、虚继承的话就相当简单；否则的话，相当复杂。
+可以参考《深入探索C++对象模型》
+45. 如何判断一个单链表是有环的？（注意不能用标志位，最多只能用两个额外指针）
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+struct node { char val; node\* next;}bool check(const node\* head) {} //return false : 无环；true: 有环一种O（n）的办法就是（搞两个指针，一个每次递增一步，一个每次递增两步，如果有环的话两者必然重合，反之亦然）：bool check(const node\* head){if(head==NULL) returnfalse;node \*low=head, \*fast=head->next;while(fast!=NULL && fast->next!=NULL){low=low->next;fast=fast->next->next;if(low==fast) returntrue;}returnfalse;}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+1.求下面函数的返回值（ 微软）
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+int func(x) 
+{ 
+int countx =0; 
+while(x) 
+{ 
+countx ++; 
+x = x&(x-1); 
+} 
+return countx; 
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+假定x = 9999。 答案：8
+思路：将x转化为2进制，看含有的1的个数。
+2. 什么是“引用”？申明和使用“引用”要注意哪些问题？
+答：引用就是某个目标变量的“别名”(alias)，对应用的操作与对变量直接操作效果完全相同。申明一个引用的时候，切记要对其进行初始化。引用声明完毕后，相当于目标变量名有两个名称，即该目标原名称和引用名，不能再把该引用名作为其他变量名的别名。声明一个引用，不是新定义了一个变量，它只表示该引用名是目标变量名的一个别名，它本身不是一种数据类型，因此引用本身不占存储单元，系统也不给引用分配存储单元。不能建立数组的引用。
+3. 将“引用”作为函数参数有哪些特点？
+（1）传递引用给函数与传递指针的效果是一样的。这时，被调函数的形参就成为原来主调函数中的实参变量或对象的一个别名来使用，所以在被调函数中对形参变量的操作就是对其相应的目标对象（在主调函数中）的操作。
+（2）使用引用传递函数的参数，在内存中并没有产生实参的副本，它是直接对实参操作；而使用一般变量传递函数的参数，当发生函数调用时，需要给形参分配存储单元，形参变量是实参变量的副本；如果传递的是对象，还将调用拷贝构造函数。因此，当参数传递的数据较大时，用引用比用一般变量传递参数的效率和所占空间都好。
+（3）使用指针作为函数的参数虽然也能达到与使用引用的效果，但是，在被调函数中同样要给形参分配存储单元，且需要重复使用"\*指针变量名"的形式进行运算，这很容易产生错误且程序的阅读性较差；另一方面，在主调函数的调用点处，必须用变量的地址作为实参。而引用更容易使用，更清晰。
+4. 在什么时候需要使用“常引用”？　
+如果既要利用引用提高程序的效率，又要保护传递给函数的数据不在函数中被改变，就应使用常引用。常引用声明方式：const 类型标识符 &引用名=目标变量名；
+例1int a;
+constint\&ra = a;
+ra = 1; // 错误
+a = 1; // 正确
+例2string foo( );
+void bar(string\&s)
+// 那么下面的表达式将是非法的：
+bar(foo( ));
+bar("hello world");
+原因在于foo( )和"hello world"串都会产生一个临时对象，而在C++中，这些临时对象都是const类型的。因此上面的表达式就是试图将一个const类型的对象转换为非const类型，这是非法的。
+引用型参数应该在能被定义为const的情况下，尽量定义为const 。
+5\. 将“引用”作为函数返回值类型的格式、好处和需要遵守的规则?
+格式：类型标识符 &函数名（形参列表及类型说明）
+{ 
+　　//函数体
+}
+好处：在内存中不产生被返回值的副本；（注意：正是因为这点原因，所以返回一个局部变量的引用是不可取的。因为随着该局部变量生存期的结束，相应的引用也会失效，产生runtime error!
+注意：
+（1）不能返回局部变量的引用。这条可以参照Effective C++\[1]的Item 31。主要原因是局部变量会在函数返回后被销毁，因此被返回的引用就成为了"无所指"的引用，程序会进入未知状态。
+（2）不能返回函数内部new分配的内存的引用(这个要注意啦，很多人没意识到，哈哈。。。）。 这条可以参照Effective C++\[1]的Item 31。虽然不存在局部变量的被动销毁问题，可对于这种情况（返回函数内部new分配内存的引用），又面临其它尴尬局面。例如，被函数返回的引用只是作为一个临时变量出现，而没有被赋予一个实际的变量，那么这个引用所指向的空间（由new分配）就无法释放，造成memory leak。
+（3）可以返回类成员的引用，但最好是const。 这条原则可以参照Effective C++\[1]的Item 30。主要原因是当对象的属性是与某种业务规则（business rule）相关联的时候，其赋值常常与某些其它属性或者对象的状态有关，因此有必要将赋值操作封装在一个业务规则当中。如果其它对象可以获得该属性的非常量引用（或指针），那么对该属性的单纯赋值就会破坏业务规则的完整性。
+（4）流操作符重载返回值申明为“引用”的作用：
+流操作符<<和>>，这两个操作符常常希望被连续使用，例如：cout <<"hello" << endl;　因此这两个操作符的返回值应该是一个仍然支持这两个操作符的流引用。可选的其它方案包括：返回一个流对象和返回一个流对象指针。但是对于返回一个流对象，程序必须重新（拷贝）构造一个新的流对象，也就是说，连续的两个<<操作符实际上是针对不同对象的！这无法让人接受。对于返回一个流指针则不能连续使用<<操作符。 因此，返回一个流对象引用是惟一选择。这个唯一选择很关键，它说明了引用的重要性以及无可替代性，也许这就是C++语言中引入引用这个概念的原因吧。 赋值操作符=。这个操作符象流操作符一样，是可以连续使用的，例如：x = j = 10;或者(x=10)=100;赋值操作符的返回值必须是一个左值，以便可以被继续赋值。因此引用成了这个操作符的惟一返回值选择。
+例3
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+＃include 
+int\&put(int n);
+int vals\[10];
+int error = -1;
+void main()
 {
+　　put(0) = 10; // 以put(0)函数值作为左值，等价于vals\[0]=10;
+　　put(9) = 20; // 以put(9)函数值作为左值，等价于vals\[9]=20;
+　　cout << vals\[0];
+　　cout << vals\[9];
+}
+int\&put(int n)
+{
+　　if (n>=0&& n<=9 ) 
+　　{
+ 　　　　return vals\[n]; 
+ 　　}
+　　else 
+　　{
+　　　　cout << "subscript error"; 
+ 　　　　return error;
+ 　　}
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+（5）在另外的一些操作符中，却千万不能返回引用：+-\*/ 四则运算符。它们不能返回引用，Effective C++\[1]的Item23详细的讨论了这个问题。主要原因是这四个操作符没有side effect，因此，它们必须构造一个对象作为返回值，可选的方案包括：返回一个对象、返回一个局部变量的引用，返回一个new分配的对象的引用、返回一 个静态对象引用。根据前面提到的引用作为返回值的三个规则，第2、3两个方案都被否决了。静态对象的引用又因为((a+b) == (c+d))会永远为true而导致错误。所以可选的只剩下返回一个对象了。
+6\. “引用”与多态的关系？
+引用是除指针外另一个可以产生多态效果的手段。这意味着，一个基类的引用可以指向它的派生类实例（见：[C++中类的多态与虚函数的使用](http://www.cnblogs.com/fangyukuan/archive/2010/05/30/1747449.html)）。
+例4
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+Class A; 
+Class B : Class A
+{
+　　// ...
+}; 
+B b;
+A\&ref= b;
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+7\. “引用”与指针的区别是什么？
+指针通过某个指针变量指向一个对象后，对它所指向的变量间接操作。程序中使用指针，程序的可读性差；
+而引用本身就是目标变量的别名，对引用的操作就是对目标变量的操作。此外，就是上面提到的对函数传ref和pointer的区别。
+8. 什么时候需要“引用”？
+流操作符<<和>>、赋值操作符=的返回值、拷贝构造函数的参数、赋值操作符=的参数、其它情况都推荐使用引用。
+9. 结构与联合有和区别？
+1\. 结构和联合都是由多个不同的数据类型成员组成, 但在任何同一时刻, 联合中只存放了一个被选中的成员（所有成员共用一块地址空间）, 而结构的所有成员都存在（不同成员的存放地址不同）。 
+2\. 对于联合的不同成员赋值, 将会对其它成员重写, 原来成员的值就不存在了, 而对于结构的不同成员赋值是互不影响的。
+10. 下面关于“联合”的题目的输出？
+a)
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+＃include 
+union
+{
+　　int i;
+　　char x\[2];
+}a;
+void main()
+{
+　　a.x\[0] =10; 
+　　a.x\[1] =1;
+　　printf("%d",a.i);
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+答案：266 (低位低地址，高位高地址，内存占用情况是Ox010A）
+b)
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+main() 
+{ 
+union{ /\*定义一个联合\*/ 
+int i; 
+struct{ /\*在联合中定义一个结构\*/ 
+char first; 
+char second; 
+}half; 
+}number; 
+number.i=0x4241; /\*联合成员赋值\*/ 
+printf("%c%c\n", number.half.first, mumber.half.second); 
+number.half.first='a'; /\*联合中结构成员赋值\*/ 
+number.half.second='b'; 
+printf("%x\n",number.i); 
+getch(); 
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+答案： AB   (0x41对应'A',是低位；Ox42对应'B',是高位）
+       6261 (number.i和number.half共用一块地址空间）
+11. 已知strcpy的函数原型：char \*strcpy(char \*strDest, const char \*strSrc)其中strDest 是目的字符串，strSrc 是源字符串。不调用C++/C 的字符串库函数，请编写函数 strcpy。
+答案：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+/\*
+编写strcpy函数（10分）
+已知strcpy函数的原型是
+char \*strcpy(char \*strDest, const char \*strSrc);
+其中strDest是目的字符串，strSrc是源字符串。
+（1）不调用C++/C的字符串库函数，请编写函数 strcpy
+（2）strcpy能把strSrc的内容复制到strDest，为什么还要char \* 类型的返回值？
+答：为了 实现链式表达式。 // 2分
+例如 int length = strlen( strcpy( strDest, “hello world”) );
+\*/
+\#include 
+\#include 
+char\*strcpy(char\*strDest, constchar\*strSrc)
+{
+assert((strDest!=NULL) && (strSrc !=NULL)); // 2分
+char\* address = strDest; 　　// 2分
+while( (\*strDest++=\*strSrc++) !='\0' )　　　　　　　// 2分
+NULL; 
+return address ; 　　　// 2分
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+另外strlen函数如下：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+\#include
+\#include 
+int strlen( constchar\*str ) // 输入参数const
+{
+assert( str != NULL ); // 断言字符串地址非0
+int len = 0;
+while( (\*str++) !='\0' ) 
+{ 
+len++; 
+} 
+return len;
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+12\. 已知String类定义如下：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+class String
+{
+public:
+　　String(const char \*str = NULL); // 通用构造函数
+　　String(const String \&another); // 拷贝构造函数
+　　\~String(); // 析构函数
+　　String& operater =(const String \&rhs); // 赋值函数
+private:
+　　char\* m\_data; // 用于保存字符串
+};
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+尝试写出类的成员函数实现。
+答案：
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+String::String(constchar\*str)
+{
+if ( str == NULL ) // strlen在参数为NULL时会抛异常才会有这步判断
+{
+m\_data =newchar\[1] ;
+m\_data\[0] ='\0' ;
+}
+else
+{
+m\_data =newchar\[strlen(str) +1];
+strcpy(m\_data,str);
+}
+} 
+String::String(const String \&another)
+{
+m\_data =newchar\[strlen(another.m\_data) +1];
+strcpy(m\_data,other.m\_data);
+}
+String& String::operator=(const String \&rhs)
+{
+if ( this==\&rhs)
+return\*this ;
+delete \[]m\_data; //删除原来的数据，新开一块内存
+m\_data =newchar\[strlen(rhs.m\_data) +1];
+strcpy(m\_data,rhs.m\_data);
+return\*this ;
+}
+String::\~String()
+{
+delete \[]m\_data ;
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+13\. .h头文件中的ifndef/define/endif 的作用？
+答：防止该头文件被重复引用。
+14. ＃include 与＃include "file.h"的区别？
+答：前者是从Standard Library的路径寻找和引用file.h，而后者是从当前工作路径搜寻并引用file.h。
+15.在C++程序中调用被C 编译器编译后的函数，为什么要加extern “C”？
+首先，作为extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用。
+通常，在模块的头文件中对本模块提供给其它模块引用的函数和全局变量以关键字extern声明。例如，如果模块B欲引用该模块A中定义的全局变量和函数时只需包含模块A的头文件即可。这样，模块B中调用模块A中的函数时，在编译阶段，模块B虽然找不到该函数，但是并不会报错；它会在连接阶段中从模块A编译生成的目标代码中找到此函数
+extern "C"是连接申明(linkage declaration),被extern "C"修饰的变量和函数是按照C语言方式编译和连接的,来看看C++中对类似。
+C的函数是怎样编译的：
+作为一种面向对象的语言，C++支持函数重载，而过程式语言C则不支持。函数被C++编译后在符号库中的名字与C语言的不同。例如，假设某个函数的原型为：
+void foo( int x, int y );
+该函数被C编译器编译后在符号库中的名字为\_foo，而C++编译器则会产生像\_foo\_int\_int之类的名字（不同的编译器可能生成的名字不同，但是都采用了相同的机制，生成的新名字称为“mangled name”）。
+\_foo\_int\_int 这样的名字包含了函数名、函数参数数量及类型信息，C++就是靠这种机制来实现函数重载的。例如，在C++中，函数void foo( int x, int y )与void foo( int x, float y )编译生成的符号是不相同的，后者为\_foo\_int\_float。
+同 样地，C++中的变量除支持局部变量外，还支持类成员变量和全局变量。用户所编写程序的类成员变量可能与全局变量同名，我们以"."来区分。而本质上，编译器在进行编译时，与函数的处理相似，也为类中的变量取了一个独一无二的名字，这个名字与用户程序中同名的全局变量名字不同。
+未加extern "C"声明时的连接方式
+假设在C++中，模块A的头文件如下：// 模块A头文件　moduleA.h
+\#ifndef MODULE\_A\_H
+\#define MODULE\_A\_H
+int foo( int x, int y );
+\#endif　　
+在模块B中引用该函数：// 模块B实现文件　moduleB.cpp
+＃include "moduleA.h"
+foo(2,3);
+实际上，在连接阶段，连接器会从模块A生成的目标文件moduleA.obj中寻找\_foo\_int\_int这样的符号！
+加extern "C"声明后的编译和连接方式
+加extern "C"声明后，模块A的头文件变为：// 模块A头文件　moduleA.h
+\#ifndef MODULE\_A\_H
+\#define MODULE\_A\_H
+extern"C"int foo( int x, int y );
+\#endif　
+在模块B的实现文件中仍然调用foo( 2,3 )，其结果是：
+（1）模块A编译生成foo的目标代码时，没有对其名字进行特殊处理，采用了C语言的方式；
+（2）连接器在为模块B的目标代码寻找foo(2,3)调用时，寻找的是未经修改的符号名\_foo。
+如果在模块A中函数声明了foo为extern "C"类型，而模块B中包含的是extern int foo( int x, int y ) ，则模块B找不到模块A中的函数；反之亦然。
+所以，可以用一句话概括extern “C”这个声明的真实目的（任何语言中的任何语法特性的诞生都不是随意而为的，来源于真实世界的需求驱动。我们在思考问题时，不能只停留在这个语言是怎么做的，还要问一问它为什么要这么做，动机是什么，这样我们可以更深入地理解许多问题）：实现C++与C及其它语言的混合编程。　　
+明白了C++中extern "C"的设立动机，我们下面来具体分析extern "C"通常的使用技巧：
+extern "C"的惯用法 
+（1）在C++中引用C语言中的函数和变量，在包含C语言头文件（假设为cExample.h）时，需进行下列处理：extern"C"
+{
+　　＃include"cExample.h"
+}
+而在C语言的头文件中，对其外部函数只能指定为extern类型，C语言中不支持extern "C"声明，在.c文件中包含了extern"C"时会出现编译语法错误。
+C++引用C函数例子工程中包含的三个文件的源代码如下：/\* c语言头文件：cExample.h \*/
+\#ifndef C\_EXAMPLE\_H
+\#define C\_EXAMPLE\_H
+externint add(int x, inty);
+\#endif
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+/\* c语言实现文件：cExample.c \*/
+\#include "cExample.h"
+int add( int x, int y )
+{
+　　return x + y;
+}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+// c++实现文件，调用add：cppFile.cpp
+extern"C" 
+{
+　　＃include"cExample.h"
+}
+int main(int argc, char\* argv\[])
+{
+　　add(2,3); 
+　　return0;
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+如果C++调用一个C语言编写的.DLL时，当包括.DLL的头文件或声明接口函数时，应加extern "C" {　}。
+（2）在C中引用C++语言中的函数和变量时，C++的头文件需添加extern "C"，但是在C语言中不能直接引用声明了extern "C"的该头文件，应该仅将C文件中将C++中定义的extern"C"函数声明为extern类型。
+C引用C++函数例子工程中包含的三个文件的源代码如下：//C++头文件cppExample.h
+\#ifndef CPP\_EXAMPLE\_H
+\#define CPP\_EXAMPLE\_H
+extern"C"int add( int x, int y );
+\#endif
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+//C++实现文件 cppExample.cpp
+＃include"cppExample.h"
+int add( int x, int y )
+{
+　　return x + y;
+}
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+!\[0]\(<"0")
+/\* C实现文件 cFile.c
+/\* 这样会编译出错：＃i nclude "cExample.h" \*/
+externint add( int x, int y );
+int main( int argc, char\* argv\[] )
+{
+　　add( 2, 3 ); 
+　　return0;
+}
+!\[0]\(<"0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
+16. 关联、聚合(Aggregation)以及组合(Composition)的区别？
+涉及到UML中的一些概念：
+关联是表示两个类的一般性联系，比如“学生”和“老师”就是一种关联关系；
+聚合表示has-a的关系，是一种相对松散的关系，聚合类不需要对被聚合类负责，如下图所示，用空的菱形表示聚合关系：
+从实现的角度讲，聚合可以表示为:
+class A {...}  class B { A\* a; .....}
+组合表示contains-a的关系，关联性强于聚合：组合类与被组合类有相同的生命周期，组合类要对被组合类负责，采用实心的菱形表示组合关系：
+实现的形式是:
+class A{...} class B{ A a; ...}
+17.面向对象的三个基本特征，并简单叙述之？
+1. 封装：将客观事物抽象成类，每个类对自身的数据和方法实行protection(private, protected,public)
+2. 继承：广义的继承有三种实现形式：实现继承（指使用基类的属性和方法而无需额外编码的能力）、可视继承（子窗体使用父窗体的外观和实现代码）、接口继承（仅使用属性和方法，实现滞后到子类实现）。前两种（类继承）和后一种（对象组合=>接口继承以及纯虚函数）构成了功能复用的两种方式。
+3. 多态：系统能够在运行时，能够根据其类型确定调用哪个重载的成员函数的能力，称为多态性。（见：C++中类的多态与虚函数的使用）
+18. 重载（overload)和重写(overried，有的书也叫做“覆盖”）的区别？
+常考的题目。
+从定义上来说：
+重载：是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。
+重写：是指子类重新定义父类虚函数的方法。
+从实现原理上来说：
+重载：编译器根据函数不同的参数表，对同名函数的名称做修饰，然后这些同名函数就成了不同的函数（至少对于编译器来说是这样的）。如，有两个同名函数：function func(p\:integer)\:integer;和function func(p\:string)\:integer;。那么编译器做过修饰后的函数名称可能是这样的：int\_func、str\_func。对于这两个函数的调用，在编译器间就已经确定了，是静态的。也就是说，它们的地址在编译期就绑定了（早绑定），因此，重载和多态无关！
+重写：和多态真正相关。当子类重新定义了父类的虚函数后，父类指针根据赋给它的不同的子类指针，动态的调用属于子类的该函数，这样的函数调用在编译期间是无法确定的（调用的子类的虚函数的地址无法给出）。因此，这样的函数地址是在运行期绑定的（晚绑定）。
+19. 多态的作用？
+主要是两个：
+1\. 隐藏实现细节，使得代码能够模块化；扩展代码模块，实现代码重用；
+2\. 接口重用：为了类在继承和派生的时候，保证使用家族中任一类的实例的某一属性时的正确调用。
+20\. Ado与Ado.net的相同与不同？
+除了“能够让应用程序处理存储于DBMS 中的数据“这一基本相似点外，两者没有太多共同之处。但是Ado使用OLE DB 接口并基于微软的COM 技术，而ADO.NET 拥有自己的ADO.NET 接口并且基于微软的.NET 体系架构。众所周知.NET 体系不同于COM 体系，ADO.NET 接口也就完全不同于ADO和OLE DB 接口，这也就是说ADO.NET 和ADO是两种数据访问方式。ADO.net 提供对XML 的支持。
+21. New delete 与mallocfree 的联系与区别?答案：都是在堆(heap)上进行动态的内存操作。用malloc函数需要指定内存分配的字节数并且不能初始化对象，new 会自动调用对象的构造函数。delete 会调用对象的destructor，而free 不会调用对象的destructor.
+（可以看看：[显式调用构造函数和析构函数](http://www.cnblogs.com/fangyukuan/archive/2010/08/28/1811119.html)）
+22. #define DOUBLE(x) x+x ，i = 5\*DOUBLE(5)； i 是多少？答案：i 为30。（注意直接展开就是了） 5 \* 5 + 5 
+23. 有哪几种情况只能用intializationlist 而不能用assignment?
+答案：当类中含有const、reference 成员变量；基类的构造函数都需要初始化表。
+24. C++是不是类型安全的？
+答案：不是。两个不同类型的指针之间可以强制转换（用reinterpret cast)。C#是类型安全的。
+25. main 函数执行以前，还会执行什么代码？答案：全局对象的构造函数会在main 函数之前执行，为malloc分配必要的资源，等等。
+26. 描述内存分配方式以及它们的区别?
+1） 从静态存储区域分配。内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。例如全局变量，static 变量。
+2） 在栈上创建。在执行函数时，函数内局部变量的存储单元都可以在栈上创建，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集。
+3） 从堆上分配，亦称动态内存分配。程序在运行的时候用malloc 或new 申请任意多少的内存，程序员自己负责在何时用free 或delete 释放内存。动态内存的生存期由程序员决定，使用非常灵活，但问题也最多。
+4\) 代码区。
+27.struct 和 class 的区别
+答案：struct 的成员默认是公有的，而类的成员默认是私有的。struct 和 class 在其他方面是功能相当的。
+从感情上讲，大多数的开发者感到类和结构有很大的差别。感觉上结构仅仅象一堆缺乏封装和功能的开放的内存位，而类就象活的并且可靠的社会成员，它有智能服 务，有牢固的封装屏障和一个良好定义的接口。既然大多数人都这么认为，那么只有在你的类有很少的方法并且有公有数据（这种事情在良好设计的系统中是存在 的!）时，你也许应该使用 struct 关键字，否则，你应该使用 class 关键字。 
+28.当一个类A 中没有生命任何成员变量与成员函数,这时sizeof(A)的值是多少，如果不是零，请解释一下编译器为什么没有让它为零。（Autodesk）答案：肯定不是零。举个反例，如果是零的话，声明一个class A\[10]对象数组，而每一个对象占用的空间是零，这时就没办法区分A\[0],A\[1]…了。
+29. 在8086 汇编下，逻辑地址和物理地址是怎样转换的？（Intel）
+答案：通用寄存器给出的地址，是段内偏移地址，相应段寄存器地址\*10H+通用寄存器内地址，就得到了真正要访问的地址。
+30. 比较C++中的4种类型转换方式？
+重点是static\_cast, dynamic\_cast和reinterpret\_cast的区别和应用。(以后再补上吧）
+31.分别写出BOOL,int,float,指针类型的变量a 与“零”的比较语句。
+答案：BOOL : 　if ( !a ) or if(a)
+int : 　　if ( a ==0)
+float : const EXPRESSION EXP =0.000001
+　　if ( a < EXP&& a >-EXP)
+pointer :　if ( a != NULL) or if(a == NULL)
+32.请说出const与#define 相比，有何优点？1） const 常量有数据类型，而宏常量没有数据类型。编译器可以对前者进行类型安全检查。而对后者只进行字符替换，没有类型安全检查，并且在字符替换可能会产生意料不到的错误。
+2） 有些集成化的调试工具可以对const 常量进行调试，但是不能对宏常量进行调试。
+33.简述数组与指针的区别？
+数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。指针可以随时指向任意类型的内存块。
+(1)修改内容上的差别
+char a\[] = “hello”;
+a\[0] = ‘X’;
+char \*p = “world”; // 注意p 指向常量字符串
+p\[0] = ‘X’; // 编译器不能发现该错误，运行时错误
+(2) 用运算符sizeof 可以计算出数组的容量（字节数）。sizeof(p),p 为指针得到的是一个指针变量的字节数，而不是p 所指的内存容量。C++/C 语言没有办法知道指针所指的内存容量，除非在申请内存时记住它。注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针。char a\[] ="hello world";
+char\*p = a;
+cout\<cout< 计算数组和指针的内存容量void Func(char a\[100]){　　cout<} 34.类成员函数的重载、覆盖和隐藏区别？答案：a.成员函数被重载的特征：（1）相同的范围（在同一个类中）；（2）函数名字相同；（3）参数不同；（4）virtual 关键字可有可无。b.覆盖是指派生类函数覆盖基类函数，特征是：（1）不同的范围（分别位于派生类与基类）；（2）函数名字相同；（3）参数相同；（4）基类函数必须有virtual 关键字。c.“隐藏”是指派生类的函数屏蔽了与其同名的基类函数，规则如下：（1）如果派生类的函数与基类的函数同名，但是参数不同。此时，不论有无virtual关键字，基类的函数将被隐藏（注意别与重载混淆）。（2）如果派生类的函数与基类的函数同名，并且参数也相同，但是基类函数没有virtual 关键字。此时，基类的函数被隐藏（注意别与覆盖混淆） 35. There are twoint variables: a and b, don’t use “if”, “? :”, “switch”or other judgementstatements, find out the biggest one of the two numbers.答案：( ( a + b ) + abs( a- b ) ) / 2 36. 如何打印出当前源文件的文件名以及源文件的当前行号？答案：cout << \_\_FILE\_\_ ;cout<<\_\_LINE\_\_ ;\_\_FILE\_\_和\_\_LINE\_\_是系统预定义宏，这种宏并不是在某个文件中定义的，而是由编译器定义的。37. main 主函数执行完毕后，是否可能会再执行一段代码，给出说明？答案：可以，可以用\_onexit 注册一个函数，它会在main 之后执行int fn1(void), fn2(void), fn3(void),fn4 (void); ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") void main( void ){　　String str("zhanglin");　　\_onexit( fn1 );　　\_onexit( fn2 );　　\_onexit( fn3 );　　\_onexit( fn4 );　　printf( "This is executed first.\n" );}int fn1(){　　printf( "next.\n" );　　return0;}int fn2(){　　printf( "executed " );　　return0;}int fn3(){　　printf( "is " );　　return0;}int fn4(){　　printf( "This " );　　return0;} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") The \_onexit function is passed the address of a function (func) to be called whenthe program terminates normally. Successive calls to \_onexit create a registerof functions that are executed in LIFO (last-in-first-out) order. The functionspassed to \_onexit cannot take parameters. 38. 如何判断一段程序是由C 编译程序还是由C++编译程序编译的？答案：#ifdef \_\_cplusplus　　cout<<"c++";#else　　cout<<"c";#endif 注意，后面很多代码啊。代码不看也罢。 39.文件中有一组整数，要求排序后输出到另一个文件中（面试官，超级喜欢考排序的。你要去面试，数据结构的那几个排序一定要非常熟悉，用笔也可以写出代码来，用笔写代码，就是这样变态啊，其实感觉没有必要这样笔试）答案： ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") ＃include＃includeusingnamespace std;void Order(vector& data)//bubble sort{int count = data.size() ;int tag =false ; // 设置是否需要继续冒泡的标志位for ( int i =0 ; i < count ; i++){for ( int j =0 ; j < count - i -1 ; j++){if ( data\[j] > data\[j+1]){tag =true ;int temp = data\[j] ;data\[j] = data\[j+1] ;data\[j+1] = temp ;}}if ( !tag )break ;}}void main( void ){vectordata;ifstream in("c:\\\data.txt");if ( !in){cout<<"file error!";exit(1);}int temp;while (!in.eof()){in>>temp;data.push\_back(temp);}in.close(); //关闭输入文件流Order(data);ofstream out("c:\\\result.txt");if ( !out){cout<<"file error!";exit(1);}for ( i =0 ; i < data.size() ; i++)out\<out.close(); //关闭输出文件流} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  40. 链表题：一个链表的结点结构 ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") struct Node{int data ;Node \*next ;};typedef struct Node Node ; ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  (1)已知链表的头结点head,写一个函数把这个链表逆序 ( Intel) ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") Node \* ReverseList(Node \*head) //链表逆序{if ( head == NULL || head->next == NULL )return head;Node \*p1 = head ;Node \*p2 = p1->next ;Node \*p3 = p2->next ;p1->next = NULL ;while ( p3 != NULL ){p2->next = p1 ;p1 = p2 ;p2 = p3 ;p3 = p3->next ;}p2->next = p1 ;head = p2 ;return head ;} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  (2)已知两个链表head1 和head2 各自有序，请把它们合并成一个链表依然有序。(保留所有结点，即便大小相同） ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") Node \* Merge(Node \*head1 , Node \*head2){if ( head1 == NULL)return head2 ;if ( head2 == NULL)return head1 ;Node \*head = NULL ;Node \*p1 = NULL;Node \*p2 = NULL;if ( head1->data < head2->data ){head = head1 ;p1 = head1->next;p2 = head2 ;}else{head = head2 ;p2 = head2->next ;p1 = head1 ;}Node \*pcurrent = head ;while ( p1 != NULL && p2 != NULL){if ( p1->data <= p2->data ){pcurrent->next = p1 ;pcurrent = p1 ;p1 = p1->next ;}else{pcurrent->next = p2 ;pcurrent = p2 ;p2 = p2->next ;}}if ( p1 != NULL )pcurrent->next = p1 ;if ( p2 != NULL )pcurrent->next = p2 ;return head ;} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  (3)已知两个链表head1 和head2 各自有序，请把它们合并成一个链表依然有序，这次要求用递归方法进行。(Autodesk)答案： ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") Node \* MergeRecursive(Node \*head1 , Node \*head2){if ( head1 == NULL )return head2 ;if ( head2 == NULL)return head1 ;Node \*head = NULL ;if ( head1->data < head2->data ){head = head1 ;head->next = MergeRecursive(head1->next,head2);}else{head = head2 ;head->next = MergeRecursive(head1,head2->next);}return head ;} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  41. 分析一下这段程序的输出(Autodesk) ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") class B{public\:B(){cout<<"default constructor"<}\~B(){cout<<"destructed"<}B(int i)\:data(i) //B(int) works as a converter ( int ->instance of B){cout<<"constructed by parameter "<< data <}private\:int data;};B Play( B b) {return b ;}(1) results\:int main(int argc, char\* argv\[]) constructedby parameter 5{ destructed B(5)形参析构B t1 = Play(5); B t2 = Play(t1); 　 destructed t1形参析构return0;　　　　　　　　　　　　　　 destructed t2　注意顺序！} destructed t1(2) results\:int main(int argc, char\* argv\[]) constructedby parameter 5{ destructed B(5)形参析构B t1 = Play(5); B t2 = Play(10); 　 constructed by parameter 10return0;　　　　　　　　　　　　　　 destructed B(10)形参析构} destructed t2　注意顺序！destructed t1 !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  42. 写一个函数找出一个整数数组中，第二大的数（microsoft）答案： ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") constint MINNUMBER =-32767 ;int find\_sec\_max( int data\[] , int count){int maxnumber = data\[0] ;int sec\_max = MINNUMBER ;for ( int i =1 ; i < count ; i++){if ( data\[i] > maxnumber ){sec\_max = maxnumber ;maxnumber = data\[i] ;}else{if ( data\[i] > sec\_max )sec\_max = data\[i] ;}}return sec\_max ;} !\[0]\(<"0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")  43. 写一个在一个字符串(n)中寻找一个子串(m)第一个位置的函数。KMP算法效率最好，时间复杂度是Ｏ(n+m)。 44. 多重继承的内存分配问题：   比如有class A : public class B, public classC {}   那么A的内存结构大致是怎么样的？这个是compiler-dependent的, 不同的实现其细节可能不同。如果不考虑有虚函数、虚继承的话就相当简单；否则的话，相当复杂。可以参考《深入探索C++对象模型》 45. 如何判断一个单链表是有环的？（注意不能用标志位，最多只能用两个额外指针）        ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0") !\[0]\(<"0") struct node { char val; node\* next;}bool check(const node\* head) {} //return false : 无环；true: 有环一种O（n）的办法就是（搞两个指针，一个每次递增一步，一个每次递增两步，如果有环的话两者必然重合，反之亦然）：bool check(const node\* head){if(head==NULL) returnfalse;node \*low=head, \*fast=head->next;while(fast!=NULL && fast->next!=NULL){low=low->next;fast=fast->next->next;if(low==fast) returntrue;}returnfalse;} ![0](https://note.youdao.com/yws/res/31256/WEBRESOURCE1001709096071720 "0")
 
-  [Export(typeof(FAPluginBase))]
+*
+*
+*
 
-  public class MyFAPlugin1 : FAPluginBase
+[C++常见的面试题目整理](https://www.cnblogs.com/lxhxq/p/13966225.html)
+本文列出C++面试中经常遇到的一些问题，都是一些常见的面试考点，如果后续遇到其他常见面试问题还会再次更新。希望对近期参加面试的同学有一些帮助。先后顺序与问题的重要性无关，查看的时候，最好是全面了解一下。
+C++语言基础、语言特性、数据结构、操作系统知识甚至是一些内核相关的知识、网络相关知识、数据库操作、多线程多进程数据同步互斥、内存相关知识等等。
+1、关键字及基本问题
+const的作用，const怎么使用，有哪些应用场景？
+static的作用，static类成员变量怎么初始化？static成员可以调用哪些成员函数，非static成员函数可以调用哪些成员函数？
+static成员函数怎么使用，与普通成员函数有什么区别？
+指针和引用的区别？
+new和malloc的区别？
+程序的内存分布？堆栈的生长方向？为什么是相反的生长方向？
+了解哪些创建堆的函数？
+2、类相关的题目
+为什么要进行封装？
+什么是多态，多态是怎么实现的？多态的应用场景？
+虚函数表是属于类的还是属于成员的？虚指针呢？
+虚函数，纯虚函数？什么时候使用虚函数，什么时候使用纯虚函数？有了虚函数为什么还要用纯虚函数，可以用虚函数替代纯虚函数吗？
+类的构造函数可以定义为虚函数吗？析构函数呢？
+基类的析构函数为什么通常需要定义为虚函数？如果不定义为虚函数会有什么问题？什么场景下会产生这种问题？
+定义拷贝构造函数的时候参数有什么要求？为什么要将参数定义为引用，如果不定义为引用会产生什么问题？
+什么是深拷贝？怎么实现深拷贝？
+构造函数的成员初始化列表的使用场景？什么时候必须使用初始化列表？
+3、C++11+的新特性
+你了解哪些C++11新的特性？
+static\_cast 与dynamic\_cast有什么区别？分别是基于什么原理实现？为什么要使用他们而不是使用之前标准里面的强制类型转换？
+nullptr的作用？为什么要引入nullptr而不使用NULL？
+你了解哪些智能指针？
+智能指针的内部是怎么实现的？
+左值右值，左值引用与右值引用？
+4、STL及数据结构（注意效率与复杂度）
+vector和list的内部实现是什么？分别适用于什么应用场景？
+vector随机访问的时间复杂度是多少？怎么优化vector的查找速度？
+vector扩容的过程？
+怎么彻底清空vector？
+vector怎么查找元素？如果是一个结构怎么查找一个vector结构中的指定元素？（find find\_if）
+map查找的复杂度？
+map的底层是怎么实现的？map与hashmap的区别？什么时候应该使用map什么时候应该使用hashmap？
+常见排序算法及其时间和空间复杂度？桶排序有了解的吗？
+给定一个场景，选择一种合适的容器？
+怎么定义一个环形队列？怎么判断环形队列的空与满？
+C/C++的学习裙【105+302+9869】，无论你是小白还是进阶者，是想转行还是想入行都可以来了解一起
+进步一起学习！裙内有开发工具，很多干货和技术资料分享！
+5、计算机网络
+三次握手与四次挥手的过程及状态的转变？
+为什么是三次握手而不是两次握手？
+为什么是需要四次挥手？
+soket通信实现的基本过程？
+使用原生的socket不使用网络库的时候，怎么防止粘包，需要怎么定义相关请求的结构？
+接口的幂等性？
+http协议是长连接还是短链接，怎么改为长链接？
+http请求头包含哪些内容？一个http请求包含哪些内容？
+6、多线程与多进程
+windows下怎么创建线程？使用哪些线程函数？为什么建议使用\_beginthreadex与endthreadex而不是createthread与endthread？
+线程间同步互斥的方法有哪些？
+进程间通信进程间同步的方法有哪些？
+互斥、事件、临界区、信号量之间区别？（临界区控制同步的时候不需要进入内核态，其他的都需要进入内核态）
+说一说临界区的使用？CRITICAL\_SECTION InitializeCriticalSection EnterCriticalSection LeaveCriticalSection
+同一线程可以多次进入临界区吗？
+什么是死锁，什么情况下会产生死锁，怎么避免产生死锁，如果产生了死锁该怎么调试？
+多线程情况下，怎么只让某个线程调用指定的函数？
+7、数据库
+mysql数据库中的左连接 右链接 内连接的区别？
+关系型数据库与非关系型数据库的区别？
+存储过程？
+了解redis吗？
+8、设计模式
+你了解哪些设计模式？
+怎么实现一个懒汉式的线程安全的单例模式？
+9、git使用的问题
+git pull 与git rebase
+10、windows相关问题
+说说windows的消息机制？有哪些相关的函数？
+MFC窗体的生命周期，涉及到哪些函数？
+模态对话框与非模态对话框的区别？
+怎么产生一个dump文件？dump分析工具你知道哪些？windbg
+windows下你了解哪些定时器类？自己怎么实现一个定时器类？
+什么时候会产生内存泄漏？怎么调试内存泄漏？用到哪些内存泄漏的调试方式？
+说一说windwos的消息映射机制？
+一个dll大入口函数是什么？mfc程序的入口函数是什么？
+线程切换的时候操作系统做了哪些事情？
+sendmessage与postmessage的区别是什么？什么是同步消息什么是异步消息？
+11、代码实现（手写代码）
+strcpy、memcpy、单例模式 、二叉树的前序中序后序遍历、二叉树的层序遍历遍历、不完全二叉树的序列化与反序列化 
 
-  {
+# Php
 
-    //IFALogger FALogger { get; set; }
+***
 
-    [ImportingConstructor]
+## &#x20;IIS PHP配置
 
-    public MyFAPlugin1() //IFALogger logger
+<https://help.aliyun.com/zh/ecs/how-do-i-use-iis-to-build-a-php-environment-on-a-windows-instance>
 
+<https://www.cnblogs.com/xiaohi/p/17734691.html>
+
+<https://github.com/edgardo001/PHPManagerForIIS-Versiones?spm=a2c4g.11186623.0.0.6b744285BJlYd6>
+
+
+
+```php
+<?php
+    function OpenConnection()
     {
+        $serverName = "(local)";
+        $connectionOptions = array("Database"=>"TestDB",
+            "Uid"=>"sa", "PWD"=>"123456");
+        $conn = sqlsrv_connect($serverName, $connectionOptions);
+        if($conn == false)
+            die(FormatErrors(sqlsrv_errors()));
 
-      this.ID = "MyFAPlugin1";
-
-      this.Name = "MyFAPlugin1";
-
-      this.Categorys = new List<FACategory>();
-
-      ///FALogger = logger;
-
+        return $conn;
     }
-
-    public override void Init()
-
+    function ReadData()
     {
-
-      base.Init();
-
-      
-
-      this.MessageReceived += MyFAPlugin1_MessageReceived;
-
-      //FAMessageBox.ShowInfo("MyFAPlugin1.Init()-MyFAPlugin1 inited!");
-
-      this.PluginInited += MyFAPlugin1_PluginInited;
-
-    }
-
-    private void MyFAPlugin1_PluginInited(object sender, EventArgs e)
-
-    {
-
-      ThreadPool.QueueUserWorkItem(o =>
-
-      {
-
-        Thread.Sleep(10000);
-
-        while (true)
-
+        try
         {
-
-          SendMessage("MyFAPlugin2", "string", Encoding.UTF8.GetBytes("This is a test message from MyFAPlugin1 !"));
-
-          Thread.Sleep(100);
-
-        };
-
-      });
-
-      FALogger.Info("MyFAPlugin1 inited! This message is from MYFAPlugin1.dll");
-
-      //FADebugOut.Debug("MyFAPlugin1 inited! This message is from MYFAPlugin1.dll");
-
-    }
-
-    private void MyFAPlugin1_MessageReceived(object sender, Plugin.Args.MessageReceivedEventArgs e)
-
-    {
-
-      FALogger.Info($"MyFAPlugin1.MyFAPlugin1_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{Encoding.Default.GetString(e.Data)}");
-
-      //FAMessageBox.ShowInfo($"MyFAPlugin1.MyFAPlugin1_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{e.Data.ToString()}");
-
-      //FADebugOut.Debug($"MyFAPlugin1.MyFAPlugin1_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{Encoding.Default.GetString(e.Data)}");
-
-    }
-
-  }
-
-}
-
-##### MyFAPlugin2
-
-###### MyFAPlugin2
-
-using DEVGIS.FA.Plugin;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.MyFAPlugin2
-
-{
-
-  [Export(typeof(FAPluginBase))]
-
-  public class MyFAPlugin2 : FAPluginBase
-
-  {
-
-    public MyFAPlugin2()
-
-    {
-
-      this.ID = "MyFAPlugin2";
-
-      this.Name = "MyFAPlugin2";
-
-    }
-
-    public override void Init()
-
-    {
-
-      base.Init();
-
-      this.MessageReceived += MyFAPlugin2_MessageReceived;
-
-      try
-
-      {
-
-        throw new Exception("This is a test exception!");
-
-      }
-
-      catch(Exception ex)
-
-      {
-
-        FALogger.Error("MyFAPlugin2.Init()-There is an error", ex);
-
-        //FADebugOut.Debug("MyFAPlugin2.Init()-There is an error:"+ex.Message);
-
-      }
-
-      this.PluginInited += MyFAPlugin2_PluginInited;
-
-    }
-
-    private void MyFAPlugin2_PluginInited(object sender, EventArgs e)
-
-    {
-
-      ThreadPool.QueueUserWorkItem(o =>
-
-      {
-
-        Thread.Sleep(10000);
-
-        while (true)
-
-        {
-
-          SendMessage("MyFAPlugin1", "string", Encoding.UTF8.GetBytes("This is a test message from MyFAPlugin2 !"));
-
-          Thread.Sleep(100);
-
-        };
-
-      });
-
-    }
-
-    private void MyFAPlugin2_MessageReceived(object sender, Plugin.Args.MessageReceivedEventArgs e)
-
-    {
-
-      FALogger.Info($"MyFAPlugin2.MyFAPlugin2_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{Encoding.Default.GetString(e.Data)}");
-
-      //FAMessageBox.ShowInfo($"MyFAPlugin2.MyFAPlugin2_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{e.Data.ToString()}");
-
-      //FADebugOut.Debug($"MyFAPlugin2.MyFAPlugin2_MessageReceived()-Message from【{e.SenderID}】 type:{e.DataType} content:{Encoding.Default.GetString(e.Data)}");
-
-    }
-
-  }
-
-}
-
-#### FAStaticData
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.ComponentModel.Composition.Hosting;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Plugin
-
-{
-
-  public class FAStaticData
-
-  {
-
-    public static CompositionContainer Container = null;
-
-    //[ImportMany(typeof(FAView))]
-
-    ////private IEnumerable<Lazy<View, IViewMetadata>> views { get; set; }
-
-    //public static IEnumerable<FAView> Views { get; set; }
-
-  }
-
-}
-
-### Controls
-
-#### Conveter
-
-##### ProjectVisableConverter
-
-using DEVGIS.FA.Plugin;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Globalization;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Data;
-
-namespace DEVGIS.FA.Controls.Conveter
-
-{
-
-  [ValueConversion(typeof(FAProject), typeof(Visibility))]
-
-  public class ProjectVisableConverter : IValueConverter
-
-  {
-
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-
-    {
-
-      if (value!=null&&value is FAProject)
-
-      {
-
-        return Visibility.Visible;
-
-      }
-
-      else
-
-      {
-
-        return Visibility.Collapsed;
-
-      }
-
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-
-    {
-
-      throw new NotImplementedException();
-
-    }
-
-  }
-
-}
-
-#### DialogCloser
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-namespace DEVGIS.FA.Controls
-
-{
-
-  public static class DialogCloser
-
-  {
-
-    public static readonly DependencyProperty DialogResultProperty =
-
-      DependencyProperty.RegisterAttached("DialogResult",
-
-                        typeof(bool?),
-
-                        typeof(DialogCloser),
-
-                        new PropertyMetadata(DialogResultChanged));
-
-    private static void DialogResultChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-
-    {
-
-      var window = d as Window;
-
-      if (window != null)
-
-      {
-
-        window.DialogResult = e.NewValue as bool?;
-
-      }
-
-    }
-
-    public static void SetDialogResult(Window target, bool? value)
-
-    {
-
-      target.SetValue(DialogResultProperty, value);
-
-    }
-
-  }
-
-}
-
-#### FADialog
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Data;
-
-namespace DEVGIS.FA.Controls
-
-{
-
-  public class FADialog : FAWindow
-
-  {
-
-    public FADialog()
-
-    {
-
-      this.WindowStyle = WindowStyle.ToolWindow;
-
-      this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-
-    }
-
-  }
-
-}
-
-#### FAWindow
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Data;
-
-namespace DEVGIS.FA.Controls
-
-{
-
-  public class FAWindow:Window
-
-  {
-
-    public FAWindow()
-
-    {
-
-      Binding binding = new Binding();
-
-      //binding.Source = DialogCloser.DialogResultProperty;
-
-      binding.Path = new PropertyPath("DialogResult");
-
-      binding.Mode = BindingMode.TwoWay;
-
-      this.SetBinding(DialogCloser.DialogResultProperty, binding);
-
-    }
-
-  }
-
-}
-
-### Plugin接口层
-
-#### Plugin插件模型接口层
-
-##### FAPluginBase
-
-using DEVGIS.FA.Plugin.Args;
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Threading;
-
-namespace DEVGIS.FA.Plugin
-
-{
-
-  public class FAPluginBase:FAObject
-
-  {
-
-    public FAPluginBase()
-
-    {
-
-      
-
-    }
-
-    public bool Inited { get; set; } = false;
-
-    public List<FACategory> Categorys { get; set; }
-
-    public FAEquipmentType EquipmentType { get; set; }
-
-    [Import]
-
-    public IFALogger FALogger { get; set; }
-
-    [Import]
-
-    public IFAMessageBox FAMessageBox { get; set; }
-
-    //[Import]
-
-    //public IDebugOut FADebugOut { get; set; }
-
-    public virtual void Init()
-
-    {
-
-      ThreadPool.QueueUserWorkItem(o => {
-
-        while (!Inited)
-
-        {
-
-          Thread.Sleep(100);
-
-        }
-
-        FALogger.Info($"FAPluginBase.Init()-{this.ToString()} Inited!");
-
-        //FADebugOut.Debug($"FAPluginBase.Init()-{this.ToString()} Inited!");
-
-        if (PluginInited != null)
-
-        {
-
-          PluginInited(this, new EventArgs());
-
-        }
-
-      });
-
-    }
-
-    public void SendMessage(string ReceiverID,string DataType, byte[] Data)
-
-    {
-
-      if (MessageSend != null)
-
-      {
-
-        MessageSend(this, new MessageReceivedEventArgs { Data = Data,DataType=DataType, SenderID = this.ID ,ReceiverID=ReceiverID});
-
-      }
-
-    }
-
-    public void RaiseMessageReceived(MessageReceivedEventArgs e)
-
-    {
-
-      if (MessageReceived != null)
-
-      {
-
-        MessageReceived(this, e);
-
-      }
-
-    }
-
-    public event EventHandler<EventArgs> PluginInited;
-
-    public event EventHandler<MessageReceivedEventArgs> MessageSend;
-
-    public event EventHandler<MessageReceivedEventArgs> MessageReceived;
-
-  }
-
-}
-
-##### FAView
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Controls;
-
-namespace DEVGIS.FA.Plugin
-
-{
-
-  public class FAView:UserControl
-
-  {
-
-    public FAView(string ViewModelName)
-
-    {
-
-      if(!string.IsNullOrEmpty(ViewModelName))
-
-      {
-
-        DataContext = FAStaticData.Container.GetExportedValues<FAViewModel>().FirstOrDefault(v => v.Name.Equals(ViewModelName));
-
-      }
-
-    }
-
-    public bool IsReadOnly { get; set; }
-
-  }
-
-}
-
-##### FAViewModel
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Plugin
-
-{
-
-  public abstract class FAViewModel:INotifyPropertyChanged
-
-  {
-
-    public IFALogger FALogger { get; set; }
-
-    public IFAMessageBox FAMessageBox { get; set; }
-
-    public FAViewModel()
-
-    {
-
-      FALogger = FAStaticData.Container.GetExportedValue<IFALogger>();
-
-      FAMessageBox = FAStaticData.Container.GetExportedValue<IFAMessageBox>();
-
-    }
-
-    public string Name
-
-    {
-
-      get
-
-      {
-
-        return this.GetType().Name;
-
-      }
-
-    }
-
-    private FAProject project = null;
-
-    public FAProject Project
-
-    {
-
-      get
-
-      {
-
-        return project;
-
-      }
-
-      set
-
-      {
-
-        project = value;
-
-        RaisePropertyChanged("Project");
-
-      }
-
-    }
-
-    public bool? dialogResult;
-
-    public bool? DialogResult
-
-    {
-
-      get
-
-      {
-
-        return dialogResult;
-
-      }
-
-      set
-
-      {
-
-        dialogResult = value;
-
-        RaisePropertyChanged("DialogResult");
-
-      }
-
-    }
-
-    protected virtual void RaisePropertyChanged(string propertyName)
-
-		{
-
-			if (PropertyChanged != null)
-
-				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-	}
-
-}
-
-#### 服务接口层
-
-##### IDebugOut
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Plugin.Services
-
-{
-
-  public interface IDebugOut
-
-  {
-
-    void Debug(string Message);
-
-  }
-
-}
-
-##### IFALogger
-
-using DEVGIS.FA.Plugin.Interfaces;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Plugin.Services
-
-{
-
-  public interface IFALogger: IFAService
-
-	{
-
-		void Debug(object message);
-
-		void Debug(object message, Exception exception);
-
-		void DebugFormat(string format, params object[] args);
-
-		void Info(object message);
-
-		void Info(object message, Exception exception);
-
-		void InfoFormat(string format, params object[] args);
-
-		void Warn(object message);
-
-		void Warn(object message, Exception exception);
-
-		void WarnFormat(string format, params object[] args);
-
-		void Error(object message);
-
-		void Error(object message, Exception exception);
-
-		void ErrorFormat(string format, params object[] args);
-
-		void Fatal(object message);
-
-		void Fatal(object message, Exception exception);
-
-		void FatalFormat(string format, params object[] args);
-
-		bool IsDebugEnabled { get; }
-
-		bool IsInfoEnabled { get; }
-
-		bool IsWarnEnabled { get; }
-
-		bool IsErrorEnabled { get; }
-
-		bool IsFatalEnabled { get; }
-
-	}
-
-}
-
-##### IFAMessageBox
-
-using System;
-
-namespace DEVGIS.FA.Plugin.Services
-
-{
-
-  public interface IFAMessageBox 
-
-  {
-
-    void ShowInfo(string message);
-
-    void ShowError(string message,Exception ex);
-
-    void ShowDebug(string message);
-
-    void ShowWarn(string message);
-
-    bool ShowQuestion(string message);
-
-  }
-
-}
-
-#### Plugin插件模型接口层
-
-##### MessageReceivedEventArgs
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Plugin.Args
-
-{
-
-  public class MessageReceivedEventArgs:EventArgs
-
-  {
-
-    public string SenderID { get; set; }
-
-    public string ReceiverID { get; set; }
-
-    public string DataType { get; set; }
-
-    public byte[] Data
-
-    {
-
-      get; set;
-
-    }
-
-  }
-
-}
-
-### Core
-
-#### FABuilder
-
-using DEVGIS.FA.Plugin;
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.ComponentModel.Composition.Hosting;
-
-using System.IO;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Core
-
-{
-
-  
-
-  public class FABuilder
-
-  {
-
-    [ImportMany(typeof(FAPluginBase))]
-
-    public static IEnumerable<FAPluginBase> Plugins { get; private set; }
-
-    //[ImportMany(typeof(FAView))]
-
-    ////private IEnumerable<Lazy<View, IViewMetadata>> views { get; set; }
-
-    //public static IEnumerable<FAView> Views { get; private set; }
-
-    [Import(typeof(IFALogger))]
-
-    public IFALogger logger { get; set; }
-
-    //private CompositionContainer container = null;
-
-    public void Load()
-
-    {
-
-      var catalog = new DirectoryCatalog(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"), "*");
-
-      FAStaticData.Container = new CompositionContainer(catalog);
-
-      try
-
-      {
-
-        Plugins = FAStaticData.Container.GetExportedValues<FAPluginBase>();
-
-        foreach (var plugin in Plugins)
-
-        {
-
-          plugin.Init();
-
-          plugin.Inited = true;
-
-          plugin.MessageSend += Plugin_MessageSend;
-
-        }
-
-      }
-
-      catch (CompositionException compositionEx)
-
-      {
-
-        logger.Error("FABuilder.Load Plugins Failed!", compositionEx);
-
-      }
-
-      //try
-
-      //{
-
-      //  FAStaticData.Views = FAStaticData.Container.GetExportedValues<FAView>();
-
-      //}
-
-      //catch (CompositionException compositionEx)
-
-      //{
-
-      //  logger.Error("FABuilder.Load Views Failed!", compositionEx);
-
-      //}
-
-      
-
-    }
-
-    private void Plugin_MessageSend(object sender, Plugin.Args.MessageReceivedEventArgs e)
-
-    {
-
-      if (e != null && !String.IsNullOrEmpty(e.ReceiverID))
-
-      {
-
-        var plugin = Plugins.Where(p => p.ID == e.ReceiverID).FirstOrDefault();
-
-        ThreadPool.QueueUserWorkItem(o => {
-
-          if (plugin != null)
-
-          {
-
-            while (!plugin.Inited)
-
+            $conn = OpenConnection();
+            $tsql = "SELECT * FROM T_USER";
+            $getProducts = sqlsrv_query($conn, $tsql);
+            if ($getProducts == FALSE)
+                die(FormatErrors(sqlsrv_errors()));
+            $productCount = 0;
+            while($row = sqlsrv_fetch_array($getProducts, SQLSRV_FETCH_ASSOC))
             {
-
-              Thread.Sleep(100);
-
+                echo($row['ID']);
+                echo("<br/>");
+                $productCount++;
             }
-
-            plugin.RaiseMessageReceived(e);
-
-          }
-
-        });
-
-        
-
-      }
-
-    }
-
-  }
-
-}
-
-### Viwes
-
-#### CreateProject
-
-##### Xaml
-
-<facontrols:FADialog x:Class="DEVGIS.FA.Views.Views.CreateProject"
-
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-
-       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-
-       xmlns:local="clr-namespace:DEVGIS.FA.Views.Views"
-
-       xmlns:facontrols="clr-namespace:DEVGIS.FA.Controls;assembly=FAControls"
-
-       xmlns:localvm="clr-namespace:DEVGIS.FA.Views.ViewModels"
-
-       mc:Ignorable="d" 
-
-       d:DesignHeight="300" d:DesignWidth="600" Width="600" Height="300" >
-
-  <Window.DataContext>
-
-    <localvm:CreateProjectViewModel/>
-
-  </Window.DataContext>
-
-  <Grid>
-
-    <Grid.RowDefinitions>
-
-      <RowDefinition Height="*" />
-
-      <RowDefinition Height="30" />
-
-      <RowDefinition Height="30" />
-
-      <RowDefinition Height="30" />
-
-      <RowDefinition Height="60" />
-
-      <RowDefinition Height="30" />
-
-      <RowDefinition Height="*" />
-
-    </Grid.RowDefinitions>
-
-    <Grid.ColumnDefinitions>
-
-      <ColumnDefinition Width="*" />
-
-      <ColumnDefinition Width="200" />
-
-      <ColumnDefinition Width="300" />
-
-      <ColumnDefinition Width="*" />
-
-    </Grid.ColumnDefinitions>
-
-    <Label Content="项目名称：" Grid.Row="1" Grid.Column="1" />
-
-    <Label Content="路径：" Grid.Row="2" Grid.Column="1" />
-
-    <Label Content="作者" Grid.Row="3" Grid.Column="1" />
-
-    <Label Content="备注" Grid.Row="4" Grid.Column="1" />
-
-    <Button Content="创建" Grid.Row="5" Grid.Column="2" Command="{Binding CreateProjectCommand}"/>
-
-    <TextBox Text="{Binding Project.Name, Mode=TwoWay}" Grid.Row="1" Grid.Column="2" />
-
-    <TextBox Text="{Binding Project.BasePath, Mode=TwoWay}" Grid.Row="2" Grid.Column="2" />
-
-    <TextBox Text="{Binding Project.Author, Mode=TwoWay}" Grid.Row="3" Grid.Column="2" />
-
-    <TextBox Text="{Binding Project.Description, Mode=TwoWay}" Grid.Row="4" Grid.Column="2" />
-
-  </Grid>
-
-</facontrols:FADialog>
-
-##### ViewModel
-
-using DEVGIS.FA.Plugin;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Collections.ObjectModel;
-
-using System.IO;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Views.ViewModels
-
-{
-
-  public class CreateProjectViewModel : FAViewModel
-
-  {
-
-    public FACommand CreateProjectCommand
-
-    {
-
-      get;
-
-      set;
-
-    }
-
-    public CreateProjectViewModel()
-
-    {
-
-      Project = new FAProject(LanguageResource.Resource.DefaultProjectName);
-
-      Project.BasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"FAProject", Project.Name);
-
-      Project.Author = Environment.UserName;
-
-      Project.Description = LanguageResource.Resource.DefaultProjectDescrption;
-
-      CreateProjectCommand = new FACommand(o => {
-
-        RaisePropertyChanged("Project");
-
-        this.DialogResult = true;
-
-        FAMessageBox.ShowInfo($"[{Project.Author}]创建项目[{Project.Name}]成功！");
-
-        FALogger.Info($"创建项目[{Project.Name}]成功！");
-
-      });
-
-    }
-
-  }
-
-}
-
-#### MainWindow
-
-##### Xaml
-
-<facontrols:FAWindow x:Class="DEVGIS.FA.Views.Views.MainWindow"
-
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
-    xmlns:local="clr-namespace:DEVGIS.FA.Views"
-
-    xmlns:inplug="clr-namespace:DEVGIS.FA.Plugin;assembly=FAPlugin"
-
-    xmlns:facontrols="clr-namespace:DEVGIS.FA.Controls;assembly=FAControls"
-
-    xmlns:lanrs="clr-namespace:DEVGIS.FA.LanguageResource;assembly=LanguageResource"
-
-    xmlns:localvm="clr-namespace:DEVGIS.FA.Views.ViewModels"
-
-    xmlns:facvt="clr-namespace:DEVGIS.FA.Controls.Conveter;assembly=FAControls"
-
-    xmlns:avalon="https://github.com/Dirkster99/AvalonDock"
-
-    mc:Ignorable="d"
-
-    Title ="{x:Static lanrs:Resource.AppTitle}" WindowState="Maximized" Margin="3" Height="450" Width="800">
-
-  <Window.DataContext>
-
-    <localvm:MainWindowViewModel/>
-
-  </Window.DataContext>
-
-  <Window.Resources>
-
-    <facvt:ProjectVisableConverter x:Key="ProjectVisableConverter"/>
-
-    <local:ViewLocator x:Key="InViewLocator"/>
-
-  </Window.Resources>
-
-  <Grid>
-
-    <Grid.RowDefinitions>
-
-      <RowDefinition Height="Auto" />
-
-      <RowDefinition Height="Auto" />
-
-      <RowDefinition Height="*" />
-
-      <RowDefinition Height="Auto" />
-
-    </Grid.RowDefinitions>
-
-    <Menu Grid.Row="0">
-
-      <MenuItem Header="项目(_P)" >
-
-        <MenuItem Header="新建(_N)" Command="{Binding CreateProjectCommand}" CommandParameter="新项目">
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="打开(_O)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="移植项目(_M)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="关闭(_C)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="删除项目(_D)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <Separator/>
-
-        <MenuItem Header="保存(_S)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="另存为(_A)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="归档(_H)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <Separator/>
-
-        <MenuItem Header="项目服务器(_H)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-          <MenuItem Header="管理项目服务器" >
-
-          </MenuItem>
-
-          <MenuItem Header="离线运行" >
-
-            <MenuItem.Icon>
-
-              <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-            </MenuItem.Icon>
-
-          </MenuItem>
-
-        </MenuItem>
-
-        <Separator/>
-
-        <MenuItem Header="读卡器/USB存储器" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="存储卡文件(_F)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <Separator/>
-
-        <MenuItem Header="启动完整性基本检查" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <Separator/>
-
-        <MenuItem Header="推出(_X)" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="编辑(_E)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="视图(_V)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="插入(_I)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="在线(_O)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="选项(_N)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="工具(_T)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="窗口(_W)">
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="子菜单1" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-      </MenuItem>
-
-      <MenuItem Header="帮助(_H)">
-
-        <MenuItem Header="显示帮助" >
-
-          <MenuItem.Icon>
-
-            <Image Source="/FAViews;Component/Images/Menu/Box.png" />
-
-          </MenuItem.Icon>
-
-        </MenuItem>
-
-        <MenuItem Header="Internet上得服务帮助与支持" />
-
-        <MenuItem Header="FA中的帮助与支持(_T) Ctrl+Shift+F7" />
-
-        <Separator />
-
-        <MenuItem Header="已安装的产品(_I)..." />
-
-      </MenuItem>
-
-    </Menu>
-
-    <ToolBarTray Grid.Row="1" Background="White">
-
-      <ToolBar Band="1" BandIndex="1" >
-
-        <Button >
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-        <Button>
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-        <Button>
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-      </ToolBar>
-
-      <ToolBar Band="1" BandIndex="2">
-
-        <Button>
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-        <Button>
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-      </ToolBar>
-
-      <ToolBar Band="1" BandIndex="3">
-
-        <Button>
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-        <Button ToolTip="Help">
-
-          <Image Source="/FAViews;Component/Images/ToolBar/BlueLarge.png" />
-
-        </Button>
-
-        <Separator/>
-
-      </ToolBar>
-
-    </ToolBarTray>
-
-    <!--<DockPanel Grid.Row="1" Background="LightBlue" >
-
-      <TextBlock DockPanel.Dock="Top" Text="Hello!"/>
-
-    </DockPanel>-->
-
-    <Grid Grid.Row="2" Background="LightBlue" >
-
-      <Grid.RowDefinitions>
-
-        <RowDefinition Height="0"/>
-
-        <RowDefinition Height="*"/>
-
-        <RowDefinition Height="24"/>
-
-      </Grid.RowDefinitions>
-
-      <!--<Menu>
-
-        <MenuItem Header="File">
-
-          <MenuItem Header="New Document" Click="NewDocument_Click" Name="NewDocument"/>
-
-          <MenuItem Header="Exit"/>
-
-        </MenuItem>
-
-      </Menu>-->
-
-      <DockingManager x:Name="dockManager"
-
-      Grid.Row="1"
-
-      AllowMixedOrientation="True"
-
-      AutoWindowSizeWhenOpened="True"
-
-      IsVirtualizingAnchorable="True"
-
-      IsVirtualizingDocument="True">
-
-        <DockingManager.DocumentHeaderTemplate>
-
-          <DataTemplate>
-
-            <StackPanel Orientation="Horizontal">
-
-              <Image Margin="0,0,4,0" Source="{Binding IconSource}" />
-
-              <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
-
-            </StackPanel>
-
-          </DataTemplate>
-
-        </DockingManager.DocumentHeaderTemplate>
-
-        <LayoutRoot>
-
-          <LayoutPanel Orientation="Horizontal">
-
-            <LayoutAnchorablePane DockWidth="150">
-
-              <LayoutAnchorable x:Name="WinFormsWindow"
-
-              Title="项目树"
-
-              CanClose="False"
-
-              CanHide="False"
-
-              ContentId="WinFormsWindow"
-
-              ToolTip="My WinForms Tool">
-
-                <TreeView>
-
-                  <TreeViewItem Header="{Binding Project.Name}" ToolTip="{Binding Project.Description}" Visibility="{Binding Project,Converter={StaticResource ProjectVisableConverter},Mode=OneWay}"/>
-
-                  <TreeViewItem Header="在线访问"/>
-
-                  <TreeViewItem Header="读卡器/本地USB存储器"/>
-
-                </TreeView>
-
-              </LayoutAnchorable>
-
-            </LayoutAnchorablePane>
-
-            <LayoutDocumentPaneGroup>
-
-              <LayoutDocumentPane
-
-                x:Name="LayoutDocumentPane">
-
-                <!--ContentId="document1"-->
-
-                <LayoutDocument
-
-                CanClose="False"
-
-                Title="欢迎页面"
-
-                >
-
-                  <Grid>
-
-                    <Grid.ColumnDefinitions>
-
-                      <ColumnDefinition Width="10"/>
-
-                      <ColumnDefinition Width="120"/>
-
-                      <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-
-                      <RowDefinition Height="Auto" />
-
-                      <RowDefinition Height="Auto" />
-
-                      <RowDefinition Height="Auto" />
-
-                      <RowDefinition Height="Auto" />
-
-                      <RowDefinition Height="Auto" />
-
-                    </Grid.RowDefinitions>
-
-                    <Button
-
-                      Grid.Row="0"
-
-                      Grid.Column="1"
-
-                      Height="28"
-
-                      VerticalAlignment="Top"
-
-                      Command="{Binding TestCommand}" 
-
-                      CommandParameter="Hai" 
-
-                      Content="Test Button 1" />
-
-                    <Button
-
-                      Grid.Row="1"
-
-                      Grid.Column="1"
-
-                      Height="28"
-
-                      VerticalAlignment="Top"
-
-                      Command="{Binding TestCommand}" 
-
-                      Content="Test Button 2" />
-
-                    <Button
-
-                      Grid.Row="2"
-
-                      Grid.Column="1"
-
-                      Height="28"
-
-                      VerticalAlignment="Top"
-
-                      Command="{Binding TestCommand}" 
-
-                      CommandParameter="{Binding ElementName=tbValue,Path=Text}"
-
-                      Content="Test Button 3" />
-
-                    <TextBox 
-
-                      x:Name="tbValue" 
-
-                      Grid.Row="5" 
-
-                      Grid.Column="1"
-
-                      Text="Document 1 Content" />
-
-                  </Grid>
-
-                </LayoutDocument>
-
-                <LayoutDocument Title="文档2" ContentId="document2">
-
-                  <TextBox
-
-                  Background="Transparent"
-
-                  BorderThickness="0"
-
-                  Foreground="White"
-
-                  Text="{Binding TestTimer, Mode=OneWay, StringFormat='Document 2 Attached to Timer ->\{0\}'}" />
-
-                </LayoutDocument>
-
-                <LayoutDocument Title="依赖注入测试" ContentId="document2">
-
-                  <Grid>
-
-                    <Grid.RowDefinitions>
-
-                      <RowDefinition Height="*"/>
-
-                      <RowDefinition Height="30"/>
-
-                      <RowDefinition Height="30"/>
-
-                      <RowDefinition Height="30"/>
-
-                      <RowDefinition Height="*"/>
-
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-
-                      <ColumnDefinition Width="*"/>
-
-                      <ColumnDefinition Width="200"/>
-
-                      <ColumnDefinition Width="200"/>
-
-                      <ColumnDefinition Width="200"/>
-
-                      <ColumnDefinition Width="200"/>
-
-                      <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Row="1" Grid.Column="1" Content="数值1"/>
-
-                    <TextBox Grid.Row="1" Grid.Column="2" />
-
-                    <Label Grid.Row="1" Grid.Column="3" Content="数值2"/>
-
-                    <TextBox Grid.Row="1" Grid.Column="4" />
-
-                    <Button Margin="3" Grid.Row="2" Grid.Column="1" Content="{x:Static lanrs:Resource.Button1}" />
-
-                    <Button Padding="5" Grid.Row="2" Grid.Column="2" Content="{x:Static lanrs:Resource.Button2}"/>
-
-                    <Button Grid.Row="2" Grid.Column="3" Content="{x:Static lanrs:Resource.Button3}"/>
-
-                    <Button Grid.Row="2" Grid.Column="4" Content="{x:Static lanrs:Resource.Button4}"/>
-
-                    <Button Margin="3" Grid.Row="3" Grid.Column="1" Content="测试"/>
-
-                    <Button Padding="5" Grid.Row="3" Grid.Column="2" Content=""/>
-
-                    <Button Grid.Row="3" Grid.Column="3" Content=""/>
-
-                    <Button Grid.Row="3" Grid.Column="4" Content=""/>
-
-                  </Grid>
-
-                </LayoutDocument>
-
-              </LayoutDocumentPane>
-
-            </LayoutDocumentPaneGroup>
-
-            <LayoutAnchorablePaneGroup DockWidth="150">
-
-              <LayoutAnchorablePane>
-
-                <LayoutAnchorable
-
-                Title="属性"
-
-                ContentId="toolWindow1"
-
-                CanHide="False">
-
-                  <StackPanel MinHeight="450">
-
-                    <TextBox Text="{Binding TestTimer, Mode=OneWay, StringFormat='Tool Window 1 Attached to Timer ->\{0\}'}" />
-
-                  </StackPanel>
-
-                </LayoutAnchorable>
-
-                <LayoutAnchorable
-
-                  Title="查找替换" 
-
-                  CanClose="False"
-
-                  CanHide="False"
-
-                  ContentId="toolWindow2">
-
-                  <TextBlock Text="{Binding FocusedElement}" />
-
-                </LayoutAnchorable>
-
-              </LayoutAnchorablePane>
-
-            </LayoutAnchorablePaneGroup>
-
-          </LayoutPanel>
-
-          <LayoutRoot.LeftSide>
-
-            <LayoutAnchorSide >
-
-              <LayoutAnchorGroup >
-
-                <LayoutAnchorable
-
-                Title="设备"
-
-                ContentId="AutoHide1Content"
-
-                IconSource="/FAViews;Component/Images/Blue.png" AutoHideWidth="150">
-
-                  <TextBox Text="{Binding TestTimer, Mode=OneWay, StringFormat='AutoHide Attached to Timer ->\{0\}'}" />
-
-                </LayoutAnchorable>
-
-                <LayoutAnchorable Title="文件" ContentId="AutoHide2Content" AutoHideWidth="150">
-
-                  <StackPanel Orientation="Vertical">
-
-                    <TextBox />
-
-                    <TextBox />
-
-                  </StackPanel>
-
-### 概述
-
-#### 网格计算
-
-> 虚拟化
-
-> 动态供应
-
-> 资源集中
-
-> 自适应软件
-
-> 统一管理
-
-#### Oracle 11g新特性
-
-> 企业网格管理的高可用性
-
-> 更加优化的性能
-
-> 简化的信息管理
-
-> 集成的信息
-
-> 内置的商业智能
-
-> 丰富的开发平台
-                </LayoutAnchorable>
-
-              </LayoutAnchorGroup>
-
-            </LayoutAnchorSide>
-
-          </LayoutRoot.LeftSide>
-
-          <LayoutRoot.BottomSide>
-
-            <LayoutAnchorSide>
-
-              <LayoutAnchorGroup>
-
-                <LayoutAnchorable
-
-								FloatingHeight="200"
-
-                Title="调试"
-
-                CanClose="False"
-
-                CanHide="False"
-
-                ContentId="AutoHide1Content"
-
-                IconSource="/FAViews;Component/Images/Blue.png">
-
-                  <TextBox Text="{Binding TestTimer, Mode=OneWay, StringFormat='AutoHide Attached to Timer ->\{0\}'}" />
-
-                </LayoutAnchorable>
-
-                <LayoutAnchorable 
-
-                  Title="输出" 
-
-                  FloatingHeight="200" 
-
-                  ContentId="AutoHide2Content"
-
-                  CanClose="False"
-
-                  CanHide="False">
-
-                  <ContentControl Content="{Binding DebugPanel, Source={StaticResource InViewLocator}}"/>
-
-                </LayoutAnchorable>
-
-              </LayoutAnchorGroup>
-
-            </LayoutAnchorSide>
-
-          </LayoutRoot.BottomSide>
-
-        </LayoutRoot>
-
-      </DockingManager>
-
-      <StatusBar Grid.Row="2">
-
-        <StatusBarItem Content="DEVGIS FA"/>
-
-      </StatusBar>
-
-    </Grid>
-
-  </Grid>
-
-</facontrols:FAWindow>
-
-##### ViewModel
-
-using DEVGIS.FA.Core;
-
-using DEVGIS.FA.Plugin;
-
-using DEVGIS.FA.Plugin.Services;
-
-using DEVGIS.FA.Views.Views;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Collections.ObjectModel;
-
-using System.ComponentModel.Composition;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-using System.Windows;
-
-using System.Windows.Input;
-
-namespace DEVGIS.FA.Views.ViewModels
-
-{
-
-  public class MainWindowViewModel : FAViewModel
-
-  {
-
-    //[Import]
-
-    //public static ViewLocator Locator;
-
-    public FACommand TestCommand
-
-    {
-
-      get;
-
-      set;
-
-    }
-
-    public FACommand SelectDevicesCommand
-
-    {
-
-      get;
-
-      set;
-
-    }
-
-    public FACommand CreateProjectCommand
-
-    {
-
-      get;
-
-      set;
-
-    }
-
-    public MainWindowViewModel()
-
-    {
-
-      
-
-      TestCommand = new FACommand(ShowMessage);
-
-      SelectDevicesCommand = new FACommand(SelectDevices);
-
-      CreateProjectCommand = new FACommand((o) => {
-
-        
-
-        //Project = new FAProject(o.ToString());
-
-        CreateProject CreateProjectWindow = new CreateProject();
-
-        if (CreateProjectWindow.ShowDialog() == true)
-
-        {
-
-          Project = (CreateProjectWindow.DataContext as CreateProjectViewModel).Project;
-
-          FAStaticData.Container.GetExportedValue<IDebugOut>().Debug($"{Project.Author}创建了项目：{Project.Name} ！");
-
+            sqlsrv_free_stmt($getProducts);
+            sqlsrv_close($conn);
         }
-
-      });
-
-      
-
+        catch(Exception $e)
+        {
+            echo("Error!");
+        }
     }
-
-    public void ShowMessage(object obj)    //消息 方法
-
-    {
-
-      if (obj != null)
-
-      {
-
-        MessageBox.Show(obj.ToString());
-
-      }
-
-      else
-
-      {
-
-        MessageBox.Show("obj is null");
-
-      }
-
-    }
-
-    public void SelectDevices(object obj)    //消息 方法
-
-    {
-
-      SelectDevices selectDevices = new SelectDevices();
-
-      var items = new ObservableCollection<string>((from p in FABuilder.Plugins select p.Name).ToList());
-
-      (selectDevices.DataContext as SelectDevicesViewModel).FACategorys = items;
-
-      selectDevices.ShowDialog();
-
-    }
-
-  }
-
-}
-
-#### SelectDevices
-
-##### Xaml
-
-<facontrols:FAWindow x:Class="DEVGIS.FA.Views.Views.SelectDevices"
-
-       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-
-       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-
-       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-
-       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-
-       xmlns:local="clr-namespace:DEVGIS.FA.Views.Views"
-
-       xmlns:facontrols="clr-namespace:DEVGIS.FA.Controls;assembly=FAControls"
-
-       xmlns:localvm="clr-namespace:DEVGIS.FA.Views.ViewModels"
-
-       mc:Ignorable="d" 
-
-       d:DesignHeight="450" d:DesignWidth="800">
-
-  <Window.DataContext>
-
-    <localvm:SelectDevicesViewModel/>
-
-  </Window.DataContext>
-
-  <Grid>
-
-    <Grid.RowDefinitions>
-
-      <RowDefinition Height="*" />
-
-      <RowDefinition Height="30" />
-
-    </Grid.RowDefinitions>
-
-    <ListView Name="lst" Grid.Row="0" ItemsSource ="{Binding FACategorys}"/>
-
-    <Button Grid.Row="1" Click="Button_Click"/>
-
-  </Grid>
-
-</facontrols:FAWindow>
-
-##### ViewModel
-
-using DEVGIS.FA.Plugin;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.Collections.ObjectModel;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Views.ViewModels
-
-{
-
-  public class SelectDevicesViewModel:FAViewModel
-
-  {
-
-    public ObservableCollection<string> faCategorys = null;
-
-    public ObservableCollection<string> FACategorys {
-
-      get {
-
-        return faCategorys;
-
-      }
-
-      set {
-
-        faCategorys = value;
-
-        RaisePropertyChanged("FACategorys");
-
-      }
-
-    }
-
-	}
-
-}
-
-#### ViewLocator
-
-using DEVGIS.FA.Plugin;
-
-using DEVGIS.FA.Plugin.Services;
-
-using System;
-
-using System.Collections.Generic;
-
-using System.ComponentModel.Composition;
-
-using System.Dynamic;
-
-using System.Linq;
-
-using System.Text;
-
-using System.Threading.Tasks;
-
-namespace DEVGIS.FA.Views
-
-{
-
-  //[Export(typeof(ViewLocator))]
-
-  public class ViewLocator : DynamicObject, IPartImportsSatisfiedNotification
-
-  {
-
-    //[ImportMany(typeof(FAView))]
-
-    ////private IEnumerable<Lazy<View, IViewMetadata>> views { get; set; }
-
-    //public static IEnumerable<FAView> Views { get; set; }
-
-    public IFALogger FALogger { get {
-
-        return FAStaticData.Container.GetExportedValue<IFALogger>();
-
-      } }
-
-    public override bool TryGetMember(GetMemberBinder binder, out object result)
-
-    {
-
-      string name = binder.Name;
-
-      var views = FAStaticData.Container.GetExportedValues<FAView>();
-
-      if (views == null)
-
-      {
-
-        result = null;
-
-        return false;
-
-      }
-
-      var view = views.FirstOrDefault(v => v.GetType().Name.Equals(name));
-
-      // Error handling
-
-      if (null == view)
-
-        FALogger.Error("views is null at TryGetMember");
-
-      result = view;
-
-      return null != result;
-
-    }
-
-    public void OnImportsSatisfied()
-
-    {
-
-      FALogger.Info($"{this.GetType()} Composition complete");
-
-    }
-
-  }
-
-}
-
-### 外部包依赖
-
-#### Dirkster.AvalonDock
-
-##### Dirkster.AvalonDock.Themes.VS2013
-
-#### Fluent.Ribbon
-
-#### log4net
-
-#### MEF
-
-##### System.ComponentModel.Composition
-
-#### Dirkster.AvalonDock
-
-#### log4net
-
-### LanguageResource实现多语言支持
-
-### HTTP
-
-> HTTP协议的几个重要概念
-> > 1.连接(Connection)：一个传输层的实际环流，它是建立在两个相互通讯的应用程序之间。
-> > 2.消息(Message)：HTTP通讯的基本单位，包括一个结构化的八元组序列并通过连接传输。
-> > 3.请求(Request)：一个从客户端到服务器的请求信息包括应用于资源的方法、资源的标识符和协议的版本号
-> > 4.响应(Response)：一个从服务器返回的信息包括HTTP协议的版本号、请求的状态(例如“成功”或“没找到”)和文档的MIME类型。
-> > 5.资源(Resource)：由URI标识的网络数据对象或服务。
-> > 6.实体(Entity)：数据资源或来自服务资源的回映的一种特殊表示方法，它可能被包围在一个请求或响应信息中。一个实体包括实体头信息和实体的本身内容。
-> > 7.客户机(Client)：一个为发送请求目的而建立连接的应用程序。
-> > 8.用户代理(Useragent)：初始化一个请求的客户机。它们是浏览器、编辑器或其它用户工具。
-> > 9.服务器(Server)：一个接受连接并对请求返回信息的应用程序。
-> > 10.源服务器(Originserver)：是一个给定资源可以在其上驻留或被创建的服务器。
-> > 11.代理(Proxy)：一个中间程序，它可以充当一个服务器，也可以充当一个客户机，为其它客户机建立请求。请求是通过可能的翻译在内部或经过传递到其它的服务器中。一个代理在发送请求信息之前，必须解释并且如果可能重写它。
-> > 代理经常作为通过防火墙的客户机端的门户，代理还可以作为一个帮助应用来通过协议处理没有被用户代理完成的请求。
-> > 12.网关(Gateway)：一个作为其它服务器中间媒介的服务器。与代理不同的是，网关接受请求就好象对被请求的资源来说它就是源服务器；发出请求的客户机并没有意识到它在同网关打交道。
-> > 网关经常作为通过防火墙的服务器端的门户，网关还可以作为一个协议翻译器以便存取那些存储在非HTTP系统中的资源。
-> > 13.通道(Tunnel)：是作为两个连接中继的中介程序。一旦激活，通道便被认为不属于HTTP通讯，尽管通道可能是被一个HTTP请求初始化的。当被中继的连接两端关闭时，通道便消失。当一个门户(Portal)必须存在或中介(Intermediary)不能解释中继的通讯时通道被经常使用。
-> > 14.缓存(Cache)：反应信息的局域存储。
-
-## 认证授权
-
-### 认证
-
-> Session-Cookie
-
-Session-Cookie 的认证流程如下：用户先使用用户名和密码登录，登录完成后后端将用户信息存在session 中，把sessionId 写到前端的cookie 中，后面每次操作带着cookie 去后端，只要后端判断sessionId 没问题且没过期就不需要再次登录。
-
-使用这种方式进行认证，开发者可能面临的主要问题如下：
-
-cookie 安全性问题，攻击者可以通过xss 获取cookie 中的sessinId，使用 httpOnly 在一定程度上提高安全性
-
-cookie 不能跨域传输
-
-session 存储在服务器中，所以session 过多会耗费较大服务器资源
-
-### Token
-
-与上面的Session-Cookie 机制不同的地方在于，基于token 的用户认证是一种服务端无状态的认证方式，服务端可以不用存放token 数据，但是服务器可以验证token 的合法性和有效性。
-
-使用token 进行认证的方式这里主要介绍两种：
-
-#### SAML
-
-> SAML (Security Assertion Markup Language) 
-
-未登录的用户通过浏览器访问资源网站（Service Provider，简称SP）
-
-SP 发现用户未登录，将页面重定向至IdP（Identity Provider）
-
-IdP 验证请求无误后，提供表单让用户进行登录
-
-用户登录成功后，IdP 生成并发送SAML token (一个很大的XML对象) 给SP
-
-SP 对token 进行验证，解析获取用户信息，允许用户访问相关资源
-
-#### JWT
-
-JSON Web Token 入门教程（预计阅读时间：2mins）
-
-简言之，JWT 就是一种在用户登录后生成token 并把token 放在前端，后端不需要维护用户的状态信息但是可以验证token 有效性的认证及状态管理方式。 
-
-
-#### SSO 与CAS
-接下来我们探讨一个企业应一定绕不过的课题：单点登录。
-
-举例来说，华为云下有若干云服务。包含项目管理、代码托管、代码检查、流水线、编译构建、部署、自动化测试等众多微服务的DevCloud（软件开发云） 正是其中之一，用户如果在使用任意一个服务没有登录的时候都可以去同一个地方进行登录认证，登录之后的一段时间内可以无需登录访问所有其他服务。
-
-在单点登录领域，CAS（Central Authentication Service，中文名是中央认证服务） 是一个被高频使用的解决方案。因此，这里介绍一下利用CAS 实现SSO。而CAS 的具体实现又可以依赖很多种协议，比如OpenID、OAuth、SAML 等，这里重点介绍一下CAS 协议。
-
-CAS 协议中的几个重要概念
-简单介绍一下CAS 协议中的几个重要概念，一开始看概念可能很模糊，可以先过一遍，再结合下面的流程图来理解。
-
-CAS Server：用于认证的中心服务器
-
-CAS Clients：保护CAS 应用，一旦有未认证的用户访问，重定向至CAS Server 进行认证
-
-TGT & TGC：用户认证之后，CAS Server 回生成一个包含用户信息的TGT (Ticket Granting Ticket) 并向浏览器写一个cookie（TGC，Ticket Granting Cookie），有啥用后面流程会讲到
-
-ST：在url 上作为参数传输的ticket，受保护应用可以凭借这个ticket 去CAS Server 确认用户的认证是否合法 
-
-### 授权
-
-
-#### OAuth 授权
-
-OAuth 的设计本意更倾向于授权而不是认证，所以这一小节的标题写的是授权，但是其实在授权的同时也已经完成了认证。
-
-
-OAuth 2 是一个授权框架，或称授权标准，它可以使第三方应用程序或客户端获得对HTTP服务上（例如 Google，GitHub ）用户帐户信息的有限访问权限。OAuth 2 通过将用户身份验证委派给托管用户帐户的服务以及授权客户端访问用户帐户进行工作。综上，OAuth 2 可以为 Web 应用 和桌面应用以及移动应用提供授权流程。
-
-本文将从OAuth 2 角色，授权许可类型，授权流程等几方面进行讲解。
-
-在正式讲解之前，这里先引入一段应用场景，用以与后文的角色讲解对应。
-
-开发者A注册某IT论坛后，发现可以在信息栏中填写自己的 Github 个人信息和仓库项目，但是他又觉得手工填写十分麻烦，直接提供 Github 账户和密码给论坛管理员帮忙处理更是十分智障。
-不过该论坛似乎和 Github 有不可告人的秘密，开发者A可以点击“导入”按钮，授权该论坛访问自己的 Github 账户并限制其只具备读权限。这样一来， Github 中的所有仓库和相关信息就可以很方便地被导入到信息栏中，账户隐私信息也不会泄露。
-这背后，便是 OAuth 2 在大显神威。
-
-2. OAuth2 角色
-OAuth 2 标准中定义了以下几种角色：
-
-资源所有者（Resource Owner）
-资源服务器（Resource Server）
-授权服务器（Authorization Server）
-客户端（Client）
-2.1 资源所有者（Resource Owner）
-资源所有者是 OAuth 2 四大基本角色之一，在 OAuth 2 标准中，资源所有者即代表授权客户端访问本身资源信息的用户（User），也就是应用场景中的“开发者A”。客户端访问用户帐户的权限仅限于用户授权的“范围”（aka. scope，例如读取或写入权限）。
-
-如果没有特别说明，下文中出现的"用户"将统一代表资源所有者。
-
-2.2 资源/授权服务器（Resource/Authorization Server）
-资源服务器托管了受保护的用户账号信息，而授权服务器验证用户身份然后为客户端派发资源访问令牌。
-
-在上述应用场景中，Github 既是授权服务器也是资源服务器，个人信息和仓库信息即为资源（Resource）。而在实际工程中，不同的服务器应用往往独立部署，协同保护用户账户信息资源。
-
-2.3 客户端（Client）
-在 OAuth 2 中，客户端即代表意图访问受限资源的第三方应用。在访问实现之前，它必须先经过用户者授权，并且获得的授权凭证将进一步由授权服务器进行验证。
-
-如果没有特别说明，下文中将不对"应用"，“第三方应用”，“客户端”做出区分。
-
-3. OAuth 2 的授权流程
-目前为止你应该对 OAuth 2 的角色有了些概念，接下来让我们来看看这几个角色之间的抽象授权流程图和相关解释。
-
-请注意，实际的授权流程图会因为用户返回授权许可类型的不同而不同。但是下图大体上能反映一次完整抽象的授权流程。
-
-
-
-Authrization Request
-客户端向用户请求对资源服务器的authorization grant。
-Authorization Grant（Get）
-如果用户授权该次请求，客户端将收到一个authorization grant。
-Authorization Grant（Post）
-客户端向授权服务器发送它自己的客户端身份标识和上一步中的authorization grant，请求访问令牌。
-Access Token（Get）
-如果客户端身份被认证，并且authorization grant也被验证通过，授权服务器将为客户端派发access token。授权阶段至此全部结束。
-Access Token（Post && Validate）
-客户端向资源服务器发送access token用于验证并请求资源信息。
-Protected Resource（Get）
-
-如果access token验证通过，资源服务器将向客户端返回资源信息。
-
-
-## gRPC 
-
-### gRPC 概述
-
+    ReadData();
+?>
 ```
 
-gRPC 是一种与语言无关的高性能远程过程调用 (RPC) 框架。
-
-gRPC 的主要优点是：
-
-现代高性能轻量级 RPC 框架。
-
-协定优先 API 开发，默认使用协议缓冲区，允许与语言无关的实现。
-
-可用于多种语言的工具，以生成强类型服务器和客户端。
-
-支持客户端、服务器和双向流式处理调用。
-
-使用 Protobuf 二进制序列化减少对网络的使用。
-
-这些优点使 gRPC 适用于：
-
-效率至关重要的轻量级微服务。
-
-需要多种语言用于开发的 Polyglot 系统。
-
-需要处理流式处理请求或响应的点对点实时服务。
-
- GRPC是google开源的一个高性能、跨语言的RPC框架，基于HTTP2协议，基于protobuf 3.x，基于Netty 4.x +。GRPC与thrift、avro-rpc等其实在总体原理上并没有太大的区别，简而言之GRPC并没有太多突破性的创新。（如下描述，均基于JAVA语言的实现）
-
-  对于开发者而言：
-
-  1）需要使用protobuf定义接口，即.proto文件
-
-  2）然后使用compile工具生成特定语言的执行代码，比如JAVA、C/C++、Python等。类似于thrift，为了解决跨语言问题。
-
-  3）启动一个Server端，server端通过侦听指定的port，来等待Client链接请求，通常使用Netty来构建，GRPC内置了Netty的支持。
-
-  4）启动一个或者多个Client端，Client也是基于Netty，Client通过与Server建立TCP长链接，并发送请求；Request与Response均被封装成HTTP2的stream Frame，通过Netty Channel进行交互。
-
-```
-
-### gRPC 服务项目模板
-
-```
-
-对 .proto 文件的 C# 工具支持
-
-gRPC 使用协定优先方法进行 API 开发。 在 .proto 文件中定义服务和消息：
-
-ProtoBuf
-
-```
-
-syntax = "proto3";
-
-service Greeter {
-
- rpc SayHello (HelloRequest) returns (HelloReply);
-
-}
-
-message HelloRequest {
-
- string name = 1;
-
-}
-
-message HelloReply {
-
- string message = 1;
-
-}
-
-通过在项目中包含 .proto 文件，可自动生成用于服务、客户端和消息的 .NET 类型：
-
-将包引用添加到 Grpc.Tools 包。
-
-将 .proto 文件添加到 <Protobuf> 项目组。
-
-```
-
-XML
-
-```
-
-<ItemGroup>
-
- <Protobuf Include="Protos\greet.proto" />
-
-</ItemGroup>
-
-```
-
-有关 gRPC 工具支持的详细信息，请参阅使用 C# 的 gRPC 服务。
-
-ASP.NET Core 上的 gRPC 服务
-
-gRPC 服务可以托管在 ASP.NET Core 上。 这些服务与日志记录、依赖关系注入 (DI)、身份验证和授权等 ASP.NET Core 功能完全集成。
-
-将 gRPC 服务添加到 ASP.NET Core 应用
-
-gRPC 需要 Grpc.AspNetCore 包。 若要了解如何在 .NET 应用中配置 gRPC，请查看配置 gRPC。
-
-```
-
-### ASP.NET Core gRPC 服务项目模板提供了一个入门版服务：
-
-```
-
-public class GreeterService : Greeter.GreeterBase
-
-{
-
-  private readonly ILogger<GreeterService> _logger;
-
-  public GreeterService(ILogger<GreeterService> logger)
-
-  {
-
-    _logger = logger;
-
-  }
-
-  public override Task<HelloReply> SayHello(HelloRequest request,
-
-    ServerCallContext context)
-
-  {
-
-    _logger.LogInformation("Saying hello to {Name}", request.Name);
-
-    return Task.FromResult(new HelloReply 
-
-    {
-
-      Message = "Hello " + request.Name
-
-    });
-
-  }
-
-}
-
-GreeterService 继承自 GreeterBase 类型，后者是从 .proto 文件的 Greeter 服务生成的。 Startup.csProgram.cs 中的客户端可以访问该服务：
-
-app.MapGrpcService<GreeterService>();
-
-若要详细了解 ASP.NET Core 上的 gRPC 服务，请参阅使用 ASP.NET Core 的 gRPC 服务。
-
-```
-
-### 使用 .NET 客户端调用 gRPC 服务
-
-```
-
-gRPC 客户端是从 .proto 文件生成的具体客户端类型。 具体 gRPC 客户端具有转换为 .proto 文件中 gRPC 服务的方法。
-
-var channel = GrpcChannel.ForAddress("https://localhost:5001");
-
-var client = new Greeter.GreeterClient(channel);
-
-var response = await client.SayHelloAsync(
-
-  new HelloRequest { Name = "World" });
-
-Console.WriteLine(response.Message);
-
-gRPC 客户端是使用通道创建的，该通道表示与 gRPC 服务的长期连接。 可以使用 GrpcChannel.ForAddress 创建通道。
-
-有关创建客户端、调用不同服务方法的详细信息，请参阅使用 .NET 客户端调用 gRPC 服务。
-
-```
+# LabView
+
+## LabⅥEW基础知识
+
+LabⅥEW编程环境
+前面板
+程序框图
+菜单栏
+工具栏
+项目浏览器窗口
+Xcontrol
+XControl对于用户来说，和普通的控件没有区别，但XControl对于开发者来说，除了有自定义外观外，还能自定义行为。
+可以将控件的功能封装起来，使其和应用程序代码分离。同时有助于重用。
+创建XControl
+新建XCtrl：
+Data.ctl: 指定了XCtrl的数据类型；
+State.ctl: 指定了除数据类型之外其他影响XCtrl外观的信息，其他所有数据的定义放在此处；
+Init.vi: 当XCtrl第一次被放置在前面板上或含有XCtrl的vi第一次被载入内存时，初始化显示状态。
+新建Method，定义XCtrl支持的方法（类似于类的成员函数），用于操作State中的数据；这里实现各种具体的操作。
+新建Property，定义了XCtrl的可读取属性（类似于LabVIEW类的accessor的工作），用于读取XCtrl中的数据；
+修改facade vi，用于定制XControl的外观，创建各种状态改变事件。
+X控件的本质是为控件事先定义好一系列可以响应的事件，之后使用控件时，就可以在控件的属性或调用节点中看到这些事件，像操作普通控件一样，调用这些节点来执行特定操作。
+以LabVIEW自带的摄氏华氏温度转换XCtrl为例：
+
+## 前面板设计
+
+前面板
+“工具”选板
+图标/连接器
+选板可见性设置
+前面板控件
+“控件”选板
+控件样式
+对象的设置
+选择对象
+删除对象
+变更对象位置
+属性节点
+设置前面板的外观
+改变对象的大小
+改变对象的颜色
+设置对象的字体
+菜单设计
+菜单编辑器
+“菜单”函数
+
+## 程序框图与程序结构
+
+程序框图
+循环结构
+For循环及并行循环
+移位寄存器
+While循环
+反馈节点
+条件结构
+顺序结构
+事件结构
+程序框图禁用结构
+条件禁用结构
+定时循环
+定时循环和定时顺序结构
+配置定时循环和定时顺序结构
+同步开始定时结构和中止定时结构的执行
+公式节点
+程序逻辑的公式节点
+
+## 数值字符串与布尔运算
+
+数值控件
+数值型控件
+布尔型控件和单选按钮
+字符串与路径控件
+数值运算
+数值函数
+三角函数
+字符串运算
+字符串常量
+字符串函数
+其余运算
+布尔运算
+比较运算
+定时运算
+图形与声音运算
+
+## 数组、矩阵与簇
+
+数组控件
+
+#### 数组、矩阵和簇控件
+
+#### 列表框、树形控件和表格
+
+#### 容器控件
+
+#### 实例——数组分类
+
+数组
+
+#### 数组的组成
+
+#### 实例——创建数组控件
+
+#### 实例——创建多维数组控件
+
+#### 数组函数
+
+#### 实例——比较数组
+
+#### 实例——选项卡数组
+
+簇
+
+#### 簇的组成
+
+#### 创建簇
+
+#### 实例——创建簇控件
+
+#### 实例——调整“簇”控件顺序
+
+#### 簇函数
+
+#### 实例——使用“捆绑”函数创建“簇”控件
+
+矩阵
+
+#### 创建矩阵
+
+#### 矩阵函数
+
+#### 实例——创建矩阵控件
+
+#### 实例——矩阵变换
+
+### 综合实例——矩形的绘制
+
+## 数据图形显示
+
+图形控件
+图形和图表
+下拉列表与枚举控件
+I/O控件
+修饰控件
+对象和应用程序的引用
+.NET与ActiveX控件
+图表图形
+波形图
+波形图表
+XY图
+强度图
+强度图表
+二维图形
+罗盘图
+误差线图
+羽状图
+XY曲线矩阵
+三维图形
+三维曲面图
+三维参数图
+三维曲线图
+极坐标图
+
+## 数学函数
+
+数学函数运算
+线性代数Ⅵ
+特殊矩阵
+矩阵的基本运算
+矩阵的分解
+特征值
+线性方程组
+初等与特殊函数
+指数函数
+双曲函数
+离散数学
+贝塞尔曲线
+Gamma函数
+超几何函数
+椭圆积分函数
+指数积分函数
+误差函数
+椭圆与抛物函数
+拟合Ⅵ
+曲线拟合
+拟合函数
+内插与外推Ⅵ
+概率与统计Ⅵ
+累积分布函数（连续）
+逆累积分布函数（连续
+累积分布函数（离散）
+逆累积分布函数（离散）
+方差分析Ⅵ
+很优化Ⅵ
+微分方程Ⅵ
+多项式Ⅵ
+
+## 波形运算
+
+波形数据
+变体函数
+时间标识
+波形生成
+基本函数发生器
+正弦波形
+公式波形
+基本混合单频
+混合单频与噪声波形
+基本带幅值混合单频
+混合单频信号发生器
+均匀白噪声波形
+周期性随机噪声波形
+伯努利噪声波形
+仿真信号
+基本波形函数
+获取波形成分
+创建波形
+“设置波形属性”函数和“获取波形属性”函数
+“索引波形数组”函数
+“获取波形子集”函数
+模拟波形
+数字波形Ⅵ和函数
+波形调理
+数字FIR滤波器
+数字IIR滤波器
+按窗函数缩放
+波形对齐（连续）
+波形对齐（单次）
+连续卷积（FIR）
+滤波器
+对齐和重采样
+触发与门限
+波形测量
+基本平均直流——均方根
+瞬态特性测量
+提取单频信息
+快速傅里叶变换频谱（幅度——相位）
+频率响应函数（幅度——相位）
+频谱测量
+失真测量
+幅值和电平测量
+波形监测
+信号生成与处理
+信号生成
+基于持续时间的信号发生器
+混合单频与噪声
+高斯调制正弦波
+正弦信号
+正弦波
+均匀白噪声
+任意波形发生器
+信号运算
+卷积和相关ExpressⅥ
+缩放和映射
+窗
+滤波器
+巴特沃斯滤波器
+切比雪夫滤波器
+FIR加窗滤波器
+贝塞尔滤波器
+谱分析
+变换
+FFT
+FHT
+反FFT
+反FHT
+逐点
+
+### 信号生成
+
+信号运算
+滤波器
+谱分析
+变换
+线性代数
+
+## 文件管理
+
+文件数据
+路径
+文件I/O格式
+文件操作
+文件常量
+文件类型
+文本文件
+带分隔符电子表格文件
+二进制文件
+配置文件
+TDMS
+存储/数据插件
+Zip文件
+XML格式
+波形文件I/O函数
+不错文件函数
+数据记录文件的创建和读取
+记录前面板数据
+数据与XML格式间的相互转换
+
+## 数据采集
+
+数据采集基础
+DAQ功能概述
+
+## 通信技术
+
+串行通信技术
+串行通信介绍
+ⅥSA配置串口
+DataSocket技术
+读取DataSocket
+写入DataSocket
+打开DataSocket
+关闭DataSocket
+TCP
+TCP侦听
+打开TCP连接
+读取TCP数据
+写入TCP数据
+UDP通信

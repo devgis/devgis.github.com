@@ -5,7 +5,6 @@ description: JAVA相关技术基础SpringBoot,Spring Cloud等相关技术总结
 date: 2022-10-01 09:01:01
 updatedate: 2023-08-23 10:24:01
 ---
-
 - [Java 基础](#java-基础)
   - [JDK下载](#jdk下载)
   - [Java 关键字](#java-关键字)
@@ -28,17 +27,17 @@ updatedate: 2023-08-23 10:24:01
 - [Spring Cloud](#spring-cloud)
 - [Maven](#maven)
 
-## Java 基础
+# Java 基础
 
-### JDK下载
+## JDK下载
 
 [JDK17](https://www.oracle.com/java/technologies/downloads/#jdk17-windows)
 
-### Java 关键字
+## Java 关键字
 
 > abstract 、assert 、boolean、break、byte、case、catch、char、class、const、continue、default 、do、double、else、enum、extends、final、finally、float、for、goto、if、implements、import、instanceof、int、interface、long、native、new、package、private、protected、public、return、short 、static、strictfp、super、switch、synchronized、this 、throw、throws、transient 、try 、void、volatile、while
 
-### Java 基本数据类型 
+## Java 基本数据类型 
 
 > 逻辑类型：boolean
 
@@ -48,13 +47,13 @@ updatedate: 2023-08-23 10:24:01
 
 > 字符类型：char
 
-### Java 数组
+## Java 数组
 
 > int[] nums = new int[] {1,2,3,4,5,6,7};
 
 > String[] names = new String[4];
 
-### Java运算符
+## Java运算符
 
 > 算术
 
@@ -88,9 +87,9 @@ updatedate: 2023-08-23 10:24:01
 
 > > = += -= *= /= %= &= ^= |= <<= >>=
 
-> instanceof 相当于c## 的is 
+> instanceof 相当于c# 的is 
 
-> > java 中也没有c## 中的as 
+> > java 中也没有c# 中的as 
 
 ```
 User user = null;
@@ -109,7 +108,7 @@ if(obj instanceof User) {
 
 > > 按优先级从高到低排列如下：[ ] ( ) ++ -- ! ～ instanceof * / % + - << >> >>> <> < = > \ == != &^& & || ? := op= 。
 
-### Java 基础语句
+## Java 基础语句
 
 > if (){}else if(){} else{} 
 
@@ -125,7 +124,7 @@ if(obj instanceof User) {
 
 > int[ ][ ] ints = new int[2][3];
 
-### Java 集合类型
+## Java 集合类型
 
 > List(有序、可重复)，有三种 ArrayList，Vector，LinkList
 
@@ -147,7 +146,7 @@ if(obj instanceof User) {
 
 > > m.put("3", "张三");
 
-### JAVA 注解
+## JAVA 注解
 
 > Java自带的标准注解
 > > 包括@Override、@Deprecated、@SuppressWarnings等，使用这些注解后编译器就会进行检查。
@@ -162,7 +161,7 @@ if(obj instanceof User) {
 
 > > 用户可以根据自己的需求定义注解。
 
-### Springboot Helloworld!
+## Springboot Helloworld!
 
 > 本代码使用VS Code Java17
 
@@ -252,7 +251,7 @@ if(obj instanceof User) {
 
 > > @InitBinder
 
-### MVC 使用静态Html
+## MVC 使用静态Html
 
 > Controller :PersonController
 
@@ -262,13 +261,13 @@ if(obj instanceof User) {
 
 > 页面访问地址：http://localhost:8080/persons/all
 
-### 返回Json
+## 返回Json
 
 > 使用阿里巴巴 fastjson
 
 > Demo 地址在：http://localhost:8080/api/hello/list
 
-### SpringSecurity + JWT 实现用户访问认证和授权
+## SpringSecurity + JWT 实现用户访问认证和授权
 
 > > JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案，本文介绍它的原理和用法。
 
@@ -278,23 +277,23 @@ if(obj instanceof User) {
 
 > > 其中使用了BCryptPasswordEncoder是Spring Security中的一个加密方法。BCryptPasswordEncoder方法采用了SHA-256+随机盐+密钥对密码进行加密。
 
-### 集成Mybatis数据访问
+## 集成Mybatis数据访问
 
 > 集成Mybatis 读写分离， 但是写的方法暂时没有用到
 
-### 集成 Swagger3 OpenAPI
+## 集成 Swagger3 OpenAPI
 
 > 访问地址 ：http://localhost:8080/swagger-ui/index.html
 
 > > Swagger 是一个 API文档维护组织，后来成为了 Open API 标准的主要定义者。现在最新的版本为17年发布的 Swagger3（Open Api3）。
 
-### 集成 Swagger3 OpenAPI
+## 集成 Swagger3 OpenAPI
 
-### 集成 slf4j 日志
+## 集成 slf4j 日志
 
 > 日志配置文件在 resources/logger-config.xml 部分内容在 application.properties中配置。
 
-## JavaEE
+# JavaEE
 
 > J2EE平台由一整套服务（Services）、应用程序接口（APIs）和协议构成，它对开发基于Web的多层应用提供了功能支持，下面对J2EE中的13种技术规范进行简单的描述(限于篇幅，这里只能进行简单的描述): 
 
@@ -350,7 +349,7 @@ if(obj instanceof User) {
 
 > > JavaMail利用JAF来处理MIME编码的邮件附件。MIME的字节流可以被转换成Java对象，或者转换自Java对象。大多数应用都可以不需要直接使用JAF。
 
-## Spring & SpringBoot
+# Spring & SpringBoot
 
 > spring框架及spring cloud框架主要组件
 
@@ -404,7 +403,7 @@ if(obj instanceof User) {
 
 > > Spring REST Shell：可以调用Rest服务的命令行工具，敲命令行操作Rest服务。
 
-## Spring Cloud
+# Spring Cloud
 
 > Spring cloud子项目包括：
 
@@ -468,7 +467,7 @@ if(obj instanceof User) {
 
 > > 修改配置文件时，可以在不停止服务运行的情况下重新加载配置。
 
-## Maven
+# Maven
 
 > ubuntu 使用 sudo apt install maven 安装
 

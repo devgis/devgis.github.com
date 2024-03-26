@@ -1,12 +1,11 @@
 ---
 layout: post
-title:  人工智能深度学习与数学学习总结
-description: AI人工智能，深度学习，神经网络，数学，算法，数据结构等学习归纳总结 
+title: AI人工智能机器学习等的总结
+description: 关于AI人工智能机器学习以及涉及的相关学习等的知识总结
 date: 2022-10-01 09:01:01
-updatedate: 2023-05-24 13:59:01
+updatedate: 2024-03-26 11:08:11
 ---
-
-- [人工智能与机器学习目录](#人工智能与机器学习目录)
+- [人工智能](#人工智能)
   - [人工智能概述](#人工智能概述)
   - [机器学习中的数学基础](#机器学习中的数学基础)
   - [机器学习模型的度量指标](#机器学习模型的度量指标)
@@ -37,6 +36,14 @@ updatedate: 2023-05-24 13:59:01
   - [主流AI云平台](#主流ai云平台)
   - [图像处理基础](#图像处理基础)
   - [程序切片技术](#程序切片技术)
+- [机器学习过程](#机器学习过程)
+  - [步骤总结如下：](#步骤总结如下)
+- [机器学习分类](#机器学习分类)
+  - [监督学习](#监督学习)
+  - [非监督学习](#非监督学习)
+- [机器学习导论](#机器学习导论)
+- [深度学习](#深度学习)
+- [深度学习和机器学习](#深度学习和机器学习)
 - [人工智能概述](#人工智能概述-1)
   - [GPU](#gpu)
   - [InfiniBand](#infiniband)
@@ -157,12 +164,13 @@ updatedate: 2023-05-24 13:59:01
     - [Support Vector Machines(支持向量机)](#support-vector-machines支持向量机)
     - [Tutorial exercises(教程练习)](#tutorial-exercises教程练习)
     - [Working with text documents(使用文本文档)](#working-with-text-documents使用文本文档)
+- [Pandas](#pandas)
 - [PyTorch 库](#pytorch-库)
 - [SynapseML（Microsoft）](#synapsemlmicrosoft)
 - [主流机器学习类库介绍](#主流机器学习类库介绍)
 - [总结](#总结)
 
-## 人工智能与机器学习目录
+## 人工智能
 
 ### 人工智能概述
 
@@ -192,7 +200,7 @@ updatedate: 2023-05-24 13:59:01
 
 ### 机器学习中的数学基础
 
-> 微分学  
+> 微分学
 
 > 链式求导法则
 
@@ -202,7 +210,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 线性代数
 
-> 向量  
+> 向量
 
 > 矩阵拼接
 
@@ -210,7 +218,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 仿射变换
 
-> 概率论  
+> 概率论
 
 > 概率分布
 
@@ -220,7 +228,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 贝叶斯法则
 
-> 统计学  
+> 统计学
 
 > 数据的标准化和归一化
 
@@ -230,9 +238,9 @@ updatedate: 2023-05-24 13:59:01
 
 > 协方差和协方差矩阵
 
-> 化理论  
+> 化理论
 
-> 概述  
+> 概述
 
 > 函数等高线
 
@@ -240,9 +248,9 @@ updatedate: 2023-05-24 13:59:01
 
 > 拉格朗日对偶性
 
-> KKT  
+> KKT
 
-> 其他 
+> 其他
 
 > 训练、验证和测试数据集
 
@@ -252,9 +260,9 @@ updatedate: 2023-05-24 13:59:01
 
 > 信息熵
 
-> IOU  
+> IOU
 
-> NMS  
+> NMS
 
 > Huffman树
 
@@ -294,7 +302,7 @@ updatedate: 2023-05-24 13:59:01
 
 ### K-NN算法
 
-> K-NN概述  
+> K-NN概述
 
 > K-NN分类算法
 
@@ -330,7 +338,7 @@ updatedate: 2023-05-24 13:59:01
 
 ### 决策树和随机森林
 
-> 决策树  
+> 决策树
 
 > 决策树的主要组成元素
 
@@ -362,19 +370,19 @@ updatedate: 2023-05-24 13:59:01
 
 > SVM化问题
 
-> 硬间隔SVM  
+> 硬间隔SVM
 
-> 软间隔SVM  
+> 软间隔SVM
 
-> 核函数技巧  
+> 核函数技巧
 
-> 多分类SVM  
+> 多分类SVM
 
 > SVM实践
 
 ### PCA降维
 
-> 降维概述  
+> 降维概述
 
 > PCA降维实现原理
 
@@ -384,7 +392,7 @@ updatedate: 2023-05-24 13:59:01
 
 > PCA的核心处理过程
 
-> PCA实例  
+> PCA实例
 
 ### 集成学习
 
@@ -410,9 +418,9 @@ updatedate: 2023-05-24 13:59:01
 
 ### 深度神经网络
 
-> 神经元  
+> 神经元
 
-> 激活函数  
+> 激活函数
 
 > > Sigmoid
 
@@ -428,7 +436,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 前向传播和后向传播算法
 
-> 损失函数  
+> 损失函数
 
 > 分类场景
 
@@ -450,7 +458,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > Softmax层
 
-> CNN经典框架  
+> CNN经典框架
 
 > > LeNet
 
@@ -474,13 +482,13 @@ updatedate: 2023-05-24 13:59:01
 
 ### RNN与LSTM
 
-> RNN 
+> RNN
 
 > RNN的多种形态
 
 > RNN存在的不足
 
-> LSTM  
+> LSTM
 
 > LSTM核心框架
 
@@ -490,7 +498,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > 输出门
 
-> > GRU 
+> > GRU
 
 ### 深度强化学习
 
@@ -512,7 +520,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 时间差分算法
 
-> DQN  
+> DQN
 
 > 基于策略的强化学习算法
 
@@ -522,7 +530,7 @@ updatedate: 2023-05-24 13:59:01
 
 ### MCTS
 
-> MCTS概述  
+> MCTS概述
 
 > MCTS算法核心处理过程
 
@@ -564,7 +572,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 其他
 
-> 数据增强  
+> 数据增强
 
 > CNN核心组件择优
 
@@ -604,7 +612,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 视觉识别概述
 
-> R-CNN 
+> R-CNN
 
 > R-CNN简述
 
@@ -630,9 +638,9 @@ updatedate: 2023-05-24 13:59:01
 
 > 分类器和边框回归
 
-> YOLO  
+> YOLO
 
-> SSD  
+> SSD
 
 > SSD的网络框架
 
@@ -648,7 +656,7 @@ updatedate: 2023-05-24 13:59:01
 
 ### 自然语言处理和CNN
 
-> NLP简述  
+> NLP简述
 
 > NLP发展历史
 
@@ -664,9 +672,9 @@ updatedate: 2023-05-24 13:59:01
 
 > > 基于神经网络的语言模型—NNLM的改进者CBOW模型
 
-> > 基于神经网络的语言模型—NNLM的改进者Skip-gram模型  
+> > 基于神经网络的语言模型—NNLM的改进者Skip-gram模型
 
-> word2vec  
+> word2vec
 
 > word2vec简介
 
@@ -686,13 +694,13 @@ updatedate: 2023-05-24 13:59:01
 
 > 应用程序场景识别背景
 
-> 特征向量  
+> 特征向量
 
-> 数据采集  
+> 数据采集
 
-> 算法模型  
+> 算法模型
 
-> 落地应用  
+> 落地应用
 
 ### 软件自动修复
 
@@ -736,11 +744,11 @@ updatedate: 2023-05-24 13:59:01
 
 > AlphaGO核心原理
 
-> 策略网络  
+> 策略网络
 
-> 估值网络  
+> 估值网络
 
-> MCTS  
+> MCTS
 
 > 机器学习平台篇
 
@@ -754,7 +762,7 @@ updatedate: 2023-05-24 13:59:01
 
 > GPU的共享访问
 
-> 网络标准  
+> 网络标准
 
 > Ethernet
 
@@ -878,13 +886,13 @@ updatedate: 2023-05-24 13:59:01
 
 > Google Cloud
 
-> Baidu  
+> Baidu
 
 > 百度AI云服务
 
 > PaddlePaddle
 
-> Alibaba 
+> Alibaba
 
 > 阿里飞天平台
 
@@ -910,7 +918,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > 饱和度
 
-> 图像特征  
+> 图像特征
 
 > > 颜色特征
 
@@ -922,7 +930,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > LBP
 
-> > HOG  
+> > HOG
 
 > H> aar-like 特征
 
@@ -964,6 +972,344 @@ updatedate: 2023-05-24 13:59:01
 
 > 基于PDG的动态切片算法
 
+## 机器学习过程
+
+### 步骤总结如下：
+
+*   导入需要的Python依赖库。两个重要的库：Numpy、Pandas。
+*   导入数据集（Data sets）。
+*   处理缺失数据（Missing data）和分类数据（Categorical data ）。
+*   将原始数据集分成训练和测试两部分。
+*   明确预测目的，生成y。
+*   筛选特征，生成x。特征可以理解成影响预测结果的要素。
+*   模型训练。要掌握机器学习常见的几种模型，学习成本较高。
+*   做出预测，评估结果，修正模型。
+
+## 机器学习分类
+
+### 监督学习
+
+通过人为地输入带有标签的训练数据集，使计算机训练得到一个较为合适的模型，对未知标签的数据进行预测。常见的监督学习算法：回归和分类。
+
+1.回归(Regression)：通常有两个及以上变量，数据一般是连续的，通过训练集变量之间的关系得到一条模拟训练样本的曲线，对未知数据的因变量进行预测，其中包括线性回归和非线性回归。如房价与面积的问题，就是线性回归。
+
+2.分类(Classfication): 通常用于预测某件事发生的概率，也是输入带有标签的训练集，数据一般是离散的，比如推测某人是否患有肺癌，通过样本训练，可以得到自变量(如是否有吸烟史，是否生活在雾霾地区)的权重，根据该权值可以根据危险因素预测他患肺癌的可能性。
+
+### 非监督学习
+
+由于在许多实际应用中，事先并不知道产生的数据的类别，也没有训练样本对应的类别，所以要从这些没有被标记的数据集学习分类器设计，通过数据之间的内在联系和相似性将他们分成若干类。非监督学习的方法主要有以下两类。
+
+1.基于概率密度函数估计的直接方法：通过分解各个类别的概率密度函数，再将每个类别划分到特征空间，用贝叶斯决策方法设计分类器。
+
+2.基于样本间相似度间接聚类方法：其中非迭代的分级聚类算法——把每一个样本都看成一个类别，给定两个样本相似度的计算方法，计算两个样本的相似度，把相似度最大的类进行合并，在计算新的类与类之间的相似度，直到把相似的所有样本合为一个类为止。
+
+## 机器学习导论
+
+> 第1章引言1
+> 1.1什么是机器学习1
+> 1.2机器学习的应用实例2
+> 1.2.1学习关联性2
+> 1.2.2分类3
+> 1.2.3回归5
+> 1.2.4非监督学习6
+> 1.2.5增强学习7
+> 1.3注释8
+> 1.4相关资源10
+> 1.5习题11
+> 1.6参考文献12
+> 第2章监督学习13
+> 2.1由实例学习类13
+> 2.2VC维16
+> 2.3概率近似正确学习16
+> 2.4噪声17
+> 2.5学习多类18
+> 2.6回归19
+> 2.7模型选择与泛化21
+> 2.8监督机器学习算法的维23
+> 2.9注释24
+> 2.10习题25
+> 2.11参考文献26
+> 第3章贝叶斯决策理论27
+> 3.1引言27
+> 3.2分类28
+> 3.3损失与风险29
+> 3.4判别式函数30
+> 3.5关联规则31
+> 3.6注释33
+> 3.7习题33
+> 3.8参考文献36
+> 第4章参数方法37
+> 4.1引言37
+> 4.2最大似然估计37
+> 4.2.1伯努利密度38
+> 4.2.2多项式密度38
+> 4.2.3高斯（正态）密度39
+> 4.3评价估计：偏倚和方差39
+> 4.4贝叶斯估计40
+> 4.5参数分类42
+> 4.6回归44
+> 4.7调整模型的复杂度：偏倚/方差两难选择46
+> 4.8模型选择过程49
+> 4.9注释51
+> 4.10习题51
+> 4.11参考文献53
+> 第5章多元方法54
+> 5.1多元数据54
+> 5.2参数估计54
+> 5.3缺失值估计55
+> 5.4多元正态分布56
+> 5.5多元分类57
+> 5.6调整复杂度61
+> 5.7离散特征62
+> 5.8多元回归63
+> 5.9注释64
+> 5.10习题64
+> 5.11参考文献66
+> 第6章维度归约67
+> 6.1引言67
+> 6.2子集选择67
+> 6.3主成分分析70
+> 6.4特征嵌入74
+> 6.5因子分析75
+> 6.6奇异值分解与矩阵分解78
+> 6.7多维定标79
+> 6.8线性判别分析82
+> 6.9典范相关分析85
+> 6.10等距特征映射86
+> 6.11局部线性嵌入87
+> 6.12拉普拉斯特征映射89
+> 6.13注释90
+> 6.14习题91
+> 6.15参考文献92
+> 第7章聚类94
+> 7.1引言94
+> 7.2混合密度94
+> 7.3k均值聚类95
+> 7.4期望最大化算法98
+> 7.5潜在变量混合模型100
+> 7.6聚类后的监督学习101
+> 7.7谱聚类102
+> 7.8层次聚类103
+> 7.9选择簇个数104
+> 7.10注释104
+> 7.11习题105
+> 7.12参考文献106
+> 第8章非参数方法107
+> 8.1引言107
+> 8.2非参数密度估计108
+> 8.2.1直方图估计108
+> 8.2.2核估计109
+> 8.2.3k最近邻估计110
+> 8.3推广到多变元数据111
+> 8.4非参数分类112
+> 8.5精简的最近邻112
+> 8.6基于距离的分类113
+> 8.7离群点检测115
+> 8.8非参数回归：光滑模型116
+> 8.8.1移动均值光滑116
+> 8.8.2核光滑117
+> 8.8.3移动线光滑119
+> 8.9如何选择光滑参数119
+> 8.10注释120
+> 8.11习题121
+> 8.12参考文献122
+> 第9章决策树124
+> 9.1引言124
+> 9.2单变量树125
+> 9.2.1分类树125
+> 9.2.2回归树128
+> 9.3剪枝130
+> 9.4由决策树提取规则131
+> 9.5由数据学习规则132
+> 9.6多变量树134
+> 9.7注释135
+> 9.8习题137
+> 9.9参考文献138
+> 第10章线性判别式139
+> 10.1引言139
+> 10.2推广线性模型140
+> 10.3线性判别式的几何意义140
+> 10.3.1两类问题140
+> 10.3.2多类问题141
+> 10.4逐对分离142
+> 10.5参数判别式的进一步讨论143
+> 10.6梯度下降144
+> 10.7逻辑斯谛判别式145
+> 10.7.1两类问题145
+> 10.7.2多类问题147
+> 10.8回归判别式150
+> 10.9学习排名151
+> 10.10注释152
+> 10.11习题152
+> 10.12参考文献154
+> 第11章多层感知器155
+> 11.1引言155
+> 11.1.1理解人脑155
+> 11.1.2神经网络作为并行处理的典范156
+> 11.2感知器157
+> 11.3训练感知器159
+> 11.4学习布尔函数160
+> 11.5多层感知器161
+> 11.6作为普适近似的MLP162
+> 11.7向后传播算法163
+> 11.7.1非线性回归163
+> 11.7.2两类判别式166
+> 11.7.3多类判别式166
+> 11.7.4多个隐藏层167
+> 11.8训练过程167
+> 11.8.1改善收敛性167
+> 11.8.2过分训练168
+> 11.8.3构造网络169
+> 11.8.4线索169
+> 11.9调整网络规模170
+> 11.10学习的贝叶斯观点172
+> 11.11维度归约173
+> 11.12学习时间174
+> 11.12.1时间延迟神经网络175
+> 11.12.2递归网络175
+> 11.13深度学习176
+> 11.14注释177
+> 11.15习题178
+> 11.16参考文献180
+> 第12章局部模型182
+> 12.1引言182
+> 12.2竞争学习182
+> 12.2.1在线k均值182
+> 12.2.2自适应共鸣理论184
+> 12.2.3自组织映射185
+> 12.3径向基函数186
+> 12.4结合基于规则的知识189
+> 12.5规范化基函数190
+> 12.6竞争的基函数191
+> 12.7学习向量量化193
+> 12.8混合专家模型193
+> 12.8.1协同专家模型194
+> 12.8.2竞争专家模型195
+> 12.9层次混合专家模型195
+> 12.10注释196
+> 12.11习题196
+> 12.12参考文献198
+> 第13章核机器200
+> 13.1引言200
+> 13.2最佳分离超平面201
+> 13.3不可分情况：软边缘超平面203
+> 13.4vSVM205
+> 13.5核技巧205
+> 13.6向量核206
+> 13.7定义核207
+> 13.8多核学习208
+> 13.9多类核机器209
+> 13.10用于回归的核机器210
+> 13.11用于排名的核机器212
+> 13.12一类核机器213
+> 13.13大边缘最近邻分类215
+> 13.14核维度归约216
+> 13.15注释217
+> 13.16习题217
+> 13.17参考文献218
+> 第14章图方法221
+> 14.1引言221
+> 14.2条件独立的典型情况222
+> 14.3生成模型226
+> 14.4d分离227
+> 14.5信念传播228
+> 14.5.1链228
+> 14.5.2树229
+> 14.5.3多树230
+> 14.5.4结树232
+> 14.6无向图：马尔科夫随机场232
+> 14.7学习图模型的结构234
+> 14.8影响图234
+> 14.9注释234
+> 14.10习题235
+> 14.11参考文献237
+> 第15章隐马尔科夫模型238
+> 15.1引言238
+> 15.2离散马尔科夫过程238
+> 15.3隐马尔科夫模型240
+> 15.4HMM的三个基本问题241
+> 15.5估值问题241
+> 15.6寻找状态序列244
+> 15.7学习模型参数245
+> 15.8连续观测247
+> 15.9HMM作为图模型248
+> 15.10HMM中的模型选择250
+> 15.11注释251
+> 15.12习题252
+> 15.13参考文献254
+> 第16章贝叶斯估计255
+> 16.1引言255
+> 16.2离散分布的参数的贝叶斯估计257
+> 16.2.1K>2个状态：狄利克雷分布257
+> 16.2.2K=2个状态:贝塔分布258
+> 16.3高斯分布的参数的贝叶斯估计258
+> 16.3.1一元情况：未知均值，已知方差258
+> 16.3.2一元情况:未知均值,未知方差259
+> 16.3.3多元情况:未知均值,未知协方差260
+> 16.4函数的参数的贝叶斯估计261
+> 16.4.1回归261
+> 16.4.2具有噪声精度先验的回归264
+> 16.4.3基或核函数的使用265
+> 16.4.4贝叶斯分类266
+> 16.5选择先验268
+> 16.6贝叶斯模型比较268
+> 16.7混合模型的贝叶斯估计270
+> 16.8非参数贝叶斯建模272
+> 16.9高斯过程272
+> 16.10狄利克雷过程和中国餐馆275
+> 16.11本征狄利克雷分配276
+> 16.12贝塔过程和印度自助餐277
+> 16.13注释278
+> 16.14习题278
+> 16.15参考文献279
+> 第17章组合多学习器280
+> 17.1基本原理280
+> 17.2产生有差异的学习
+
+## 深度学习
+
+深度学习（DL，Deep Learning）是[机器学习](https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/217599?fromModule=lemma_inlink)（ML，Machine Learning）领域中一个新的研究方向，它被引入机器学习使其更接近于最初的目标——[人工智能](https://baike.baidu.com/item/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/9180?fromModule=lemma_inlink)（AI，Artificial Intelligence）。^ \[1]^
+
+深度学习是学习[样本数据](https://baike.baidu.com/item/%E6%A0%B7%E6%9C%AC%E6%95%B0%E6%8D%AE/12726279?fromModule=lemma_inlink)的内在规律和表示层次，这些学习过程中获得的信息对诸如文字、图像和声音等数据的解释有很大的帮助。它的最终目标是让机器能够像人一样具有分析学习能力，能够识别文字、图像和声音等数据。 深度学习是一个复杂的机器学习算法，在语音和图像识别方面取得的效果，远远超过先前相关技术。^ \[1]^
+
+深度学习在[搜索技术](https://baike.baidu.com/item/%E6%90%9C%E7%B4%A2%E6%8A%80%E6%9C%AF/1447197?fromModule=lemma_inlink)、[数据挖掘](https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/216477?fromModule=lemma_inlink)、机器学习、[机器翻译](https://baike.baidu.com/item/%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91/411793?fromModule=lemma_inlink)、[自然语言处理](https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/365730?fromModule=lemma_inlink)、[多媒体学习](https://baike.baidu.com/item/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%AD%A6%E4%B9%A0/10528812?fromModule=lemma_inlink)、语音、推荐和个性化技术，以及其他相关领域都取得了很多成果。深度学习使机器模仿视听和思考等人类的活动，解决了很多复杂的模式识别难题，使得人工智能相关技术取得了很大进步。^ \[1]^
+
+深度学习是一类[模式分析](https://baike.baidu.com/item/%E6%A8%A1%E5%BC%8F%E5%88%86%E6%9E%90/12598452?fromModule=lemma_inlink)方法的统称，就具体研究内容而言，主要涉及三类方法：^ \[2]^
+
+（1）基于卷积运算的神经网络系统，即[卷积神经网络](https://baike.baidu.com/item/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/17541100?fromModule=lemma_inlink)（CNN）。^ \[2]^
+
+（2）基于多层神经元的自编码[神经网络](https://baike.baidu.com/item/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/16600562?fromModule=lemma_inlink)，包括自编码（Auto encoder）以及近年来受到广泛关注的[稀疏编码](https://baike.baidu.com/item/%E7%A8%80%E7%96%8F%E7%BC%96%E7%A0%81/10289670?fromModule=lemma_inlink)两类（Sparse Coding）。^ \[2]^
+
+（3）以多层自编码神经网络的方式进行预训练，进而结合鉴别信息进一步优化神经网络权值的[深度置信网络](https://baike.baidu.com/item/%E6%B7%B1%E5%BA%A6%E7%BD%AE%E4%BF%A1%E7%BD%91%E7%BB%9C/52718542?fromModule=lemma_inlink)（DBN）。^ \[2]^
+
+通过多层处理，逐渐将初始的“低层”特征表示转化为“高层”特征表示后，用“简单模型”即可完成复杂的分类等学习任务。由此可将深度学习理解为进行“特征学习”（feature learning）或“表示学习”（representation learning）。^ \[3]^
+
+以往在机器学习用于现实任务时，描述样本的特征通常需由人类专家来设计，这成为“特征工程”（feature engineering）。众所周知，特征的好坏对泛化性能有至关重要的影响，人类专家设计出好特征也并非易事；特征学习（[表征学习](https://baike.baidu.com/item/%E8%A1%A8%E5%BE%81%E5%AD%A6%E4%B9%A0/2140515?fromModule=lemma_inlink)）则通过机器学习技术自身来产生好特征，这使机器学习向“全自动数据分析”又前进了一步。^ \[3]^
+
+近年来，研究人员也逐渐将这几类方法结合起来，如对原本是以有监督学习为基础的卷积神经网络结合自编码神经网络进行无监督的预训练，进而利用鉴别信息微调网络参数形成的[卷积](https://baike.baidu.com/item/%E5%8D%B7%E7%A7%AF/9411006?fromModule=lemma_inlink)深度置信网络。与传统的学习方法相比，深度学习方法预设了更多的模型参数，因此模型训练难度更大，根据统计学习的一般规律知道，模型参数越多，需要参与训练的数据量也越大。^ \[2]^
+
+20世纪八九十年代由于计算机计算能力有限和相关技术的限制，可用于分析的数据量太小，深度学习在模式分析中并没有表现出优异的识别性能。自从2006年，Hinton等提出快速计算受限[玻耳兹曼机](https://baike.baidu.com/item/%E7%8E%BB%E8%80%B3%E5%85%B9%E6%9B%BC%E6%9C%BA/53433837?fromModule=lemma_inlink)（RBM）网络权值及偏差的CD-K算法以后，RBM就成了增加神经网络深度的有力工具，导致后面使用广泛的DBN（由Hinton等开发并已被微软等公司用于语音识别中）等深度网络的出现。与此同时，稀疏编码等由于能自动从数据中提取特征也被应用于深度学习中。基于局部数据区域的卷积神经网络方法近年来也被大量研究。^ \[2]^
+
+## 深度学习和机器学习
+
+深度学习和机器学习是两种不同的机器学习方法，它们在数据依赖性、硬件支持、特征工程、解决方案、执行时间、模型复杂度、数据量和应用场景等方面有所区别：
+
+*   数据依赖性。深度学习需要大量的数据来学习模式，而传统的机器学习算法在数据量较少时表现更好。^123^
+
+*   硬件支持。深度学习算法严重依赖高端计算设备（如GPU），而传统的机器学习算法可以在低端设备上运行。^13^
+
+*   特征工程。深度学习算法可以自动从原始数据中提取高级特征，而传统的机器学习算法通常需要人工提取特征。^1345^
+
+*   解决方案。传统的机器学习算法通常将问题分解为多个子问题，然后分别解决，而深度学习更倾向于端到端地解决问题。
+
+*   执行时间。深度学习模型由于参数众多，训练时间会更长。^12^
+
+*   模型复杂度。深度学习构建的多层神经网络模型比传统的线性或非线性模型更复杂。^456^
+
+*   数据量。深度学习算法在数据量较大时性能更优，而传统的机器学习算法在数据量较小时表现更好。^234^
+
+*   应用场景。深度学习在图像识别、语音识别、自然语言处理等领域表现出色，而传统的机器学习算法则广泛应用于数据挖掘和数据分析。^2567^
+
 ## 人工智能概述
 
 > 现在的人工智能似乎都是数学方法，把所有的如语言，属性等用书学的形式，如数组，矩阵来表示。然后通过各种复杂的数学运算来进行预测分析。每一种似乎还搞出了很多算法。这些算法或多或少的都存在不少问题，在进行图像数字分析的时候就会存在失效的问题。
@@ -998,9 +1344,9 @@ updatedate: 2023-05-24 13:59:01
 
 > F1,Fb
 
-> 语音识别：错字律（Word Error Rate）WER=（S（替换）+D（删除）+I（插入））/N（单词总量）*100%
+> 语音识别：错字律（Word Error Rate）WER=（S（替换）+D（删除）+I（插入））/N（单词总量）\*100%
 
-> 语音合成 声学参数评估，性能评估，功耗评估，ABX，MOS（A&&M 需要人工参与）
+> 语音合成 声学参数评估，性能评估，功耗评估，ABX，MOS（A&\&M 需要人工参与）
 
 ### 混淆矩阵
 
@@ -1008,13 +1354,13 @@ updatedate: 2023-05-24 13:59:01
 
 ### ROC AOC （AOC是RO曲线所组成的面积）
 
-> Receiver Operating Characteristic 
+> Receiver Operating Characteristic
 
-> 接收器操作特性曲线或受试者工作特性曲线。 
+> 接收器操作特性曲线或受试者工作特性曲线。
 
 ### PRC 精确律召回曲线
 
-> Precision Recall Curve  
+> Precision Recall Curve
 
 > 横纵坐标分别是Precision Recall
 
@@ -1116,7 +1462,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 9.(secX)'=tanX secX；
 
-> 10.(cscX)'=-cotX cscX； 
+> 10.(cscX)'=-cotX cscX；
 
 > > 1.不是所有的函数都可以求导；
 
@@ -1128,21 +1474,21 @@ updatedate: 2023-05-24 13:59:01
 
 > 拉格朗日乘子法 用于求解（等式约束条件下的最优解）参数不足最优解。
 
-> KKT(来自三个人的名字) 适用于不等式约束条件的约束。 
+> KKT(来自三个人的名字) 适用于不等式约束条件的约束。
 
 ## 矩阵
 
-### 一、矩阵加法 
+### 一、矩阵加法
 
 > 两个矩阵相加或相减，需要满足两个矩阵的列数和行数一致。
 
 > 加法交换律：A + B = B + A
 
-> > a + b = [ a + a 1 b + a 2 c + b 1 d + b 2 ] (1) a+b= \left[
+> > a + b = \[ a + a 1 b + a 2 c + b 1 d + b 2 ] (1) a+b= \left\[
 
 ### 二、矩阵减法
 
-> a − b = [ a − a 1 b − a 2 c − b 1 d − b 2 ] 
+> a − b = \[ a − a 1 b − a 2 c − b 1 d − b 2 ]
 
 ### 三、矩阵乘法
 
@@ -1150,7 +1496,7 @@ updatedate: 2023-05-24 13:59:01
 
 > a矩阵的行元素乘以每一列然后相加作为新矩阵的行元素
 
-> a ∗ b = [ a ∗ a 1 + b ∗ b 1 a ∗ a 2 + b ∗ b 2 c ∗ a 1 + d ∗ b 1 c ∗ a 2 + d ∗ b 2 ] 
+> a ∗ b = \[ a ∗ a 1 + b ∗ b 1 a ∗ a 2 + b ∗ b 2 c ∗ a 1 + d ∗ b 1 c ∗ a 2 + d ∗ b 2 ]
 
 > 矩阵乘法不满足交换律，但是满足分配率和结合律,也就是说AB不等于BA
 
@@ -1204,7 +1550,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 灰度
 
-> > 彩色转灰度：最大值法，平均值法，加权平均值法，分量法 
+> > 彩色转灰度：最大值法，平均值法，加权平均值法，分量法
 
 > 亮度
 
@@ -1232,7 +1578,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > HOG 特征向量
 
-> Haar-like 
+> Haar-like
 
 > > AdaBoost可以帮助Haar在特征组合选择上做得更好
 
@@ -1240,7 +1586,7 @@ updatedate: 2023-05-24 13:59:01
 
 > > 利用傅立叶变换之后的图像消除噪点然后再还原回原图像，可以帮助消除图像上的噪点。
 
-> > 傅立叶变换还可以用来抉择采样频率和存储空间的问题 
+> > 傅立叶变换还可以用来抉择采样频率和存储空间的问题
 
 ## 普适计算(Uniquitous Computing)
 
@@ -1258,7 +1604,7 @@ updatedate: 2023-05-24 13:59:01
 
 #### 伯努利分布（Bernoulli Distribution）
 
-> 伯努利分布是指实验结果只有两种，如某种情况发生与不发生，病人康复与不康复，硬币的正面或反面，我们一般用0和1来表示这两种结果，因此伯努利分布有时也被称为0-1分布或是两点分布。通常假设事件发生的概率为p pp且0 < p < 1 0 < p < 10 < p < 1，那么不发生的概率是1 − p 1-p1−p（或称之为q = 1 − p q=1-pq=1−p），即P r ( X = 1 ) = p {P_r}(X =1) = 
+> 伯努利分布是指实验结果只有两种，如某种情况发生与不发生，病人康复与不康复，硬币的正面或反面，我们一般用0和1来表示这两种结果，因此伯努利分布有时也被称为0-1分布或是两点分布。通常假设事件发生的概率为p pp且0 < p < 1 0 < p < 10 < p < 1，那么不发生的概率是1 − p 1-p1−p（或称之为q = 1 − p q=1-pq=1−p），即P r ( X = 1 ) = p {P\_r}(X =1) =
 
 #### 二项分布（Binomial Distribution）
 
@@ -1276,7 +1622,7 @@ updatedate: 2023-05-24 13:59:01
 
 > 超几何分布通常是指从N NN个有限的物品中不放回的抽出n nn个物品（假设N NN个物品中含有某种指定物品的个数为M MM个），那么其中指定的物品有多少个？
 
-####  泊松分布（Poisson Distribution）
+#### 泊松分布（Poisson Distribution）
 
 > 泊松分布应该是最为常见的离散分布了，在很多领域都有应用。在概率论书籍中，关于泊松分布都是直接给出了其分布律，并没有详细说明该分布律的由来。关于这点，本人大力推荐看博主“马同学图解数学”写的关于泊松的理解《如何通俗易懂理解泊松分布》，该博主对泊松分布解释的非常到位，因此本文就不作详细介绍了。
 
@@ -1284,52 +1630,52 @@ updatedate: 2023-05-24 13:59:01
 
 > 连续型随机变量是针对离散随机变量而言。离散型随机变量的取值是可数的无限的或是有限个，而连续型随机变量的取值是无限不可数的，如公交车到站的具体时间，晶体管的寿命，某个中学所有学生的身高等。
 
-####  正态分布（Normal Distribution）
+#### 正态分布（Normal Distribution）
 
 > 正态分布又称高斯分布（Gauss Distribution，主要在常见于外文文献），其原因是正态分布虽然由法国数学家棣莫弗（Abraham de Moivre）于1733年首次提出，但德国数学家高斯（Gauss）率先将其应用于天文研究，而他的这项工作对后世影响极大，因此很多人将其称为“高斯分布”。
 
-####  均匀分布（Uniform Distribution）
+#### 均匀分布（Uniform Distribution）
 
 > 均匀分布也称为矩形分布，一般记为X ∼ U ( a , b ) X∼U(a,b)X∼U(a,b)。它是一种对称的概率分布，即在相同的长度内，取值概率是相等的。
 
-####  指数分布（Exponential Distribution）
+#### 指数分布（Exponential Distribution）
 
 > 指数分布常用来描述独立随机事件发生的时间间隔。
 
-####  β分布（Beta Distribution，贝塔分布）
+#### β分布（Beta Distribution，贝塔分布）
 
-####  Γ GammaΓ分布（Gamma Distribution,伽马分布）
+#### Γ GammaΓ分布（Gamma Distribution,伽马分布）
 
 ## 数据结构
 
 1.集合：数据结构中的元素之间除了“同属一个集合” 的相互关系外，别无其他关系；
-2.线性结构：数据结构中的元素存在一对一的相互关系； 
-3.树形结构：数据结构中的元素存在一对多的相互关系； 
-4.图形结构：数据结构中的元素存在多对多的相互关系。 
+2.线性结构：数据结构中的元素存在一对一的相互关系；
+3.树形结构：数据结构中的元素存在一对多的相互关系；
+4.图形结构：数据结构中的元素存在多对多的相互关系。
 
-在计算机科学的发展过程中，数据结构也随之发展。程序设计中常用的数据结构包括如下几个。 
+在计算机科学的发展过程中，数据结构也随之发展。程序设计中常用的数据结构包括如下几个。
 数组(Array)
 数组是一种聚合数据类型，它是将具有相同类型的若干变量有序地组织在一起的集合。数组可以说是最基本的数据结构，在各种编程语言中都有对应。一个数组可以分解为多个数组元素，按照数据元素的类型，数组可以分为整型数组、字符型数组、浮点型数组、指针数组和结构数组等。数组还可以有一维、二维以及多维等表现形式。
 栈( Stack)
 栈是一种特殊的线性表，它只能在一个表的一个固定端进行数据结点的插入和删除操作。栈按照先进后出或后进先出的原则来存储数据，也就是说，先插入的数据将被压入栈底，最后插入的数据在栈顶，读出数据时，从栈顶开始逐个读出。栈在汇编语言程序中，经常用于重要数据的现场保护。栈中没有数据时，称为空栈。
 队列(Queue)
-队列和栈类似，也是一种特殊的线性表。和栈不同的是，队列只允许在表的一端进行插入操作，而在另一端进行删除操作。一般来说，进行插入操作的一端称为队尾，进行删除操作的一端称为队头。队列中没有元素时，称为空队列。  
+队列和栈类似，也是一种特殊的线性表。和栈不同的是，队列只允许在表的一端进行插入操作，而在另一端进行删除操作。一般来说，进行插入操作的一端称为队尾，进行删除操作的一端称为队头。队列中没有元素时，称为空队列。\
 链表( Linked List)
 链表是一种数据元素按照链式存储结构进行存储的数据结构，这种存储结构具有在物理上存在非连续的特点。链表由一系列数据结点构成，每个数据结点包括数据域和指针域两部分。其中，指针域保存了数据结构中下一个元素存放的地址。链表结构中数据元素的逻辑顺序是通过链表中的指针链接次序来实现的。
 树( Tree)
 树是典型的非线性结构，它是包括，2个结点的有穷集合K。在树结构中，有且仅有一个根结点，该结点没有前驱结点。在树结构中的其他结点都有且仅有一个前驱结点，而且可以有两个后继结点，m≥0。
 图(Graph)
-图是另一种非线性数据结构。在图结构中，数据结点一般称为顶点，而边是顶点的有序偶对。如果两个顶点之间存在一条边，那么就表示这两个顶点具有相邻关系。 
+图是另一种非线性数据结构。在图结构中，数据结点一般称为顶点，而边是顶点的有序偶对。如果两个顶点之间存在一条边，那么就表示这两个顶点具有相邻关系。
 堆(Heap)
-堆是一种特殊的树形数据结构，一般讨论的堆都是二叉堆。堆的特点是根结点的值是所有结点中最小的或者最大的，并且根结点的两个子树也是一个堆结构。 
+堆是一种特殊的树形数据结构，一般讨论的堆都是二叉堆。堆的特点是根结点的值是所有结点中最小的或者最大的，并且根结点的两个子树也是一个堆结构。
 散列表(Hash)
-散列表源自于散列函数(Hash function)，其思想是如果在结构中存在关键字和T相等的记录，那么必定在F(T)的存储位置可以找到该记录，这样就可以不用进行比较操作而直接取得所查记录。 
+散列表源自于散列函数(Hash function)，其思想是如果在结构中存在关键字和T相等的记录，那么必定在F(T)的存储位置可以找到该记录，这样就可以不用进行比较操作而直接取得所查记录。
 
 ## 算法
 
-数据结构研究的内容：就是如何按一定的逻辑结构，把数据组织起来，并选择适当的存储表示方法把逻辑结构组织好的数据存储到计算机的存储器里。算法研究的目的是为了更有效的处理数据，提高数据运算效率。数据的运算是定义在数据的逻辑结构上，但运算的具体实现要在存储结构上进行。一般有以下几种常用运算： 
+数据结构研究的内容：就是如何按一定的逻辑结构，把数据组织起来，并选择适当的存储表示方法把逻辑结构组织好的数据存储到计算机的存储器里。算法研究的目的是为了更有效的处理数据，提高数据运算效率。数据的运算是定义在数据的逻辑结构上，但运算的具体实现要在存储结构上进行。一般有以下几种常用运算：
 
-(1)检索。检索就是在数据结构里查找满足一定条件的节点。一般是给定一个某字段的值，找具有该字段值的节点。 
+(1)检索。检索就是在数据结构里查找满足一定条件的节点。一般是给定一个某字段的值，找具有该字段值的节点。
 
 (2)插入。往数据结构中增加新的节点。
 
@@ -1779,7 +2125,7 @@ Introduction to Algorithms, Third Edition
 　21.1　不相交集合的操作
 　21.2　不相交集合的链表表示
 　21.3　不相交集合森林
-　*21.4　带路径压缩的按秩合并的分析
+　\*21.4　带路径压缩的按秩合并的分析
 　思考题
 　本章注记
 第六部分　图算法
@@ -1916,7 +2262,7 @@ Introduction to Algorithms, Third Edition
 　C.2　概率
 C.3　离散随机变量
 　C.4　几何分布与二项分布
-　*C.5　二项分布的尾部
+　\*C.5　二项分布的尾部
 　思考题
 　附录注记
 附录D　矩阵
@@ -1933,7 +2279,7 @@ C.3　离散随机变量
 
 > 支持向量分类，基于libsvm实现的（libsvm详情参考 或者百科），数据拟合的时间复杂度是数据样本的二次方，这使得他很难扩展到10000个数据集，当输入是多类别时（SVM最初是处理二分类问题的
 
-> > LibSVM是台湾林智仁(Chih-Jen Lin)教授2001年开发的一套支持向量机的库，这套库运算速度还是挺快的，可以很方便的对数据做分类或回归。由于libSVM程序小，运用灵活，输入参数少，并且是开源的，易于扩展，因此成为目前国内应用最多的SVM的库。这套库可以从http://www.csie.ntu.edu.tw/~cjlin/免费获得，目前已经发展到2.89版。下载.zip格式的版本，解压后可以看到，主要有5个文件夹和一些c++源码文件。
+> > LibSVM是台湾林智仁(Chih-Jen Lin)教授2001年开发的一套支持向量机的库，这套库运算速度还是挺快的，可以很方便的对数据做分类或回归。由于libSVM程序小，运用灵活，输入参数少，并且是开源的，易于扩展，因此成为目前国内应用最多的SVM的库。这套库可以从<http://www.csie.ntu.edu.tw/~cjlin/免费获得，目前已经发展到2.89版。下载.zip格式的版本，解压后可以看到，主要有5个文件夹和一些c++源码文件。>
 
 ### NuSVC（Nu-Support Vector Classification.）：
 
@@ -1955,7 +2301,7 @@ C.3　离散随机变量
 
 > 用于预测 分类
 
-##### 二分类 
+##### 二分类
 
 > 逻辑函数 sigmoid 函数
 
@@ -1971,11 +2317,11 @@ C.3　离散随机变量
 
 > 层次化分类器（Hierarchical Classification）Softmax
 
-> 二分类 多分类目标相同，均为给出该分类的概率值 
+> 二分类 多分类目标相同，均为给出该分类的概率值
 
 ### KNN
 
-> K 临近算法 K-Nearest Neighbors 属于Lazy Learning 
+> K 临近算法 K-Nearest Neighbors 属于Lazy Learning
 
 > KNN分类预测时，一般是选择多数表决法，即训练集里和预测的样本特征最近的K个样本，预测为里面有最多类别数的类别。
 
@@ -1985,7 +2331,7 @@ C.3　离散随机变量
 
 > 与KNN一样不需要训练，中心点会变化最终收敛.
 
-### 贝叶斯 
+### 贝叶斯
 
 #### 贝叶斯定理（朴素贝叶斯）
 
@@ -1997,7 +2343,7 @@ C.3　离散随机变量
 
 #### Bernoulli Naive Bayes 伯努利朴素贝叶斯
 
-伯努利朴素贝叶斯,其实应该叫"Multi-variate Naive Bayes",假设P(X=x|Y=c_k)是多变量伯努利分布.在了解多变量伯努利分布之前,先介绍一下什么是(单变量的)伯努利分布.
+伯努利朴素贝叶斯,其实应该叫"Multi-variate Naive Bayes",假设P(X=x|Y=c\_k)是多变量伯努利分布.在了解多变量伯努利分布之前,先介绍一下什么是(单变量的)伯努利分布.
 
 > 伯努利分布
 
@@ -2043,12 +2389,11 @@ C.3　离散随机变量
 
 > 一种特殊的递归神经网络
 
-
 ## Tensorflow
 
 ### C# .NET 中调用 Tensorflow
 
-> https://github.com/migueldeicaza/TensorFlowSharp
+> <https://github.com/migueldeicaza/TensorFlowSharp>
 
 '''
 
@@ -2058,13 +2403,13 @@ TensorFlowSharp is a good runtime to run your existing models, and is mostly a s
 
 The library was designed to blend in the .NET ecosystem and use the .NET naming conventions.
 
-I strongly recommend that you use TensorFlow.NET which takes a different approach than TensorFlowSharp, it uses the Python naming convention and has a much broader support for the higher level operations that you are likely to need - and is also actively maintained.
+I strongly recommend that you use TensorFlow\.NET which takes a different approach than TensorFlowSharp, it uses the Python naming convention and has a much broader support for the higher level operations that you are likely to need - and is also actively maintained.
 
 TensorFlowSharp
 
 TensorFlowSharp are .NET bindings to the TensorFlow library published here:
 
-https://github.com/tensorflow/tensorflow
+<https://github.com/tensorflow/tensorflow>
 
 This surfaces the C API as a strongly-typed .NET API for use from C# and F#.
 
@@ -2102,13 +2447,13 @@ using (var graph = new TFGraph ())
 
 {
 
-  // Load the model
+// Load the model
 
-  graph.Import (File.ReadAllBytes ("MySavedModel"));
+graph.Import (File.ReadAllBytes ("MySavedModel"));
 
-  using (var session = new TFSession (graph))
+using (var session = new TFSession (graph))
 
-  {
+{
 
     // Setup the runner
 
@@ -2126,7 +2471,7 @@ using (var graph = new TFGraph ())
 
     TFTensor result = output [0];
 
-  }
+}
 
 }
 
@@ -2134,41 +2479,41 @@ If your application is sensitive to GC cycles, you can run your model as follows
 
 // Some input matrices
 
-var inputs = new float[][,] {
+var inputs = new float\[]\[,] {
 
-  new float[,] { { 1, 2 }, { 3, 4 } },
+new float\[,] { { 1, 2 }, { 3, 4 } },
 
-  new float[,] { { 2, 4 }, { 6, 8 } }
+new float\[,] { { 2, 4 }, { 6, 8 } }
 
 };
 
 // Assumes all input matrices have identical shape
 
-var shape = new long[] { inputs[0].GetLongLength(0), inputs[0].GetLongLength(1) };
+var shape = new long\[] { inputs\[0].GetLongLength(0), inputs\[0].GetLongLength(1) };
 
-var size = inputs[0].Length * sizeof(float);
+var size = inputs\[0].Length \* sizeof(float);
 
 // Empty input and output tensors
 
 var input = new TFTensor(TFDataType.Float, shape, size);
 
-var output = new TFTensor[1];
+var output = new TFTensor\[1];
 
 // Result array for a single run
 
-var result = new float[1, 1];
+var result = new float\[1, 1];
 
 using (var graph = new TFGraph())
 
 {
 
-  // Load the model
+// Load the model
 
-  graph.Import(File.ReadAllBytes("MySavedModel"));
+graph.Import(File.ReadAllBytes("MySavedModel"));
 
-  using (var session = new TFSession(graph))
+using (var session = new TFSession(graph))
 
-  {
+{
 
     // Setup the runner
 
@@ -2198,7 +2543,7 @@ using (var graph = new TFGraph())
 
     }
 
-  }
+}
 
 }
 
@@ -2208,35 +2553,35 @@ using (var session = new TFSession())
 
 {
 
-  var graph = session.Graph;
+var graph = session.Graph;
 
-  var a = graph.Const(2);
+var a = graph.Const(2);
 
-  var b = graph.Const(3);
+var b = graph.Const(3);
 
-  Console.WriteLine("a=2 b=3");
+Console.WriteLine("a=2 b=3");
 
-  // Add two constants
+// Add two constants
 
-  var addingResults = session.GetRunner().Run(graph.Add(a, b));
+var addingResults = session.GetRunner().Run(graph.Add(a, b));
 
-  var addingResultValue = addingResults.GetValue();
+var addingResultValue = addingResults.GetValue();
 
-  Console.WriteLine("a+b={0}", addingResultValue);
+Console.WriteLine("a+b={0}", addingResultValue);
 
-  // Multiply two constants
+// Multiply two constants
 
-  var multiplyResults = session.GetRunner().Run(graph.Mul(a, b));
+var multiplyResults = session.GetRunner().Run(graph.Mul(a, b));
 
-  var multiplyResultValue = multiplyResults.GetValue();
+var multiplyResultValue = multiplyResults.GetValue();
 
-  Console.WriteLine("a*b={0}", multiplyResultValue);
+Console.WriteLine("a\*b={0}", multiplyResultValue);
 
 }
 
 Here is an F# scripting version of the same example, you can use this in F# Interactive:
 
-#r @"packages\TensorFlowSharp.1.4.0\lib\net471\TensorFlowSharp.dll"
+\#r @"packages\TensorFlowSharp.1.4.0\lib\net471\TensorFlowSharp.dll"
 
 open System
 
@@ -2246,37 +2591,37 @@ open TensorFlow
 
 // set the path to find the native DLL
 
-Environment.SetEnvironmentVariable("Path", 
+Environment.SetEnvironmentVariable("Path",
 
-  Environment.GetEnvironmentVariable("Path") + ";" + __SOURCE_DIRECTORY__ + @"/packages/TensorFlowSharp.1.2.2/native")
+Environment.GetEnvironmentVariable("Path") + ";" + **SOURCE\_DIRECTORY** + @"/packages/TensorFlowSharp.1.2.2/native")
 
-module AddTwoNumbers = 
+module AddTwoNumbers =
 
-  let session = new TFSession()
+let session = new TFSession()
 
-  let graph = session.Graph
+let graph = session.Graph
 
-  let a = graph.Const(new TFTensor(2))
+let a = graph.Const(new TFTensor(2))
 
-  let b = graph.Const(new TFTensor(3))
+let b = graph.Const(new TFTensor(3))
 
-  Console.WriteLine("a=2 b=3")
+Console.WriteLine("a=2 b=3")
 
-  // Add two constants
+// Add two constants
 
-  let addingResults = session.GetRunner().Run(graph.Add(a, b))
+let addingResults = session.GetRunner().Run(graph.Add(a, b))
 
-  let addingResultValue = addingResults.GetValue()
+let addingResultValue = addingResults.GetValue()
 
-  Console.WriteLine("a+b={0}", addingResultValue)
+Console.WriteLine("a+b={0}", addingResultValue)
 
-  // Multiply two constants
+// Multiply two constants
 
-  let multiplyResults = session.GetRunner().Run(graph.Mul(a, b))
+let multiplyResults = session.GetRunner().Run(graph.Mul(a, b))
 
-  let multiplyResultValue = multiplyResults.GetValue()
+let multiplyResultValue = multiplyResults.GetValue()
 
-  Console.WriteLine("a*b={0}", multiplyResultValue)
+Console.WriteLine("a\*b={0}", multiplyResultValue)
 
 Working on TensorFlowSharp
 
@@ -2294,7 +2639,7 @@ Samples
 
 The binding is pretty much complete, and at this point, I want to improve the API to be easier and more pleasant to use from both C# and F#. Creating samples that use Tensorflow is a good way of finding easy wins on the usability of the API, there are some here:
 
-https://github.com/tensorflow/models
+<https://github.com/tensorflow/models>
 
 Packaging
 
@@ -2328,126 +2673,126 @@ Last API update: Release 1.9
 
 > Classifier comparison
 
-1. Supervised learning
-1.1. Linear Models
-1.1.1. Ordinary Least Squares
-1.1.2. Ridge regression and classification
-1.1.3. Lasso
-1.1.4. Multi-task Lasso
-1.1.5. Elastic-Net
-1.1.6. Multi-task Elastic-Net
-1.1.7. Least Angle Regression
-1.1.8. LARS Lasso
-1.1.9. Orthogonal Matching Pursuit (OMP)
-1.1.10. Bayesian Regression
-1.1.11. Logistic regression
-1.1.12. Generalized Linear Models
-1.1.13. Stochastic Gradient Descent - SGD
-1.1.14. Perceptron
-1.1.15. Passive Aggressive Algorithms
-1.1.16. Robustness regression: outliers and modeling errors
-1.1.17. Quantile Regression
-1.1.18. Polynomial regression: extending linear models with basis functions
-1.2. Linear and Quadratic Discriminant Analysis
-1.2.1. Dimensionality reduction using Linear Discriminant Analysis
-1.2.2. Mathematical formulation of the LDA and QDA classifiers
-1.2.3. Mathematical formulation of LDA dimensionality reduction
-1.2.4. Shrinkage and Covariance Estimator
-1.2.5. Estimation algorithms
-1.3. Kernel ridge regression
-1.4. Support Vector Machines
-1.4.1. Classification
-1.4.2. Regression
-1.4.3. Density estimation, novelty detection
-1.4.4. Complexity
-1.4.5. Tips on Practical Use
-1.4.6. Kernel functions
-1.4.7. Mathematical formulation
-1.4.8. Implementation details
-1.5. Stochastic Gradient Descent
-1.5.1. Classification
-1.5.2. Regression
-1.5.3. Online One-Class SVM
-1.5.4. Stochastic Gradient Descent for sparse data
-1.5.5. Complexity
-1.5.6. Stopping criterion
-1.5.7. Tips on Practical Use
-1.5.8. Mathematical formulation
-1.5.9. Implementation details
-1.6. Nearest Neighbors
-1.6.1. Unsupervised Nearest Neighbors
-1.6.2. Nearest Neighbors Classification
-1.6.3. Nearest Neighbors Regression
-1.6.4. Nearest Neighbor Algorithms
-1.6.5. Nearest Centroid Classifier
-1.6.6. Nearest Neighbors Transformer
-1.6.7. Neighborhood Components Analysis
-1.7. Gaussian Processes
-1.7.1. Gaussian Process Regression (GPR)
-1.7.2. GPR examples
-1.7.3. Gaussian Process Classification (GPC)
-1.7.4. GPC examples
-1.7.5. Kernels for Gaussian Processes
-1.8. Cross decomposition
-1.8.1. PLSCanonical
-1.8.2. PLSSVD
-1.8.3. PLSRegression
-1.8.4. Canonical Correlation Analysis
-1.9. Naive Bayes
-1.9.1. Gaussian Naive Bayes
-1.9.2. Multinomial Naive Bayes
-1.9.3. Complement Naive Bayes
-1.9.4. Bernoulli Naive Bayes
-1.9.5. Categorical Naive Bayes
-1.9.6. Out-of-core naive Bayes model fitting
-1.10. Decision Trees
-1.10.1. Classification
-1.10.2. Regression
-1.10.3. Multi-output problems
-1.10.4. Complexity
-1.10.5. Tips on practical use
-1.10.6. Tree algorithms: ID3, C4.5, C5.0 and CART
-1.10.7. Mathematical formulation
-1.10.8. Minimal Cost-Complexity Pruning
-1.11. Ensemble methods
-1.11.1. Bagging meta-estimator
-1.11.2. Forests of randomized trees
-1.11.3. AdaBoost
-1.11.4. Gradient Tree Boosting
-1.11.5. Histogram-Based Gradient Boosting
-1.11.6. Voting Classifier
-1.11.7. Voting Regressor
-1.11.8. Stacked generalization
-1.12. Multiclass and multioutput algorithms
-1.12.1. Multiclass classification
-1.12.2. Multilabel classification
-1.12.3. Multiclass-multioutput classification
-1.12.4. Multioutput regression
-1.13. Feature selection
-1.13.1. Removing features with low variance
-1.13.2. Univariate feature selection
-1.13.3. Recursive feature elimination
-1.13.4. Feature selection using SelectFromModel
-1.13.5. Sequential Feature Selection
-1.13.6. Feature selection as part of a pipeline
-1.14. Semi-supervised learning
-1.14.1. Self Training
-1.14.2. Label Propagation
-1.15. Isotonic regression
-1.16. Probability calibration
-1.16.1. Calibration curves
-1.16.2. Calibrating a classifier
-1.16.3. Usage
-1.17. Neural network models (supervised)
-1.17.1. Multi-layer Perceptron
-1.17.2. Classification
-1.17.3. Regression
-1.17.4. Regularization
-1.17.5. Algorithms
-1.17.6. Complexity
-1.17.7. Mathematical formulation
-1.17.8. Tips on Practical Use
-1.17.9. More control with warm_start
+1.  Supervised learning
+    1.1. Linear Models
+    1.1.1. Ordinary Least Squares
+    1.1.2. Ridge regression and classification
+    1.1.3. Lasso
+    1.1.4. Multi-task Lasso
+    1.1.5. Elastic-Net
+    1.1.6. Multi-task Elastic-Net
+    1.1.7. Least Angle Regression
+    1.1.8. LARS Lasso
+    1.1.9. Orthogonal Matching Pursuit (OMP)
+    1.1.10. Bayesian Regression
+    1.1.11. Logistic regression
+    1.1.12. Generalized Linear Models
+    1.1.13. Stochastic Gradient Descent - SGD
+    1.1.14. Perceptron
+    1.1.15. Passive Aggressive Algorithms
+    1.1.16. Robustness regression: outliers and modeling errors
+    1.1.17. Quantile Regression
+    1.1.18. Polynomial regression: extending linear models with basis functions
+    1.2. Linear and Quadratic Discriminant Analysis
+    1.2.1. Dimensionality reduction using Linear Discriminant Analysis
+    1.2.2. Mathematical formulation of the LDA and QDA classifiers
+    1.2.3. Mathematical formulation of LDA dimensionality reduction
+    1.2.4. Shrinkage and Covariance Estimator
+    1.2.5. Estimation algorithms
+    1.3. Kernel ridge regression
+    1.4. Support Vector Machines
+    1.4.1. Classification
+    1.4.2. Regression
+    1.4.3. Density estimation, novelty detection
+    1.4.4. Complexity
+    1.4.5. Tips on Practical Use
+    1.4.6. Kernel functions
+    1.4.7. Mathematical formulation
+    1.4.8. Implementation details
+    1.5. Stochastic Gradient Descent
+    1.5.1. Classification
+    1.5.2. Regression
+    1.5.3. Online One-Class SVM
+    1.5.4. Stochastic Gradient Descent for sparse data
+    1.5.5. Complexity
+    1.5.6. Stopping criterion
+    1.5.7. Tips on Practical Use
+    1.5.8. Mathematical formulation
+    1.5.9. Implementation details
+    1.6. Nearest Neighbors
+    1.6.1. Unsupervised Nearest Neighbors
+    1.6.2. Nearest Neighbors Classification
+    1.6.3. Nearest Neighbors Regression
+    1.6.4. Nearest Neighbor Algorithms
+    1.6.5. Nearest Centroid Classifier
+    1.6.6. Nearest Neighbors Transformer
+    1.6.7. Neighborhood Components Analysis
+    1.7. Gaussian Processes
+    1.7.1. Gaussian Process Regression (GPR)
+    1.7.2. GPR examples
+    1.7.3. Gaussian Process Classification (GPC)
+    1.7.4. GPC examples
+    1.7.5. Kernels for Gaussian Processes
+    1.8. Cross decomposition
+    1.8.1. PLSCanonical
+    1.8.2. PLSSVD
+    1.8.3. PLSRegression
+    1.8.4. Canonical Correlation Analysis
+    1.9. Naive Bayes
+    1.9.1. Gaussian Naive Bayes
+    1.9.2. Multinomial Naive Bayes
+    1.9.3. Complement Naive Bayes
+    1.9.4. Bernoulli Naive Bayes
+    1.9.5. Categorical Naive Bayes
+    1.9.6. Out-of-core naive Bayes model fitting
+    1.10. Decision Trees
+    1.10.1. Classification
+    1.10.2. Regression
+    1.10.3. Multi-output problems
+    1.10.4. Complexity
+    1.10.5. Tips on practical use
+    1.10.6. Tree algorithms: ID3, C4.5, C5.0 and CART
+    1.10.7. Mathematical formulation
+    1.10.8. Minimal Cost-Complexity Pruning
+    1.11. Ensemble methods
+    1.11.1. Bagging meta-estimator
+    1.11.2. Forests of randomized trees
+    1.11.3. AdaBoost
+    1.11.4. Gradient Tree Boosting
+    1.11.5. Histogram-Based Gradient Boosting
+    1.11.6. Voting Classifier
+    1.11.7. Voting Regressor
+    1.11.8. Stacked generalization
+    1.12. Multiclass and multioutput algorithms
+    1.12.1. Multiclass classification
+    1.12.2. Multilabel classification
+    1.12.3. Multiclass-multioutput classification
+    1.12.4. Multioutput regression
+    1.13. Feature selection
+    1.13.1. Removing features with low variance
+    1.13.2. Univariate feature selection
+    1.13.3. Recursive feature elimination
+    1.13.4. Feature selection using SelectFromModel
+    1.13.5. Sequential Feature Selection
+    1.13.6. Feature selection as part of a pipeline
+    1.14. Semi-supervised learning
+    1.14.1. Self Training
+    1.14.2. Label Propagation
+    1.15. Isotonic regression
+    1.16. Probability calibration
+    1.16.1. Calibration curves
+    1.16.2. Calibrating a classifier
+    1.16.3. Usage
+    1.17. Neural network models (supervised)
+    1.17.1. Multi-layer Perceptron
+    1.17.2. Classification
+    1.17.3. Regression
+    1.17.4. Regularization
+    1.17.5. Algorithms
+    1.17.6. Complexity
+    1.17.7. Mathematical formulation
+    1.17.8. Tips on Practical Use
+    1.17.9. More control with warm\_start
 
 ### Regression
 
@@ -2459,126 +2804,126 @@ Last API update: Release 1.9
 
 > Decision Tree Regression with AdaBoost
 
-1. Supervised learning
-1.1. Linear Models
-1.1.1. Ordinary Least Squares
-1.1.2. Ridge regression and classification
-1.1.3. Lasso
-1.1.4. Multi-task Lasso
-1.1.5. Elastic-Net
-1.1.6. Multi-task Elastic-Net
-1.1.7. Least Angle Regression
-1.1.8. LARS Lasso
-1.1.9. Orthogonal Matching Pursuit (OMP)
-1.1.10. Bayesian Regression
-1.1.11. Logistic regression
-1.1.12. Generalized Linear Models
-1.1.13. Stochastic Gradient Descent - SGD
-1.1.14. Perceptron
-1.1.15. Passive Aggressive Algorithms
-1.1.16. Robustness regression: outliers and modeling errors
-1.1.17. Quantile Regression
-1.1.18. Polynomial regression: extending linear models with basis functions
-1.2. Linear and Quadratic Discriminant Analysis
-1.2.1. Dimensionality reduction using Linear Discriminant Analysis
-1.2.2. Mathematical formulation of the LDA and QDA classifiers
-1.2.3. Mathematical formulation of LDA dimensionality reduction
-1.2.4. Shrinkage and Covariance Estimator
-1.2.5. Estimation algorithms
-1.3. Kernel ridge regression
-1.4. Support Vector Machines
-1.4.1. Classification
-1.4.2. Regression
-1.4.3. Density estimation, novelty detection
-1.4.4. Complexity
-1.4.5. Tips on Practical Use
-1.4.6. Kernel functions
-1.4.7. Mathematical formulation
-1.4.8. Implementation details
-1.5. Stochastic Gradient Descent
-1.5.1. Classification
-1.5.2. Regression
-1.5.3. Online One-Class SVM
-1.5.4. Stochastic Gradient Descent for sparse data
-1.5.5. Complexity
-1.5.6. Stopping criterion
-1.5.7. Tips on Practical Use
-1.5.8. Mathematical formulation
-1.5.9. Implementation details
-1.6. Nearest Neighbors
-1.6.1. Unsupervised Nearest Neighbors
-1.6.2. Nearest Neighbors Classification
-1.6.3. Nearest Neighbors Regression
-1.6.4. Nearest Neighbor Algorithms
-1.6.5. Nearest Centroid Classifier
-1.6.6. Nearest Neighbors Transformer
-1.6.7. Neighborhood Components Analysis
-1.7. Gaussian Processes
-1.7.1. Gaussian Process Regression (GPR)
-1.7.2. GPR examples
-1.7.3. Gaussian Process Classification (GPC)
-1.7.4. GPC examples
-1.7.5. Kernels for Gaussian Processes
-1.8. Cross decomposition
-1.8.1. PLSCanonical
-1.8.2. PLSSVD
-1.8.3. PLSRegression
-1.8.4. Canonical Correlation Analysis
-1.9. Naive Bayes
-1.9.1. Gaussian Naive Bayes
-1.9.2. Multinomial Naive Bayes
-1.9.3. Complement Naive Bayes
-1.9.4. Bernoulli Naive Bayes
-1.9.5. Categorical Naive Bayes
-1.9.6. Out-of-core naive Bayes model fitting
-1.10. Decision Trees
-1.10.1. Classification
-1.10.2. Regression
-1.10.3. Multi-output problems
-1.10.4. Complexity
-1.10.5. Tips on practical use
-1.10.6. Tree algorithms: ID3, C4.5, C5.0 and CART
-1.10.7. Mathematical formulation
-1.10.8. Minimal Cost-Complexity Pruning
-1.11. Ensemble methods
-1.11.1. Bagging meta-estimator
-1.11.2. Forests of randomized trees
-1.11.3. AdaBoost
-1.11.4. Gradient Tree Boosting
-1.11.5. Histogram-Based Gradient Boosting
-1.11.6. Voting Classifier
-1.11.7. Voting Regressor
-1.11.8. Stacked generalization
-1.12. Multiclass and multioutput algorithms
-1.12.1. Multiclass classification
-1.12.2. Multilabel classification
-1.12.3. Multiclass-multioutput classification
-1.12.4. Multioutput regression
-1.13. Feature selection
-1.13.1. Removing features with low variance
-1.13.2. Univariate feature selection
-1.13.3. Recursive feature elimination
-1.13.4. Feature selection using SelectFromModel
-1.13.5. Sequential Feature Selection
-1.13.6. Feature selection as part of a pipeline
-1.14. Semi-supervised learning
-1.14.1. Self Training
-1.14.2. Label Propagation
-1.15. Isotonic regression
-1.16. Probability calibration
-1.16.1. Calibration curves
-1.16.2. Calibrating a classifier
-1.16.3. Usage
-1.17. Neural network models (supervised)
-1.17.1. Multi-layer Perceptron
-1.17.2. Classification
-1.17.3. Regression
-1.17.4. Regularization
-1.17.5. Algorithms
-1.17.6. Complexity
-1.17.7. Mathematical formulation
-1.17.8. Tips on Practical Use
-1.17.9. More control with warm_start
+1.  Supervised learning
+    1.1. Linear Models
+    1.1.1. Ordinary Least Squares
+    1.1.2. Ridge regression and classification
+    1.1.3. Lasso
+    1.1.4. Multi-task Lasso
+    1.1.5. Elastic-Net
+    1.1.6. Multi-task Elastic-Net
+    1.1.7. Least Angle Regression
+    1.1.8. LARS Lasso
+    1.1.9. Orthogonal Matching Pursuit (OMP)
+    1.1.10. Bayesian Regression
+    1.1.11. Logistic regression
+    1.1.12. Generalized Linear Models
+    1.1.13. Stochastic Gradient Descent - SGD
+    1.1.14. Perceptron
+    1.1.15. Passive Aggressive Algorithms
+    1.1.16. Robustness regression: outliers and modeling errors
+    1.1.17. Quantile Regression
+    1.1.18. Polynomial regression: extending linear models with basis functions
+    1.2. Linear and Quadratic Discriminant Analysis
+    1.2.1. Dimensionality reduction using Linear Discriminant Analysis
+    1.2.2. Mathematical formulation of the LDA and QDA classifiers
+    1.2.3. Mathematical formulation of LDA dimensionality reduction
+    1.2.4. Shrinkage and Covariance Estimator
+    1.2.5. Estimation algorithms
+    1.3. Kernel ridge regression
+    1.4. Support Vector Machines
+    1.4.1. Classification
+    1.4.2. Regression
+    1.4.3. Density estimation, novelty detection
+    1.4.4. Complexity
+    1.4.5. Tips on Practical Use
+    1.4.6. Kernel functions
+    1.4.7. Mathematical formulation
+    1.4.8. Implementation details
+    1.5. Stochastic Gradient Descent
+    1.5.1. Classification
+    1.5.2. Regression
+    1.5.3. Online One-Class SVM
+    1.5.4. Stochastic Gradient Descent for sparse data
+    1.5.5. Complexity
+    1.5.6. Stopping criterion
+    1.5.7. Tips on Practical Use
+    1.5.8. Mathematical formulation
+    1.5.9. Implementation details
+    1.6. Nearest Neighbors
+    1.6.1. Unsupervised Nearest Neighbors
+    1.6.2. Nearest Neighbors Classification
+    1.6.3. Nearest Neighbors Regression
+    1.6.4. Nearest Neighbor Algorithms
+    1.6.5. Nearest Centroid Classifier
+    1.6.6. Nearest Neighbors Transformer
+    1.6.7. Neighborhood Components Analysis
+    1.7. Gaussian Processes
+    1.7.1. Gaussian Process Regression (GPR)
+    1.7.2. GPR examples
+    1.7.3. Gaussian Process Classification (GPC)
+    1.7.4. GPC examples
+    1.7.5. Kernels for Gaussian Processes
+    1.8. Cross decomposition
+    1.8.1. PLSCanonical
+    1.8.2. PLSSVD
+    1.8.3. PLSRegression
+    1.8.4. Canonical Correlation Analysis
+    1.9. Naive Bayes
+    1.9.1. Gaussian Naive Bayes
+    1.9.2. Multinomial Naive Bayes
+    1.9.3. Complement Naive Bayes
+    1.9.4. Bernoulli Naive Bayes
+    1.9.5. Categorical Naive Bayes
+    1.9.6. Out-of-core naive Bayes model fitting
+    1.10. Decision Trees
+    1.10.1. Classification
+    1.10.2. Regression
+    1.10.3. Multi-output problems
+    1.10.4. Complexity
+    1.10.5. Tips on practical use
+    1.10.6. Tree algorithms: ID3, C4.5, C5.0 and CART
+    1.10.7. Mathematical formulation
+    1.10.8. Minimal Cost-Complexity Pruning
+    1.11. Ensemble methods
+    1.11.1. Bagging meta-estimator
+    1.11.2. Forests of randomized trees
+    1.11.3. AdaBoost
+    1.11.4. Gradient Tree Boosting
+    1.11.5. Histogram-Based Gradient Boosting
+    1.11.6. Voting Classifier
+    1.11.7. Voting Regressor
+    1.11.8. Stacked generalization
+    1.12. Multiclass and multioutput algorithms
+    1.12.1. Multiclass classification
+    1.12.2. Multilabel classification
+    1.12.3. Multiclass-multioutput classification
+    1.12.4. Multioutput regression
+    1.13. Feature selection
+    1.13.1. Removing features with low variance
+    1.13.2. Univariate feature selection
+    1.13.3. Recursive feature elimination
+    1.13.4. Feature selection using SelectFromModel
+    1.13.5. Sequential Feature Selection
+    1.13.6. Feature selection as part of a pipeline
+    1.14. Semi-supervised learning
+    1.14.1. Self Training
+    1.14.2. Label Propagation
+    1.15. Isotonic regression
+    1.16. Probability calibration
+    1.16.1. Calibration curves
+    1.16.2. Calibrating a classifier
+    1.16.3. Usage
+    1.17. Neural network models (supervised)
+    1.17.1. Multi-layer Perceptron
+    1.17.2. Classification
+    1.17.3. Regression
+    1.17.4. Regularization
+    1.17.5. Algorithms
+    1.17.6. Complexity
+    1.17.7. Mathematical formulation
+    1.17.8. Tips on Practical Use
+    1.17.9. More control with warm\_start
 
 ### Clustering
 
@@ -2593,14 +2938,14 @@ Last API update: Release 1.9
 2.3. Clustering¶
 Clustering of unlabeled data can be performed with the module sklearn.cluster.
 
-Each clustering algorithm comes in two variants: a class, that implements the fit method to learn the clusters on train data, and a function, that, given train data, returns an array of integer labels corresponding to the different clusters. For the class, the labels over the training data can be found in the labels_ attribute.
+Each clustering algorithm comes in two variants: a class, that implements the fit method to learn the clusters on train data, and a function, that, given train data, returns an array of integer labels corresponding to the different clusters. For the class, the labels over the training data can be found in the labels\_ attribute.
 
 Input data
 
-One important thing to note is that the algorithms implemented in this module can take different kinds of matrix as input. All the methods accept standard data matrices of shape (n_samples, n_features). These can be obtained from the classes in the sklearn.feature_extraction module. For AffinityPropagation, SpectralClustering and DBSCAN one can also input similarity matrices of shape (n_samples, n_samples). These can be obtained from the functions in the sklearn.metrics.pairwise module.
+One important thing to note is that the algorithms implemented in this module can take different kinds of matrix as input. All the methods accept standard data matrices of shape (n\_samples, n\_features). These can be obtained from the classes in the sklearn.feature\_extraction module. For AffinityPropagation, SpectralClustering and DBSCAN one can also input similarity matrices of shape (n\_samples, n\_samples). These can be obtained from the functions in the sklearn.metrics.pairwise module.
 
 2.3.1. Overview of clustering methods
-../_images/sphx_glr_plot_cluster_comparison_001.png
+../\_images/sphx\_glr\_plot\_cluster\_comparison\_001.png
 A comparison of the clustering algorithms in scikit-learn
 
 Method name
@@ -2617,7 +2962,7 @@ K-Means
 
 number of clusters
 
-Very large n_samples, medium n_clusters with
+Very large n\_samples, medium n\_clusters with
 MiniBatch code
 
 General-purpose, even cluster size, flat geometry,
@@ -2629,7 +2974,7 @@ Affinity propagation
 
 damping, sample preference
 
-Not scalable with n_samples
+Not scalable with n\_samples
 
 Many clusters, uneven cluster size, non-flat geometry, inductive
 
@@ -2639,7 +2984,7 @@ Mean-shift
 
 bandwidth
 
-Not scalable with n_samples
+Not scalable with n\_samples
 
 Many clusters, uneven cluster size, non-flat geometry, inductive
 
@@ -2649,7 +2994,7 @@ Spectral clustering
 
 number of clusters
 
-Medium n_samples, small n_clusters
+Medium n\_samples, small n\_clusters
 
 Few clusters, even cluster size, non-flat geometry, transductive
 
@@ -2659,7 +3004,7 @@ Ward hierarchical clustering
 
 number of clusters or distance threshold
 
-Large n_samples and n_clusters
+Large n\_samples and n\_clusters
 
 Many clusters, possibly connectivity constraints, transductive
 
@@ -2669,7 +3014,7 @@ Agglomerative clustering
 
 number of clusters or distance threshold, linkage type, distance
 
-Large n_samples and n_clusters
+Large n\_samples and n\_clusters
 
 Many clusters, possibly connectivity constraints, non Euclidean
 distances, transductive
@@ -2680,7 +3025,7 @@ DBSCAN
 
 neighborhood size
 
-Very large n_samples, medium n_clusters
+Very large n\_samples, medium n\_clusters
 
 Non-flat geometry, uneven cluster sizes, outlier removal,
 transductive
@@ -2691,7 +3036,7 @@ OPTICS
 
 minimum cluster membership
 
-Very large n_samples, large n_clusters
+Very large n\_samples, large n\_clusters
 
 Non-flat geometry, uneven cluster sizes, variable cluster density,
 outlier removal, transductive
@@ -2712,7 +3057,7 @@ BIRCH
 
 branching factor, threshold, optional global clusterer.
 
-Large n_clusters and n_samples
+Large n\_clusters and n\_samples
 
 Large dataset, outlier removal, data reduction, inductive
 
@@ -2722,7 +3067,7 @@ Bisecting K-Means
 
 number of clusters
 
-Very large n_samples, medium n_clusters
+Very large n\_samples, medium n\_clusters
 
 General-purpose, even cluster size, flat geometry,
 no empty clusters, inductive, hierarchical
@@ -2738,39 +3083,37 @@ Transductive clustering methods (in contrast to inductive clustering methods) ar
 2.3.2. K-means
 The KMeans algorithm clusters data by trying to separate samples in n groups of equal variance, minimizing a criterion known as the inertia or within-cluster sum-of-squares (see below). This algorithm requires the number of clusters to be specified. It scales well to large numbers of samples and has been used across a large range of application areas in many different fields.
 
-The k-means algorithm divides a set of 
- samples 
- into 
- disjoint clusters 
-, each described by the mean 
- of the samples in the cluster. The means are commonly called the cluster “centroids”; note that they are not, in general, points from 
+The k-means algorithm divides a set of
+samples
+into
+disjoint clusters
+, each described by the mean
+of the samples in the cluster. The means are commonly called the cluster “centroids”; note that they are not, in general, points from
 , although they live in the same space.
 
 The K-means algorithm aims to choose centroids that minimise the inertia, or within-cluster sum-of-squares criterion:
 
- 
- 
 Inertia can be recognized as a measure of how internally coherent clusters are. It suffers from various drawbacks:
 
 Inertia makes the assumption that clusters are convex and isotropic, which is not always the case. It responds poorly to elongated clusters, or manifolds with irregular shapes.
 
 Inertia is not a normalized metric: we just know that lower values are better and zero is optimal. But in very high-dimensional spaces, Euclidean distances tend to become inflated (this is an instance of the so-called “curse of dimensionality”). Running a dimensionality reduction algorithm such as Principal component analysis (PCA) prior to k-means clustering can alleviate this problem and speed up the computations.
 
-../_images/sphx_glr_plot_kmeans_assumptions_002.png
-K-means is often referred to as Lloyd’s algorithm. In basic terms, the algorithm has three steps. The first step chooses the initial centroids, with the most basic method being to choose 
- samples from the dataset 
+../\_images/sphx\_glr\_plot\_kmeans\_assumptions\_002.png
+K-means is often referred to as Lloyd’s algorithm. In basic terms, the algorithm has three steps. The first step chooses the initial centroids, with the most basic method being to choose
+samples from the dataset
 . After initialization, K-means consists of looping between the two other steps. The first step assigns each sample to its nearest centroid. The second step creates new centroids by taking the mean value of all of the samples assigned to each previous centroid. The difference between the old and the new centroids are computed and the algorithm repeats these last two steps until this value is less than a threshold. In other words, it repeats until the centroids do not move significantly.
 
-../_images/sphx_glr_plot_kmeans_digits_001.png
+../\_images/sphx\_glr\_plot\_kmeans\_digits\_001.png
 K-means is equivalent to the expectation-maximization algorithm with a small, all-equal, diagonal covariance matrix.
 
 The algorithm can also be understood through the concept of Voronoi diagrams. First the Voronoi diagram of the points is calculated using the current centroids. Each segment in the Voronoi diagram becomes a separate cluster. Secondly, the centroids are updated to the mean of each segment. The algorithm then repeats this until a stopping criterion is fulfilled. Usually, the algorithm stops when the relative decrease in the objective function between iterations is less than the given tolerance value. This is not the case in this implementation: iteration stops when centroids move less than the tolerance.
 
 Given enough time, K-means will always converge, however this may be to a local minimum. This is highly dependent on the initialization of the centroids. As a result, the computation is often done several times, with different initializations of the centroids. One method to help address this issue is the k-means++ initialization scheme, which has been implemented in scikit-learn (use the init='k-means++' parameter). This initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization, as shown in the reference.
 
-K-means++ can also be called independently to select seeds for other clustering algorithms, see sklearn.cluster.kmeans_plusplus for details and example usage.
+K-means++ can also be called independently to select seeds for other clustering algorithms, see sklearn.cluster.kmeans\_plusplus for details and example usage.
 
-The algorithm supports sample weights, which can be given by a parameter sample_weight. This allows to assign more weight to some samples when computing cluster centers and values of inertia. For example, assigning a weight of 2 to a sample is equivalent to adding a duplicate of that sample to the dataset 
+The algorithm supports sample weights, which can be given by a parameter sample\_weight. This allows to assign more weight to some samples when computing cluster centers and values of inertia. For example, assigning a weight of 2 to a sample is equivalent to adding a duplicate of that sample to the dataset
 .
 
 K-means can be used for vector quantization. This is achieved using the transform method of a trained model of KMeans.
@@ -2791,12 +3134,12 @@ References:
 2.3.2.2. Mini Batch K-Means
 The MiniBatchKMeans is a variant of the KMeans algorithm which uses mini-batches to reduce the computation time, while still attempting to optimise the same objective function. Mini-batches are subsets of the input data, randomly sampled in each training iteration. These mini-batches drastically reduce the amount of computation required to converge to a local solution. In contrast to other algorithms that reduce the convergence time of k-means, mini-batch k-means produces results that are generally only slightly worse than the standard algorithm.
 
-The algorithm iterates between two major steps, similar to vanilla k-means. In the first step, 
- samples are drawn randomly from the dataset, to form a mini-batch. These are then assigned to the nearest centroid. In the second step, the centroids are updated. In contrast to k-means, this is done on a per-sample basis. For each sample in the mini-batch, the assigned centroid is updated by taking the streaming average of the sample and all previous samples assigned to that centroid. This has the effect of decreasing the rate of change for a centroid over time. These steps are performed until convergence or a predetermined number of iterations is reached.
+The algorithm iterates between two major steps, similar to vanilla k-means. In the first step,
+samples are drawn randomly from the dataset, to form a mini-batch. These are then assigned to the nearest centroid. In the second step, the centroids are updated. In contrast to k-means, this is done on a per-sample basis. For each sample in the mini-batch, the assigned centroid is updated by taking the streaming average of the sample and all previous samples assigned to that centroid. This has the effect of decreasing the rate of change for a centroid over time. These steps are performed until convergence or a predetermined number of iterations is reached.
 
 MiniBatchKMeans converges faster than KMeans, but the quality of the results is reduced. In practice this difference in quality can be quite small, as shown in the example and cited reference.
 
-../_images/sphx_glr_plot_mini_batch_kmeans_001.png
+../\_images/sphx\_glr\_plot\_mini\_batch\_kmeans\_001.png
 Examples:
 
 Comparison of the K-Means and MiniBatchKMeans clustering algorithms: Comparison of KMeans and MiniBatchKMeans
@@ -2812,14 +3155,14 @@ References:
 2.3.3. Affinity Propagation
 AffinityPropagation creates clusters by sending messages between pairs of samples until convergence. A dataset is then described using a small number of exemplars, which are identified as those most representative of other samples. The messages sent between pairs represent the suitability for one sample to be the exemplar of the other, which is updated in response to the values from other pairs. This updating happens iteratively until convergence, at which point the final exemplars are chosen, and hence the final clustering is given.
 
-../_images/sphx_glr_plot_affinity_propagation_001.png
+../\_images/sphx\_glr\_plot\_affinity\_propagation\_001.png
 Affinity Propagation can be interesting as it chooses the number of clusters based on the data provided. For this purpose, the two important parameters are the preference, which controls how many exemplars are used, and the damping factor which damps the responsibility and availability messages to avoid numerical oscillations when updating these messages.
 
-The main drawback of Affinity Propagation is its complexity. The algorithm has a time complexity of the order 
-, where 
- is the number of samples and 
- is the number of iterations until convergence. Further, the memory complexity is of the order 
- if a dense similarity matrix is used, but reducible if a sparse similarity matrix is used. This makes Affinity Propagation most appropriate for small to medium sized datasets.
+The main drawback of Affinity Propagation is its complexity. The algorithm has a time complexity of the order
+, where
+is the number of samples and
+is the number of iterations until convergence. Further, the memory complexity is of the order
+if a dense similarity matrix is used, but reducible if a sparse similarity matrix is used. This makes Affinity Propagation most appropriate for small to medium sized datasets.
 
 Examples:
 
@@ -2827,69 +3170,65 @@ Demo of affinity propagation clustering algorithm: Affinity Propagation on a syn
 
 Visualizing the stock market structure Affinity Propagation on Financial time series to find groups of companies
 
-Algorithm description: The messages sent between points belong to one of two categories. The first is the responsibility 
-, which is the accumulated evidence that sample 
- should be the exemplar for sample 
-. The second is the availability 
- which is the accumulated evidence that sample 
- should choose sample 
- to be its exemplar, and considers the values for all other samples that 
- should be an exemplar. In this way, exemplars are chosen by samples if they are (1) similar enough to many samples and (2) chosen by many samples to be representative of themselves.
+Algorithm description: The messages sent between points belong to one of two categories. The first is the responsibility
+, which is the accumulated evidence that sample
+should be the exemplar for sample
+. The second is the availability
+which is the accumulated evidence that sample
+should choose sample
+to be its exemplar, and considers the values for all other samples that
+should be an exemplar. In this way, exemplars are chosen by samples if they are (1) similar enough to many samples and (2) chosen by many samples to be representative of themselves.
 
-More formally, the responsibility of a sample 
- to be the exemplar of sample 
- is given by:
+More formally, the responsibility of a sample
+to be the exemplar of sample
+is given by:
 
-Where 
- is the similarity between samples 
- and 
-. The availability of sample 
- to be the exemplar of sample 
- is given by:
+Where
+is the similarity between samples
+and
+. The availability of sample
+to be the exemplar of sample
+is given by:
 
- 
-To begin with, all values for 
- and 
- are set to zero, and the calculation of each iterates until convergence. As discussed above, in order to avoid numerical oscillations when updating the messages, the damping factor 
- is introduced to iteration process:
+To begin with, all values for
+and
+are set to zero, and the calculation of each iterates until convergence. As discussed above, in order to avoid numerical oscillations when updating the messages, the damping factor
+is introduced to iteration process:
 
-where 
- indicates the iteration times.
+where
+indicates the iteration times.
 
 2.3.4. Mean Shift
 MeanShift clustering aims to discover blobs in a smooth density of samples. It is a centroid based algorithm, which works by updating candidates for centroids to be the mean of the points within a given region. These candidates are then filtered in a post-processing stage to eliminate near-duplicates to form the final set of centroids.
 
-The position of centroid candidates is iteratively adjusted using a technique called hill climbing, which finds local maxima of the estimated probability density. Given a candidate centroid 
- for iteration 
+The position of centroid candidates is iteratively adjusted using a technique called hill climbing, which finds local maxima of the estimated probability density. Given a candidate centroid
+for iteration
 , the candidate is updated according to the following equation:
 
-Where 
- is the mean shift vector that is computed for each centroid that points towards a region of the maximum increase in the density of points. To compute 
- we define 
- as the neighborhood of samples within a given distance around 
-. Then 
- is computed using the following equation, effectively updating a centroid to be the mean of the samples within its neighborhood:
+Where
+is the mean shift vector that is computed for each centroid that points towards a region of the maximum increase in the density of points. To compute
+we define
+as the neighborhood of samples within a given distance around
+. Then
+is computed using the following equation, effectively updating a centroid to be the mean of the samples within its neighborhood:
 
- 
- 
-In general, the equation for 
- depends on a kernel used for density estimation. The generic formula is:
+In general, the equation for
+depends on a kernel used for density estimation. The generic formula is:
 
- 
-In our implementation, 
- is equal to 1 if 
- is small enough and is equal to 0 otherwise. Effectively 
- indicates whether 
- is in the neighborhood of 
+In our implementation,
+is equal to 1 if
+is small enough and is equal to 0 otherwise. Effectively
+indicates whether
+is in the neighborhood of
 .
 
-The algorithm automatically sets the number of clusters, instead of relying on a parameter bandwidth, which dictates the size of the region to search through. This parameter can be set manually, but can be estimated using the provided estimate_bandwidth function, which is called if the bandwidth is not set.
+The algorithm automatically sets the number of clusters, instead of relying on a parameter bandwidth, which dictates the size of the region to search through. This parameter can be set manually, but can be estimated using the provided estimate\_bandwidth function, which is called if the bandwidth is not set.
 
 The algorithm is not highly scalable, as it requires multiple nearest neighbor searches during the execution of the algorithm. The algorithm is guaranteed to converge, however the algorithm will stop iterating when the change in centroids is small.
 
 Labelling a new sample is performed by finding the nearest centroid for a given sample.
 
-../_images/sphx_glr_plot_mean_shift_001.png
+../\_images/sphx\_glr\_plot\_mean\_shift\_001.png
 Examples:
 
 A demo of the mean-shift clustering algorithm: Mean Shift clustering on a synthetic 2D datasets with 3 classes.
@@ -2905,12 +3244,12 @@ The present version of SpectralClustering requires the number of clusters to be 
 
 For two clusters, SpectralClustering solves a convex relaxation of the normalized cuts problem on the similarity graph: cutting the graph in two so that the weight of the edges cut is small compared to the weights of the edges inside each cluster. This criteria is especially interesting when working on images, where graph vertices are pixels, and weights of the edges of the similarity graph are computed using a function of a gradient of the image.
 
-noisy_img segmented_img
+noisy\_img segmented\_img
 
 Warning Transforming distance to well-behaved similarities
 Note that if the values of your similarity matrix are not well distributed, e.g. with negative values or with a distance matrix rather than a similarity, the spectral problem will be singular and the problem not solvable. In which case it is advised to apply a transformation to the entries of the matrix. For instance, in the case of a signed distance matrix, is common to apply a heat kernel:
 
-similarity = np.exp(-beta * distance / distance.std())
+similarity = np.exp(-beta \* distance / distance.std())
 See the examples for such an application.
 
 Examples:
@@ -2920,19 +3259,19 @@ Spectral clustering for image segmentation: Segmenting objects from a noisy back
 Segmenting the picture of greek coins in regions: Spectral clustering to split the image of coins in regions.
 
 2.3.5.1. Different label assignment strategies
-Different label assignment strategies can be used, corresponding to the assign_labels parameter of SpectralClustering. "kmeans" strategy can match finer details, but can be unstable. In particular, unless you control the random_state, it may not be reproducible from run-to-run, as it depends on random initialization. The alternative "discretize" strategy is 100% reproducible, but tends to create parcels of fairly even and geometrical shape. The recently added "cluster_qr" option is a deterministic alternative that tends to create the visually best partitioning on the example application below.
+Different label assignment strategies can be used, corresponding to the assign\_labels parameter of SpectralClustering. "kmeans" strategy can match finer details, but can be unstable. In particular, unless you control the random\_state, it may not be reproducible from run-to-run, as it depends on random initialization. The alternative "discretize" strategy is 100% reproducible, but tends to create parcels of fairly even and geometrical shape. The recently added "cluster\_qr" option is a deterministic alternative that tends to create the visually best partitioning on the example application below.
 
-assign_labels="kmeans"
+assign\_labels="kmeans"
 
-assign_labels="discretize"
+assign\_labels="discretize"
 
-assign_labels="cluster_qr"
+assign\_labels="cluster\_qr"
 
-coin_kmeans
+coin\_kmeans
 
-coin_discretize
+coin\_discretize
 
-coin_cluster_qr
+coin\_cluster\_qr
 
 References:
 
@@ -2943,12 +3282,10 @@ References:
 2.3.5.2. Spectral Clustering Graphs
 Spectral Clustering can also be used to partition graphs via their spectral embeddings. In this case, the affinity matrix is the adjacency matrix of the graph, and SpectralClustering is initialized with affinity='precomputed':
 
-```
->>> from sklearn.cluster import SpectralClustering
-sc = SpectralClustering(3, affinity='precomputed', n_init=100,
-...                         assign_labels='discretize')
-sc.fit_predict(adjacency_matrix)  
-```
+    >>> from sklearn.cluster import SpectralClustering
+    sc = SpectralClustering(3, affinity='precomputed', n_init=100,
+    ...                         assign_labels='discretize')
+    sc.fit_predict(adjacency_matrix)  
 
 References:
 
@@ -2984,7 +3321,7 @@ The FeatureAgglomeration uses agglomerative clustering to group together feature
 2.3.6.1. Different linkage type: Ward, complete, average, and single linkage
 AgglomerativeClustering supports Ward, single, average, and complete linkage strategies.
 
-../_images/sphx_glr_plot_linkage_comparison_001.png
+../\_images/sphx\_glr\_plot\_linkage\_comparison\_001.png
 Agglomerative cluster has a “rich get richer” behavior that leads to uneven cluster sizes. In this regard, single linkage is the worst strategy, and Ward gives the most regular sizes. However, the affinity (or distance used in clustering) cannot be varied with Ward, thus for non Euclidean metrics, average linkage is a good alternative. Single linkage, while not robust to noisy data, can be computed very efficiently and can therefore be useful to provide hierarchical clustering of larger datasets. Single linkage can also perform well on non-globular data.
 
 Examples:
@@ -2994,7 +3331,7 @@ Various Agglomerative Clustering on a 2D embedding of digits: exploration of the
 2.3.6.2. Visualization of cluster hierarchy
 It’s possible to visualize the tree representing the hierarchical merging of clusters as a dendrogram. Visual inspection can often be useful for understanding the structure of the data, though more so in the case of small sample sizes.
 
-../_images/sphx_glr_plot_agglomerative_dendrogram_001.png
+../\_images/sphx\_glr\_plot\_agglomerative\_dendrogram\_001.png
 2.3.6.3. Adding connectivity constraints
 An interesting aspect of AgglomerativeClustering is that connectivity constraints can be added to this algorithm (only adjacent clusters can be merged together), through a connectivity matrix that defines for each sample the neighboring samples following a given structure of the data. For instance, in the swiss-roll example below, the connectivity constraints forbid the merging of points that are not adjacent on the swiss roll, and thus avoid forming clusters that extend across overlapping folds of the roll.
 
@@ -3002,7 +3339,7 @@ unstructured structured
 
 These constraint are useful to impose a certain local structure, but they also make the algorithm faster, especially when the number of the samples is high.
 
-The connectivity constraints are imposed via an connectivity matrix: a scipy sparse matrix that has elements only at the intersection of a row and a column with indices of the dataset that should be connected. This matrix can be constructed from a-priori information: for instance, you may wish to cluster web pages by only merging pages with a link pointing from one to another. It can also be learned from the data, for instance using sklearn.neighbors.kneighbors_graph to restrict merging to nearest neighbors as in this example, or using sklearn.feature_extraction.image.grid_to_graph to enable only merging of neighboring pixels on an image, as in the coin example.
+The connectivity constraints are imposed via an connectivity matrix: a scipy sparse matrix that has elements only at the intersection of a row and a column with indices of the dataset that should be connected. This matrix can be constructed from a-priori information: for instance, you may wish to cluster web pages by only merging pages with a link pointing from one to another. It can also be learned from the data, for instance using sklearn.neighbors.kneighbors\_graph to restrict merging to nearest neighbors as in this example, or using sklearn.feature\_extraction.image.grid\_to\_graph to enable only merging of neighboring pixels on an image, as in the coin example.
 
 Examples:
 
@@ -3015,9 +3352,9 @@ Feature agglomeration vs. univariate selection: Example of dimensionality reduct
 Agglomerative clustering with and without structure
 
 Warning Connectivity constraints with single, average and complete linkage
-Connectivity constraints and single, complete or average linkage can enhance the ‘rich getting richer’ aspect of agglomerative clustering, particularly so if they are built with sklearn.neighbors.kneighbors_graph. In the limit of a small number of clusters, they tend to give a few macroscopically occupied clusters and almost empty ones. (see the discussion in Agglomerative clustering with and without structure). Single linkage is the most brittle linkage option with regard to this issue.
+Connectivity constraints and single, complete or average linkage can enhance the ‘rich getting richer’ aspect of agglomerative clustering, particularly so if they are built with sklearn.neighbors.kneighbors\_graph. In the limit of a small number of clusters, they tend to give a few macroscopically occupied clusters and almost empty ones. (see the discussion in Agglomerative clustering with and without structure). Single linkage is the most brittle linkage option with regard to this issue.
 
-../_images/sphx_glr_plot_agglomerative_clustering_001.png ../_images/sphx_glr_plot_agglomerative_clustering_002.png ../_images/sphx_glr_plot_agglomerative_clustering_003.png ../_images/sphx_glr_plot_agglomerative_clustering_004.png
+../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_001.png ../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_002.png ../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_003.png ../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_004.png
 2.3.6.4. Varying the metric
 Single, average and complete linkage can be used with a variety of distances (or affinities), in particular Euclidean distance (l2), Manhattan distance (or Cityblock, or l1), cosine distance, or any precomputed affinity matrix.
 
@@ -3027,7 +3364,7 @@ cosine distance is interesting because it is invariant to global scalings of the
 
 The guidelines for choosing a metric is to use one that maximizes the distance between samples in different classes, and minimizes that within each class.
 
-../_images/sphx_glr_plot_agglomerative_clustering_metrics_005.png ../_images/sphx_glr_plot_agglomerative_clustering_metrics_006.png ../_images/sphx_glr_plot_agglomerative_clustering_metrics_007.png
+../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_metrics\_005.png ../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_metrics\_006.png ../\_images/sphx\_glr\_plot\_agglomerative\_clustering\_metrics\_007.png
 Examples:
 
 Agglomerative clustering with different metrics
@@ -3044,9 +3381,9 @@ This variant is more efficient to agglomerative clustering if the number of clus
 This variant also does not produce empty clusters.
 
 There exist two strategies for selecting the cluster to split:
-bisecting_strategy="largest_cluster" selects the cluster having the most points
+bisecting\_strategy="largest\_cluster" selects the cluster having the most points
 
-bisecting_strategy="biggest_inertia" selects the cluster with biggest inertia (cluster with biggest Sum of Squared Errors within)
+bisecting\_strategy="biggest\_inertia" selects the cluster with biggest inertia (cluster with biggest Sum of Squared Errors within)
 
 Picking by largest amount of data points in most cases produces result as accurate as picking by inertia and is faster (especially for larger amount of data points, where calculating error may be costly).
 
@@ -3063,17 +3400,17 @@ References:
 “Bisecting K-means Algorithm Based on K-valued Self-determining and Clustering Center Optimization” Jian Di, Xinyue Gou School of Control and Computer Engineering,North China Electric Power University, Baoding, Hebei, China (August 2017)
 
 2.3.7. DBSCAN
-The DBSCAN algorithm views clusters as areas of high density separated by areas of low density. Due to this rather generic view, clusters found by DBSCAN can be any shape, as opposed to k-means which assumes that clusters are convex shaped. The central component to the DBSCAN is the concept of core samples, which are samples that are in areas of high density. A cluster is therefore a set of core samples, each close to each other (measured by some distance measure) and a set of non-core samples that are close to a core sample (but are not themselves core samples). There are two parameters to the algorithm, min_samples and eps, which define formally what we mean when we say dense. Higher min_samples or lower eps indicate higher density necessary to form a cluster.
+The DBSCAN algorithm views clusters as areas of high density separated by areas of low density. Due to this rather generic view, clusters found by DBSCAN can be any shape, as opposed to k-means which assumes that clusters are convex shaped. The central component to the DBSCAN is the concept of core samples, which are samples that are in areas of high density. A cluster is therefore a set of core samples, each close to each other (measured by some distance measure) and a set of non-core samples that are close to a core sample (but are not themselves core samples). There are two parameters to the algorithm, min\_samples and eps, which define formally what we mean when we say dense. Higher min\_samples or lower eps indicate higher density necessary to form a cluster.
 
-More formally, we define a core sample as being a sample in the dataset such that there exist min_samples other samples within a distance of eps, which are defined as neighbors of the core sample. This tells us that the core sample is in a dense area of the vector space. A cluster is a set of core samples that can be built by recursively taking a core sample, finding all of its neighbors that are core samples, finding all of their neighbors that are core samples, and so on. A cluster also has a set of non-core samples, which are samples that are neighbors of a core sample in the cluster but are not themselves core samples. Intuitively, these samples are on the fringes of a cluster.
+More formally, we define a core sample as being a sample in the dataset such that there exist min\_samples other samples within a distance of eps, which are defined as neighbors of the core sample. This tells us that the core sample is in a dense area of the vector space. A cluster is a set of core samples that can be built by recursively taking a core sample, finding all of its neighbors that are core samples, finding all of their neighbors that are core samples, and so on. A cluster also has a set of non-core samples, which are samples that are neighbors of a core sample in the cluster but are not themselves core samples. Intuitively, these samples are on the fringes of a cluster.
 
 Any core sample is part of a cluster, by definition. Any sample that is not a core sample, and is at least eps in distance from any core sample, is considered an outlier by the algorithm.
 
-While the parameter min_samples primarily controls how tolerant the algorithm is towards noise (on noisy and large data sets it may be desirable to increase this parameter), the parameter eps is crucial to choose appropriately for the data set and distance function and usually cannot be left at the default value. It controls the local neighborhood of the points. When chosen too small, most data will not be clustered at all (and labeled as -1 for “noise”). When chosen too large, it causes close clusters to be merged into one cluster, and eventually the entire data set to be returned as a single cluster. Some heuristics for choosing this parameter have been discussed in the literature, for example based on a knee in the nearest neighbor distances plot (as discussed in the references below).
+While the parameter min\_samples primarily controls how tolerant the algorithm is towards noise (on noisy and large data sets it may be desirable to increase this parameter), the parameter eps is crucial to choose appropriately for the data set and distance function and usually cannot be left at the default value. It controls the local neighborhood of the points. When chosen too small, most data will not be clustered at all (and labeled as -1 for “noise”). When chosen too large, it causes close clusters to be merged into one cluster, and eventually the entire data set to be returned as a single cluster. Some heuristics for choosing this parameter have been discussed in the literature, for example based on a knee in the nearest neighbor distances plot (as discussed in the references below).
 
 In the figure below, the color indicates cluster membership, with large circles indicating core samples found by the algorithm. Smaller circles are non-core samples that are still part of a cluster. Moreover, the outliers are indicated by black points below.
 
-dbscan_results
+dbscan\_results
 
 Examples:
 
@@ -3087,14 +3424,14 @@ The current implementation uses ball trees and kd-trees to determine the neighbo
 
 Memory consumption for large sample sizes
 
-This implementation is by default not memory efficient because it constructs a full pairwise similarity matrix in the case where kd-trees or ball-trees cannot be used (e.g., with sparse matrices). This matrix will consume 
- floats. A couple of mechanisms for getting around this are:
+This implementation is by default not memory efficient because it constructs a full pairwise similarity matrix in the case where kd-trees or ball-trees cannot be used (e.g., with sparse matrices). This matrix will consume
+floats. A couple of mechanisms for getting around this are:
 
-Use OPTICS clustering in conjunction with the extract_dbscan method. OPTICS clustering also calculates the full pairwise matrix, but only keeps one row in memory at a time (memory complexity n).
+Use OPTICS clustering in conjunction with the extract\_dbscan method. OPTICS clustering also calculates the full pairwise matrix, but only keeps one row in memory at a time (memory complexity n).
 
-A sparse radius neighborhood graph (where missing entries are presumed to be out of eps) can be precomputed in a memory-efficient way and dbscan can be run over this with metric='precomputed'. See sklearn.neighbors.NearestNeighbors.radius_neighbors_graph.
+A sparse radius neighborhood graph (where missing entries are presumed to be out of eps) can be precomputed in a memory-efficient way and dbscan can be run over this with metric='precomputed'. See sklearn.neighbors.NearestNeighbors.radius\_neighbors\_graph.
 
-The dataset can be compressed, either by removing exact duplicates if these occur in your data, or by using BIRCH. Then you only have a relatively small number of representatives for a large number of points. You can then provide a sample_weight when fitting DBSCAN.
+The dataset can be compressed, either by removing exact duplicates if these occur in your data, or by using BIRCH. Then you only have a relatively small number of representatives for a large number of points. You can then provide a sample\_weight when fitting DBSCAN.
 
 References:
 
@@ -3103,11 +3440,11 @@ References:
 “DBSCAN revisited, revisited: why and how you should (still) use DBSCAN.” Schubert, E., Sander, J., Ester, M., Kriegel, H. P., & Xu, X. (2017). In ACM Transactions on Database Systems (TODS), 42(3), 19.
 
 2.3.8. OPTICS
-The OPTICS algorithm shares many similarities with the DBSCAN algorithm, and can be considered a generalization of DBSCAN that relaxes the eps requirement from a single value to a value range. The key difference between DBSCAN and OPTICS is that the OPTICS algorithm builds a reachability graph, which assigns each sample both a reachability_ distance, and a spot within the cluster ordering_ attribute; these two attributes are assigned when the model is fitted, and are used to determine cluster membership. If OPTICS is run with the default value of inf set for max_eps, then DBSCAN style cluster extraction can be performed repeatedly in linear time for any given eps value using the cluster_optics_dbscan method. Setting max_eps to a lower value will result in shorter run times, and can be thought of as the maximum neighborhood radius from each point to find other potential reachable points.
+The OPTICS algorithm shares many similarities with the DBSCAN algorithm, and can be considered a generalization of DBSCAN that relaxes the eps requirement from a single value to a value range. The key difference between DBSCAN and OPTICS is that the OPTICS algorithm builds a reachability graph, which assigns each sample both a reachability\_ distance, and a spot within the cluster ordering\_ attribute; these two attributes are assigned when the model is fitted, and are used to determine cluster membership. If OPTICS is run with the default value of inf set for max\_eps, then DBSCAN style cluster extraction can be performed repeatedly in linear time for any given eps value using the cluster\_optics\_dbscan method. Setting max\_eps to a lower value will result in shorter run times, and can be thought of as the maximum neighborhood radius from each point to find other potential reachable points.
 
-optics_results
+optics\_results
 
-The reachability distances generated by OPTICS allow for variable density extraction of clusters within a single data set. As shown in the above plot, combining reachability distances and data set ordering_ produces a reachability plot, where point density is represented on the Y-axis, and points are ordered such that nearby points are adjacent. ‘Cutting’ the reachability plot at a single value produces DBSCAN like results; all points above the ‘cut’ are classified as noise, and each time that there is a break when reading from left to right signifies a new cluster. The default cluster extraction with OPTICS looks at the steep slopes within the graph to find clusters, and the user can define what counts as a steep slope using the parameter xi. There are also other possibilities for analysis on the graph itself, such as generating hierarchical representations of the data through reachability-plot dendrograms, and the hierarchy of clusters detected by the algorithm can be accessed through the cluster_hierarchy_ parameter. The plot above has been color-coded so that cluster colors in planar space match the linear segment clusters of the reachability plot. Note that the blue and red clusters are adjacent in the reachability plot, and can be hierarchically represented as children of a larger parent cluster.
+The reachability distances generated by OPTICS allow for variable density extraction of clusters within a single data set. As shown in the above plot, combining reachability distances and data set ordering\_ produces a reachability plot, where point density is represented on the Y-axis, and points are ordered such that nearby points are adjacent. ‘Cutting’ the reachability plot at a single value produces DBSCAN like results; all points above the ‘cut’ are classified as noise, and each time that there is a break when reading from left to right signifies a new cluster. The default cluster extraction with OPTICS looks at the steep slopes within the graph to find clusters, and the user can define what counts as a steep slope using the parameter xi. There are also other possibilities for analysis on the graph itself, such as generating hierarchical representations of the data through reachability-plot dendrograms, and the hierarchy of clusters detected by the algorithm can be accessed through the cluster\_hierarchy\_ parameter. The plot above has been color-coded so that cluster colors in planar space match the linear segment clusters of the reachability plot. Note that the blue and red clusters are adjacent in the reachability plot, and can be hierarchically represented as children of a larger parent cluster.
 
 Examples:
 
@@ -3115,17 +3452,17 @@ Demo of OPTICS clustering algorithm
 
 Comparison with DBSCAN
 
-The results from OPTICS cluster_optics_dbscan method and DBSCAN are very similar, but not always identical; specifically, labeling of periphery and noise points. This is in part because the first samples of each dense area processed by OPTICS have a large reachability value while being close to other points in their area, and will thus sometimes be marked as noise rather than periphery. This affects adjacent points when they are considered as candidates for being marked as either periphery or noise.
+The results from OPTICS cluster\_optics\_dbscan method and DBSCAN are very similar, but not always identical; specifically, labeling of periphery and noise points. This is in part because the first samples of each dense area processed by OPTICS have a large reachability value while being close to other points in their area, and will thus sometimes be marked as noise rather than periphery. This affects adjacent points when they are considered as candidates for being marked as either periphery or noise.
 
-Note that for any single value of eps, DBSCAN will tend to have a shorter run time than OPTICS; however, for repeated runs at varying eps values, a single run of OPTICS may require less cumulative runtime than DBSCAN. It is also important to note that OPTICS’ output is close to DBSCAN’s only if eps and max_eps are close.
+Note that for any single value of eps, DBSCAN will tend to have a shorter run time than OPTICS; however, for repeated runs at varying eps values, a single run of OPTICS may require less cumulative runtime than DBSCAN. It is also important to note that OPTICS’ output is close to DBSCAN’s only if eps and max\_eps are close.
 
 Computational Complexity
 
 Spatial indexing trees are used to avoid calculating the full distance matrix, and allow for efficient memory usage on large sets of samples. Different distance metrics can be supplied via the metric keyword.
 
-For large datasets, similar (but not identical) results can be obtained via HDBSCAN. The HDBSCAN implementation is multithreaded, and has better algorithmic runtime complexity than OPTICS, at the cost of worse memory scaling. For extremely large datasets that exhaust system memory using HDBSCAN, OPTICS will maintain 
- (as opposed to 
-) memory scaling; however, tuning of the max_eps parameter will likely need to be used to give a solution in a reasonable amount of wall time.
+For large datasets, similar (but not identical) results can be obtained via HDBSCAN. The HDBSCAN implementation is multithreaded, and has better algorithmic runtime complexity than OPTICS, at the cost of worse memory scaling. For extremely large datasets that exhaust system memory using HDBSCAN, OPTICS will maintain
+(as opposed to
+) memory scaling; however, tuning of the max\_eps parameter will likely need to be used to give a solution in a reasonable amount of wall time.
 
 References:
 
@@ -3142,13 +3479,13 @@ Linear Sum - An n-dimensional vector holding the sum of all samples
 
 Squared Sum - Sum of the squared L2 norm of all samples.
 
-Centroids - To avoid recalculation linear sum / n_samples.
+Centroids - To avoid recalculation linear sum / n\_samples.
 
 Squared norm of the centroids.
 
 The BIRCH algorithm has two parameters, the threshold and the branching factor. The branching factor limits the number of subclusters in a node and the threshold limits the distance between the entering sample and the existing subclusters.
 
-This algorithm can be viewed as an instance or data reduction method, since it reduces the input data to a set of subclusters which are obtained directly from the leaves of the CFT. This reduced data can be further processed by feeding it into a global clusterer. This global clusterer can be set by n_clusters. If n_clusters is set to None, the subclusters from the leaves are directly read off, otherwise a global clustering step labels these subclusters into global clusters (labels) and the samples are mapped to the global label of the nearest subcluster.
+This algorithm can be viewed as an instance or data reduction method, since it reduces the input data to a set of subclusters which are obtained directly from the leaves of the CFT. This reduced data can be further processed by feeding it into a global clusterer. This global clusterer can be set by n\_clusters. If n\_clusters is set to None, the subclusters from the leaves are directly read off, otherwise a global clustering step labels these subclusters into global clusters (labels) and the samples are mapped to the global label of the nearest subcluster.
 
 Algorithm description:
 
@@ -3160,84 +3497,78 @@ If this split node has a parent subcluster and there is room for a new subcluste
 
 BIRCH or MiniBatchKMeans?
 
-BIRCH does not scale very well to high dimensional data. As a rule of thumb if n_features is greater than twenty, it is generally better to use MiniBatchKMeans.
+BIRCH does not scale very well to high dimensional data. As a rule of thumb if n\_features is greater than twenty, it is generally better to use MiniBatchKMeans.
 
 If the number of instances of data needs to be reduced, or if one wants a large number of subclusters either as a preprocessing step or otherwise, BIRCH is more useful than MiniBatchKMeans.
 
-How to use partial_fit?
+How to use partial\_fit?
 
-To avoid the computation of global clustering, for every call of partial_fit the user is advised
+To avoid the computation of global clustering, for every call of partial\_fit the user is advised
 
-To set n_clusters=None initially
+To set n\_clusters=None initially
 
-Train all data by multiple calls to partial_fit.
+Train all data by multiple calls to partial\_fit.
 
-Set n_clusters to a required value using brc.set_params(n_clusters=n_clusters).
+Set n\_clusters to a required value using brc.set\_params(n\_clusters=n\_clusters).
 
-Call partial_fit finally with no arguments, i.e. brc.partial_fit() which performs the global clustering.
+Call partial\_fit finally with no arguments, i.e. brc.partial\_fit() which performs the global clustering.
 
-../_images/sphx_glr_plot_birch_vs_minibatchkmeans_001.png
+../\_images/sphx\_glr\_plot\_birch\_vs\_minibatchkmeans\_001.png
 References:
 
-Tian Zhang, Raghu Ramakrishnan, Maron Livny BIRCH: An efficient data clustering method for large databases. https://www.cs.sfu.ca/CourseCentral/459/han/papers/zhang96.pdf
+Tian Zhang, Raghu Ramakrishnan, Maron Livny BIRCH: An efficient data clustering method for large databases. <https://www.cs.sfu.ca/CourseCentral/459/han/papers/zhang96.pdf>
 
-Roberto Perdisci JBirch - Java implementation of BIRCH clustering algorithm https://code.google.com/archive/p/jbirch
+Roberto Perdisci JBirch - Java implementation of BIRCH clustering algorithm <https://code.google.com/archive/p/jbirch>
 
 2.3.10. Clustering performance evaluation
 Evaluating the performance of a clustering algorithm is not as trivial as counting the number of errors or the precision and recall of a supervised classification algorithm. In particular any evaluation metric should not take the absolute values of the cluster labels into account but rather if this clustering define separations of the data similar to some ground truth set of classes or satisfying some assumption such that members belong to the same class are more similar than members of different classes according to some similarity metric.
 
 2.3.10.1. Rand index
-Given the knowledge of the ground truth class assignments labels_true and our clustering algorithm assignments of the same samples labels_pred, the (adjusted or unadjusted) Rand index is a function that measures the similarity of the two assignments, ignoring permutations:
+Given the knowledge of the ground truth class assignments labels\_true and our clustering algorithm assignments of the same samples labels\_pred, the (adjusted or unadjusted) Rand index is a function that measures the similarity of the two assignments, ignoring permutations:
 
->>>
->>> from sklearn import metrics
->>> labels_true = [0, 0, 0, 1, 1, 1]
->>> labels_pred = [0, 0, 1, 1, 2, 2]
->>> metrics.rand_score(labels_true, labels_pred)
-0.66...
-The Rand index does not ensure to obtain a value close to 0.0 for a random labelling. The adjusted Rand index corrects for chance and will give such a baseline.
+> > > from sklearn import metrics
+> > > labels\_true = \[0, 0, 0, 1, 1, 1]
+> > > labels\_pred = \[0, 0, 1, 1, 2, 2]
+> > > metrics.rand\_score(labels\_true, labels\_pred)
+> > > 0.66...
+> > > The Rand index does not ensure to obtain a value close to 0.0 for a random labelling. The adjusted Rand index corrects for chance and will give such a baseline.
 
->>>
->>> metrics.adjusted_rand_score(labels_true, labels_pred)
-0.24...
-As with all clustering metrics, one can permute 0 and 1 in the predicted labels, rename 2 to 3, and get the same score:
+> > > metrics.adjusted\_rand\_score(labels\_true, labels\_pred)
+> > > 0.24...
+> > > As with all clustering metrics, one can permute 0 and 1 in the predicted labels, rename 2 to 3, and get the same score:
 
->>>
->>> labels_pred = [1, 1, 0, 0, 3, 3]
->>> metrics.rand_score(labels_true, labels_pred)
-0.66...
->>> metrics.adjusted_rand_score(labels_true, labels_pred)
-0.24...
-Furthermore, both rand_score adjusted_rand_score are symmetric: swapping the argument does not change the scores. They can thus be used as consensus measures:
+> > > labels\_pred = \[1, 1, 0, 0, 3, 3]
+> > > metrics.rand\_score(labels\_true, labels\_pred)
+> > > 0.66...
+> > > metrics.adjusted\_rand\_score(labels\_true, labels\_pred)
+> > > 0.24...
+> > > Furthermore, both rand\_score adjusted\_rand\_score are symmetric: swapping the argument does not change the scores. They can thus be used as consensus measures:
 
->>>
->>> metrics.rand_score(labels_pred, labels_true)
-0.66...
->>> metrics.adjusted_rand_score(labels_pred, labels_true)
-0.24...
-Perfect labeling is scored 1.0:
+> > > metrics.rand\_score(labels\_pred, labels\_true)
+> > > 0.66...
+> > > metrics.adjusted\_rand\_score(labels\_pred, labels\_true)
+> > > 0.24...
+> > > Perfect labeling is scored 1.0:
 
->>>
->>> labels_pred = labels_true[:]
->>> metrics.rand_score(labels_true, labels_pred)
-1.0
->>> metrics.adjusted_rand_score(labels_true, labels_pred)
-1.0
-Poorly agreeing labels (e.g. independent labelings) have lower scores, and for the adjusted Rand index the score will be negative or close to zero. However, for the unadjusted Rand index the score, while lower, will not necessarily be close to zero.:
+> > > labels\_pred = labels\_true\[:]
+> > > metrics.rand\_score(labels\_true, labels\_pred)
+> > > 1.0
+> > > metrics.adjusted\_rand\_score(labels\_true, labels\_pred)
+> > > 1.0
+> > > Poorly agreeing labels (e.g. independent labelings) have lower scores, and for the adjusted Rand index the score will be negative or close to zero. However, for the unadjusted Rand index the score, while lower, will not necessarily be close to zero.:
 
->>>
->>> labels_true = [0, 0, 0, 0, 0, 0, 1, 1]
->>> labels_pred = [0, 1, 2, 3, 4, 5, 5, 6]
->>> metrics.rand_score(labels_true, labels_pred)
-0.39...
->>> metrics.adjusted_rand_score(labels_true, labels_pred)
--0.07...
-Advantages
-Interpretability: The unadjusted Rand index is proportional to the number of sample pairs whose labels are the same in both labels_pred and labels_true, or are different in both.
+> > > labels\_true = \[0, 0, 0, 0, 0, 0, 1, 1]
+> > > labels\_pred = \[0, 1, 2, 3, 4, 5, 5, 6]
+> > > metrics.rand\_score(labels\_true, labels\_pred)
+> > > 0.39...
+> > > metrics.adjusted\_rand\_score(labels\_true, labels\_pred)
+> > > \-0.07...
+> > > Advantages
+> > > Interpretability: The unadjusted Rand index is proportional to the number of sample pairs whose labels are the same in both labels\_pred and labels\_true, or are different in both.
 
-Random (uniform) label assignments have an adjusted Rand index score close to 0.0 for any value of n_clusters and n_samples (which is not the case for the unadjusted Rand index or the V-measure for instance).
+Random (uniform) label assignments have an adjusted Rand index score close to 0.0 for any value of n\_clusters and n\_samples (which is not the case for the unadjusted Rand index or the V-measure for instance).
 
-Bounded range: Lower values indicate different labelings, similar clusterings have a high (adjusted or unadjusted) Rand index, 1.0 is the perfect match score. The score range is [0, 1] for the unadjusted Rand index and [-1, 1] for the adjusted Rand index.
+Bounded range: Lower values indicate different labelings, similar clusterings have a high (adjusted or unadjusted) Rand index, 1.0 is the perfect match score. The score range is \[0, 1] for the unadjusted Rand index and \[-1, 1] for the adjusted Rand index.
 
 No assumption is made on the cluster structure: The (adjusted or unadjusted) Rand index can be used to compare all kinds of clustering algorithms, and can be used to compare clustering algorithms such as k-means which assumes isotropic blob shapes with results of spectral clustering algorithms which can find cluster with “folded” shapes.
 
@@ -3253,9 +3584,9 @@ Examples:
 Adjustment for chance in clustering performance evaluation: Analysis of the impact of the dataset size on the value of clustering measures for random assignments.
 
 Mathematical formulation
-If C is a ground truth class assignment and K the clustering, let us define 
- and 
- as:
+If C is a ground truth class assignment and K the clustering, let us define
+and
+as:
 
 , the number of pairs of elements that are in the same set in C and in the same set in K
 
@@ -3263,16 +3594,14 @@ If C is a ground truth class assignment and K the clustering, let us define
 
 The unadjusted Rand index is then given by:
 
- 
-where 
- is the total number of possible pairs in the dataset. It does not matter if the calculation is performed on ordered pairs or unordered pairs as long as the calculation is performed consistently.
+where
+is the total number of possible pairs in the dataset. It does not matter if the calculation is performed on ordered pairs or unordered pairs as long as the calculation is performed consistently.
 
 However, the Rand index does not guarantee that random label assignments will get a value close to zero (esp. if the number of clusters is in the same order of magnitude as the number of samples).
 
-To counter this effect we can discount the expected RI 
- of random labelings by defining the adjusted Rand index as follows:
+To counter this effect we can discount the expected RI
+of random labelings by defining the adjusted Rand index as follows:
 
- 
 References
 
 Comparing Partitions L. Hubert and P. Arabie, Journal of Classification 1985
@@ -3284,49 +3613,43 @@ Wikipedia entry for the Rand index
 Wikipedia entry for the adjusted Rand index
 
 2.3.10.2. Mutual Information based scores
-Given the knowledge of the ground truth class assignments labels_true and our clustering algorithm assignments of the same samples labels_pred, the Mutual Information is a function that measures the agreement of the two assignments, ignoring permutations. Two different normalized versions of this measure are available, Normalized Mutual Information (NMI) and Adjusted Mutual Information (AMI). NMI is often used in the literature, while AMI was proposed more recently and is normalized against chance:
+Given the knowledge of the ground truth class assignments labels\_true and our clustering algorithm assignments of the same samples labels\_pred, the Mutual Information is a function that measures the agreement of the two assignments, ignoring permutations. Two different normalized versions of this measure are available, Normalized Mutual Information (NMI) and Adjusted Mutual Information (AMI). NMI is often used in the literature, while AMI was proposed more recently and is normalized against chance:
 
->>>
->>> from sklearn import metrics
->>> labels_true = [0, 0, 0, 1, 1, 1]
->>> labels_pred = [0, 0, 1, 1, 2, 2]
+> > > from sklearn import metrics
+> > > labels\_true = \[0, 0, 0, 1, 1, 1]
+> > > labels\_pred = \[0, 0, 1, 1, 2, 2]
 
->>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  
-0.22504...
-One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get the same score:
+> > > metrics.adjusted\_mutual\_info\_score(labels\_true, labels\_pred)\
+> > > 0.22504...
+> > > One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get the same score:
 
->>>
->>> labels_pred = [1, 1, 0, 0, 3, 3]
->>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  
-0.22504...
-All, mutual_info_score, adjusted_mutual_info_score and normalized_mutual_info_score are symmetric: swapping the argument does not change the score. Thus they can be used as a consensus measure:
+> > > labels\_pred = \[1, 1, 0, 0, 3, 3]
+> > > metrics.adjusted\_mutual\_info\_score(labels\_true, labels\_pred)\
+> > > 0.22504...
+> > > All, mutual\_info\_score, adjusted\_mutual\_info\_score and normalized\_mutual\_info\_score are symmetric: swapping the argument does not change the score. Thus they can be used as a consensus measure:
 
->>>
->>> metrics.adjusted_mutual_info_score(labels_pred, labels_true)  
-0.22504...
-Perfect labeling is scored 1.0:
+> > > metrics.adjusted\_mutual\_info\_score(labels\_pred, labels\_true)\
+> > > 0.22504...
+> > > Perfect labeling is scored 1.0:
 
->>>
->>> labels_pred = labels_true[:]
->>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  
-1.0
+> > > labels\_pred = labels\_true\[:]
+> > > metrics.adjusted\_mutual\_info\_score(labels\_true, labels\_pred)\
+> > > 1.0
 
->>> metrics.normalized_mutual_info_score(labels_true, labels_pred)  
-1.0
-This is not true for mutual_info_score, which is therefore harder to judge:
+> > > metrics.normalized\_mutual\_info\_score(labels\_true, labels\_pred)\
+> > > 1.0
+> > > This is not true for mutual\_info\_score, which is therefore harder to judge:
 
->>>
->>> metrics.mutual_info_score(labels_true, labels_pred)  
-0.69...
-Bad (e.g. independent labelings) have non-positive scores:
+> > > metrics.mutual\_info\_score(labels\_true, labels\_pred)\
+> > > 0.69...
+> > > Bad (e.g. independent labelings) have non-positive scores:
 
->>>
->>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
->>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
->>> metrics.adjusted_mutual_info_score(labels_true, labels_pred)  
--0.10526...
-Advantages
-Random (uniform) label assignments have a AMI score close to 0.0 for any value of n_clusters and n_samples (which is not the case for raw Mutual Information or the V-measure for instance).
+> > > labels\_true = \[0, 1, 2, 0, 3, 4, 5, 1]
+> > > labels\_pred = \[1, 1, 0, 0, 2, 2, 2, 2]
+> > > metrics.adjusted\_mutual\_info\_score(labels\_true, labels\_pred)\
+> > > \-0.10526...
+> > > Advantages
+> > > Random (uniform) label assignments have a AMI score close to 0.0 for any value of n\_clusters and n\_samples (which is not the case for raw Mutual Information or the V-measure for instance).
 
 Upper bound of 1: Values close to zero indicate two label assignments that are largely independent, while values close to one indicate significant agreement. Further, an AMI of exactly 1 indicates that the two label assignments are equal (with or without permutation).
 
@@ -3342,60 +3665,43 @@ Examples:
 Adjustment for chance in clustering performance evaluation: Analysis of the impact of the dataset size on the value of clustering measures for random assignments. This example also includes the Adjusted Rand Index.
 
 Mathematical formulation
-Assume two label assignments (of the same N objects), 
- and 
+Assume two label assignments (of the same N objects),
+and
 . Their entropy is the amount of uncertainty for a partition set, defined by:
 
- 
-where 
- is the probability that an object picked at random from 
- falls into class 
-. Likewise for 
+where
+is the probability that an object picked at random from
+falls into class
+. Likewise for
 :
 
- 
-With 
-. The mutual information (MI) between 
- and 
- is calculated by:
+With
+. The mutual information (MI) between
+and
+is calculated by:
 
- 
- 
- 
-where 
- is the probability that an object picked at random falls into both classes 
- and 
+where
+is the probability that an object picked at random falls into both classes
+and
 .
 
 It also can be expressed in set cardinality formulation:
 
- 
- 
- 
- 
 The normalized mutual information is defined as
 
- 
 This value of the mutual information and also the normalized variant is not adjusted for chance and will tend to increase as the number of different labels (clusters) increases, regardless of the actual amount of “mutual information” between the label assignments.
 
-The expected value for the mutual information can be calculated using the following equation [VEB2009]. In this equation, 
- (the number of elements in 
-) and 
- (the number of elements in 
+The expected value for the mutual information can be calculated using the following equation \[VEB2009]. In this equation,
+(the number of elements in
+) and
+(the number of elements in
 ).
 
- 
- 
- 
- 
- 
- 
 Using the expected value, the adjusted mutual information can then be calculated using a similar form to that of the adjusted Rand index:
 
- 
-For normalized mutual information and adjusted mutual information, the normalizing value is typically some generalized mean of the entropies of each clustering. Various generalized means exist, and no firm rules exist for preferring one over the others. The decision is largely a field-by-field basis; for instance, in community detection, the arithmetic mean is most common. Each normalizing method provides “qualitatively similar behaviours” [YAT2016]. In our implementation, this is controlled by the average_method parameter.
+For normalized mutual information and adjusted mutual information, the normalizing value is typically some generalized mean of the entropies of each clustering. Various generalized means exist, and no firm rules exist for preferring one over the others. The decision is largely a field-by-field basis; for instance, in community detection, the arithmetic mean is most common. Each normalizing method provides “qualitatively similar behaviours” \[YAT2016]. In our implementation, this is controlled by the average\_method parameter.
 
-Vinh et al. (2010) named variants of NMI and AMI by their averaging method [VEB2010]. Their ‘sqrt’ and ‘sum’ averages are the geometric and arithmetic means; we use these more broadly common names.
+Vinh et al. (2010) named variants of NMI and AMI by their averaging method \[VEB2010]. Their ‘sqrt’ and ‘sum’ averages are the geometric and arithmetic means; we use these more broadly common names.
 
 References
 
@@ -3405,13 +3711,13 @@ Wikipedia entry for the (normalized) Mutual Information
 
 Wikipedia entry for the Adjusted Mutual Information
 
-[VEB2009]
+\[VEB2009]
 Vinh, Epps, and Bailey, (2009). “Information theoretic measures for clusterings comparison”. Proceedings of the 26th Annual International Conference on Machine Learning - ICML ‘09. doi:10.1145/1553374.1553511. ISBN 9781605585161.
 
-[VEB2010]
+\[VEB2010]
 Vinh, Epps, and Bailey, (2010). “Information Theoretic Measures for Clusterings Comparison: Variants, Properties, Normalization and Correction for Chance”. JMLR <https://jmlr.csail.mit.edu/papers/volume11/vinh10a/vinh10a.pdf>
 
-[YAT2016]
+\[YAT2016]
 Yang, Algesheimer, and Tessone, (2016). “A comparative analysis of community detection algorithms on artificial networks”. Scientific Reports 6: 30750. doi:10.1038/srep30750.
 
 2.3.10.3. Homogeneity, completeness and V-measure
@@ -3423,55 +3729,48 @@ homogeneity: each cluster contains only members of a single class.
 
 completeness: all members of a given class are assigned to the same cluster.
 
-We can turn those concept as scores homogeneity_score and completeness_score. Both are bounded below by 0.0 and above by 1.0 (higher is better):
+We can turn those concept as scores homogeneity\_score and completeness\_score. Both are bounded below by 0.0 and above by 1.0 (higher is better):
 
->>>
->>> from sklearn import metrics
->>> labels_true = [0, 0, 0, 1, 1, 1]
->>> labels_pred = [0, 0, 1, 1, 2, 2]
+> > > from sklearn import metrics
+> > > labels\_true = \[0, 0, 0, 1, 1, 1]
+> > > labels\_pred = \[0, 0, 1, 1, 2, 2]
 
->>> metrics.homogeneity_score(labels_true, labels_pred)
-0.66...
+> > > metrics.homogeneity\_score(labels\_true, labels\_pred)
+> > > 0.66...
 
->>> metrics.completeness_score(labels_true, labels_pred)
-0.42...
-Their harmonic mean called V-measure is computed by v_measure_score:
+> > > metrics.completeness\_score(labels\_true, labels\_pred)
+> > > 0.42...
+> > > Their harmonic mean called V-measure is computed by v\_measure\_score:
 
->>>
->>> metrics.v_measure_score(labels_true, labels_pred)
-0.51...
-This function’s formula is as follows:
+> > > metrics.v\_measure\_score(labels\_true, labels\_pred)
+> > > 0.51...
+> > > This function’s formula is as follows:
 
- 
 beta defaults to a value of 1.0, but for using a value less than 1 for beta:
 
->>>
->>> metrics.v_measure_score(labels_true, labels_pred, beta=0.6)
-0.54...
-more weight will be attributed to homogeneity, and using a value greater than 1:
+> > > metrics.v\_measure\_score(labels\_true, labels\_pred, beta=0.6)
+> > > 0.54...
+> > > more weight will be attributed to homogeneity, and using a value greater than 1:
 
->>>
->>> metrics.v_measure_score(labels_true, labels_pred, beta=1.8)
-0.48...
-more weight will be attributed to completeness.
+> > > metrics.v\_measure\_score(labels\_true, labels\_pred, beta=1.8)
+> > > 0.48...
+> > > more weight will be attributed to completeness.
 
-The V-measure is actually equivalent to the mutual information (NMI) discussed above, with the aggregation function being the arithmetic mean [B2011].
+The V-measure is actually equivalent to the mutual information (NMI) discussed above, with the aggregation function being the arithmetic mean \[B2011].
 
-Homogeneity, completeness and V-measure can be computed at once using homogeneity_completeness_v_measure as follows:
+Homogeneity, completeness and V-measure can be computed at once using homogeneity\_completeness\_v\_measure as follows:
 
->>>
->>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
-(0.66..., 0.42..., 0.51...)
-The following clustering assignment is slightly better, since it is homogeneous but not complete:
+> > > metrics.homogeneity\_completeness\_v\_measure(labels\_true, labels\_pred)
+> > > (0.66..., 0.42..., 0.51...)
+> > > The following clustering assignment is slightly better, since it is homogeneous but not complete:
 
->>>
->>> labels_pred = [0, 0, 0, 1, 2, 2]
->>> metrics.homogeneity_completeness_v_measure(labels_true, labels_pred)
-(1.0, 0.68..., 0.81...)
-Note v_measure_score is symmetric: it can be used to evaluate the agreement of two independent assignments on the same dataset.
-This is not the case for completeness_score and homogeneity_score: both are bound by the relationship:
+> > > labels\_pred = \[0, 0, 0, 1, 2, 2]
+> > > metrics.homogeneity\_completeness\_v\_measure(labels\_true, labels\_pred)
+> > > (1.0, 0.68..., 0.81...)
+> > > Note v\_measure\_score is symmetric: it can be used to evaluate the agreement of two independent assignments on the same dataset.
+> > > This is not the case for completeness\_score and homogeneity\_score: both are bound by the relationship:
 
-homogeneity_score(a, b) == completeness_score(b, a)
+homogeneity\_score(a, b) == completeness\_score(b, a)
 Advantages
 Bounded scores: 0.0 is as bad as it can be, 1.0 is a perfect score.
 
@@ -3484,7 +3783,7 @@ The previously introduced metrics are not normalized with regards to random labe
 
 This problem can safely be ignored when the number of samples is more than a thousand and the number of clusters is less than 10. For smaller sample sizes or larger number of clusters it is safer to use an adjusted index such as the Adjusted Rand Index (ARI).
 
-../_images/sphx_glr_plot_adjusted_for_chance_measures_001.png
+../\_images/sphx\_glr\_plot\_adjusted\_for\_chance\_measures\_001.png
 These metrics require the knowledge of the ground truth classes while almost never available in practice or requires manual assignment by human annotators (as in the supervised learning setting).
 
 Examples:
@@ -3494,82 +3793,67 @@ Adjustment for chance in clustering performance evaluation: Analysis of the impa
 Mathematical formulation
 Homogeneity and completeness scores are formally given by:
 
- 
- 
-where 
- is the conditional entropy of the classes given the cluster assignments and is given by:
+where
+is the conditional entropy of the classes given the cluster assignments and is given by:
 
- 
- 
- 
- 
-and 
- is the entropy of the classes and is given by:
+and
+is the entropy of the classes and is given by:
 
- 
- 
- 
-with 
- the total number of samples, 
- and 
- the number of samples respectively belonging to class 
- and cluster 
-, and finally 
- the number of samples from class 
- assigned to cluster 
+with
+the total number of samples,
+and
+the number of samples respectively belonging to class
+and cluster
+, and finally
+the number of samples from class
+assigned to cluster
 .
 
-The conditional entropy of clusters given class 
- and the entropy of clusters 
- are defined in a symmetric manner.
+The conditional entropy of clusters given class
+and the entropy of clusters
+are defined in a symmetric manner.
 
 Rosenberg and Hirschberg further define V-measure as the harmonic mean of homogeneity and completeness:
 
- 
 References
 
 V-Measure: A conditional entropy-based external cluster evaluation measure Andrew Rosenberg and Julia Hirschberg, 2007
 
-[B2011]
+\[B2011]
 Identication and Characterization of Events in Social Media, Hila Becker, PhD Thesis.
 
 2.3.10.4. Fowlkes-Mallows scores
-The Fowlkes-Mallows index (sklearn.metrics.fowlkes_mallows_score) can be used when the ground truth class assignments of the samples is known. The Fowlkes-Mallows score FMI is defined as the geometric mean of the pairwise precision and recall:
+The Fowlkes-Mallows index (sklearn.metrics.fowlkes\_mallows\_score) can be used when the ground truth class assignments of the samples is known. The Fowlkes-Mallows score FMI is defined as the geometric mean of the pairwise precision and recall:
 
- 
 Where TP is the number of True Positive (i.e. the number of pair of points that belong to the same clusters in both the true labels and the predicted labels), FP is the number of False Positive (i.e. the number of pair of points that belong to the same clusters in the true labels and not in the predicted labels) and FN is the number of False Negative (i.e the number of pair of points that belongs in the same clusters in the predicted labels and not in the true labels).
 
 The score ranges from 0 to 1. A high value indicates a good similarity between two clusters.
 
->>>
->>> from sklearn import metrics
->>> labels_true = [0, 0, 0, 1, 1, 1]
->>> labels_pred = [0, 0, 1, 1, 2, 2]
->>>
->>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
-0.47140...
-One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get the same score:
+> > > from sklearn import metrics
+> > > labels\_true = \[0, 0, 0, 1, 1, 1]
+> > > labels\_pred = \[0, 0, 1, 1, 2, 2]
+> > >
+> > > metrics.fowlkes\_mallows\_score(labels\_true, labels\_pred)
+> > > 0.47140...
+> > > One can permute 0 and 1 in the predicted labels, rename 2 to 3 and get the same score:
 
->>>
->>> labels_pred = [1, 1, 0, 0, 3, 3]
+> > > labels\_pred = \[1, 1, 0, 0, 3, 3]
 
->>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
-0.47140...
-Perfect labeling is scored 1.0:
+> > > metrics.fowlkes\_mallows\_score(labels\_true, labels\_pred)
+> > > 0.47140...
+> > > Perfect labeling is scored 1.0:
 
->>>
->>> labels_pred = labels_true[:]
->>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
-1.0
-Bad (e.g. independent labelings) have zero scores:
+> > > labels\_pred = labels\_true\[:]
+> > > metrics.fowlkes\_mallows\_score(labels\_true, labels\_pred)
+> > > 1.0
+> > > Bad (e.g. independent labelings) have zero scores:
 
->>>
->>> labels_true = [0, 1, 2, 0, 3, 4, 5, 1]
->>> labels_pred = [1, 1, 0, 0, 2, 2, 2, 2]
->>> metrics.fowlkes_mallows_score(labels_true, labels_pred)
-0.0
-Advantages
-Random (uniform) label assignments have a FMI score close to 0.0 for any value of n_clusters and n_samples (which is not the case for raw Mutual Information or the V-measure for instance).
+> > > labels\_true = \[0, 1, 2, 0, 3, 4, 5, 1]
+> > > labels\_pred = \[1, 1, 0, 0, 2, 2, 2, 2]
+> > > metrics.fowlkes\_mallows\_score(labels\_true, labels\_pred)
+> > > 0.0
+> > > Advantages
+> > > Random (uniform) label assignments have a FMI score close to 0.0 for any value of n\_clusters and n\_samples (which is not the case for raw Mutual Information or the V-measure for instance).
 
 Upper-bounded at 1: Values close to zero indicate two label assignments that are largely independent, while values close to one indicate significant agreement. Further, values of exactly 0 indicate purely independent label assignments and a FMI of exactly 1 indicates that the two label assignments are equal (with or without permutation).
 
@@ -3580,12 +3864,12 @@ Contrary to inertia, FMI-based measures require the knowledge of the ground trut
 
 References
 
-E. B. Fowkles and C. L. Mallows, 1983. “A method for comparing two hierarchical clusterings”. Journal of the American Statistical Association. https://www.tandfonline.com/doi/abs/10.1080/01621459.1983.10478008
+E. B. Fowkles and C. L. Mallows, 1983. “A method for comparing two hierarchical clusterings”. Journal of the American Statistical Association. <https://www.tandfonline.com/doi/abs/10.1080/01621459.1983.10478008>
 
 Wikipedia entry for the Fowlkes-Mallows Index
 
 2.3.10.5. Silhouette Coefficient
-If the ground truth labels are not known, evaluation must be performed using the model itself. The Silhouette Coefficient (sklearn.metrics.silhouette_score) is an example of such an evaluation, where a higher Silhouette Coefficient score relates to a model with better defined clusters. The Silhouette Coefficient is defined for each sample and is composed of two scores:
+If the ground truth labels are not known, evaluation must be performed using the model itself. The Silhouette Coefficient (sklearn.metrics.silhouette\_score) is an example of such an evaluation, where a higher Silhouette Coefficient score relates to a model with better defined clusters. The Silhouette Coefficient is defined for each sample and is composed of two scores:
 
 a: The mean distance between a sample and all other points in the same class.
 
@@ -3593,24 +3877,21 @@ b: The mean distance between a sample and all other points in the next nearest c
 
 The Silhouette Coefficient s for a single sample is then given as:
 
- 
 The Silhouette Coefficient for a set of samples is given as the mean of the Silhouette Coefficient for each sample.
 
->>>
->>> from sklearn import metrics
->>> from sklearn.metrics import pairwise_distances
->>> from sklearn import datasets
->>> X, y = datasets.load_iris(return_X_y=True)
-In normal usage, the Silhouette Coefficient is applied to the results of a cluster analysis.
+> > > from sklearn import metrics
+> > > from sklearn.metrics import pairwise\_distances
+> > > from sklearn import datasets
+> > > X, y = datasets.load\_iris(return\_X\_y=True)
+> > > In normal usage, the Silhouette Coefficient is applied to the results of a cluster analysis.
 
->>>
->>> import numpy as np
->>> from sklearn.cluster import KMeans
->>> kmeans_model = KMeans(n_clusters=3, random_state=1).fit(X)
->>> labels = kmeans_model.labels_
->>> metrics.silhouette_score(X, labels, metric='euclidean')
-0.55...
-References
+> > > import numpy as np
+> > > from sklearn.cluster import KMeans
+> > > kmeans\_model = KMeans(n\_clusters=3, random\_state=1).fit(X)
+> > > labels = kmeans\_model.labels\_
+> > > metrics.silhouette\_score(X, labels, metric='euclidean')
+> > > 0.55...
+> > > References
 
 Peter J. Rousseeuw (1987). “Silhouettes: a Graphical Aid to the Interpretation and Validation of Cluster Analysis” . Computational and Applied Mathematics 20: 53–65.
 
@@ -3624,29 +3905,27 @@ The Silhouette Coefficient is generally higher for convex clusters than other co
 
 Examples:
 
-Selecting the number of clusters with silhouette analysis on KMeans clustering : In this example the silhouette analysis is used to choose an optimal value for n_clusters.
+Selecting the number of clusters with silhouette analysis on KMeans clustering : In this example the silhouette analysis is used to choose an optimal value for n\_clusters.
 
 2.3.10.6. Calinski-Harabasz Index
-If the ground truth labels are not known, the Calinski-Harabasz index (sklearn.metrics.calinski_harabasz_score) - also known as the Variance Ratio Criterion - can be used to evaluate the model, where a higher Calinski-Harabasz score relates to a model with better defined clusters.
+If the ground truth labels are not known, the Calinski-Harabasz index (sklearn.metrics.calinski\_harabasz\_score) - also known as the Variance Ratio Criterion - can be used to evaluate the model, where a higher Calinski-Harabasz score relates to a model with better defined clusters.
 
 The index is the ratio of the sum of between-clusters dispersion and of within-cluster dispersion for all clusters (where dispersion is defined as the sum of distances squared):
 
->>>
->>> from sklearn import metrics
->>> from sklearn.metrics import pairwise_distances
->>> from sklearn import datasets
->>> X, y = datasets.load_iris(return_X_y=True)
-In normal usage, the Calinski-Harabasz index is applied to the results of a cluster analysis:
+> > > from sklearn import metrics
+> > > from sklearn.metrics import pairwise\_distances
+> > > from sklearn import datasets
+> > > X, y = datasets.load\_iris(return\_X\_y=True)
+> > > In normal usage, the Calinski-Harabasz index is applied to the results of a cluster analysis:
 
->>>
->>> import numpy as np
->>> from sklearn.cluster import KMeans
->>> kmeans_model = KMeans(n_clusters=3, random_state=1).fit(X)
->>> labels = kmeans_model.labels_
->>> metrics.calinski_harabasz_score(X, labels)
-561.62...
-Advantages
-The score is higher when clusters are dense and well separated, which relates to a standard concept of a cluster.
+> > > import numpy as np
+> > > from sklearn.cluster import KMeans
+> > > kmeans\_model = KMeans(n\_clusters=3, random\_state=1).fit(X)
+> > > labels = kmeans\_model.labels\_
+> > > metrics.calinski\_harabasz\_score(X, labels)
+> > > 561.62...
+> > > Advantages
+> > > The score is higher when clusters are dense and well separated, which relates to a standard concept of a cluster.
 
 The score is fast to compute.
 
@@ -3654,29 +3933,24 @@ Drawbacks
 The Calinski-Harabasz index is generally higher for convex clusters than other concepts of clusters, such as density based clusters like those obtained through DBSCAN.
 
 Mathematical formulation
-For a set of data 
- of size 
- which has been clustered into 
- clusters, the Calinski-Harabasz score 
- is defined as the ratio of the between-clusters dispersion mean and the within-cluster dispersion:
+For a set of data
+of size
+which has been clustered into
+clusters, the Calinski-Harabasz score
+is defined as the ratio of the between-clusters dispersion mean and the within-cluster dispersion:
 
- 
- 
-where 
- is trace of the between group dispersion matrix and 
- is the trace of the within-cluster dispersion matrix defined by:
+where
+is trace of the between group dispersion matrix and
+is the trace of the within-cluster dispersion matrix defined by:
 
- 
- 
- 
-with 
- the set of points in cluster 
-, 
- the center of cluster 
-, 
- the center of 
-, and 
- the number of points in cluster 
+with
+the set of points in cluster
+,
+the center of cluster
+,
+the center of
+, and
+the number of points in cluster
 .
 
 References
@@ -3684,7 +3958,7 @@ References
 Caliński, T., & Harabasz, J. (1974). “A Dendrite Method for Cluster Analysis”. Communications in Statistics-theory and Methods 3: 1-27.
 
 2.3.10.7. Davies-Bouldin Index
-If the ground truth labels are not known, the Davies-Bouldin index (sklearn.metrics.davies_bouldin_score) can be used to evaluate the model, where a lower Davies-Bouldin index relates to a model with better separation between the clusters.
+If the ground truth labels are not known, the Davies-Bouldin index (sklearn.metrics.davies\_bouldin\_score) can be used to evaluate the model, where a lower Davies-Bouldin index relates to a model with better separation between the clusters.
 
 This index signifies the average ‘similarity’ between clusters, where the similarity is a measure that compares the distance between clusters with the size of the clusters themselves.
 
@@ -3692,18 +3966,17 @@ Zero is the lowest possible score. Values closer to zero indicate a better parti
 
 In normal usage, the Davies-Bouldin index is applied to the results of a cluster analysis as follows:
 
->>>
->>> from sklearn import datasets
->>> iris = datasets.load_iris()
->>> X = iris.data
->>> from sklearn.cluster import KMeans
->>> from sklearn.metrics import davies_bouldin_score
->>> kmeans = KMeans(n_clusters=3, random_state=1).fit(X)
->>> labels = kmeans.labels_
->>> davies_bouldin_score(X, labels)
-0.6619...
-Advantages
-The computation of Davies-Bouldin is simpler than that of Silhouette scores.
+> > > from sklearn import datasets
+> > > iris = datasets.load\_iris()
+> > > X = iris.data
+> > > from sklearn.cluster import KMeans
+> > > from sklearn.metrics import davies\_bouldin\_score
+> > > kmeans = KMeans(n\_clusters=3, random\_state=1).fit(X)
+> > > labels = kmeans.labels\_
+> > > davies\_bouldin\_score(X, labels)
+> > > 0.6619...
+> > > Advantages
+> > > The computation of Davies-Bouldin is simpler than that of Silhouette scores.
 
 The index is solely based on quantities and features inherent to the dataset as its computation only uses point-wise distances.
 
@@ -3713,28 +3986,24 @@ The Davies-Boulding index is generally higher for convex clusters than other con
 The usage of centroid distance limits the distance metric to Euclidean space.
 
 Mathematical formulation
-The index is defined as the average similarity between each cluster 
- for 
- and its most similar one 
-. In the context of this index, similarity is defined as a measure 
- that trades off:
+The index is defined as the average similarity between each cluster
+for
+and its most similar one
+. In the context of this index, similarity is defined as a measure
+that trades off:
 
-, the average distance between each point of cluster 
- and the centroid of that cluster – also know as cluster diameter.
+, the average distance between each point of cluster
+and the centroid of that cluster – also know as cluster diameter.
 
-, the distance between cluster centroids 
- and 
+, the distance between cluster centroids
+and
 .
 
-A simple choice to construct 
- so that it is nonnegative and symmetric is:
+A simple choice to construct
+so that it is nonnegative and symmetric is:
 
- 
 Then the Davies-Bouldin index is defined as:
 
- 
- 
- 
 References
 
 Davies, David L.; Bouldin, Donald W. (1979). “A Cluster Separation Measure” IEEE Transactions on Pattern Analysis and Machine Intelligence. PAMI-1 (2): 224-227.
@@ -3744,18 +4013,17 @@ Halkidi, Maria; Batistakis, Yannis; Vazirgiannis, Michalis (2001). “On Cluster
 Wikipedia entry for Davies-Bouldin index.
 
 2.3.10.8. Contingency Matrix
-Contingency matrix (sklearn.metrics.cluster.contingency_matrix) reports the intersection cardinality for every true/predicted cluster pair. The contingency matrix provides sufficient statistics for all clustering metrics where the samples are independent and identically distributed and one doesn’t need to account for some instances not being clustered.
+Contingency matrix (sklearn.metrics.cluster.contingency\_matrix) reports the intersection cardinality for every true/predicted cluster pair. The contingency matrix provides sufficient statistics for all clustering metrics where the samples are independent and identically distributed and one doesn’t need to account for some instances not being clustered.
 
 Here is an example:
 
->>>
->>> from sklearn.metrics.cluster import contingency_matrix
->>> x = ["a", "a", "a", "b", "b", "b"]
->>> y = [0, 0, 1, 1, 2, 2]
->>> contingency_matrix(x, y)
-array([[2, 1, 0],
-       [0, 1, 2]])
-The first row of output array indicates that there are three samples whose true cluster is “a”. Of them, two are in predicted cluster 0, one is in 1, and none is in 2. And the second row indicates that there are three samples whose true cluster is “b”. Of them, none is in predicted cluster 0, one is in 1 and two are in 2.
+> > > from sklearn.metrics.cluster import contingency\_matrix
+> > > x = \["a", "a", "a", "b", "b", "b"]
+> > > y = \[0, 0, 1, 1, 2, 2]
+> > > contingency\_matrix(x, y)
+> > > array(\[\[2, 1, 0],
+> > > \[0, 1, 2]])
+> > > The first row of output array indicates that there are three samples whose true cluster is “a”. Of them, two are in predicted cluster 0, one is in 1, and none is in 2. And the second row indicates that there are three samples whose true cluster is “b”. Of them, none is in predicted cluster 0, one is in 1 and two are in 2.
 
 A confusion matrix for classification is a square contingency matrix where the order of rows and columns correspond to a list of classes.
 
@@ -3774,61 +4042,50 @@ References
 Wikipedia entry for contingency matrix
 
 2.3.10.9. Pair Confusion Matrix
-The pair confusion matrix (sklearn.metrics.cluster.pair_confusion_matrix) is a 2x2 similarity matrix
+The pair confusion matrix (sklearn.metrics.cluster.pair\_confusion\_matrix) is a 2x2 similarity matrix
 
- 
- 
 between two clusterings computed by considering all pairs of samples and counting pairs that are assigned into the same or into different clusters under the true and predicted clusterings.
 
 It has the following entries:
+:   number of pairs with both clusterings having the samples not clustered together
+:   number of pairs with the true label clustering having the samples clustered together but the other clustering not having the samples clustered together
+:   number of pairs with the true label clustering not having the samples clustered together but the other clustering having the samples clustered together
+:   number of pairs with both clusterings having the samples clustered together
 
- : number of pairs with both clusterings having the samples not clustered together
-
- : number of pairs with the true label clustering having the samples clustered together but the other clustering not having the samples clustered together
-
- : number of pairs with the true label clustering not having the samples clustered together but the other clustering having the samples clustered together
-
- : number of pairs with both clusterings having the samples clustered together
-
-Considering a pair of samples that is clustered together a positive pair, then as in binary classification the count of true negatives is 
-, false negatives is 
-, true positives is 
- and false positives is 
+Considering a pair of samples that is clustered together a positive pair, then as in binary classification the count of true negatives is
+, false negatives is
+, true positives is
+and false positives is
 .
 
 Perfectly matching labelings have all non-zero entries on the diagonal regardless of actual label values:
 
->>>
->>> from sklearn.metrics.cluster import pair_confusion_matrix
->>> pair_confusion_matrix([0, 0, 1, 1], [0, 0, 1, 1])
-array([[8, 0],
-       [0, 4]])
->>>
->>> pair_confusion_matrix([0, 0, 1, 1], [1, 1, 0, 0])
-array([[8, 0],
-       [0, 4]])
-Labelings that assign all classes members to the same clusters are complete but may not always be pure, hence penalized, and have some off-diagonal non-zero entries:
+> > > from sklearn.metrics.cluster import pair\_confusion\_matrix
+> > > pair\_confusion\_matrix(\[0, 0, 1, 1], \[0, 0, 1, 1])
+> > > array(\[\[8, 0],
+> > > \[0, 4]])
+> > >
+> > > pair\_confusion\_matrix(\[0, 0, 1, 1], \[1, 1, 0, 0])
+> > > array(\[\[8, 0],
+> > > \[0, 4]])
+> > > Labelings that assign all classes members to the same clusters are complete but may not always be pure, hence penalized, and have some off-diagonal non-zero entries:
 
->>>
->>> pair_confusion_matrix([0, 0, 1, 2], [0, 0, 1, 1])
-array([[8, 2],
-       [0, 2]])
-The matrix is not symmetric:
+> > > pair\_confusion\_matrix(\[0, 0, 1, 2], \[0, 0, 1, 1])
+> > > array(\[\[8, 2],
+> > > \[0, 2]])
+> > > The matrix is not symmetric:
 
->>>
->>> pair_confusion_matrix([0, 0, 1, 1], [0, 0, 1, 2])
-array([[8, 0],
-       [2, 2]])
-If classes members are completely split across different clusters, the assignment is totally incomplete, hence the matrix has all zero diagonal entries:
+> > > pair\_confusion\_matrix(\[0, 0, 1, 1], \[0, 0, 1, 2])
+> > > array(\[\[8, 0],
+> > > \[2, 2]])
+> > > If classes members are completely split across different clusters, the assignment is totally incomplete, hence the matrix has all zero diagonal entries:
 
->>>
->>> pair_confusion_matrix([0, 0, 0, 0], [0, 1, 2, 3])
-array([[ 0,  0],
-       [12,  0]])
-References
+> > > pair\_confusion\_matrix(\[0, 0, 0, 0], \[0, 1, 2, 3])
+> > > array(\[\[ 0,  0],
+> > > \[12,  0]])
+> > > References
 
 “Comparing Partitions” L. Hubert and P. Arabie, Journal of Classification 1985
-
 
 ### Dimensionality reduction 降维
 
@@ -3843,17 +4100,17 @@ References
 2.5. Decomposing signals in components (matrix factorization problems)
 2.5.1. Principal component analysis (PCA)
 2.5.1.1. Exact PCA and probabilistic interpretation
-PCA is used to decompose a multivariate dataset in a set of successive orthogonal components that explain a maximum amount of the variance. In scikit-learn, PCA is implemented as a transformer object that learns 
- components in its fit method, and can be used on new data to project it on these components.
+PCA is used to decompose a multivariate dataset in a set of successive orthogonal components that explain a maximum amount of the variance. In scikit-learn, PCA is implemented as a transformer object that learns
+components in its fit method, and can be used on new data to project it on these components.
 
 PCA centers but does not scale the input data for each feature before applying the SVD. The optional parameter whiten=True makes it possible to project the data onto the singular space while scaling each component to unit variance. This is often useful if the models down-stream make strong assumptions on the isotropy of the signal: this is for example the case for Support Vector Machines with the RBF kernel and the K-Means clustering algorithm.
 
 Below is an example of the iris dataset, which is comprised of 4 features, projected on the 2 dimensions that explain most variance:
 
-../_images/sphx_glr_plot_pca_vs_lda_001.png
+../\_images/sphx\_glr\_plot\_pca\_vs\_lda\_001.png
 The PCA object also provides a probabilistic interpretation of the PCA that can give a likelihood of data based on the amount of variance it explains. As such it implements a score method that can be used in cross-validation:
 
-../_images/sphx_glr_plot_pca_vs_fa_model_selection_001.png
+../\_images/sphx\_glr\_plot\_pca\_vs\_fa\_model\_selection\_001.png
 Examples:
 
 Comparison of LDA and PCA 2D projection of Iris dataset
@@ -3863,16 +4120,16 @@ Model selection with Probabilistic PCA and Factor Analysis (FA)
 2.5.1.2. Incremental PCA
 The PCA object is very useful, but has certain limitations for large datasets. The biggest limitation is that PCA only supports batch processing, which means all of the data to be processed must fit in main memory. The IncrementalPCA object uses a different form of processing and allows for partial computations which almost exactly match the results of PCA while processing the data in a minibatch fashion. IncrementalPCA makes it possible to implement out-of-core Principal Component Analysis either by:
 
-Using its partial_fit method on chunks of data fetched sequentially from the local hard drive or a network database.
+Using its partial\_fit method on chunks of data fetched sequentially from the local hard drive or a network database.
 
 Calling its fit method on a sparse matrix or a memory mapped file using numpy.memmap.
 
-IncrementalPCA only stores estimates of component and noise variances, in order update explained_variance_ratio_ incrementally. This is why memory usage depends on the number of samples per batch, rather than the number of samples to be processed in the dataset.
+IncrementalPCA only stores estimates of component and noise variances, in order update explained\_variance\_ratio\_ incrementally. This is why memory usage depends on the number of samples per batch, rather than the number of samples to be processed in the dataset.
 
 As in PCA, IncrementalPCA centers but does not scale the input data for each feature before applying the SVD.
 
-../_images/sphx_glr_plot_incremental_pca_001.png
-../_images/sphx_glr_plot_incremental_pca_002.png
+../\_images/sphx\_glr\_plot\_incremental\_pca\_001.png
+../\_images/sphx\_glr\_plot\_incremental\_pca\_002.png
 Examples:
 
 Incremental PCA
@@ -3882,25 +4139,25 @@ It is often interesting to project data to a lower-dimensional space that preser
 
 For instance, if we work with 64x64 pixel gray-level pictures for face recognition, the dimensionality of the data is 4096 and it is slow to train an RBF support vector machine on such wide data. Furthermore we know that the intrinsic dimensionality of the data is much lower than 4096 since all pictures of human faces look somewhat alike. The samples lie on a manifold of much lower dimension (say around 200 for instance). The PCA algorithm can be used to linearly transform the data while both reducing the dimensionality and preserve most of the explained variance at the same time.
 
-The class PCA used with the optional parameter svd_solver='randomized' is very useful in that case: since we are going to drop most of the singular vectors it is much more efficient to limit the computation to an approximated estimate of the singular vectors we will keep to actually perform the transform.
+The class PCA used with the optional parameter svd\_solver='randomized' is very useful in that case: since we are going to drop most of the singular vectors it is much more efficient to limit the computation to an approximated estimate of the singular vectors we will keep to actually perform the transform.
 
-For instance, the following shows 16 sample portraits (centered around 0.0) from the Olivetti dataset. On the right hand side are the first 16 singular vectors reshaped as portraits. Since we only require the top 16 singular vectors of a dataset with size 
- and 
+For instance, the following shows 16 sample portraits (centered around 0.0) from the Olivetti dataset. On the right hand side are the first 16 singular vectors reshaped as portraits. Since we only require the top 16 singular vectors of a dataset with size
+and
 , the computation time is less than 1s:
 
-orig_img pca_img
+orig\_img pca\_img
 
-If we note 
- and 
-, the time complexity of the randomized PCA is 
- instead of 
- for the exact method implemented in PCA.
+If we note
+and
+, the time complexity of the randomized PCA is
+instead of
+for the exact method implemented in PCA.
 
-The memory footprint of randomized PCA is also proportional to 
- instead of 
- for the exact method.
+The memory footprint of randomized PCA is also proportional to
+instead of
+for the exact method.
 
-Note: the implementation of inverse_transform in PCA with svd_solver='randomized' is not the exact inverse transform of transform even when whiten=False (default).
+Note: the implementation of inverse\_transform in PCA with svd\_solver='randomized' is not the exact inverse transform of transform even when whiten=False (default).
 
 Examples:
 
@@ -3923,68 +4180,65 @@ Principal component analysis (PCA) has the disadvantage that the components extr
 
 Sparse principal components yields a more parsimonious, interpretable representation, clearly emphasizing which of the original features contribute to the differences between samples.
 
-The following example illustrates 16 components extracted using sparse PCA from the Olivetti faces dataset. It can be seen how the regularization term induces many zeros. Furthermore, the natural structure of the data causes the non-zero coefficients to be vertically adjacent. The model does not enforce this mathematically: each component is a vector 
-, and there is no notion of vertical adjacency except during the human-friendly visualization as 64x64 pixel images. The fact that the components shown below appear local is the effect of the inherent structure of the data, which makes such local patterns minimize reconstruction error. There exist sparsity-inducing norms that take into account adjacency and different kinds of structure; see [Jen09] for a review of such methods. For more details on how to use Sparse PCA, see the Examples section, below.
+The following example illustrates 16 components extracted using sparse PCA from the Olivetti faces dataset. It can be seen how the regularization term induces many zeros. Furthermore, the natural structure of the data causes the non-zero coefficients to be vertically adjacent. The model does not enforce this mathematically: each component is a vector
+, and there is no notion of vertical adjacency except during the human-friendly visualization as 64x64 pixel images. The fact that the components shown below appear local is the effect of the inherent structure of the data, which makes such local patterns minimize reconstruction error. There exist sparsity-inducing norms that take into account adjacency and different kinds of structure; see \[Jen09] for a review of such methods. For more details on how to use Sparse PCA, see the Examples section, below.
 
-pca_img spca_img
+pca\_img spca\_img
 
-Note that there are many different formulations for the Sparse PCA problem. The one implemented here is based on [Mrl09] . The optimization problem solved is a PCA problem (dictionary learning) with an 
- penalty on the components:
+Note that there are many different formulations for the Sparse PCA problem. The one implemented here is based on \[Mrl09] . The optimization problem solved is a PCA problem (dictionary learning) with an
+penalty on the components:
 
- 	
- 
- 
- stands for the Frobenius norm and 
- stands for the entry-wise matrix norm which is the sum of the absolute values of all the entries in the matrix. The sparsity-inducing 
- matrix norm also prevents learning components from noise when few training samples are available. The degree of penalization (and thus sparsity) can be adjusted through the hyperparameter alpha. Small values lead to a gently regularized factorization, while larger values shrink many coefficients to zero.
+stands for the Frobenius norm and
+stands for the entry-wise matrix norm which is the sum of the absolute values of all the entries in the matrix. The sparsity-inducing
+matrix norm also prevents learning components from noise when few training samples are available. The degree of penalization (and thus sparsity) can be adjusted through the hyperparameter alpha. Small values lead to a gently regularized factorization, while larger values shrink many coefficients to zero.
 
-Note While in the spirit of an online algorithm, the class MiniBatchSparsePCA does not implement partial_fit because the algorithm is online along the features direction, not the samples direction.
+Note While in the spirit of an online algorithm, the class MiniBatchSparsePCA does not implement partial\_fit because the algorithm is online along the features direction, not the samples direction.
 Examples:
 
 Faces dataset decompositions
 
 References:
 
-[Mrl09]
+\[Mrl09]
 “Online Dictionary Learning for Sparse Coding” J. Mairal, F. Bach, J. Ponce, G. Sapiro, 2009
 
-[Jen09]
+\[Jen09]
 “Structured Sparse Principal Component Analysis” R. Jenatton, G. Obozinski, F. Bach, 2009
 
 2.5.2. Kernel Principal Component Analysis (kPCA)
 2.5.2.1. Exact Kernel PCA
-KernelPCA is an extension of PCA which achieves non-linear dimensionality reduction through the use of kernels (see Pairwise metrics, Affinities and Kernels) [Scholkopf1997]. It has many applications including denoising, compression and structured prediction (kernel dependency estimation). KernelPCA supports both transform and inverse_transform.
+KernelPCA is an extension of PCA which achieves non-linear dimensionality reduction through the use of kernels (see Pairwise metrics, Affinities and Kernels) \[Scholkopf1997]. It has many applications including denoising, compression and structured prediction (kernel dependency estimation). KernelPCA supports both transform and inverse\_transform.
 
-../_images/sphx_glr_plot_kernel_pca_002.png
-Note KernelPCA.inverse_transform relies on a kernel ridge to learn the function mapping samples from the PCA basis into the original feature space [Bakir2003]. Thus, the reconstruction obtained with KernelPCA.inverse_transform is an approximation. See the example linked below for more details.
+../\_images/sphx\_glr\_plot\_kernel\_pca\_002.png
+Note KernelPCA.inverse\_transform relies on a kernel ridge to learn the function mapping samples from the PCA basis into the original feature space \[Bakir2003]. Thus, the reconstruction obtained with KernelPCA.inverse\_transform is an approximation. See the example linked below for more details.
 Examples:
 
 Kernel PCA
 
 References:
 
-[Scholkopf1997]
+\[Scholkopf1997]
 Schölkopf, Bernhard, Alexander Smola, and Klaus-Robert Müller. “Kernel principal component analysis.” International conference on artificial neural networks. Springer, Berlin, Heidelberg, 1997.
 
-[Bakir2003]
+\[Bakir2003]
 Bakır, Gökhan H., Jason Weston, and Bernhard Schölkopf. “Learning to find pre-images.” Advances in neural information processing systems 16 (2003): 449-456.
 
 2.5.2.2. Choice of solver for Kernel PCA
-While in PCA the number of components is bounded by the number of features, in KernelPCA the number of components is bounded by the number of samples. Many real-world datasets have large number of samples! In these cases finding all the components with a full kPCA is a waste of computation time, as data is mostly described by the first few components (e.g. n_components<=100). In other words, the centered Gram matrix that is eigendecomposed in the Kernel PCA fitting process has an effective rank that is much smaller than its size. This is a situation where approximate eigensolvers can provide speedup with very low precision loss.
+While in PCA the number of components is bounded by the number of features, in KernelPCA the number of components is bounded by the number of samples. Many real-world datasets have large number of samples! In these cases finding all the components with a full kPCA is a waste of computation time, as data is mostly described by the first few components (e.g. n\_components<=100). In other words, the centered Gram matrix that is eigendecomposed in the Kernel PCA fitting process has an effective rank that is much smaller than its size. This is a situation where approximate eigensolvers can provide speedup with very low precision loss.
 
-The optional parameter eigen_solver='randomized' can be used to significantly reduce the computation time when the number of requested n_components is small compared with the number of samples. It relies on randomized decomposition methods to find an approximate solution in a shorter time.
+The optional parameter eigen\_solver='randomized' can be used to significantly reduce the computation time when the number of requested n\_components is small compared with the number of samples. It relies on randomized decomposition methods to find an approximate solution in a shorter time.
 
-The time complexity of the randomized KernelPCA is 
- instead of 
- for the exact method implemented with eigen_solver='dense'.
+The time complexity of the randomized KernelPCA is
+instead of
+for the exact method implemented with eigen\_solver='dense'.
 
-The memory footprint of randomized KernelPCA is also proportional to 
- instead of 
- for the exact method.
+The memory footprint of randomized KernelPCA is also proportional to
+instead of
+for the exact method.
 
 Note: this technique is the same as in PCA using randomized SVD.
 
-In addition to the above two solvers, eigen_solver='arpack' can be used as an alternate way to get an approximate decomposition. In practice, this method only provides reasonable execution times when the number of components to find is extremely small. It is enabled by default when the desired number of components is less than 10 (strict) and the number of samples is more than 200 (strict). See KernelPCA for details.
+In addition to the above two solvers, eigen\_solver='arpack' can be used as an alternate way to get an approximate decomposition. In practice, this method only provides reasonable execution times when the number of components to find is extremely small. It is enabled by default when the desired number of components is less than 10 (strict) and the number of samples is more than 200 (strict). See KernelPCA for details.
 
 References:
 
@@ -3999,32 +4253,32 @@ Algorithm 4.3 in “Finding structure with randomness: Stochastic algorithms for
 arpack solver: scipy.sparse.linalg.eigsh documentation R. B. Lehoucq, D. C. Sorensen, and C. Yang, (1998)
 
 2.5.3. Truncated singular value decomposition and latent semantic analysis
-TruncatedSVD implements a variant of singular value decomposition (SVD) that only computes the 
- largest singular values, where 
- is a user-specified parameter.
+TruncatedSVD implements a variant of singular value decomposition (SVD) that only computes the
+largest singular values, where
+is a user-specified parameter.
 
 When truncated SVD is applied to term-document matrices (as returned by CountVectorizer or TfidfVectorizer), this transformation is known as latent semantic analysis (LSA), because it transforms such matrices to a “semantic” space of low dimensionality. In particular, LSA is known to combat the effects of synonymy and polysemy (both of which roughly mean there are multiple meanings per word), which cause term-document matrices to be overly sparse and exhibit poor similarity under measures such as cosine similarity.
 
 Note LSA is also known as latent semantic indexing, LSI, though strictly that refers to its use in persistent indexes for information retrieval purposes.
-Mathematically, truncated SVD applied to training samples 
- produces a low-rank approximation 
+Mathematically, truncated SVD applied to training samples
+produces a low-rank approximation
 :
 
-After this operation, 
- is the transformed training set with 
- features (called n_components in the API).
+After this operation,
+is the transformed training set with
+features (called n\_components in the API).
 
-To also transform a test set 
-, we multiply it with 
+To also transform a test set
+, we multiply it with
 :
 
-Note Most treatments of LSA in the natural language processing (NLP) and information retrieval (IR) literature swap the axes of the matrix 
- so that it has shape n_features × n_samples. We present LSA in a different way that matches the scikit-learn API better, but the singular values found are the same.
-TruncatedSVD is very similar to PCA, but differs in that the matrix 
- does not need to be centered. When the columnwise (per-feature) means of 
- are subtracted from the feature values, truncated SVD on the resulting matrix is equivalent to PCA. In practical terms, this means that the TruncatedSVD transformer accepts scipy.sparse matrices without the need to densify them, as densifying may fill up memory even for medium-sized document collections.
+Note Most treatments of LSA in the natural language processing (NLP) and information retrieval (IR) literature swap the axes of the matrix
+so that it has shape n\_features × n\_samples. We present LSA in a different way that matches the scikit-learn API better, but the singular values found are the same.
+TruncatedSVD is very similar to PCA, but differs in that the matrix
+does not need to be centered. When the columnwise (per-feature) means of
+are subtracted from the feature values, truncated SVD on the resulting matrix is equivalent to PCA. In practical terms, this means that the TruncatedSVD transformer accepts scipy.sparse matrices without the need to densify them, as densifying may fill up memory even for medium-sized document collections.
 
-While the TruncatedSVD transformer works with any feature matrix, using it on tf–idf matrices is recommended over raw frequency counts in an LSA/document processing setting. In particular, sublinear scaling and inverse document frequency should be turned on (sublinear_tf=True, use_idf=True) to bring the feature values closer to a Gaussian distribution, compensating for LSA’s erroneous assumptions about textual data.
+While the TruncatedSVD transformer works with any feature matrix, using it on tf–idf matrices is recommended over raw frequency counts in an LSA/document processing setting. In particular, sublinear scaling and inverse document frequency should be turned on (sublinear\_tf=True, use\_idf=True) to bring the feature values closer to a Gaussian distribution, compensating for LSA’s erroneous assumptions about textual data.
 
 Examples:
 
@@ -4036,7 +4290,7 @@ Christopher D. Manning, Prabhakar Raghavan and Hinrich Schütze (2008), Introduc
 
 2.5.4. Dictionary Learning
 2.5.4.1. Sparse coding with a precomputed dictionary
-The SparseCoder object is an estimator that can be used to transform signals into sparse linear combination of atoms from a fixed, precomputed dictionary such as a discrete wavelet basis. This object therefore does not implement a fit method. The transformation amounts to a sparse coding problem: finding a representation of the data as a linear combination of as few dictionary atoms as possible. All variations of dictionary learning implement the following transform methods, controllable via the transform_method initialization parameter:
+The SparseCoder object is an estimator that can be used to transform signals into sparse linear combination of atoms from a fixed, precomputed dictionary such as a discrete wavelet basis. This object therefore does not implement a fit method. The transformation amounts to a sparse coding problem: finding a representation of the data as a linear combination of as few dictionary atoms as possible. All variations of dictionary learning implement the following transform methods, controllable via the transform\_method initialization parameter:
 
 Orthogonal matching pursuit (Orthogonal Matching Pursuit (OMP))
 
@@ -4050,9 +4304,9 @@ Thresholding
 
 Thresholding is very fast but it does not yield accurate reconstructions. They have been shown useful in literature for classification tasks. For image reconstruction tasks, orthogonal matching pursuit yields the most accurate, unbiased reconstruction.
 
-The dictionary learning objects offer, via the split_code parameter, the possibility to separate the positive and negative values in the results of sparse coding. This is useful when dictionary learning is used for extracting features that will be used for supervised learning, because it allows the learning algorithm to assign different weights to negative loadings of a particular atom, from to the corresponding positive loading.
+The dictionary learning objects offer, via the split\_code parameter, the possibility to separate the positive and negative values in the results of sparse coding. This is useful when dictionary learning is used for extracting features that will be used for supervised learning, because it allows the learning algorithm to assign different weights to negative loadings of a particular atom, from to the corresponding positive loading.
 
-The split code for a single sample has length 2 * n_components and is constructed using the following rule: First, the regular code of length n_components is computed. Then, the first n_components entries of the split_code are filled with the positive part of the regular code vector. The second half of the split code is filled with the negative part of the code vector, only with a positive sign. Therefore, the split_code is non-negative.
+The split code for a single sample has length 2 \* n\_components and is constructed using the following rule: First, the regular code of length n\_components is computed. Then, the first n\_components entries of the split\_code are filled with the positive part of the regular code vector. The second half of the split code is filled with the negative part of the code vector, only with a positive sign. Therefore, the split\_code is non-negative.
 
 Examples:
 
@@ -4065,23 +4319,20 @@ Representing data as sparse combinations of atoms from an overcomplete dictionar
 
 Dictionary learning is an optimization problem solved by alternatively updating the sparse code, as a solution to multiple Lasso problems, considering the dictionary fixed, and then updating the dictionary to best fit the sparse code.
 
- 	
- 
- 
-pca_img2 dict_img2
+pca\_img2 dict\_img2
 
- stands for the Frobenius norm and 
- stands for the entry-wise matrix norm which is the sum of the absolute values of all the entries in the matrix. After using such a procedure to fit the dictionary, the transform is simply a sparse coding step that shares the same implementation with all dictionary learning objects (see Sparse coding with a precomputed dictionary).
+stands for the Frobenius norm and
+stands for the entry-wise matrix norm which is the sum of the absolute values of all the entries in the matrix. After using such a procedure to fit the dictionary, the transform is simply a sparse coding step that shares the same implementation with all dictionary learning objects (see Sparse coding with a precomputed dictionary).
 
 It is also possible to constrain the dictionary and/or code to be positive to match constraints that may be present in the data. Below are the faces with different positivity constraints applied. Red indicates negative values, blue indicates positive values, and white represents zeros.
 
-dict_img_pos1 dict_img_pos2
+dict\_img\_pos1 dict\_img\_pos2
 
-dict_img_pos3 dict_img_pos4
+dict\_img\_pos3 dict\_img\_pos4
 
 The following image shows how a dictionary learned from 4x4 pixel image patches extracted from part of the image of a raccoon face looks like.
 
-../_images/sphx_glr_plot_image_denoising_001.png
+../\_images/sphx\_glr\_plot\_image\_denoising\_001.png
 Examples:
 
 Image denoising using dictionary learning
@@ -4095,67 +4346,65 @@ MiniBatchDictionaryLearning implements a faster, but less accurate version of th
 
 By default, MiniBatchDictionaryLearning divides the data into mini-batches and optimizes in an online manner by cycling over the mini-batches for the specified number of iterations. However, at the moment it does not implement a stopping condition.
 
-The estimator also implements partial_fit, which updates the dictionary by iterating only once over a mini-batch. This can be used for online learning when the data is not readily available from the start, or for when the data does not fit into the memory.
+The estimator also implements partial\_fit, which updates the dictionary by iterating only once over a mini-batch. This can be used for online learning when the data is not readily available from the start, or for when the data does not fit into the memory.
 
-../_images/sphx_glr_plot_dict_face_patches_001.png
+../\_images/sphx\_glr\_plot\_dict\_face\_patches\_001.png
 Clustering for dictionary learning
 
-Note that when using dictionary learning to extract a representation (e.g. for sparse coding) clustering can be a good proxy to learn the dictionary. For instance the MiniBatchKMeans estimator is computationally efficient and implements on-line learning with a partial_fit method.
+Note that when using dictionary learning to extract a representation (e.g. for sparse coding) clustering can be a good proxy to learn the dictionary. For instance the MiniBatchKMeans estimator is computationally efficient and implements on-line learning with a partial\_fit method.
 
 Example: Online learning of a dictionary of parts of faces
 
 2.5.5. Factor Analysis
-In unsupervised learning we only have a dataset 
-. How can this dataset be described mathematically? A very simple continuous latent variable model for 
- is
+In unsupervised learning we only have a dataset
+. How can this dataset be described mathematically? A very simple continuous latent variable model for
+is
 
-The vector 
- is called “latent” because it is unobserved. 
- is considered a noise term distributed according to a Gaussian with mean 0 and covariance 
- (i.e. 
-), 
- is some arbitrary offset vector. Such a model is called “generative” as it describes how 
- is generated from 
-. If we use all the 
-’s as columns to form a matrix 
- and all the 
-’s as columns of a matrix 
- then we can write (with suitably defined 
- and 
+The vector
+is called “latent” because it is unobserved.
+is considered a noise term distributed according to a Gaussian with mean 0 and covariance
+(i.e.
+),
+is some arbitrary offset vector. Such a model is called “generative” as it describes how
+is generated from
+. If we use all the
+’s as columns to form a matrix
+and all the
+’s as columns of a matrix
+then we can write (with suitably defined
+and
 ):
 
-In other words, we decomposed matrix 
+In other words, we decomposed matrix
 .
 
-If 
- is given, the above equation automatically implies the following probabilistic interpretation:
+If
+is given, the above equation automatically implies the following probabilistic interpretation:
 
-For a complete probabilistic model we also need a prior distribution for the latent variable 
-. The most straightforward assumption (based on the nice properties of the Gaussian distribution) is 
-. This yields a Gaussian as the marginal distribution of 
+For a complete probabilistic model we also need a prior distribution for the latent variable
+. The most straightforward assumption (based on the nice properties of the Gaussian distribution) is
+. This yields a Gaussian as the marginal distribution of
 :
 
-Now, without any further assumptions the idea of having a latent variable 
- would be superfluous – 
- can be completely modelled with a mean and a covariance. We need to impose some more specific structure on one of these two parameters. A simple additional assumption regards the structure of the error covariance 
+Now, without any further assumptions the idea of having a latent variable
+would be superfluous –
+can be completely modelled with a mean and a covariance. We need to impose some more specific structure on one of these two parameters. A simple additional assumption regards the structure of the error covariance
 :
-
-: This assumption leads to the probabilistic model of PCA.
-
-: This model is called FactorAnalysis, a classical statistical model. The matrix W is sometimes called the “factor loading matrix”.
+:   This assumption leads to the probabilistic model of PCA.
+:   This model is called FactorAnalysis, a classical statistical model. The matrix W is sometimes called the “factor loading matrix”.
 
 Both models essentially estimate a Gaussian with a low-rank covariance matrix. Because both models are probabilistic they can be integrated in more complex models, e.g. Mixture of Factor Analysers. One gets very different models (e.g. FastICA) if non-Gaussian priors on the latent variables are assumed.
 
 Factor analysis can produce similar components (the columns of its loading matrix) to PCA. However, one can not make any general statements about these components (e.g. whether they are orthogonal):
 
-pca_img3 fa_img3
+pca\_img3 fa\_img3
 
 The main advantage for Factor Analysis over PCA is that it can model the variance in every direction of the input space independently (heteroscedastic noise):
 
-../_images/sphx_glr_plot_faces_decomposition_009.png
+../\_images/sphx\_glr\_plot\_faces\_decomposition\_009.png
 This allows better model selection than probabilistic PCA in the presence of heteroscedastic noise:
 
-../_images/sphx_glr_plot_pca_vs_fa_model_selection_002.png
+../\_images/sphx\_glr\_plot\_pca\_vs\_fa\_model\_selection\_002.png
 Factor Analysis is often followed by a rotation of the factors (with the parameter rotation), usually to improve interpretability. For example, Varimax rotation maximizes the sum of the variances of the squared loadings, i.e., it tends to produce sparser factors, which are influenced by only a few features each (the “simple structure”). See e.g., the first example below.
 
 Examples:
@@ -4169,10 +4418,10 @@ Independent component analysis separates a multivariate signal into additive sub
 
 It is classically used to separate mixed signals (a problem known as blind source separation), as in the example below:
 
-../_images/sphx_glr_plot_ica_blind_source_separation_001.png
+../\_images/sphx\_glr\_plot\_ica\_blind\_source\_separation\_001.png
 ICA can also be used as yet another non linear decomposition that finds components with some sparsity:
 
-pca_img4 ica_img4
+pca\_img4 ica\_img4
 
 Examples:
 
@@ -4184,90 +4433,72 @@ Faces dataset decompositions
 
 2.5.7. Non-negative matrix factorization (NMF or NNMF)
 2.5.7.1. NMF with the Frobenius norm
-NMF [1] is an alternative approach to decomposition that assumes that the data and the components are non-negative. NMF can be plugged in instead of PCA or its variants, in the cases where the data matrix does not contain negative values. It finds a decomposition of samples 
- into two matrices 
- and 
- of non-negative elements, by optimizing the distance 
- between 
- and the matrix product 
+NMF \[1] is an alternative approach to decomposition that assumes that the data and the components are non-negative. NMF can be plugged in instead of PCA or its variants, in the cases where the data matrix does not contain negative values. It finds a decomposition of samples
+into two matrices
+and
+of non-negative elements, by optimizing the distance
+between
+and the matrix product
 . The most widely used distance function is the squared Frobenius norm, which is an obvious extension of the Euclidean norm to matrices:
 
- 
- 
- 
 Unlike PCA, the representation of a vector is obtained in an additive fashion, by superimposing the components, without subtracting. Such additive models are efficient for representing images and text.
 
-It has been observed in [Hoyer, 2004] [2] that, when carefully constrained, NMF can produce a parts-based representation of the dataset, resulting in interpretable models. The following example displays 16 sparse components found by NMF from the images in the Olivetti faces dataset, in comparison with the PCA eigenfaces.
+It has been observed in \[Hoyer, 2004] \[2] that, when carefully constrained, NMF can produce a parts-based representation of the dataset, resulting in interpretable models. The following example displays 16 sparse components found by NMF from the images in the Olivetti faces dataset, in comparison with the PCA eigenfaces.
 
-pca_img5 nmf_img5
+pca\_img5 nmf\_img5
 
-The init attribute determines the initialization method applied, which has a great impact on the performance of the method. NMF implements the method Nonnegative Double Singular Value Decomposition. NNDSVD [4] is based on two SVD processes, one approximating the data matrix, the other approximating positive sections of the resulting partial SVD factors utilizing an algebraic property of unit rank matrices. The basic NNDSVD algorithm is better fit for sparse factorization. Its variants NNDSVDa (in which all zeros are set equal to the mean of all elements of the data), and NNDSVDar (in which the zeros are set to random perturbations less than the mean of the data divided by 100) are recommended in the dense case.
+The init attribute determines the initialization method applied, which has a great impact on the performance of the method. NMF implements the method Nonnegative Double Singular Value Decomposition. NNDSVD \[4] is based on two SVD processes, one approximating the data matrix, the other approximating positive sections of the resulting partial SVD factors utilizing an algebraic property of unit rank matrices. The basic NNDSVD algorithm is better fit for sparse factorization. Its variants NNDSVDa (in which all zeros are set equal to the mean of all elements of the data), and NNDSVDar (in which the zeros are set to random perturbations less than the mean of the data divided by 100) are recommended in the dense case.
 
 Note that the Multiplicative Update (‘mu’) solver cannot update zeros present in the initialization, so it leads to poorer results when used jointly with the basic NNDSVD algorithm which introduces a lot of zeros; in this case, NNDSVDa or NNDSVDar should be preferred.
 
-NMF can also be initialized with correctly scaled random non-negative matrices by setting init="random". An integer seed or a RandomState can also be passed to random_state to control reproducibility.
+NMF can also be initialized with correctly scaled random non-negative matrices by setting init="random". An integer seed or a RandomState can also be passed to random\_state to control reproducibility.
 
-In NMF, L1 and L2 priors can be added to the loss function in order to regularize the model. The L2 prior uses the Frobenius norm, while the L1 prior uses an elementwise L1 norm. As in ElasticNet, we control the combination of L1 and L2 with the l1_ratio (
-) parameter, and the intensity of the regularization with the alpha_W and alpha_H (
- and 
+In NMF, L1 and L2 priors can be added to the loss function in order to regularize the model. The L2 prior uses the Frobenius norm, while the L1 prior uses an elementwise L1 norm. As in ElasticNet, we control the combination of L1 and L2 with the l1\_ratio (
+) parameter, and the intensity of the regularization with the alpha\_W and alpha\_H (
+and
 ) parameters. The priors are scaled by the number of samples (
 ) for H and the number of features (
 ) for W to keep their impact balanced with respect to one another and to the data fit term as independent as possible of the size of the training set. Then the priors terms are:
 
- 
- 
 and the regularized objective function is:
 
- 
- 
 2.5.7.2. NMF with a beta-divergence
 As described previously, the most widely used distance function is the squared Frobenius norm, which is an obvious extension of the Euclidean norm to matrices:
 
- 
- 
- 
 Other distance functions can be used in NMF as, for example, the (generalized) Kullback-Leibler (KL) divergence, also referred as I-divergence:
 
- 
- 
 Or, the Itakura-Saito (IS) divergence:
 
- 
- 
- 
-These three distances are special cases of the beta-divergence family, with 
- respectively [6]. The beta-divergence are defined by :
+These three distances are special cases of the beta-divergence family, with
+respectively \[6]. The beta-divergence are defined by :
 
- 
- 
-../_images/sphx_glr_plot_beta_divergence_001.png
-Note that this definition is not valid if 
-, yet it can be continuously extended to the definitions of 
- and 
- respectively.
+../\_images/sphx\_glr\_plot\_beta\_divergence\_001.png
+Note that this definition is not valid if
+, yet it can be continuously extended to the definitions of
+and
+respectively.
 
-NMF implements two solvers, using Coordinate Descent (‘cd’) [5], and Multiplicative Update (‘mu’) [6]. The ‘mu’ solver can optimize every beta-divergence, including of course the Frobenius norm (
+NMF implements two solvers, using Coordinate Descent (‘cd’) \[5], and Multiplicative Update (‘mu’) \[6]. The ‘mu’ solver can optimize every beta-divergence, including of course the Frobenius norm (
 ), the (generalized) Kullback-Leibler divergence (
 ) and the Itakura-Saito divergence (
-). Note that for 
-, the ‘mu’ solver is significantly faster than for other values of 
-. Note also that with a negative (or 0, i.e. ‘itakura-saito’) 
+). Note that for
+, the ‘mu’ solver is significantly faster than for other values of
+. Note also that with a negative (or 0, i.e. ‘itakura-saito’)
 , the input matrix cannot contain zero values.
 
 The ‘cd’ solver can only optimize the Frobenius norm. Due to the underlying non-convexity of NMF, the different solvers may converge to different minima, even when optimizing the same distance function.
 
-NMF is best used with the fit_transform method, which returns the matrix W. The matrix H is stored into the fitted model in the components_ attribute; the method transform will decompose a new matrix X_new based on these stored components:
+NMF is best used with the fit\_transform method, which returns the matrix W. The matrix H is stored into the fitted model in the components\_ attribute; the method transform will decompose a new matrix X\_new based on these stored components:
 
->>>
->>> import numpy as np
->>> X = np.array([[1, 1], [2, 1], [3, 1.2], [4, 1], [5, 0.8], [6, 1]])
->>> from sklearn.decomposition import NMF
->>> model = NMF(n_components=2, init='random', random_state=0)
->>> W = model.fit_transform(X)
->>> H = model.components_
->>> X_new = np.array([[1, 0], [1, 6.1], [1, 0], [1, 4], [3.2, 1], [0, 4]])
->>> W_new = model.transform(X_new)
-Examples:
+> > > import numpy as np
+> > > X = np.array(\[\[1, 1], \[2, 1], \[3, 1.2], \[4, 1], \[5, 0.8], \[6, 1]])
+> > > from sklearn.decomposition import NMF
+> > > model = NMF(n\_components=2, init='random', random\_state=0)
+> > > W = model.fit\_transform(X)
+> > > H = model.components\_
+> > > X\_new = np.array(\[\[1, 0], \[1, 6.1], \[1, 0], \[1, 4], \[3.2, 1], \[0, 4]])
+> > > W\_new = model.transform(X\_new)
+> > > Examples:
 
 Faces dataset decompositions
 
@@ -4276,32 +4507,32 @@ Topic extraction with Non-negative Matrix Factorization and Latent Dirichlet All
 Beta-divergence loss functions
 
 2.5.7.3. Mini-batch Non Negative Matrix Factorization
-MiniBatchNMF [7] implements a faster, but less accurate version of the non negative matrix factorization (i.e. NMF), better suited for large datasets.
+MiniBatchNMF \[7] implements a faster, but less accurate version of the non negative matrix factorization (i.e. NMF), better suited for large datasets.
 
-By default, MiniBatchNMF divides the data into mini-batches and optimizes the NMF model in an online manner by cycling over the mini-batches for the specified number of iterations. The batch_size parameter controls the size of the batches.
+By default, MiniBatchNMF divides the data into mini-batches and optimizes the NMF model in an online manner by cycling over the mini-batches for the specified number of iterations. The batch\_size parameter controls the size of the batches.
 
-In order to speed up the mini-batch algorithm it is also possible to scale past batches, giving them less importance than newer batches. This is done introducing a so-called forgetting factor controlled by the forget_factor parameter.
+In order to speed up the mini-batch algorithm it is also possible to scale past batches, giving them less importance than newer batches. This is done introducing a so-called forgetting factor controlled by the forget\_factor parameter.
 
-The estimator also implements partial_fit, which updates H by iterating only once over a mini-batch. This can be used for online learning when the data is not readily available from the start, or when the data does not fit into memory.
+The estimator also implements partial\_fit, which updates H by iterating only once over a mini-batch. This can be used for online learning when the data is not readily available from the start, or when the data does not fit into memory.
 
 References:
 
-[1]
+\[1]
 “Learning the parts of objects by non-negative matrix factorization” D. Lee, S. Seung, 1999
 
-[2]
+\[2]
 “Non-negative Matrix Factorization with Sparseness Constraints” P. Hoyer, 2004
 
-[4]
+\[4]
 “SVD based initialization: A head start for nonnegative matrix factorization” C. Boutsidis, E. Gallopoulos, 2008
 
-[5]
+\[5]
 “Fast local algorithms for large scale nonnegative matrix and tensor factorizations.” A. Cichocki, A. Phan, 2009
 
-[6] (1,2)
+\[6] (1,2)
 “Algorithms for nonnegative matrix factorization with the beta-divergence” C. Fevotte, J. Idier, 2011
 
-[7]
+\[7]
 “Online algorithms for nonnegative matrix factorization with the Itakura-Saito divergence” A. Lefevre, F. Bach, C. Fevotte, 2011
 
 2.5.8. Latent Dirichlet Allocation (LDA)
@@ -4309,65 +4540,64 @@ Latent Dirichlet Allocation is a generative probabilistic model for collections 
 
 The graphical model of LDA is a three-level generative model:
 
-../_images/lda_model_graph.png
+../\_images/lda\_model\_graph.png
 Note on notations presented in the graphical model above, which can be found in Hoffman et al. (2013):
 
-The corpus is a collection of 
- documents.
+The corpus is a collection of
+documents.
 
-A document is a sequence of 
- words.
+A document is a sequence of
+words.
 
-There are 
- topics in the corpus.
+There are
+topics in the corpus.
 
 The boxes represent repeated sampling.
 
 In the graphical model, each node is a random variable and has a role in the generative process. A shaded node indicates an observed variable and an unshaded node indicates a hidden (latent) variable. In this case, words in the corpus are the only data that we observe. The latent variables determine the random mixture of topics in the corpus and the distribution of words in the documents. The goal of LDA is to use the observed words to infer the hidden topic structure.
 
-When modeling text corpora, the model assumes the following generative process for a corpus with 
- documents and 
- topics, with 
- corresponding to n_components in the API:
+When modeling text corpora, the model assumes the following generative process for a corpus with
+documents and
+topics, with
+corresponding to n\_components in the API:
 
-For each topic 
-, draw 
-. This provides a distribution over the words, i.e. the probability of a word appearing in topic 
-. 
- corresponds to topic_word_prior.
+For each topic
+, draw
+. This provides a distribution over the words, i.e. the probability of a word appearing in topic
+.
+corresponds to topic\_word\_prior.
 
-For each document 
-, draw the topic proportions 
-. 
- corresponds to doc_topic_prior.
+For each document
+, draw the topic proportions
+.
+corresponds to doc\_topic\_prior.
 
-For each word 
- in document 
+For each word
+in document
 :
 
-Draw the topic assignment 
+Draw the topic assignment
 
-Draw the observed word 
+Draw the observed word
 
 For parameter estimation, the posterior distribution is:
 
- 
-Since the posterior is intractable, variational Bayesian method uses a simpler distribution 
- to approximate it, and those variational parameters 
-, 
-, 
- are optimized to maximize the Evidence Lower Bound (ELBO):
+Since the posterior is intractable, variational Bayesian method uses a simpler distribution
+to approximate it, and those variational parameters
+,
+,
+are optimized to maximize the Evidence Lower Bound (ELBO):
 
-Maximizing ELBO is equivalent to minimizing the Kullback-Leibler(KL) divergence between 
- and the true posterior 
+Maximizing ELBO is equivalent to minimizing the Kullback-Leibler(KL) divergence between
+and the true posterior
 .
 
 LatentDirichletAllocation implements the online variational Bayes algorithm and supports both online and batch update methods. While the batch method updates variational variables after each full pass through the data, the online method updates variational variables from mini-batch data points.
 
 Note Although the online method is guaranteed to converge to a local optimum point, the quality of the optimum point and the speed of convergence may depend on mini-batch size and attributes related to learning rate setting.
-When LatentDirichletAllocation is applied on a “document-term” matrix, the matrix will be decomposed into a “topic-term” matrix and a “document-topic” matrix. While “topic-term” matrix is stored as components_ in the model, “document-topic” matrix can be calculated from transform method.
+When LatentDirichletAllocation is applied on a “document-term” matrix, the matrix will be decomposed into a “topic-term” matrix and a “document-topic” matrix. While “topic-term” matrix is stored as components\_ in the model, “document-topic” matrix can be calculated from transform method.
 
-LatentDirichletAllocation also implements partial_fit method. This is used when data can be fetched sequentially.
+LatentDirichletAllocation also implements partial\_fit method. This is used when data can be fetched sequentially.
 
 Examples:
 
@@ -4393,7 +4623,7 @@ See also Dimensionality reduction for dimensionality reduction with Neighborhood
 
 > Algorithms: grid search, cross validation, metrics, and more...
 
-> Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV
+> Demonstration of multi-metric evaluation on cross\_val\_score and GridSearchCV
 
 3.1. Cross-validation: evaluating estimator performance
 3.1.1. Computing cross-validated metrics
@@ -4440,120 +4670,113 @@ For instance, many elements used in the objective function of a learning algorit
 
 The preprocessing module provides the StandardScaler utility class, which is a quick and easy way to perform the following operation on an array-like dataset:
 
->>>
->>> from sklearn import preprocessing
->>> import numpy as np
->>> X_train = np.array([[ 1., -1.,  2.],
-...                     [ 2.,  0.,  0.],
-...                     [ 0.,  1., -1.]])
->>> scaler = preprocessing.StandardScaler().fit(X_train)
->>> scaler
-StandardScaler()
+> > > from sklearn import preprocessing
+> > > import numpy as np
+> > > X\_train = np.array(\[\[ 1., -1.,  2.],
+> > > ...                     \[ 2.,  0.,  0.],
+> > > ...                     \[ 0.,  1., -1.]])
+> > > scaler = preprocessing.StandardScaler().fit(X\_train)
+> > > scaler
+> > > StandardScaler()
 
->>> scaler.mean_
-array([1. ..., 0. ..., 0.33...])
+> > > scaler.mean\_
+> > > array(\[1. ..., 0. ..., 0.33...])
 
->>> scaler.scale_
-array([0.81..., 0.81..., 1.24...])
+> > > scaler.scale\_
+> > > array(\[0.81..., 0.81..., 1.24...])
 
->>> X_scaled = scaler.transform(X_train)
->>> X_scaled
-array([[ 0.  ..., -1.22...,  1.33...],
-       [ 1.22...,  0.  ..., -0.26...],
-       [-1.22...,  1.22..., -1.06...]])
-Scaled data has zero mean and unit variance:
+> > > X\_scaled = scaler.transform(X\_train)
+> > > X\_scaled
+> > > array(\[\[ 0.  ..., -1.22...,  1.33...],
+> > > \[ 1.22...,  0.  ..., -0.26...],
+> > > \[-1.22...,  1.22..., -1.06...]])
+> > > Scaled data has zero mean and unit variance:
 
->>>
->>> X_scaled.mean(axis=0)
-array([0., 0., 0.])
+> > > X\_scaled.mean(axis=0)
+> > > array(\[0., 0., 0.])
 
->>> X_scaled.std(axis=0)
-array([1., 1., 1.])
-This class implements the Transformer API to compute the mean and standard deviation on a training set so as to be able to later re-apply the same transformation on the testing set. This class is hence suitable for use in the early steps of a Pipeline:
+> > > X\_scaled.std(axis=0)
+> > > array(\[1., 1., 1.])
+> > > This class implements the Transformer API to compute the mean and standard deviation on a training set so as to be able to later re-apply the same transformation on the testing set. This class is hence suitable for use in the early steps of a Pipeline:
 
->>>
->>> from sklearn.datasets import make_classification
->>> from sklearn.linear_model import LogisticRegression
->>> from sklearn.model_selection import train_test_split
->>> from sklearn.pipeline import make_pipeline
->>> from sklearn.preprocessing import StandardScaler
+> > > from sklearn.datasets import make\_classification
+> > > from sklearn.linear\_model import LogisticRegression
+> > > from sklearn.model\_selection import train\_test\_split
+> > > from sklearn.pipeline import make\_pipeline
+> > > from sklearn.preprocessing import StandardScaler
 
->>> X, y = make_classification(random_state=42)
->>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
->>> pipe = make_pipeline(StandardScaler(), LogisticRegression())
->>> pipe.fit(X_train, y_train)  # apply scaling on training data
-Pipeline(steps=[('standardscaler', StandardScaler()),
-                ('logisticregression', LogisticRegression())])
+> > > X, y = make\_classification(random\_state=42)
+> > > X\_train, X\_test, y\_train, y\_test = train\_test\_split(X, y, random\_state=42)
+> > > pipe = make\_pipeline(StandardScaler(), LogisticRegression())
+> > > pipe.fit(X\_train, y\_train)  # apply scaling on training data
+> > > Pipeline(steps=\[('standardscaler', StandardScaler()),
+> > > ('logisticregression', LogisticRegression())])
 
->>> pipe.score(X_test, y_test)  # apply scaling on testing data, without leaking training data.
-0.96
-It is possible to disable either centering or scaling by either passing with_mean=False or with_std=False to the constructor of StandardScaler.
+> > > pipe.score(X\_test, y\_test)  # apply scaling on testing data, without leaking training data.
+> > > 0.96
+> > > It is possible to disable either centering or scaling by either passing with\_mean=False or with\_std=False to the constructor of StandardScaler.
 
 6.3.1.1. Scaling features to a range
 An alternative standardization is scaling features to lie between a given minimum and maximum value, often between zero and one, or so that the maximum absolute value of each feature is scaled to unit size. This can be achieved using MinMaxScaler or MaxAbsScaler, respectively.
 
 The motivation to use this scaling include robustness to very small standard deviations of features and preserving zero entries in sparse data.
 
-Here is an example to scale a toy data matrix to the [0, 1] range:
+Here is an example to scale a toy data matrix to the \[0, 1] range:
 
->>>
->>> X_train = np.array([[ 1., -1.,  2.],
-...                     [ 2.,  0.,  0.],
-...                     [ 0.,  1., -1.]])
-...
->>> min_max_scaler = preprocessing.MinMaxScaler()
->>> X_train_minmax = min_max_scaler.fit_transform(X_train)
->>> X_train_minmax
-array([[0.5       , 0.        , 1.        ],
-       [1.        , 0.5       , 0.33333333],
-       [0.        , 1.        , 0.        ]])
-The same instance of the transformer can then be applied to some new test data unseen during the fit call: the same scaling and shifting operations will be applied to be consistent with the transformation performed on the train data:
+> > > X\_train = np.array(\[\[ 1., -1.,  2.],
+> > > ...                     \[ 2.,  0.,  0.],
+> > > ...                     \[ 0.,  1., -1.]])
+> > > ...
+> > > min\_max\_scaler = preprocessing.MinMaxScaler()
+> > > X\_train\_minmax = min\_max\_scaler.fit\_transform(X\_train)
+> > > X\_train\_minmax
+> > > array(\[\[0.5       , 0.        , 1.        ],
+> > > \[1.        , 0.5       , 0.33333333],
+> > > \[0.        , 1.        , 0.        ]])
+> > > The same instance of the transformer can then be applied to some new test data unseen during the fit call: the same scaling and shifting operations will be applied to be consistent with the transformation performed on the train data:
 
->>>
->>> X_test = np.array([[-3., -1.,  4.]])
->>> X_test_minmax = min_max_scaler.transform(X_test)
->>> X_test_minmax
-array([[-1.5       ,  0.        ,  1.66666667]])
-It is possible to introspect the scaler attributes to find about the exact nature of the transformation learned on the training data:
+> > > X\_test = np.array(\[\[-3., -1.,  4.]])
+> > > X\_test\_minmax = min\_max\_scaler.transform(X\_test)
+> > > X\_test\_minmax
+> > > array(\[\[-1.5       ,  0.        ,  1.66666667]])
+> > > It is possible to introspect the scaler attributes to find about the exact nature of the transformation learned on the training data:
 
->>>
->>> min_max_scaler.scale_
-array([0.5       , 0.5       , 0.33...])
+> > > min\_max\_scaler.scale\_
+> > > array(\[0.5       , 0.5       , 0.33...])
 
->>> min_max_scaler.min_
-array([0.        , 0.5       , 0.33...])
-If MinMaxScaler is given an explicit feature_range=(min, max) the full formula is:
+> > > min\_max\_scaler.min\_
+> > > array(\[0.        , 0.5       , 0.33...])
+> > > If MinMaxScaler is given an explicit feature\_range=(min, max) the full formula is:
 
-X_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+X\_std = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
 
-X_scaled = X_std * (max - min) + min
-MaxAbsScaler works in a very similar fashion, but scales in a way that the training data lies within the range [-1, 1] by dividing through the largest maximum value in each feature. It is meant for data that is already centered at zero or sparse data.
+X\_scaled = X\_std \* (max - min) + min
+MaxAbsScaler works in a very similar fashion, but scales in a way that the training data lies within the range \[-1, 1] by dividing through the largest maximum value in each feature. It is meant for data that is already centered at zero or sparse data.
 
 Here is how to use the toy data from the previous example with this scaler:
 
->>>
->>> X_train = np.array([[ 1., -1.,  2.],
-...                     [ 2.,  0.,  0.],
-...                     [ 0.,  1., -1.]])
-...
->>> max_abs_scaler = preprocessing.MaxAbsScaler()
->>> X_train_maxabs = max_abs_scaler.fit_transform(X_train)
->>> X_train_maxabs
-array([[ 0.5, -1. ,  1. ],
-       [ 1. ,  0. ,  0. ],
-       [ 0. ,  1. , -0.5]])
->>> X_test = np.array([[ -3., -1.,  4.]])
->>> X_test_maxabs = max_abs_scaler.transform(X_test)
->>> X_test_maxabs
-array([[-1.5, -1. ,  2. ]])
->>> max_abs_scaler.scale_
-array([2.,  1.,  2.])
-6.3.1.2. Scaling sparse data
-Centering sparse data would destroy the sparseness structure in the data, and thus rarely is a sensible thing to do. However, it can make sense to scale sparse inputs, especially if features are on different scales.
+> > > X\_train = np.array(\[\[ 1., -1.,  2.],
+> > > ...                     \[ 2.,  0.,  0.],
+> > > ...                     \[ 0.,  1., -1.]])
+> > > ...
+> > > max\_abs\_scaler = preprocessing.MaxAbsScaler()
+> > > X\_train\_maxabs = max\_abs\_scaler.fit\_transform(X\_train)
+> > > X\_train\_maxabs
+> > > array(\[\[ 0.5, -1. ,  1. ],
+> > > \[ 1. ,  0. ,  0. ],
+> > > \[ 0. ,  1. , -0.5]])
+> > > X\_test = np.array(\[\[ -3., -1.,  4.]])
+> > > X\_test\_maxabs = max\_abs\_scaler.transform(X\_test)
+> > > X\_test\_maxabs
+> > > array(\[\[-1.5, -1. ,  2. ]])
+> > > max\_abs\_scaler.scale\_
+> > > array(\[2.,  1.,  2.])
+> > > 6.3.1.2. Scaling sparse data
+> > > Centering sparse data would destroy the sparseness structure in the data, and thus rarely is a sensible thing to do. However, it can make sense to scale sparse inputs, especially if features are on different scales.
 
-MaxAbsScaler was specifically designed for scaling sparse data, and is the recommended way to go about this. However, StandardScaler can accept scipy.sparse matrices as input, as long as with_mean=False is explicitly passed to the constructor. Otherwise a ValueError will be raised as silently centering would break the sparsity and would often crash the execution by allocating excessive amounts of memory unintentionally. RobustScaler cannot be fitted to sparse inputs, but you can use the transform method on sparse inputs.
+MaxAbsScaler was specifically designed for scaling sparse data, and is the recommended way to go about this. However, StandardScaler can accept scipy.sparse matrices as input, as long as with\_mean=False is explicitly passed to the constructor. Otherwise a ValueError will be raised as silently centering would break the sparsity and would often crash the execution by allocating excessive amounts of memory unintentionally. RobustScaler cannot be fitted to sparse inputs, but you can use the transform method on sparse inputs.
 
-Note that the scalers accept both Compressed Sparse Rows and Compressed Sparse Columns format (see scipy.sparse.csr_matrix and scipy.sparse.csc_matrix). Any other sparse input will be converted to the Compressed Sparse Rows representation. To avoid unnecessary memory copies, it is recommended to choose the CSR or CSC representation upstream.
+Note that the scalers accept both Compressed Sparse Rows and Compressed Sparse Columns format (see scipy.sparse.csr\_matrix and scipy.sparse.csc\_matrix). Any other sparse input will be converted to the Compressed Sparse Rows representation. To avoid unnecessary memory copies, it is recommended to choose the CSR or CSC representation upstream.
 
 Finally, if the centered data is expected to be small enough, explicitly converting the input to an array using the toarray method of sparse matrices is another option.
 
@@ -4571,66 +4794,66 @@ It is sometimes not enough to center and scale the features independently, since
 To address this issue you can use PCA with whiten=True to further remove the linear correlation across features.
 
 6.3.1.4. Centering kernel matrices
-If you have a kernel matrix of a kernel 
- that computes a dot product in a feature space (possibly implicitly) defined by a function 
-, a KernelCenterer can transform the kernel matrix so that it contains inner products in the feature space defined by 
- followed by the removal of the mean in that space. In other words, KernelCenterer computes the centered Gram matrix associated to a positive semidefinite kernel 
+If you have a kernel matrix of a kernel
+that computes a dot product in a feature space (possibly implicitly) defined by a function
+, a KernelCenterer can transform the kernel matrix so that it contains inner products in the feature space defined by
+followed by the removal of the mean in that space. In other words, KernelCenterer computes the centered Gram matrix associated to a positive semidefinite kernel
 .
 
 Mathematical formulation
 
-We can have a look at the mathematical formulation now that we have the intuition. Let 
- be a kernel matrix of shape (n_samples, n_samples) computed from 
-, a data matrix of shape (n_samples, n_features), during the fit step. 
- is defined by
+We can have a look at the mathematical formulation now that we have the intuition. Let
+be a kernel matrix of shape (n\_samples, n\_samples) computed from
+, a data matrix of shape (n\_samples, n\_features), during the fit step.
+is defined by
 
- is a function mapping of 
- to a Hilbert space. A centered kernel 
- is defined as:
+is a function mapping of
+to a Hilbert space. A centered kernel
+is defined as:
 
-where 
- results from centering 
- in the Hilbert space.
+where
+results from centering
+in the Hilbert space.
 
-Thus, one could compute 
- by mapping 
- using the function 
- and center the data in this new space. However, kernels are often used because they allows some algebra calculations that avoid computing explicitly this mapping using 
-. Indeed, one can implicitly center as shown in Appendix B in [Scholkopf1998]:
+Thus, one could compute
+by mapping
+using the function
+and center the data in this new space. However, kernels are often used because they allows some algebra calculations that avoid computing explicitly this mapping using
+. Indeed, one can implicitly center as shown in Appendix B in \[Scholkopf1998]:
 
- is a matrix of (n_samples, n_samples) where all entries are equal to 
- 
-. In the transform step, the kernel becomes 
- defined as:
+is a matrix of (n\_samples, n\_samples) where all entries are equal to
 
- is the test dataset of shape (n_samples_test, n_features) and thus 
- is of shape (n_samples_test, n_samples). In this case, centering 
- is done as:
+. In the transform step, the kernel becomes
+defined as:
 
- is a matrix of shape (n_samples_test, n_samples) where all entries are equal to 
- 
+is the test dataset of shape (n\_samples\_test, n\_features) and thus
+is of shape (n\_samples\_test, n\_samples). In this case, centering
+is done as:
+
+is a matrix of shape (n\_samples\_test, n\_samples) where all entries are equal to
+
 .
 
 References
 
-[Scholkopf1998]
+\[Scholkopf1998]
 B. Schölkopf, A. Smola, and K.R. Müller, “Nonlinear component analysis as a kernel eigenvalue problem.” Neural computation 10.5 (1998): 1299-1319.
 
 6.3.2. Non-linear transformation
 Two types of transformations are available: quantile transforms and power transforms. Both quantile and power transforms are based on monotonic transformations of the features and thus preserve the rank of the values along each feature.
 
-Quantile transforms put all features into the same desired distribution based on the formula 
- where 
- is the cumulative distribution function of the feature and 
- the quantile function of the desired output distribution 
-. This formula is using the two following facts: (i) if 
- is a random variable with a continuous cumulative distribution function 
- then 
- is uniformly distributed on 
-; (ii) if 
- is a random variable with uniform distribution on 
- then 
- has distribution 
+Quantile transforms put all features into the same desired distribution based on the formula
+where
+is the cumulative distribution function of the feature and
+the quantile function of the desired output distribution
+. This formula is using the two following facts: (i) if
+is a random variable with a continuous cumulative distribution function
+then
+is uniformly distributed on
+; (ii) if
+is a random variable with uniform distribution on
+then
+has distribution
 . By performing a rank transformation, a quantile transform smooths out unusual distributions and is less influenced by outliers than scaling methods. It does, however, distort correlations and distances within and across features.
 
 Power transforms are a family of parametric transformations that aim to map data from any distribution to as close to a Gaussian distribution.
@@ -4638,79 +4861,69 @@ Power transforms are a family of parametric transformations that aim to map data
 6.3.2.1. Mapping to a Uniform distribution
 QuantileTransformer provides a non-parametric transformation to map the data to a uniform distribution with values between 0 and 1:
 
->>>
->>> from sklearn.datasets import load_iris
->>> from sklearn.model_selection import train_test_split
->>> X, y = load_iris(return_X_y=True)
->>> X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
->>> quantile_transformer = preprocessing.QuantileTransformer(random_state=0)
->>> X_train_trans = quantile_transformer.fit_transform(X_train)
->>> X_test_trans = quantile_transformer.transform(X_test)
->>> np.percentile(X_train[:, 0], [0, 25, 50, 75, 100]) 
-array([ 4.3,  5.1,  5.8,  6.5,  7.9])
-This feature corresponds to the sepal length in cm. Once the quantile transformation applied, those landmarks approach closely the percentiles previously defined:
+> > > from sklearn.datasets import load\_iris
+> > > from sklearn.model\_selection import train\_test\_split
+> > > X, y = load\_iris(return\_X\_y=True)
+> > > X\_train, X\_test, y\_train, y\_test = train\_test\_split(X, y, random\_state=0)
+> > > quantile\_transformer = preprocessing.QuantileTransformer(random\_state=0)
+> > > X\_train\_trans = quantile\_transformer.fit\_transform(X\_train)
+> > > X\_test\_trans = quantile\_transformer.transform(X\_test)
+> > > np.percentile(X\_train\[:, 0], \[0, 25, 50, 75, 100])
+> > > array(\[ 4.3,  5.1,  5.8,  6.5,  7.9])
+> > > This feature corresponds to the sepal length in cm. Once the quantile transformation applied, those landmarks approach closely the percentiles previously defined:
 
->>>
->>> np.percentile(X_train_trans[:, 0], [0, 25, 50, 75, 100])
-... 
-array([ 0.00... ,  0.24...,  0.49...,  0.73...,  0.99... ])
-This can be confirmed on a independent testing set with similar remarks:
+> > > np.percentile(X\_train\_trans\[:, 0], \[0, 25, 50, 75, 100])
+> > > ...
+> > > array(\[ 0.00... ,  0.24...,  0.49...,  0.73...,  0.99... ])
+> > > This can be confirmed on a independent testing set with similar remarks:
 
->>>
->>> np.percentile(X_test[:, 0], [0, 25, 50, 75, 100])
-... 
-array([ 4.4  ,  5.125,  5.75 ,  6.175,  7.3  ])
->>> np.percentile(X_test_trans[:, 0], [0, 25, 50, 75, 100])
-... 
-array([ 0.01...,  0.25...,  0.46...,  0.60... ,  0.94...])
-6.3.2.2. Mapping to a Gaussian distribution
-In many modeling scenarios, normality of the features in a dataset is desirable. Power transforms are a family of parametric, monotonic transformations that aim to map data from any distribution to as close to a Gaussian distribution as possible in order to stabilize variance and minimize skewness.
+> > > np.percentile(X\_test\[:, 0], \[0, 25, 50, 75, 100])
+> > > ...
+> > > array(\[ 4.4  ,  5.125,  5.75 ,  6.175,  7.3  ])
+> > > np.percentile(X\_test\_trans\[:, 0], \[0, 25, 50, 75, 100])
+> > > ...
+> > > array(\[ 0.01...,  0.25...,  0.46...,  0.60... ,  0.94...])
+> > > 6.3.2.2. Mapping to a Gaussian distribution
+> > > In many modeling scenarios, normality of the features in a dataset is desirable. Power transforms are a family of parametric, monotonic transformations that aim to map data from any distribution to as close to a Gaussian distribution as possible in order to stabilize variance and minimize skewness.
 
 PowerTransformer currently provides two such power transformations, the Yeo-Johnson transform and the Box-Cox transform.
 
 The Yeo-Johnson transform is given by:
 
- 
- 
 while the Box-Cox transform is given by:
 
- 
- 
- 
-Box-Cox can only be applied to strictly positive data. In both methods, the transformation is parameterized by 
+Box-Cox can only be applied to strictly positive data. In both methods, the transformation is parameterized by
 , which is determined through maximum likelihood estimation. Here is an example of using Box-Cox to map samples drawn from a lognormal distribution to a normal distribution:
 
->>>
->>> pt = preprocessing.PowerTransformer(method='box-cox', standardize=False)
->>> X_lognormal = np.random.RandomState(616).lognormal(size=(3, 3))
->>> X_lognormal
-array([[1.28..., 1.18..., 0.84...],
-       [0.94..., 1.60..., 0.38...],
-       [1.35..., 0.21..., 1.09...]])
->>> pt.fit_transform(X_lognormal)
-array([[ 0.49...,  0.17..., -0.15...],
-       [-0.05...,  0.58..., -0.57...],
-       [ 0.69..., -0.84...,  0.10...]])
-While the above example sets the standardize option to False, PowerTransformer will apply zero-mean, unit-variance normalization to the transformed output by default.
+> > > pt = preprocessing.PowerTransformer(method='box-cox', standardize=False)
+> > > X\_lognormal = np.random.RandomState(616).lognormal(size=(3, 3))
+> > > X\_lognormal
+> > > array(\[\[1.28..., 1.18..., 0.84...],
+> > > \[0.94..., 1.60..., 0.38...],
+> > > \[1.35..., 0.21..., 1.09...]])
+> > > pt.fit\_transform(X\_lognormal)
+> > > array(\[\[ 0.49...,  0.17..., -0.15...],
+> > > \[-0.05...,  0.58..., -0.57...],
+> > > \[ 0.69..., -0.84...,  0.10...]])
+> > > While the above example sets the standardize option to False, PowerTransformer will apply zero-mean, unit-variance normalization to the transformed output by default.
 
 Below are examples of Box-Cox and Yeo-Johnson applied to various probability distributions. Note that when applied to certain distributions, the power transforms achieve very Gaussian-like results, but with others, they are ineffective. This highlights the importance of visualizing the data before and after transformation.
 
-../_images/sphx_glr_plot_map_data_to_normal_001.png
-It is also possible to map data to a normal distribution using QuantileTransformer by setting output_distribution='normal'. Using the earlier example with the iris dataset:
+../\_images/sphx\_glr\_plot\_map\_data\_to\_normal\_001.png
+It is also possible to map data to a normal distribution using QuantileTransformer by setting output\_distribution='normal'. Using the earlier example with the iris dataset:
 
->>>
->>> quantile_transformer = preprocessing.QuantileTransformer(
-...     output_distribution='normal', random_state=0)
->>> X_trans = quantile_transformer.fit_transform(X)
->>> quantile_transformer.quantiles_
-array([[4.3, 2. , 1. , 0.1],
-       [4.4, 2.2, 1.1, 0.1],
-       [4.4, 2.2, 1.2, 0.1],
-       ...,
-       [7.7, 4.1, 6.7, 2.5],
-       [7.7, 4.2, 6.7, 2.5],
-       [7.9, 4.4, 6.9, 2.5]])
-Thus the median of the input becomes the mean of the output, centered at 0. The normal output is clipped so that the input’s minimum and maximum — corresponding to the 1e-7 and 1 - 1e-7 quantiles respectively — do not become infinite under the transformation.
+> > > quantile\_transformer = preprocessing.QuantileTransformer(
+> > > ...     output\_distribution='normal', random\_state=0)
+> > > X\_trans = quantile\_transformer.fit\_transform(X)
+> > > quantile\_transformer.quantiles\_
+> > > array(\[\[4.3, 2. , 1. , 0.1],
+> > > \[4.4, 2.2, 1.1, 0.1],
+> > > \[4.4, 2.2, 1.2, 0.1],
+> > > ...,
+> > > \[7.7, 4.1, 6.7, 2.5],
+> > > \[7.7, 4.2, 6.7, 2.5],
+> > > \[7.9, 4.4, 6.9, 2.5]])
+> > > Thus the median of the input becomes the mean of the output, centered at 0. The normal output is clipped so that the input’s minimum and maximum — corresponding to the 1e-7 and 1 - 1e-7 quantiles respectively — do not become infinite under the transformation.
 
 6.3.3. Normalization
 Normalization is the process of scaling individual samples to have unit norm. This process can be useful if you plan to use a quadratic form such as the dot-product or any other kernel to quantify the similarity of any pair of samples.
@@ -4719,305 +4932,280 @@ This assumption is the base of the Vector Space Model often used in text classif
 
 The function normalize provides a quick and easy way to perform this operation on a single array-like dataset, either using the l1, l2, or max norms:
 
->>>
->>> X = [[ 1., -1.,  2.],
-...      [ 2.,  0.,  0.],
-...      [ 0.,  1., -1.]]
->>> X_normalized = preprocessing.normalize(X, norm='l2')
+> > > X = \[\[ 1., -1.,  2.],
+> > > ...      \[ 2.,  0.,  0.],
+> > > ...      \[ 0.,  1., -1.]]
+> > > X\_normalized = preprocessing.normalize(X, norm='l2')
 
->>> X_normalized
-array([[ 0.40..., -0.40...,  0.81...],
-       [ 1.  ...,  0.  ...,  0.  ...],
-       [ 0.  ...,  0.70..., -0.70...]])
-The preprocessing module further provides a utility class Normalizer that implements the same operation using the Transformer API (even though the fit method is useless in this case: the class is stateless as this operation treats samples independently).
+> > > X\_normalized
+> > > array(\[\[ 0.40..., -0.40...,  0.81...],
+> > > \[ 1.  ...,  0.  ...,  0.  ...],
+> > > \[ 0.  ...,  0.70..., -0.70...]])
+> > > The preprocessing module further provides a utility class Normalizer that implements the same operation using the Transformer API (even though the fit method is useless in this case: the class is stateless as this operation treats samples independently).
 
 This class is hence suitable for use in the early steps of a Pipeline:
 
->>>
->>> normalizer = preprocessing.Normalizer().fit(X)  # fit does nothing
->>> normalizer
-Normalizer()
-The normalizer instance can then be used on sample vectors as any transformer:
+> > > normalizer = preprocessing.Normalizer().fit(X)  # fit does nothing
+> > > normalizer
+> > > Normalizer()
+> > > The normalizer instance can then be used on sample vectors as any transformer:
 
->>>
->>> normalizer.transform(X)
-array([[ 0.40..., -0.40...,  0.81...],
-       [ 1.  ...,  0.  ...,  0.  ...],
-       [ 0.  ...,  0.70..., -0.70...]])
+> > > normalizer.transform(X)
+> > > array(\[\[ 0.40..., -0.40...,  0.81...],
+> > > \[ 1.  ...,  0.  ...,  0.  ...],
+> > > \[ 0.  ...,  0.70..., -0.70...]])
 
->>> normalizer.transform([[-1.,  1., 0.]])
-array([[-0.70...,  0.70...,  0.  ...]])
-Note: L2 normalization is also known as spatial sign preprocessing.
+> > > normalizer.transform(\[\[-1.,  1., 0.]])
+> > > array(\[\[-0.70...,  0.70...,  0.  ...]])
+> > > Note: L2 normalization is also known as spatial sign preprocessing.
 
 Sparse input
 
 normalize and Normalizer accept both dense array-like and sparse matrices from scipy.sparse as input.
 
-For sparse input the data is converted to the Compressed Sparse Rows representation (see scipy.sparse.csr_matrix) before being fed to efficient Cython routines. To avoid unnecessary memory copies, it is recommended to choose the CSR representation upstream.
+For sparse input the data is converted to the Compressed Sparse Rows representation (see scipy.sparse.csr\_matrix) before being fed to efficient Cython routines. To avoid unnecessary memory copies, it is recommended to choose the CSR representation upstream.
 
 6.3.4. Encoding categorical features
-Often features are not given as continuous values but categorical. For example a person could have features ["male", "female"], ["from Europe", "from US", "from Asia"], ["uses Firefox", "uses Chrome", "uses Safari", "uses Internet Explorer"]. Such features can be efficiently coded as integers, for instance ["male", "from US", "uses Internet Explorer"] could be expressed as [0, 1, 3] while ["female", "from Asia", "uses Chrome"] would be [1, 2, 1].
+Often features are not given as continuous values but categorical. For example a person could have features \["male", "female"], \["from Europe", "from US", "from Asia"], \["uses Firefox", "uses Chrome", "uses Safari", "uses Internet Explorer"]. Such features can be efficiently coded as integers, for instance \["male", "from US", "uses Internet Explorer"] could be expressed as \[0, 1, 3] while \["female", "from Asia", "uses Chrome"] would be \[1, 2, 1].
 
-To convert categorical features to such integer codes, we can use the OrdinalEncoder. This estimator transforms each categorical feature to one new feature of integers (0 to n_categories - 1):
+To convert categorical features to such integer codes, we can use the OrdinalEncoder. This estimator transforms each categorical feature to one new feature of integers (0 to n\_categories - 1):
 
->>>
->>> enc = preprocessing.OrdinalEncoder()
->>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
->>> enc.fit(X)
-OrdinalEncoder()
->>> enc.transform([['female', 'from US', 'uses Safari']])
-array([[0., 1., 1.]])
-Such integer representation can, however, not be used directly with all scikit-learn estimators, as these expect continuous input, and would interpret the categories as being ordered, which is often not desired (i.e. the set of browsers was ordered arbitrarily).
+> > > enc = preprocessing.OrdinalEncoder()
+> > > X = \[\['male', 'from US', 'uses Safari'], \['female', 'from Europe', 'uses Firefox']]
+> > > enc.fit(X)
+> > > OrdinalEncoder()
+> > > enc.transform(\[\['female', 'from US', 'uses Safari']])
+> > > array(\[\[0., 1., 1.]])
+> > > Such integer representation can, however, not be used directly with all scikit-learn estimators, as these expect continuous input, and would interpret the categories as being ordered, which is often not desired (i.e. the set of browsers was ordered arbitrarily).
 
 By default, OrdinalEncoder will also passthrough missing values that are indicated by np.nan.
 
->>>
->>> enc = preprocessing.OrdinalEncoder()
->>> X = [['male'], ['female'], [np.nan], ['female']]
->>> enc.fit_transform(X)
-array([[ 1.],
-       [ 0.],
-       [nan],
-       [ 0.]])
-OrdinalEncoder provides a parameter encoded_missing_value to encode the missing values without the need to create a pipeline and using SimpleImputer.
+> > > enc = preprocessing.OrdinalEncoder()
+> > > X = \[\['male'], \['female'], \[np.nan], \['female']]
+> > > enc.fit\_transform(X)
+> > > array(\[\[ 1.],
+> > > \[ 0.],
+> > > \[nan],
+> > > \[ 0.]])
+> > > OrdinalEncoder provides a parameter encoded\_missing\_value to encode the missing values without the need to create a pipeline and using SimpleImputer.
 
->>>
->>> enc = preprocessing.OrdinalEncoder(encoded_missing_value=-1)
->>> X = [['male'], ['female'], [np.nan], ['female']]
->>> enc.fit_transform(X)
-array([[ 1.],
-       [ 0.],
-       [-1.],
-       [ 0.]])
-The above processing is equivalent to the following pipeline:
+> > > enc = preprocessing.OrdinalEncoder(encoded\_missing\_value=-1)
+> > > X = \[\['male'], \['female'], \[np.nan], \['female']]
+> > > enc.fit\_transform(X)
+> > > array(\[\[ 1.],
+> > > \[ 0.],
+> > > \[-1.],
+> > > \[ 0.]])
+> > > The above processing is equivalent to the following pipeline:
 
->>>
->>> from sklearn.pipeline import Pipeline
->>> from sklearn.impute import SimpleImputer
->>> enc = Pipeline(steps=[
-...     ("encoder", preprocessing.OrdinalEncoder()),
-...     ("imputer", SimpleImputer(strategy="constant", fill_value=-1)),
-... ])
->>> enc.fit_transform(X)
-array([[ 1.],
-       [ 0.],
-       [-1.],
-       [ 0.]])
-Another possibility to convert categorical features to features that can be used with scikit-learn estimators is to use a one-of-K, also known as one-hot or dummy encoding. This type of encoding can be obtained with the OneHotEncoder, which transforms each categorical feature with n_categories possible values into n_categories binary features, with one of them 1, and all others 0.
+> > > from sklearn.pipeline import Pipeline
+> > > from sklearn.impute import SimpleImputer
+> > > enc = Pipeline(steps=\[
+> > > ...     ("encoder", preprocessing.OrdinalEncoder()),
+> > > ...     ("imputer", SimpleImputer(strategy="constant", fill\_value=-1)),
+> > > ... ])
+> > > enc.fit\_transform(X)
+> > > array(\[\[ 1.],
+> > > \[ 0.],
+> > > \[-1.],
+> > > \[ 0.]])
+> > > Another possibility to convert categorical features to features that can be used with scikit-learn estimators is to use a one-of-K, also known as one-hot or dummy encoding. This type of encoding can be obtained with the OneHotEncoder, which transforms each categorical feature with n\_categories possible values into n\_categories binary features, with one of them 1, and all others 0.
 
 Continuing the example above:
 
->>>
->>> enc = preprocessing.OneHotEncoder()
->>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
->>> enc.fit(X)
-OneHotEncoder()
->>> enc.transform([['female', 'from US', 'uses Safari'],
-...                ['male', 'from Europe', 'uses Safari']]).toarray()
-array([[1., 0., 0., 1., 0., 1.],
-       [0., 1., 1., 0., 0., 1.]])
-By default, the values each feature can take is inferred automatically from the dataset and can be found in the categories_ attribute:
+> > > enc = preprocessing.OneHotEncoder()
+> > > X = \[\['male', 'from US', 'uses Safari'], \['female', 'from Europe', 'uses Firefox']]
+> > > enc.fit(X)
+> > > OneHotEncoder()
+> > > enc.transform(\[\['female', 'from US', 'uses Safari'],
+> > > ...                \['male', 'from Europe', 'uses Safari']]).toarray()
+> > > array(\[\[1., 0., 0., 1., 0., 1.],
+> > > \[0., 1., 1., 0., 0., 1.]])
+> > > By default, the values each feature can take is inferred automatically from the dataset and can be found in the categories\_ attribute:
 
->>>
->>> enc.categories_
-[array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object), array(['uses Firefox', 'uses Safari'], dtype=object)]
-It is possible to specify this explicitly using the parameter categories. There are two genders, four possible continents and four web browsers in our dataset:
+> > > enc.categories\_
+> > > \[array(\['female', 'male'], dtype=object), array(\['from Europe', 'from US'], dtype=object), array(\['uses Firefox', 'uses Safari'], dtype=object)]
+> > > It is possible to specify this explicitly using the parameter categories. There are two genders, four possible continents and four web browsers in our dataset:
 
->>>
->>> genders = ['female', 'male']
->>> locations = ['from Africa', 'from Asia', 'from Europe', 'from US']
->>> browsers = ['uses Chrome', 'uses Firefox', 'uses IE', 'uses Safari']
->>> enc = preprocessing.OneHotEncoder(categories=[genders, locations, browsers])
->>> Note that for there are missing categorical values for the 2nd and 3rd
->>> feature
->>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
->>> enc.fit(X)
-OneHotEncoder(categories=[['female', 'male'],
-                          ['from Africa', 'from Asia', 'from Europe',
-                           'from US'],
-                          ['uses Chrome', 'uses Firefox', 'uses IE',
-                           'uses Safari']])
->>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
-array([[1., 0., 0., 1., 0., 0., 1., 0., 0., 0.]])
-If there is a possibility that the training data might have missing categorical features, it can often be better to specify handle_unknown='infrequent_if_exist' instead of setting the categories manually as above. When handle_unknown='infrequent_if_exist' is specified and unknown categories are encountered during transform, no error will be raised but the resulting one-hot encoded columns for this feature will be all zeros or considered as an infrequent category if enabled. (handle_unknown='infrequent_if_exist' is only supported for one-hot encoding):
+> > > genders = \['female', 'male']
+> > > locations = \['from Africa', 'from Asia', 'from Europe', 'from US']
+> > > browsers = \['uses Chrome', 'uses Firefox', 'uses IE', 'uses Safari']
+> > > enc = preprocessing.OneHotEncoder(categories=\[genders, locations, browsers])
+> > > Note that for there are missing categorical values for the 2nd and 3rd
+> > > feature
+> > > X = \[\['male', 'from US', 'uses Safari'], \['female', 'from Europe', 'uses Firefox']]
+> > > enc.fit(X)
+> > > OneHotEncoder(categories=\[\['female', 'male'],
+> > > \['from Africa', 'from Asia', 'from Europe',
+> > > 'from US'],
+> > > \['uses Chrome', 'uses Firefox', 'uses IE',
+> > > 'uses Safari']])
+> > > enc.transform(\[\['female', 'from Asia', 'uses Chrome']]).toarray()
+> > > array(\[\[1., 0., 0., 1., 0., 0., 1., 0., 0., 0.]])
+> > > If there is a possibility that the training data might have missing categorical features, it can often be better to specify handle\_unknown='infrequent\_if\_exist' instead of setting the categories manually as above. When handle\_unknown='infrequent\_if\_exist' is specified and unknown categories are encountered during transform, no error will be raised but the resulting one-hot encoded columns for this feature will be all zeros or considered as an infrequent category if enabled. (handle\_unknown='infrequent\_if\_exist' is only supported for one-hot encoding):
 
->>>
->>> enc = preprocessing.OneHotEncoder(handle_unknown='infrequent_if_exist')
->>> X = [['male', 'from US', 'uses Safari'], ['female', 'from Europe', 'uses Firefox']]
->>> enc.fit(X)
-OneHotEncoder(handle_unknown='infrequent_if_exist')
->>> enc.transform([['female', 'from Asia', 'uses Chrome']]).toarray()
-array([[1., 0., 0., 0., 0., 0.]])
-It is also possible to encode each column into n_categories - 1 columns instead of n_categories columns by using the drop parameter. This parameter allows the user to specify a category for each feature to be dropped. This is useful to avoid co-linearity in the input matrix in some classifiers. Such functionality is useful, for example, when using non-regularized regression (LinearRegression), since co-linearity would cause the covariance matrix to be non-invertible:
+> > > enc = preprocessing.OneHotEncoder(handle\_unknown='infrequent\_if\_exist')
+> > > X = \[\['male', 'from US', 'uses Safari'], \['female', 'from Europe', 'uses Firefox']]
+> > > enc.fit(X)
+> > > OneHotEncoder(handle\_unknown='infrequent\_if\_exist')
+> > > enc.transform(\[\['female', 'from Asia', 'uses Chrome']]).toarray()
+> > > array(\[\[1., 0., 0., 0., 0., 0.]])
+> > > It is also possible to encode each column into n\_categories - 1 columns instead of n\_categories columns by using the drop parameter. This parameter allows the user to specify a category for each feature to be dropped. This is useful to avoid co-linearity in the input matrix in some classifiers. Such functionality is useful, for example, when using non-regularized regression (LinearRegression), since co-linearity would cause the covariance matrix to be non-invertible:
 
->>>
->>> X = [['male', 'from US', 'uses Safari'],
-...      ['female', 'from Europe', 'uses Firefox']]
->>> drop_enc = preprocessing.OneHotEncoder(drop='first').fit(X)
->>> drop_enc.categories_
-[array(['female', 'male'], dtype=object), array(['from Europe', 'from US'], dtype=object),
- array(['uses Firefox', 'uses Safari'], dtype=object)]
->>> drop_enc.transform(X).toarray()
-array([[1., 1., 1.],
-       [0., 0., 0.]])
-One might want to drop one of the two columns only for features with 2 categories. In this case, you can set the parameter drop='if_binary'.
+> > > X = \[\['male', 'from US', 'uses Safari'],
+> > > ...      \['female', 'from Europe', 'uses Firefox']]
+> > > drop\_enc = preprocessing.OneHotEncoder(drop='first').fit(X)
+> > > drop\_enc.categories\_
+> > > \[array(\['female', 'male'], dtype=object), array(\['from Europe', 'from US'], dtype=object),
+> > > array(\['uses Firefox', 'uses Safari'], dtype=object)]
+> > > drop\_enc.transform(X).toarray()
+> > > array(\[\[1., 1., 1.],
+> > > \[0., 0., 0.]])
+> > > One might want to drop one of the two columns only for features with 2 categories. In this case, you can set the parameter drop='if\_binary'.
 
->>>
->>> X = [['male', 'US', 'Safari'],
-...      ['female', 'Europe', 'Firefox'],
-...      ['female', 'Asia', 'Chrome']]
->>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary').fit(X)
->>> drop_enc.categories_
-[array(['female', 'male'], dtype=object), array(['Asia', 'Europe', 'US'], dtype=object),
- array(['Chrome', 'Firefox', 'Safari'], dtype=object)]
->>> drop_enc.transform(X).toarray()
-array([[1., 0., 0., 1., 0., 0., 1.],
-       [0., 0., 1., 0., 0., 1., 0.],
-       [0., 1., 0., 0., 1., 0., 0.]])
-In the transformed X, the first column is the encoding of the feature with categories “male”/”female”, while the remaining 6 columns is the encoding of the 2 features with respectively 3 categories each.
+> > > X = \[\['male', 'US', 'Safari'],
+> > > ...      \['female', 'Europe', 'Firefox'],
+> > > ...      \['female', 'Asia', 'Chrome']]
+> > > drop\_enc = preprocessing.OneHotEncoder(drop='if\_binary').fit(X)
+> > > drop\_enc.categories\_
+> > > \[array(\['female', 'male'], dtype=object), array(\['Asia', 'Europe', 'US'], dtype=object),
+> > > array(\['Chrome', 'Firefox', 'Safari'], dtype=object)]
+> > > drop\_enc.transform(X).toarray()
+> > > array(\[\[1., 0., 0., 1., 0., 0., 1.],
+> > > \[0., 0., 1., 0., 0., 1., 0.],
+> > > \[0., 1., 0., 0., 1., 0., 0.]])
+> > > In the transformed X, the first column is the encoding of the feature with categories “male”/”female”, while the remaining 6 columns is the encoding of the 2 features with respectively 3 categories each.
 
-When handle_unknown='ignore' and drop is not None, unknown categories will be encoded as all zeros:
+When handle\_unknown='ignore' and drop is not None, unknown categories will be encoded as all zeros:
 
->>>
->>> drop_enc = preprocessing.OneHotEncoder(drop='first',
-...                                        handle_unknown='ignore').fit(X)
->>> X_test = [['unknown', 'America', 'IE']]
->>> drop_enc.transform(X_test).toarray()
-array([[0., 0., 0., 0., 0.]])
-All the categories in X_test are unknown during transform and will be mapped to all zeros. This means that unknown categories will have the same mapping as the dropped category. OneHotEncoder.inverse_transform will map all zeros to the dropped category if a category is dropped and None if a category is not dropped:
+> > > drop\_enc = preprocessing.OneHotEncoder(drop='first',
+> > > ...                                        handle\_unknown='ignore').fit(X)
+> > > X\_test = \[\['unknown', 'America', 'IE']]
+> > > drop\_enc.transform(X\_test).toarray()
+> > > array(\[\[0., 0., 0., 0., 0.]])
+> > > All the categories in X\_test are unknown during transform and will be mapped to all zeros. This means that unknown categories will have the same mapping as the dropped category. OneHotEncoder.inverse\_transform will map all zeros to the dropped category if a category is dropped and None if a category is not dropped:
 
->>>
->>> drop_enc = preprocessing.OneHotEncoder(drop='if_binary', sparse_output=False,
-...                                        handle_unknown='ignore').fit(X)
->>> X_test = [['unknown', 'America', 'IE']]
->>> X_trans = drop_enc.transform(X_test)
->>> X_trans
-array([[0., 0., 0., 0., 0., 0., 0.]])
->>> drop_enc.inverse_transform(X_trans)
-array([['female', None, None]], dtype=object)
-OneHotEncoder supports categorical features with missing values by considering the missing values as an additional category:
+> > > drop\_enc = preprocessing.OneHotEncoder(drop='if\_binary', sparse\_output=False,
+> > > ...                                        handle\_unknown='ignore').fit(X)
+> > > X\_test = \[\['unknown', 'America', 'IE']]
+> > > X\_trans = drop\_enc.transform(X\_test)
+> > > X\_trans
+> > > array(\[\[0., 0., 0., 0., 0., 0., 0.]])
+> > > drop\_enc.inverse\_transform(X\_trans)
+> > > array(\[\['female', None, None]], dtype=object)
+> > > OneHotEncoder supports categorical features with missing values by considering the missing values as an additional category:
 
->>>
->>> X = [['male', 'Safari'],
-...      ['female', None],
-...      [np.nan, 'Firefox']]
->>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
->>> enc.categories_
-[array(['female', 'male', nan], dtype=object),
- array(['Firefox', 'Safari', None], dtype=object)]
->>> enc.transform(X).toarray()
-array([[0., 1., 0., 0., 1., 0.],
-       [1., 0., 0., 0., 0., 1.],
-       [0., 0., 1., 1., 0., 0.]])
-If a feature contains both np.nan and None, they will be considered separate categories:
+> > > X = \[\['male', 'Safari'],
+> > > ...      \['female', None],
+> > > ...      \[np.nan, 'Firefox']]
+> > > enc = preprocessing.OneHotEncoder(handle\_unknown='error').fit(X)
+> > > enc.categories\_
+> > > \[array(\['female', 'male', nan], dtype=object),
+> > > array(\['Firefox', 'Safari', None], dtype=object)]
+> > > enc.transform(X).toarray()
+> > > array(\[\[0., 1., 0., 0., 1., 0.],
+> > > \[1., 0., 0., 0., 0., 1.],
+> > > \[0., 0., 1., 1., 0., 0.]])
+> > > If a feature contains both np.nan and None, they will be considered separate categories:
 
->>>
->>> X = [['Safari'], [None], [np.nan], ['Firefox']]
->>> enc = preprocessing.OneHotEncoder(handle_unknown='error').fit(X)
->>> enc.categories_
-[array(['Firefox', 'Safari', None, nan], dtype=object)]
->>> enc.transform(X).toarray()
-array([[0., 1., 0., 0.],
-       [0., 0., 1., 0.],
-       [0., 0., 0., 1.],
-       [1., 0., 0., 0.]])
-See Loading features from dicts for categorical features that are represented as a dict, not as scalars.
+> > > X = \[\['Safari'], \[None], \[np.nan], \['Firefox']]
+> > > enc = preprocessing.OneHotEncoder(handle\_unknown='error').fit(X)
+> > > enc.categories\_
+> > > \[array(\['Firefox', 'Safari', None, nan], dtype=object)]
+> > > enc.transform(X).toarray()
+> > > array(\[\[0., 1., 0., 0.],
+> > > \[0., 0., 1., 0.],
+> > > \[0., 0., 0., 1.],
+> > > \[1., 0., 0., 0.]])
+> > > See Loading features from dicts for categorical features that are represented as a dict, not as scalars.
 
 6.3.4.1. Infrequent categories
-OneHotEncoder supports aggregating infrequent categories into a single output for each feature. The parameters to enable the gathering of infrequent categories are min_frequency and max_categories.
+OneHotEncoder supports aggregating infrequent categories into a single output for each feature. The parameters to enable the gathering of infrequent categories are min\_frequency and max\_categories.
 
-min_frequency is either an integer greater or equal to 1, or a float in the interval (0.0, 1.0). If min_frequency is an integer, categories with a cardinality smaller than min_frequency will be considered infrequent. If min_frequency is a float, categories with a cardinality smaller than this fraction of the total number of samples will be considered infrequent. The default value is 1, which means every category is encoded separately.
+min\_frequency is either an integer greater or equal to 1, or a float in the interval (0.0, 1.0). If min\_frequency is an integer, categories with a cardinality smaller than min\_frequency will be considered infrequent. If min\_frequency is a float, categories with a cardinality smaller than this fraction of the total number of samples will be considered infrequent. The default value is 1, which means every category is encoded separately.
 
-max_categories is either None or any integer greater than 1. This parameter sets an upper limit to the number of output features for each input feature. max_categories includes the feature that combines infrequent categories.
+max\_categories is either None or any integer greater than 1. This parameter sets an upper limit to the number of output features for each input feature. max\_categories includes the feature that combines infrequent categories.
 
 In the following example, the categories, 'dog', 'snake' are considered infrequent:
 
->>>
->>> X = np.array([['dog'] * 5 + ['cat'] * 20 + ['rabbit'] * 10 +
-...               ['snake'] * 3], dtype=object).T
->>> enc = preprocessing.OneHotEncoder(min_frequency=6, sparse_output=False).fit(X)
->>> enc.infrequent_categories_
-[array(['dog', 'snake'], dtype=object)]
->>> enc.transform(np.array([['dog'], ['cat'], ['rabbit'], ['snake']]))
-array([[0., 0., 1.],
-       [1., 0., 0.],
-       [0., 1., 0.],
-       [0., 0., 1.]])
-By setting handle_unknown to 'infrequent_if_exist', unknown categories will be considered infrequent:
+> > > X = np.array(\[\['dog'] \* 5 + \['cat'] \* 20 + \['rabbit'] \* 10 +
+> > > ...               \['snake'] \* 3], dtype=object).T
+> > > enc = preprocessing.OneHotEncoder(min\_frequency=6, sparse\_output=False).fit(X)
+> > > enc.infrequent\_categories\_
+> > > \[array(\['dog', 'snake'], dtype=object)]
+> > > enc.transform(np.array(\[\['dog'], \['cat'], \['rabbit'], \['snake']]))
+> > > array(\[\[0., 0., 1.],
+> > > \[1., 0., 0.],
+> > > \[0., 1., 0.],
+> > > \[0., 0., 1.]])
+> > > By setting handle\_unknown to 'infrequent\_if\_exist', unknown categories will be considered infrequent:
 
->>>
->>> enc = preprocessing.OneHotEncoder(
-...    handle_unknown='infrequent_if_exist', sparse_output=False, min_frequency=6)
->>> enc = enc.fit(X)
->>> enc.transform(np.array([['dragon']]))
-array([[0., 0., 1.]])
-OneHotEncoder.get_feature_names_out uses ‘infrequent’ as the infrequent feature name:
+> > > enc = preprocessing.OneHotEncoder(
+> > > ...    handle\_unknown='infrequent\_if\_exist', sparse\_output=False, min\_frequency=6)
+> > > enc = enc.fit(X)
+> > > enc.transform(np.array(\[\['dragon']]))
+> > > array(\[\[0., 0., 1.]])
+> > > OneHotEncoder.get\_feature\_names\_out uses ‘infrequent’ as the infrequent feature name:
 
->>>
->>> enc.get_feature_names_out()
-array(['x0_cat', 'x0_rabbit', 'x0_infrequent_sklearn'], dtype=object)
-When 'handle_unknown' is set to 'infrequent_if_exist' and an unknown category is encountered in transform:
+> > > enc.get\_feature\_names\_out()
+> > > array(\['x0\_cat', 'x0\_rabbit', 'x0\_infrequent\_sklearn'], dtype=object)
+> > > When 'handle\_unknown' is set to 'infrequent\_if\_exist' and an unknown category is encountered in transform:
 
 If infrequent category support was not configured or there was no infrequent category during training, the resulting one-hot encoded columns for this feature will be all zeros. In the inverse transform, an unknown category will be denoted as None.
 
-If there is an infrequent category during training, the unknown category will be considered infrequent. In the inverse transform, ‘infrequent_sklearn’ will be used to represent the infrequent category.
+If there is an infrequent category during training, the unknown category will be considered infrequent. In the inverse transform, ‘infrequent\_sklearn’ will be used to represent the infrequent category.
 
-Infrequent categories can also be configured using max_categories. In the following example, we set max_categories=2 to limit the number of features in the output. This will result in all but the 'cat' category to be considered infrequent, leading to two features, one for 'cat' and one for infrequent categories - which are all the others:
+Infrequent categories can also be configured using max\_categories. In the following example, we set max\_categories=2 to limit the number of features in the output. This will result in all but the 'cat' category to be considered infrequent, leading to two features, one for 'cat' and one for infrequent categories - which are all the others:
 
->>>
->>> enc = preprocessing.OneHotEncoder(max_categories=2, sparse_output=False)
->>> enc = enc.fit(X)
->>> enc.transform([['dog'], ['cat'], ['rabbit'], ['snake']])
-array([[0., 1.],
-       [1., 0.],
-       [0., 1.],
-       [0., 1.]])
-If both max_categories and min_frequency are non-default values, then categories are selected based on min_frequency first and max_categories categories are kept. In the following example, min_frequency=4 considers only snake to be infrequent, but max_categories=3, forces dog to also be infrequent:
+> > > enc = preprocessing.OneHotEncoder(max\_categories=2, sparse\_output=False)
+> > > enc = enc.fit(X)
+> > > enc.transform(\[\['dog'], \['cat'], \['rabbit'], \['snake']])
+> > > array(\[\[0., 1.],
+> > > \[1., 0.],
+> > > \[0., 1.],
+> > > \[0., 1.]])
+> > > If both max\_categories and min\_frequency are non-default values, then categories are selected based on min\_frequency first and max\_categories categories are kept. In the following example, min\_frequency=4 considers only snake to be infrequent, but max\_categories=3, forces dog to also be infrequent:
 
->>>
->>> enc = preprocessing.OneHotEncoder(min_frequency=4, max_categories=3, sparse_output=False)
->>> enc = enc.fit(X)
->>> enc.transform([['dog'], ['cat'], ['rabbit'], ['snake']])
-array([[0., 0., 1.],
-       [1., 0., 0.],
-       [0., 1., 0.],
-       [0., 0., 1.]])
-If there are infrequent categories with the same cardinality at the cutoff of max_categories, then then the first max_categories are taken based on lexicon ordering. In the following example, “b”, “c”, and “d”, have the same cardinality and with max_categories=2, “b” and “c” are infrequent because they have a higher lexicon order.
+> > > enc = preprocessing.OneHotEncoder(min\_frequency=4, max\_categories=3, sparse\_output=False)
+> > > enc = enc.fit(X)
+> > > enc.transform(\[\['dog'], \['cat'], \['rabbit'], \['snake']])
+> > > array(\[\[0., 0., 1.],
+> > > \[1., 0., 0.],
+> > > \[0., 1., 0.],
+> > > \[0., 0., 1.]])
+> > > If there are infrequent categories with the same cardinality at the cutoff of max\_categories, then then the first max\_categories are taken based on lexicon ordering. In the following example, “b”, “c”, and “d”, have the same cardinality and with max\_categories=2, “b” and “c” are infrequent because they have a higher lexicon order.
 
->>>
->>> X = np.asarray([["a"] * 20 + ["b"] * 10 + ["c"] * 10 + ["d"] * 10], dtype=object).T
->>> enc = preprocessing.OneHotEncoder(max_categories=3).fit(X)
->>> enc.infrequent_categories_
-[array(['b', 'c'], dtype=object)]
-6.3.5. Discretization
-Discretization (otherwise known as quantization or binning) provides a way to partition continuous features into discrete values. Certain datasets with continuous features may benefit from discretization, because discretization can transform the dataset of continuous attributes to one with only nominal attributes.
+> > > X = np.asarray(\[\["a"] \* 20 + \["b"] \* 10 + \["c"] \* 10 + \["d"] \* 10], dtype=object).T
+> > > enc = preprocessing.OneHotEncoder(max\_categories=3).fit(X)
+> > > enc.infrequent\_categories\_
+> > > \[array(\['b', 'c'], dtype=object)]
+> > > 6.3.5. Discretization
+> > > Discretization (otherwise known as quantization or binning) provides a way to partition continuous features into discrete values. Certain datasets with continuous features may benefit from discretization, because discretization can transform the dataset of continuous attributes to one with only nominal attributes.
 
 One-hot encoded discretized features can make a model more expressive, while maintaining interpretability. For instance, pre-processing with a discretizer can introduce nonlinearity to linear models. For more advanced possibilities, in particular smooth ones, see Generating polynomial features further below.
 
 6.3.5.1. K-bins discretization
 KBinsDiscretizer discretizes features into k bins:
 
->>>
->>> X = np.array([[ -3., 5., 15 ],
-...               [  0., 6., 14 ],
-...               [  6., 3., 11 ]])
->>> est = preprocessing.KBinsDiscretizer(n_bins=[3, 2, 2], encode='ordinal').fit(X)
-By default the output is one-hot encoded into a sparse matrix (See Encoding categorical features) and this can be configured with the encode parameter. For each feature, the bin edges are computed during fit and together with the number of bins, they will define the intervals. Therefore, for the current example, these intervals are defined as:
+> > > X = np.array(\[\[ -3., 5., 15 ],
+> > > ...               \[  0., 6., 14 ],
+> > > ...               \[  6., 3., 11 ]])
+> > > est = preprocessing.KBinsDiscretizer(n\_bins=\[3, 2, 2], encode='ordinal').fit(X)
+> > > By default the output is one-hot encoded into a sparse matrix (See Encoding categorical features) and this can be configured with the encode parameter. For each feature, the bin edges are computed during fit and together with the number of bins, they will define the intervals. Therefore, for the current example, these intervals are defined as:
 
-feature 1: 
+feature 1:
 
-feature 2: 
+feature 2:
 
-feature 3: 
+feature 3:
 
 Based on these bin intervals, X is transformed as follows:
 
->>>
->>> est.transform(X)                      
-array([[ 0., 1., 1.],
-       [ 1., 1., 1.],
-       [ 2., 0., 0.]])
-The resulting dataset contains ordinal attributes which can be further used in a Pipeline.
+> > > est.transform(X)\
+> > > array(\[\[ 0., 1., 1.],
+> > > \[ 1., 1., 1.],
+> > > \[ 2., 0., 0.]])
+> > > The resulting dataset contains ordinal attributes which can be further used in a Pipeline.
 
 Discretization is similar to constructing histograms for continuous data. However, histograms focus on counting features which fall into particular bins, whereas discretization focuses on assigning feature values to these bins.
 
@@ -5025,19 +5213,18 @@ KBinsDiscretizer implements different binning strategies, which can be selected 
 
 Be aware that one can specify custom bins by passing a callable defining the discretization strategy to FunctionTransformer. For instance, we can use the Pandas function pandas.cut:
 
->>>
->>> import pandas as pd
->>> import numpy as np
->>> bins = [0, 1, 13, 20, 60, np.inf]
->>> labels = ['infant', 'kid', 'teen', 'adult', 'senior citizen']
->>> transformer = preprocessing.FunctionTransformer(
-...     pd.cut, kw_args={'bins': bins, 'labels': labels, 'retbins': False}
-... )
->>> X = np.array([0.2, 2, 15, 25, 97])
->>> transformer.fit_transform(X)
-['infant', 'kid', 'teen', 'adult', 'senior citizen']
-Categories (5, object): ['infant' < 'kid' < 'teen' < 'adult' < 'senior citizen']
-Examples:
+> > > import pandas as pd
+> > > import numpy as np
+> > > bins = \[0, 1, 13, 20, 60, np.inf]
+> > > labels = \['infant', 'kid', 'teen', 'adult', 'senior citizen']
+> > > transformer = preprocessing.FunctionTransformer(
+> > > ...     pd.cut, kw\_args={'bins': bins, 'labels': labels, 'retbins': False}
+> > > ... )
+> > > X = np.array(\[0.2, 2, 15, 25, 97])
+> > > transformer.fit\_transform(X)
+> > > \['infant', 'kid', 'teen', 'adult', 'senior citizen']
+> > > Categories (5, object): \['infant' < 'kid' < 'teen' < 'adult' < 'senior citizen']
+> > > Examples:
 
 Using KBinsDiscretizer to discretize continuous features
 
@@ -5052,28 +5239,27 @@ It is also common among the text processing community to use binary feature valu
 
 As for the Normalizer, the utility class Binarizer is meant to be used in the early stages of Pipeline. The fit method does nothing as each sample is treated independently of others:
 
->>>
->>> X = [[ 1., -1.,  2.],
-...      [ 2.,  0.,  0.],
-...      [ 0.,  1., -1.]]
+> > > X = \[\[ 1., -1.,  2.],
+> > > ...      \[ 2.,  0.,  0.],
+> > > ...      \[ 0.,  1., -1.]]
 
->>> binarizer = preprocessing.Binarizer().fit(X)  # fit does nothing
->>> binarizer
-Binarizer()
+> > > binarizer = preprocessing.Binarizer().fit(X)  # fit does nothing
+> > > binarizer
+> > > Binarizer()
 
->>> binarizer.transform(X)Classification
-array([[1., 0., 1.],
-       [1., 0., 0.],
-       [0., 1., 0.]])
-It is possible to adjust the threshold of the binarizer:
-Classification
->>>
->>> binarizer = preprocessing.Binarizer(threshold=1.1)
->>> binarizer.transform(X)
-array([[0., 0., 1.],
-       [1., 0., 0.],
-       [0., 0., 0.]])
-As for the Normalizer class, the preprocessing module provides a companion function binarize to be used when the transformer API is not necessary.
+> > > binarizer.transform(X)Classification
+> > > array(\[\[1., 0., 1.],
+> > > \[1., 0., 0.],
+> > > \[0., 1., 0.]])
+> > > It is possible to adjust the threshold of the binarizer:
+> > > Classification
+> > >
+> > > binarizer = preprocessing.Binarizer(threshold=1.1)
+> > > binarizer.transform(X)
+> > > array(\[\[0., 0., 1.],
+> > > \[1., 0., 0.],
+> > > \[0., 0., 0.]])
+> > > As for the Normalizer class, the preprocessing module provides a companion function binarize to be used when the transformer API is not necessary.
 
 Note that the Binarizer is similar to the KBinsDiscretizer when k = 2, and when the bin edge is at the value threshold.
 
@@ -5081,7 +5267,7 @@ Sparse input
 
 binarize and Binarizer accept both dense array-like and sparse matrices from scipy.sparse as input.
 
-For sparse input the data is converted to the Compressed Sparse Rows representation (see scipy.sparse.csr_matrix). To avoid unnecessary memory copies, it is recommended to choose the CSR representation upstream.
+For sparse input the data is converted to the Compressed Sparse Rows representation (see scipy.sparse.csr\_matrix). To avoid unnecessary memory copies, it is recommended to choose the CSR representation upstream.
 
 6.3.6. Imputation of missing values
 Tools for imputing missing values are discussed at Imputation of missing values.
@@ -5092,39 +5278,37 @@ Often it’s useful to add complexity to a model by considering nonlinear featur
 6.3.7.1. Polynomial features
 A simple and common method to use is polynomial features, which can get features’ high-order and interaction terms. It is implemented in PolynomialFeatures:
 
->>>
->>> import numpy as np
->>> from sklearn.preprocessing import PolynomialFeatures
->>> X = np.arange(6).reshape(3, 2)
->>> X
-array([[0, 1],
-       [2, 3],
-       [4, 5]])
->>> poly = PolynomialFeatures(2)
->>> poly.fit_transform(X)
-array([[ 1.,  0.,  1.,  0.,  0.,  1.],
-       [ 1.,  2.,  3.,  4.,  6.,  9.],
-       [ 1.,  4.,  5., 16., 20., 25.]])
-The features of X have been transformed from 
- to 
-.
+> > > import numpy as np
+> > > from sklearn.preprocessing import PolynomialFeatures
+> > > X = np.arange(6).reshape(3, 2)
+> > > X
+> > > array(\[\[0, 1],
+> > > \[2, 3],
+> > > \[4, 5]])
+> > > poly = PolynomialFeatures(2)
+> > > poly.fit\_transform(X)
+> > > array(\[\[ 1.,  0.,  1.,  0.,  0.,  1.],
+> > > \[ 1.,  2.,  3.,  4.,  6.,  9.],
+> > > \[ 1.,  4.,  5., 16., 20., 25.]])
+> > > The features of X have been transformed from
+> > > to
+> > > .
 
-In some cases, only interaction terms among features are required, and it can be gotten with the setting interaction_only=True:
+In some cases, only interaction terms among features are required, and it can be gotten with the setting interaction\_only=True:
 
->>>
->>> X = np.arange(9).reshape(3, 3)
->>> X
-array([[0, 1, 2],
-       [3, 4, 5],
-       [6, 7, 8]])
->>> poly = PolynomialFeatures(degree=3, interaction_only=True)
->>> poly.fit_transform(X)
-array([[  1.,   0.,   1.,   2.,   0.,   0.,   2.,   0.],
-       [  1.,   3.,   4.,   5.,  12.,  15.,  20.,  60.],
-       [  1.,   6.,   7.,   8.,  42.,  48.,  56., 336.]])
-The features of X have been transformed from 
- to 
-.
+> > > X = np.arange(9).reshape(3, 3)
+> > > X
+> > > array(\[\[0, 1, 2],
+> > > \[3, 4, 5],
+> > > \[6, 7, 8]])
+> > > poly = PolynomialFeatures(degree=3, interaction\_only=True)
+> > > poly.fit\_transform(X)
+> > > array(\[\[  1.,   0.,   1.,   2.,   0.,   0.,   2.,   0.],
+> > > \[  1.,   3.,   4.,   5.,  12.,  15.,  20.,  60.],
+> > > \[  1.,   6.,   7.,   8.,  42.,  48.,  56., 336.]])
+> > > The features of X have been transformed from
+> > > to
+> > > .
 
 Note that polynomial features are used implicitly in kernel methods (e.g., SVC, KernelPCA) when using polynomial Kernel functions.
 
@@ -5146,26 +5330,25 @@ B-splines generate a feature matrix with a banded structure. For a single featur
 
 The following code snippet shows splines in action:
 
->>>
->>> import numpy as np
->>> from sklearn.preprocessing import SplineTransformer
->>> X = np.arange(5).reshape(5, 1)
->>> X
-array([[0],
-       [1],
-       [2],
-       [3],
-       [4]])
->>> spline = SplineTransformer(degree=2, n_knots=3)
->>> spline.fit_transform(X)
-array([[0.5  , 0.5  , 0.   , 0.   ],
-       [0.125, 0.75 , 0.125, 0.   ],
-       [0.   , 0.5  , 0.5  , 0.   ],
-       [0.   , 0.125, 0.75 , 0.125],
-       [0.   , 0.   , 0.5  , 0.5  ]])
-As the X is sorted, one can easily see the banded matrix output. Only the three middle diagonals are non-zero for degree=2. The higher the degree, the more overlapping of the splines.
+> > > import numpy as np
+> > > from sklearn.preprocessing import SplineTransformer
+> > > X = np.arange(5).reshape(5, 1)
+> > > X
+> > > array(\[\[0],
+> > > \[1],
+> > > \[2],
+> > > \[3],
+> > > \[4]])
+> > > spline = SplineTransformer(degree=2, n\_knots=3)
+> > > spline.fit\_transform(X)
+> > > array(\[\[0.5  , 0.5  , 0.   , 0.   ],
+> > > \[0.125, 0.75 , 0.125, 0.   ],
+> > > \[0.   , 0.5  , 0.5  , 0.   ],
+> > > \[0.   , 0.125, 0.75 , 0.125],
+> > > \[0.   , 0.   , 0.5  , 0.5  ]])
+> > > As the X is sorted, one can easily see the banded matrix output. Only the three middle diagonals are non-zero for degree=2. The higher the degree, the more overlapping of the splines.
 
-Interestingly, a SplineTransformer of degree=0 is the same as KBinsDiscretizer with encode='onehot-dense' and n_bins = n_knots - 1 if knots = strategy.
+Interestingly, a SplineTransformer of degree=0 is the same as KBinsDiscretizer with encode='onehot-dense' and n\_bins = n\_knots - 1 if knots = strategy.
 
 Examples:
 
@@ -5182,22 +5365,20 @@ Perperoglou, A., Sauerbrei, W., Abrahamowicz, M. et al. A review of spline funct
 6.3.8. Custom transformers
 Often, you will want to convert an existing Python function into a transformer to assist in data cleaning or processing. You can implement a transformer from an arbitrary function with FunctionTransformer. For example, to build a transformer that applies a log transformation in a pipeline, do:
 
->>>
->>> import numpy as np
->>> from sklearn.preprocessing import FunctionTransformer
->>> transformer = FunctionTransformer(np.log1p, validate=True)
->>> X = np.array([[0, 1], [2, 3]])
->>> Since FunctionTransformer is no-op during fit, we can call transform directly
->>> transformer.transform(X)
-array([[0.        , 0.69314718],
-       [1.09861229, 1.38629436]])
-You can ensure that func and inverse_func are the inverse of each other by setting check_inverse=True and calling fit before transform. Please note that a warning is raised and can be turned into an error with a filterwarnings:
+> > > import numpy as np
+> > > from sklearn.preprocessing import FunctionTransformer
+> > > transformer = FunctionTransformer(np.log1p, validate=True)
+> > > X = np.array(\[\[0, 1], \[2, 3]])
+> > > Since FunctionTransformer is no-op during fit, we can call transform directly
+> > > transformer.transform(X)
+> > > array(\[\[0.        , 0.69314718],
+> > > \[1.09861229, 1.38629436]])
+> > > You can ensure that func and inverse\_func are the inverse of each other by setting check\_inverse=True and calling fit before transform. Please note that a warning is raised and can be turned into an error with a filterwarnings:
 
->>>
->>> import warnings
->>> warnings.filterwarnings("error", message=".*check_inverse*.",
-...                         category=UserWarning, append=False)
-For a full code example that demonstrates using a FunctionTransformer to extract features from text data see Column Transformer with Heterogeneous Data Sources and Time-related feature engineering.
+> > > import warnings
+> > > warnings.filterwarnings("error", message=".*check\_inverse*.",
+> > > ...                         category=UserWarning, append=False)
+> > > For a full code example that demonstrates using a FunctionTransformer to extract features from text data see Column Transformer with Heterogeneous Data Sources and Time-related feature engineering.
 
 ### Demos
 
@@ -5339,7 +5520,7 @@ Sparse inverse covariance estimation
 
 #### Cross decomposition(交叉分解)
 
-> Examples concerning the sklearn.cross_decomposition module.
+> Examples concerning the sklearn.cross\_decomposition module.
 
 Compare cross decomposition methods
 Compare cross decomposition methods
@@ -5460,7 +5641,7 @@ Two-class AdaBoost
 #### Two-class AdaBoost(二分法)
 
 > Examples based on real world datasets
-Applications to real world problems with some medium sized datasets or interactive user interface.
+> Applications to real world problems with some medium sized datasets or interactive user interface.
 
 Compressive sensing: tomography reconstruction with L1 prior (Lasso)
 Compressive sensing: tomography reconstruction with L1 prior (Lasso)
@@ -5491,7 +5672,7 @@ Wikipedia principal eigenvector
 
 #### Feature Selection(功能选择)
 
-> Examples concerning the sklearn.feature_selection module.
+> Examples concerning the sklearn.feature\_selection module.
 
 Comparison of F-test and mutual information
 Comparison of F-test and mutual information
@@ -5527,7 +5708,7 @@ Gaussian Mixture Model Sine Curve
 
 #### Gaussian Process for Machine Learning(机器学习的高斯过程)
 
-> Examples concerning the sklearn.gaussian_process module.
+> Examples concerning the sklearn.gaussian\_process module.
 
 Comparison of kernel ridge and Gaussian process regression
 Comparison of kernel ridge and Gaussian process regression
@@ -5552,7 +5733,7 @@ Probabilistic predictions with Gaussian process classification (GPC)
 
 #### Generalized Linear Models(广义线性模型)
 
-> Examples concerning the sklearn.linear_model module.
+> Examples concerning the sklearn.linear\_model module.
 
 Comparing Linear Bayesian Regressors
 Comparing Linear Bayesian Regressors
@@ -5652,7 +5833,7 @@ Permutation Importance with Multicollinear or Correlated Features
 
 #### Kernel Approximation（核近似，核逼近）
 
-Examples concerning the sklearn.kernel_approximation module.
+Examples concerning the sklearn.kernel\_approximation module.
 
 Scalable learning with polynomial kernel approximation
 Scalable learning with polynomial kernel approximation
@@ -5718,7 +5899,7 @@ Imputing missing values with variants of IterativeImputer
 
 #### Model Selection(模型选择)
 
-> Examples related to the sklearn.model_selection module.
+> Examples related to the sklearn.model\_selection module.
 
 Balance model complexity and cross-validated score
 Balance model complexity and cross-validated score
@@ -5732,8 +5913,8 @@ Confusion matrix
 Confusion matrix
 Custom refit strategy of a grid search with cross-validation
 Custom refit strategy of a grid search with cross-validation
-Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV
-Demonstration of multi-metric evaluation on cross_val_score and GridSearchCV
+Demonstration of multi-metric evaluation on cross\_val\_score and GridSearchCV
+Demonstration of multi-metric evaluation on cross\_val\_score and GridSearchCV
 Detection error tradeoff (DET) curve
 Detection error tradeoff (DET) curve
 Multiclass Receiver Operating Characteristic (ROC)
@@ -5805,7 +5986,7 @@ Simple 1D Kernel Density Estimation
 
 #### Neural Networks(神经网络)
 
-> Examples concerning the sklearn.neural_network module.
+> Examples concerning the sklearn.neural\_network module.
 
 Compare Stochastic learning strategies for MLPClassifier
 Compare Stochastic learning strategies for MLPClassifier
@@ -5854,20 +6035,20 @@ Using KBinsDiscretizer to discretize continuous features
 
 > 半监督学习(Semi-Supervised Learning，SSL)是模式识别和机器学习领域研究的重点问题，是监督学习与无监督学习相结合的一种学习方法。半监督学习使用大量的未标记数据，以及同时使用标记数据，来进行模式识别工作。当使用半监督学习时，将会要求尽量少的人员来从事工作，同时，又能够带来比较高的准确性，因此，半监督学习正越来越受到人们的重视。
 
-> 半监督学习的基本设置是给定一个来自某未知分布的有标记示例集L={(x1, y1), (x2, y2), ..., (x |L|,y|L|)}以及一个未标记示例集U = {x1’, x2’, ... , x |U|’},期望学得函数f: X→Y可以准确地对示例x 预测其标记y。这里xi, xj’ ∈X 均为d维向量,yi∈Y为示例xi的标记,|L|和|U|分别为L和U的大小,即它们所包含的示例数。 
+> 半监督学习的基本设置是给定一个来自某未知分布的有标记示例集L={(x1, y1), (x2, y2), ..., (x |L|,y|L|)}以及一个未标记示例集U = {x1’, x2’, ... , x |U|’},期望学得函数f: X→Y可以准确地对示例x 预测其标记y。这里xi, xj’ ∈X 均为d维向量,yi∈Y为示例xi的标记,|L|和|U|分别为L和U的大小,即它们所包含的示例数。
 
-> 半监督学习的基本思想是利用数据分布上的模型假设建立学习器对未标签样例进行标签。它的形式化描述是给定一个来自某未知分布的样例集S=LU,其中L是已标签样例集L={(x1,y1),(x2,y2),,,(x|L|,y|L|)},U是一个未标签样例集U={xc1,xc2,,,xc|U|},希望得到函数f:XyY可以准确地对样例x预测其标签y。其中xi,xc1均为d维向量，ytIY为样例xi的标签，|L|和|U|分别为L和U的大小，即所包含的样例数，半监督学习就是在样例集S上寻找最优的学习器。如果S=L，那么问题就转化为传统的有监督学习；反之,如果S=U,那么问题是转化为传统的无监督学习。如何综合利用已标签样例和未标签样例,是半监督学习需要解决的问题。
+> 半监督学习的基本思想是利用数据分布上的模型假设建立学习器对未标签样例进行标签。它的形式化描述是给定一个来自某未知分布的样例集S=LU,其中L是已标签样例集L={(x1,y1),(x2,y2),,,(x|L|,y|L|)},U是一个未标签样例集U={xc1,xc2,,,xc|U|},希望得到函数f\:XyY可以准确地对样例x预测其标签y。其中xi,xc1均为d维向量，ytIY为样例xi的标签，|L|和|U|分别为L和U的大小，即所包含的样例数，半监督学习就是在样例集S上寻找最优的学习器。如果S=L，那么问题就转化为传统的有监督学习；反之,如果S=U,那么问题是转化为传统的无监督学习。如何综合利用已标签样例和未标签样例,是半监督学习需要解决的问题。
 
 > 在半监督学习中有三个常用的基本假设来建立预测样例和学习目标之间的关系，有以下三个：
 
 > > （1）平滑假设(Smoothness Assumption)：位于稠密数据区域的两个距离很近的样例的类标签相似，也就是说，当两个样例被稠密数据区域中的边连接时，它们在很大的概率下有相同的类标签；相反地，当两个样例被稀疏数据区域分开时，它们的类标签趋于不同。
 
 > > （2）聚类假设(Cluster Assumption)：当两个样例位于同一聚类簇时，它们在很大的概率下有相同的类标签。这个假设的等价定义为低密度分离假设(Low Sensity Separation Assumption)，即分类决策边界应该穿过稀疏数据区域，而避免将稠密数据区域的样例分到决策边界两侧。
-聚类假设是指样本数据间的距离相互比较近时，则他们拥有相同的类别。根据该假设，分类边界就必须尽可能地通过数据较为稀疏的地方，以能够避免把密集的样本数据点分到分类边界的两侧。在这一假设的前提下，学习算法就可以利用大量未标记的样本数据来分析样本空间中样本数据分布情况，从而指导学习算法对分类边界进行调整，使其尽量通过样本数据布局比较稀疏的区域。例如，Joachims提出的转导支持向量机算法，在训练过程中，算法不断修改分类超平面并交换超平面两侧某些未标记的样本数据的标记，使得分类边界在所有训练数据上最大化间隔，从而能够获得一个通过数据相对稀疏的区域，又尽可能正确划分所有有标记的样本数据的分类超平面。
+> > 聚类假设是指样本数据间的距离相互比较近时，则他们拥有相同的类别。根据该假设，分类边界就必须尽可能地通过数据较为稀疏的地方，以能够避免把密集的样本数据点分到分类边界的两侧。在这一假设的前提下，学习算法就可以利用大量未标记的样本数据来分析样本空间中样本数据分布情况，从而指导学习算法对分类边界进行调整，使其尽量通过样本数据布局比较稀疏的区域。例如，Joachims提出的转导支持向量机算法，在训练过程中，算法不断修改分类超平面并交换超平面两侧某些未标记的样本数据的标记，使得分类边界在所有训练数据上最大化间隔，从而能够获得一个通过数据相对稀疏的区域，又尽可能正确划分所有有标记的样本数据的分类超平面。
 
 > > （3）流形假设(Manifold Assumption)：将高维数据嵌入到低维流形中，当两个样例位于低维流形中的一个小局部邻域内时，它们具有相似的类标签。
 
-> Examples concerning the sklearn.semi_supervised module.
+> Examples concerning the sklearn.semi\_supervised module.
 
 Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset
 Decision boundary of semi-supervised classifiers versus SVM on the Iris dataset
@@ -5930,7 +6111,7 @@ Semi-supervised Classification on a Text Dataset
 
 #### Working with text documents(使用文本文档)
 
-> Examples concerning the sklearn.feature_extraction.text module.
+> Examples concerning the sklearn.feature\_extraction.text module.
 
 Classification of text documents using sparse features
 Classification of text documents using sparse features
@@ -5938,6 +6119,8 @@ Clustering text documents using k-means
 Clustering text documents using k-means
 FeatureHasher and DictVectorizer Comparison
 FeatureHasher and DictVectorizer Comparison
+
+## Pandas
 
 ## PyTorch 库
 
@@ -5945,9 +6128,9 @@ FeatureHasher and DictVectorizer Comparison
 
 ## 主流机器学习类库介绍
 
-1. TensorFlow
+1.  TensorFlow
 
-TensorFlow 的官网地址为 https://www.tensorflow.org/。
+TensorFlow 的官网地址为 <https://www.tensorflow.org/。>
 
 TensorFlow 逐渐成为最流行的深度学习框架，目前在 GitHub 中已经有 1500 多个与深度学习相关的包中提到了 TensorFlow，而其中只有 5 个是谷歌公司官方提供的，可想而知它的应用是多么广泛。
 
@@ -5957,13 +6140,13 @@ TensorFlow 支持 Python 和 C++，也允许使用 CPU 和 GPU 进行计算。
 
 TensorFlow 是一个非常全面的框架，基本可以满足我们对深度学习的所有需求。但是，它的缺点是非常底层，使用 TensorFlow 需要编写大量的代码，而如果我们不想什么事都自己手动去写，就可以使用更简单、更高层的包——比如 Keras。
 
-2. Caffe
+1.  Caffe
 
 从名字来看 Caffe（Convolutional Architecture for Fast Feature Embedding，卷积神经网络框架）就是一个专注于视觉领域的框架。
 
 实际上，Caffe 可以算得上是老牌框架了，在计算机视觉系统的工具上，Caffe 是无可争议的领导者。但是 Caffe 的文档不够友好，安装的过程也是痛点，因为要求大量的依赖包，总的来说并不是一个适合深度学习入门者上手使用的框架。
 
-3. MXNet
+1.  MXNet
 
 MXNet 诞生于分布式机器学习社区（DMLC），这个包是亚马逊公司选择的深度学习库，业界对其充满了信心。
 
@@ -5971,41 +6154,41 @@ MXNet 同时也是一个支持大多数编程语言的框架，支持的编程�
 
 在使用体验上，MXNet 性能非常好，运行速度快，对 GPU 的要求也不高。但它的缺点是上手难度比较大，对于深度学习的新手有一定的技术要求。
 
-4. PyTorch
+1.  PyTorch
 
 PyTorch是近期比较热门的一个框架，其前身为 Torch。
 
 Torch 本身是性能优良的框架，但选用的人不多，这是因为 Torch 基于一个不怎么流行的语言——Lua，在使用 Torch 前还必须学习 Lua 语言，这就大大增加了入门的难度。所以，在以 Python 为大趋势的深度学习环境中，脸书公司于 2017 年 1 月 18 日推出了 PyTorch，这一次再也没有编程语言问题了，PyTorch 于是以极迅猛的势头流行开来。
 
-PyTorch 的官网是 http://pytorch.org/，配套的文档和教程十分完整和友好，推荐读者看一看。
+PyTorch 的官网是 <http://pytorch.org/，配套的文档和教程十分完整和友好，推荐读者看一看。>
 
-5. Cognitive Toolkit（CNTK）
+1.  Cognitive Toolkit（CNTK）
 
-这是微软公司研究院维护的一套框架，通常被称作微软认知工具箱（Cognitive Toolkit），更广为人知的缩写是 CNTK。GitHub 的地址为 https://github.com/Microsoft/CNTK。
+这是微软公司研究院维护的一套框架，通常被称作微软认知工具箱（Cognitive Toolkit），更广为人知的缩写是 CNTK。GitHub 的地址为 <https://github.com/Microsoft/CNTK。>
 
 相对来说 CNTK 并不是很流行，这可能和微软公司的推行力度不够有关。其实作为一个背靠微软研究院的框架，CNTK 的表现力还是很强劲的。但是和主流框架相比，CNTK 最大的劣势在于文档和社区支持度上，CNTK 有关的技术博客相对较少，在 Kaggle 中的相关讨论和在 StackOverFlow 上的提问也很少。
 
 由于 CNTK 和 Keras 在 Python 上的语法非常类似，对于深度学习的入门者，我们推荐使用 Keras。鉴于微软研究院在深度学习方面的强大实力，建议读者持续关注此框架的发展。
 
-6. Theano
+1.  Theano
 
-Theano 是蒙特利尔大学 LISA 实验室推出的深度学习框架，它的官网地址为 http://deeplearning.net/software/theano。
+Theano 是蒙特利尔大学 LISA 实验室推出的深度学习框架，它的官网地址为 <http://deeplearning.net/software/theano。>
 
 Theano 在日前已经宣布终止开发，这里简单了解一下即可。就深度学习而言，Theano 是很老牌的包，它具有优化的数值计算，曾用于很多深度学习包的开端。
 
 如果读者是还没有上手深度学习框架的初学者，那么把 Theano 作为历史名词了解即可；如果读者曾经选用了 Theano，那么最相似、最直接的转换选择是 TensorFlow 或者 PyTorch。
 
-7. DL4J
+1.  DL4J
 
-DL4J 的全称是 DeepLearning4J，是一套基于 Java 语言的深度学习工具包，由 Skymind 公司支持并维护，它的官网地址为 https://deeplearning4j.org/。
+DL4J 的全称是 DeepLearning4J，是一套基于 Java 语言的深度学习工具包，由 Skymind 公司支持并维护，它的官网地址为 <https://deeplearning4j.org/。>
 
 DL4J 是很适合程序员和数据工程师的包。DL4J 兼容 JVM，也适用 Java、Clojure 和 Scala，并且包括了分布式、多线程的深度学习框架，这显然与大多数程序员日常编程的语言和工作环境相类似。
 
 同时，DL4J 有着极其精美友好的文档和活跃的社区支持，社区中提供的科学论文、案例和教程都很有参考价值，推荐大家关注。
 
-8. PaddlePaddle
+1.  PaddlePaddle
 
-PaddlePaddle 由百度公司在 2016 年 9 月推出，它的官网地址为 http://www.paddlepaddle.org/。
+PaddlePaddle 由百度公司在 2016 年 9 月推出，它的官网地址为 <http://www.paddlepaddle.org/。>
 
 至此，百度公司成为继谷歌公司、脸书公司、IBM 公司之后另一个将人工智能技术开源的科技巨头，同时也是国内首个开源深度学习平台的科技公司。Paddle 的全称是 Parallel Distributed Deep Learning，即并行分布式深度学习，是在百度公司内部已经使用多年的框架。
 
@@ -6013,9 +6196,9 @@ PaddlePaddle 由百度公司在 2016 年 9 月推出，它的官网地址为 htt
 
 PaddlePaddle 打出的宣传语即是易学易用的分布式深度学习平台。同时，背靠百度公司扎实的开发功底，PaddlePaddle 也算是一个十分成熟、稳定可靠的开发工具。
 
-9. Lasagne
+1.  Lasagne
 
-Lasagne 是一个工作在 Theano 之上的包，它的官网地址为 https://lasagne.readthedocs.io/en/latest/index.html。
+Lasagne 是一个工作在 Theano 之上的包，它的官网地址为 <https://lasagne.readthedocs.io/en/latest/index.html。>
 
 同 Keras 的定位类似，此类搭建在低层框架（Theano）上的包，旨在降低深度学习算法的上手难度。
 
@@ -6023,9 +6206,9 @@ Lasagne 的优点在于它严谨的架构逻辑和较强的可适应性，但它
 
 现在随着 Theano 的终止开发，Lasagne 的使用率应该会越来越低。对于初学者而言，目前并不建议选用 Lasagne，但是 Theano+Lasagne 的组合，在深度学习项目上是很常见的选择，如果读者日后参阅 GitHub 上的项目，还有可能会遇到，所以在此介绍一下，供读者参考。
 
-10. DSSTNE
+1.  DSSTNE
 
-DSSTNE 是 Deep Scalable Sparse Tensor Network Engine（深度可伸缩稀疏张量网络引擎）的缩写，由亚马逊公司发布和维护，它的官网地址为 https://www.amazon.com/amzn/amazon-dsstne。
+DSSTNE 是 Deep Scalable Sparse Tensor Network Engine（深度可伸缩稀疏张量网络引擎）的缩写，由亚马逊公司发布和维护，它的官网地址为 <https://www.amazon.com/amzn/amazon-dsstne。>
 
 这并不是一个面向主流的深度学习框架，因为 DSSTNE 就是为了推荐系统而设计的。
 
@@ -6033,8 +6216,8 @@ DSSTNE 是针对稀疏数据的情况完全从头开始构建的，并且完全�
 
 虽然 DSSTNE 框架并不具备普适性，但在大热的自然语言理解与视觉识别之外，它在搜索与推荐领域也有着巨大的应用空间，相信这也是亚马逊公司开源 DSSTNE 的初衷。
 
-11. Keras
-  
+1.  Keras
+
 从严格意义上来讲，Keras 并不算是一个深度学习框架。Keras 是一个高层的 API（应用程序编程接口），它运行在 TensorFlow、CNTK、Theano 或 MXNet 这些学习框架上。
 
 Keras 于 2015 年 3 月首次发布，之后即因其易用性和语法简洁性而广受支持，并得到快速发展。Keras 也是谷歌公司支持的框架之一。
@@ -6042,6 +6225,7 @@ Keras 于 2015 年 3 月首次发布，之后即因其易用性和语法简洁�
 
 ## 总结
 
->  人工智能需要学习，这个学习过程似乎是不能少，必须基于一定的样本进行学习。
+> 人工智能需要学习，这个学习过程似乎是不能少，必须基于一定的样本进行学习。
 
->  人类也是也会犯错，甚至出错多次，但是出错后可以纠错，因此基于计算机的人工只能应该也会出错，但是允许纠正，这种机制必须是规人工智能所具有的。
+> 人类也是也会犯错，甚至出错多次，但是出错后可以纠错，因此基于计算机的人工只能应该也会出错，但是允许纠正，这种机制必须是规人工智能所具有的。
+

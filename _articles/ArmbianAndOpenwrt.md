@@ -5,12 +5,6 @@ description: Arm架构的Armbian，Openwrt，Cloreelec等机顶盒路由器刷�
 date: 2023-01-02 15:43:01
 updatedate: 2023-10-31 16:26:01
 ---
-
-- [嵌入式操作系统基础](#嵌入式操作系统基础)
-  - [Uboot](#uboot)
-  - [rootfs](#rootfs)
-  - [kernel](#kernel)
-  - [Busybox](#busybox)
 - [Openwrt相关](#openwrt相关)
   - [软件源](#软件源)
     - [阿里](#阿里)
@@ -96,9 +90,9 @@ updatedate: 2023-10-31 16:26:01
   - [portainer](#portainer)
   - [clouddriver](#clouddriver)
 
-## Openwrt相关
+# Openwrt相关
 
-### 软件源
+## 软件源
 
 > （23.03.3X86 要注意版本和处理器架构，不然可能会出现不兼容的问题）
 
@@ -110,7 +104,7 @@ updatedate: 2023-10-31 16:26:01
 
 > 完毕后重启，硬盘引导即可进入系统进行相关配置。
 
-#### 阿里 
+### 阿里 
 
 > （似乎缺少一些系统工具，例如block-mount ）
 
@@ -128,7 +122,7 @@ src/gz ali_routing https://mirrors.aliyun.com/openwrt/releases/22.03.3/packages/
 src/gz ali_telephony https://mirrors.aliyun.com/openwrt/releases/22.03.3/packages/x86_64/telephony
 ```
 
-#### 官方
+### 官方
 
 > 速度比较慢，尤其是安装大点的软件更慢，建议国内软件园没有相关软件时切换到官方软件源，否则就不要使用官方软件源。
 
@@ -146,11 +140,11 @@ src/gz openwrt_routing https://downloads.openwrt.org/releases/22.03.3/packages/x
 src/gz openwrt_telephony https://downloads.openwrt.org/releases/22.03.3/packages/x86_64/telephony
 ```
 
-### 系统存储控件的扩容
+## 系统存储控件的扩容
 
 > （使用系统剩余未分区空间）
 
-#### 安装 工具
+### 安装 工具
 
 > opkg update
 
@@ -158,7 +152,7 @@ src/gz openwrt_telephony https://downloads.openwrt.org/releases/22.03.3/packages
 
 > opkg install block-mount 官方的Openwrt默认不带这个
 
-#### cfdisk 划分空间
+### cfdisk 划分空间
 
 > 执行运行 cfdisk 进行磁盘花粉，把剩余磁盘化分完整 比如我直接划分剩余空间为/dev/sda3 ，类型为Primary
 
@@ -168,7 +162,7 @@ src/gz openwrt_telephony https://downloads.openwrt.org/releases/22.03.3/packages
 
 > block-mount 挂载 /sda3 作为根文件系统使用。 Save and Apply
 
-#### 执行扩容脚本
+### 执行扩容脚本
 
 > （block-mount挂在后又提示 mount /dev/sda3 /tmp/extroot这句种的设备改成你的就好了）
 
@@ -183,11 +177,11 @@ umount /tmp/extroot
 reboot
 ```
 
-#### 使用外置硬盘
+### 使用外置硬盘
 
 > 跟这个过程一致只是你挂在的事另一块而已，注意设别名称即可
 
-### 配置 AdguardHome 广告拦截插件
+## 配置 AdguardHome 广告拦截插件
 
 > Adguardhome是非常好的一款广告拦截软件。其原理就是对广告请求的dns进行拦截，当然了其功能十分强大，还需继续研究。这里只从简单的那幢说起。
 
@@ -229,7 +223,7 @@ AdGuardHome 运行中已重定向
 
 > 这时候在openwrt后台查看 AdGuardHome 已经正常运行了。
 
-## 咪咕MGV3000研究
+# 咪咕MGV3000研究
 
 > 暫時沒有找到開啓ADB的方法
 
@@ -237,7 +231,7 @@ AdGuardHome 运行中已重定向
 
 > 江苏咪咕电视盒子刷机这个教程大家都比较需要，本次楼主带来了江苏咪咕MGV3000_YST代工_S905L3_线刷固件包，文中附固件下载链接，有需要的千万不要错过了。
 
-### 刷机教程：
+## 刷机教程：
 
 > 1、准备好一根双公头USB线刷刷机线，长度30-50CM长度最佳，同时准备一台电脑，拆开盒子；
 
@@ -249,7 +243,7 @@ AdGuardHome 运行中已重定向
 
 > 江苏咪咕MGV3000_YST代工_S905L3_线刷固件包
 
-### 固件下载链接：
+## 固件下载链接：
 
 > 链接: https://pan.baidu.com/s/104NHWG0t_33yjy3FCSg78Q 提取码:imuq
 
@@ -259,7 +253,7 @@ AdGuardHome 运行中已重定向
 
 > 其它固件大全 https://www.znds.com/tv-1181374-1-1.html
 
-### DiskInitial命令出错 问题解决
+## DiskInitial命令出错 问题解决
 
 > 方法1(无效)： 打开烧录软件；2、导入烧录包；3、去掉“擦除”两个对号，4、点击开始。5、机顶盒连接电源；6、机顶盒连接双公头USB；7、（最关键）立即使用牙签等按住机顶盒复位按钮（不同机顶盒复位按钮位置不一样，大多在AV孔内），中途不能松手，直至刷机完
 
@@ -279,7 +273,7 @@ AdGuardHome 运行中已重定向
 ```
 
 
-### hdmi短接器厂家给的意见
+## hdmi短接器厂家给的意见
 
 刷机百分几错程原因1
 首先说明：连接成功后，刷机时出现的错程和短接没任何关系
@@ -291,7 +285,7 @@ AdGuardHome 运行中已重定向
 4：主机使用前面的USB口因为供电不足，要使用后面USB口，有USB2.0就尽量使用2.0，没有就用原生3.0，非原生3.0也不稳定
 5: 盒子一定要接电源，不接电源能识别，但刷写过程容易出错误
 
-## 咪咕MGV3200研究 GK6323芯片
+# 咪咕MGV3200研究 GK6323芯片
 
 > 目前已测试 完整的破解模式 无需刷机
 
@@ -407,7 +401,7 @@ rtt min/avg/max/mdev = 25.922/26.125/26.316/0.118 ms
 
 > 注意，这种方式如果你还原了系统，那么就得重新再这么配置一次了，不过你要熟悉了整个过程也是很简单。
 
-### ADB 卡刷
+## ADB 卡刷
 
 > 可以卡刷 403G 固件九联unt403G机顶盒6323处理器刷机教程；
 
@@ -445,7 +439,7 @@ adb.jpg
 插入优盘开机后系统会自动帮你安装好；
 
 
-### 通过ADB修改DNS
+## 通过ADB修改DNS
 
 > adb connect 192.168.0.222
 
@@ -475,7 +469,7 @@ setprop
 >  可以参考：https://www.yisu.com/zixun/203183.html
 
 
-## Root android 9
+# Root android 9
 
 Root Android 9.0 (Pie) Device in 2021 – A Step by Step guide
 Hello guys, how you all doing? Bought a new android phone and that too has the latest Pie version? I know that you can’t live without rooting your phone and gaining superuser access to it.
@@ -492,14 +486,14 @@ Contents  hide
 4.2 Root Android 9.0 via KingoRoot Windows Application
 Must Read: How to Root any Android 10 Q Device in 2021 the Easy Way?
 
-### Root Android 9.0 via Magisk
+## Root Android 9.0 via Magisk
 
 Magisk was introduced as an alternative to SuperSU root, which was the only rooting solution at that time. SuperSU modifies system files to provide root access to Android devices. Magisk made rooting easy with systemless root. It roots the system without modifying the core code. It is a godsend for people using Financial apps on their Android device. Magisk is the latest method to root android 9 devices. It can be done through two different ways
 
 root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 
 
-### Root Android 9.0 via Magisk Manager
+## Root Android 9.0 via Magisk Manager
 First of all, download the Magisk Manager and place it in your phone’s storage. 
 Download Magisk Manager
 Now you have to boot your device into a custom recovery like the TWRP Recovery. If you haven’t installed one then search on Google or Youtube for proper instruction on how to install a custom recovery for your Android 9 Device.
@@ -515,7 +509,7 @@ Open the Magisk Manager app and check your device’s root status. That’s All.
 root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 
 
-### Root Android 9.0 via SuperSU
+## Root Android 9.0 via SuperSU
 
 root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 First of all download the SuperSU zip file from the link given below.
@@ -530,10 +524,10 @@ After the SuperSU is flashed in your device you will get Reboot System and Wipe 
 root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 
 
-### Root Android 9.0 via KingoRoot
+## Root Android 9.0 via KingoRoot
 
 
-#### Android App
+### Android App
 
 > Step 1. Download the KingoRoot Apk file from the button given below:
 
@@ -556,7 +550,7 @@ root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 
 > Step 6. If it fails, try the process again a few number of times.
 
-#### Windows Application
+### Windows Application
 
 > Step 1. Download the KingoRoot PC Software from the button below:
 
@@ -576,15 +570,15 @@ root android 9, How to Root Any Android 9.0 Device &#8211; The Right Way
 Root Android 9
 You can check the status of the root on your Android device. The root status should display as rooted. Check for root by downloading any root checking app from the play store.This way you can root any android 10 device
 
-## 网心云 OneCloud 研究Openwrt研究
+# 网心云 OneCloud 研究Openwrt研究
 
-### 目前概述
+## 目前概述
 
 > 目前网上的教程openwrt 18 可以顺利刷入 emmc 但是版本太老
 
 <hr/>
 
-###  未测试的方法
+##  未测试的方法
 
 OneCloud eMMC installation script
 This repository helps you with the installation of the latest Armbian image to the eMMC partition of a Xunlei OneCloud device. Tested with OneCloud hardware version v1.0.
@@ -654,9 +648,9 @@ You will be notified to restart when finished.
 Unplug your USB stick and restart the system. Now the OS has been installed to your eMMC. Enjoy!
 
 
-## 魔百盒M401a玩转Coreelec
+# 魔百盒M401a玩转Coreelec
 
-### 下载写镜像改dub.img
+## 下载写镜像改dub.img
 
 > 19.5以前版本需要修改根目录下 uEnv.txt文件中得FDT 为： FDT=/dtb/amlogic/meson-g12a-s905l3a-m401a.dtb
 
@@ -664,17 +658,17 @@ Unplug your USB stick and restart the system. Now the OS has been installed to y
 
 > 版本升级会清除旧的数据，包括之前安装的Docker和其他插件都丢失了。
 
-### U盘启动
+## U盘启动
 
 > adb reboot update 后瞬间插入u盘
 
-### 写入emmc
+## 写入emmc
 
 > 打开系统 ssh 功能，电脑 ssh 连接后同样使用 ceemmc -x 命令，然后按喜好设置既可 默认密码 root coreelec
 
-### 使用docket加载天翼网盘 阿里云盘
+## 使用docket加载天翼网盘 阿里云盘
 
-#### 安装docker 
+### 安装docker 
 
 ```
 输入 docker info 确认有正常运行
@@ -682,7 +676,7 @@ Unplug your USB stick and restart the system. Now the OS has been installed to y
 输入 docker pull cloudnas/clouddrive  拉取安装文件
 ```
 
-#### 设置SMB共享
+### 设置SMB共享
 
 ```
 CE设置-服务-改为SMB1
@@ -703,7 +697,7 @@ CE设置-服务-改为SMB1
 
 ```
 
-#### CoreELEC的缓存设置
+### CoreELEC的缓存设置
 
 > /storage/.kodi/userdata/Advancedsettings.xml 文件内容如下，2G内存的设备可以设置300M缓存
 
@@ -717,7 +711,7 @@ CE设置-服务-改为SMB1
 </advancedsettings>
 ```
 
-#### 启动 clouddrive
+### 启动 clouddrive
 
 ```
 docker run -d \
@@ -741,7 +735,7 @@ docker rm  "/clouddrive"
 docker  rm $(docker ps -a -q)
 ```
 
-### samba4 共享文件不能访问问题
+## samba4 共享文件不能访问问题
 
 > > 1、设置共享用户密码,刚开始口令文件是不存在的，先touch，再增加一个用户，ssh输入以下命令：
 
@@ -761,9 +755,9 @@ docker  rm $(docker ps -a -q)
 
 > > service samba4 start
 
-### 蓝牙遥控
+## 蓝牙遥控
 
-#### mbh文件
+### mbh文件
 
 ```
 # table mbh, type: NEC
@@ -795,13 +789,13 @@ docker  rm $(docker ps -a -q)
 0x229c KEY_MUTE #静音
 0x2285 KEY_PLAYPAUSE #播放停止按键区的TV/AV键
 ```
-#### rc_maps_cfg文件添加行
+### rc_maps_cfg文件添加行
 
 ···
 meson-ir	*		mbh
 ···
 
-### 蓝牙遥控确认键问题
+## 蓝牙遥控确认键问题
 
 ```
 I: Bus=0005 Vendor=0416 Product=0300 Version=0505
@@ -898,11 +892,11 @@ Next c00b3
 Mouse mode
 Ok 90001
 
-### 蓝牙重启后失效
+## 蓝牙重启后失效
 
 > udevadm info /sys/bus/sdio/devices/sdio* | paste
 
-#### reinstalled both TVheadend and all OK
+### reinstalled both TVheadend and all OK
 
 > killall -9 hciattach
 
@@ -970,32 +964,32 @@ I try Saviq solution with no success
 
 All idea are welcome
 
-#### See below
+### See below
 
 > https://discourse.coreelec.org/t/solved-bluetooth-not-working/6983/72?filter=summary
 
 
-### 蓝牙遥控启动
+## 蓝牙遥控启动
 
 > 暂无解决
 
-### 直播源配置
+## 直播源配置
 
 > 安装PVR IPTV Simple Client 插件
 > 网上下载m3u8配置文件并导入
 > 目前直播普遍比较卡顿 待优化
 
-## M401a刷Armbian进Emmc
+# M401a刷Armbian进Emmc
 
-### 下载Armbian S905L3a镜像
+## 下载Armbian S905L3a镜像
 
 > s905L3a 处理器的机器无需做任何修改，写入U盘后就可以启动
 
-### U盘启动
+## U盘启动
 
 > adb reboot update 后瞬间插入u盘
 
-### SSH连接系统并执行重启
+## SSH连接系统并执行重启
 
 ```
 login as: root
@@ -1154,35 +1148,35 @@ mkfs.fat 4.2 (2021-01-31)
 
 > 经过漫长安装后系统在安装完成后会自动重启，可以关注路由器里边的设备列表，重启后IP地址会发生改变，重新登陆既可。进入后线关机，拔出U盘，重新启动既可。
 
-## 魔百盒M401A刷Openwrt
+# 魔百盒M401A刷Openwrt
 
-### 下载rom
+## 下载rom
 
 > 从 https://github.com/ophub/amlogic-s9xxx-openwrt 下载 openwrt_official_s905l3a_k5.15.86_2023.01.08.img.gz 这个包
 
 > 用rar 解压出来一个Image 文件
 
-### 使用balenaEtcher 把上面得Image 文件写入U盘
+## 使用balenaEtcher 把上面得Image 文件写入U盘
 
-### 重新插入u盘修改
+## 重新插入u盘修改
 
 > 修改 根目录下 uEnv.txt文件中得FDT 为： FDT=/dtb/amlogic/meson-g12a-s905l3a-m401a.dtb
 
-### 打开盒子链接到网络。开启盒子得ADB
+## 打开盒子链接到网络。开启盒子得ADB
 
-### 从U盘启动 Openwrt
+## 从U盘启动 Openwrt
 
 > adb connet 盒子ip 
 > 链接成功后 执行adb reboot update .
 > 命令执行完毕后立刻将U盘插入电视盒子usb接口。
 
-### 连接u盘系统。
+## 连接u盘系统。
 
 > 找根网线笔记本直连 电视盒子网口
 
 > 这时候笔记本会自动获取到IP  直接192.168.1.1 在浏览器中打开盒子。
 
-### 写入 emmc 
+## 写入 emmc 
 
 > 如果想永久体验 那么就需要写入 
 
@@ -1190,11 +1184,11 @@ mkfs.fat 4.2 (2021-01-31)
 
 > 点击安装，弹出框直接确认即可，稍等几分钟，系统提示成功后，直接关机，拔出U盘，然后重启，就可以进入到路由器了。
 
-### 然后自己随心所欲玩吧，玩法太多了
+## 然后自己随心所欲玩吧，玩法太多了
 
 
 
-## 斐讯K2刷Breed和潘多拉固件记录
+# 斐讯K2刷Breed和潘多拉固件记录
 
 > 数年前通过0元购搞了两台斐讯K2，之后因为掉包问题一直闲置没怎么用。这几天收视垃圾，发现了这玩意，感觉做工依然很棒。所以感觉不应该白白扔掉啊，折腾折腾，上网研究研究。
 
@@ -1204,9 +1198,9 @@ mkfs.fat 4.2 (2021-01-31)
 
 > 刷完后简单评测了一下，做K2刷潘多拉中继延迟非常小，但是似乎下载速度没有我TP的AC900强，但是延迟比TP小一些。总之运行非常稳定，也似乎不掉了。看来有时候还是得动动手，第三方的东西还是有不少好动的。但是其他第三方ROM还没有体验过，以后有机会了继续折腾玩一下。
 
-## F1 RK3399 研究
+# F1 RK3399 研究
 
-### RK刷机基础
+## RK刷机基础
 
 瑞芯微最新Rkbatch刷机工具分享 (支持RK3288) 附教程
 
@@ -1367,7 +1361,7 @@ DEFAULT_IMAGE_CONFIG:值=升级配置文件所在的路径,配置文件是通过
 
 修改配置文件 config.in 后，需要重启工具才能生效。
 
-### Fastboot 解锁
+## Fastboot 解锁
 
 ```
 fastboot 锁住状态下，不允许烧写及执行 oem 命令，初始状态为锁住。
@@ -1380,7 +1374,7 @@ fastboot 锁住状态下，不允许烧写及执行 oem 命令，初始状态为
 指定设备 vid，例如 fastboot -i 0x2207 getvar unlocked
 ```
 
-### 外网有人解决 不知道适用不
+## 外网有人解决 不知道适用不
 
 SOLUTION:
 
@@ -1422,16 +1416,16 @@ From where I stood (android 8.1), the android 8.1 recovery wouldn't allow for an
 
 So that's all! Not an easy project, but at the end you'll have your unit back and running!
 
-###  maskrom xrock
+##  maskrom xrock
 
 
-### 【官方开发文档】RK3399 Efuse 操作指南
+## 【官方开发文档】RK3399 Efuse 操作指南
 
 > http://www.nnewn.com/page238?article_id=338
 
-## ZN-M2 IPQ60xx系列路由器
+# ZN-M2 IPQ60xx系列路由器
 
-### 09-18
+## 09-18
 
 > 原来家里用的主路由（Wifi）+ 旁路由 + 千兆交换机，交换机位于电视柜主要给电视机附近的设备供网。发现最近网络性能下降，于是做了整改。
 
@@ -1453,7 +1447,7 @@ So that's all! Not an easy project, but at the end you'll have your unit back an
 
 > 拆机 ttl 连电脑开机也没反映，不指导是不是这台电脑的问题。准备下次更换win10的电脑试验一下。
 
-### 09-18
+## 09-18
 
 > 于是我又更换了个pl2303的usb转ttl就可以连接了。
 
@@ -1485,7 +1479,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > > 附所有的固件软件等：链接: https://pan.baidu.com/s/1aACgMgZuR0XH8AGbquLElQ?pwd=veab 提取码: veab 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-## SQUASHFS镜像直接扩容的方案
+# SQUASHFS镜像直接扩容的方案
 
 > 下载OpenWRT的gz镜像之后，解压
 
@@ -1517,9 +1511,9 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > > dd if=/dev/zero bs=2M count=3096 >> openwrt-09.24.2023-x86-64-generic-squashfs-combined.img
 
-## 中兴F4610U 光猫
+# 中兴F4610U 光猫
 
-### Telnet命令
+## Telnet命令
 
 > telnet下命令修改模式和地区
 
@@ -1559,7 +1553,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > > tr69远程控制必须去掉，因为限制会被重新加上使破解失效。最简明的方法是把 服务器 URL 改掉：比如http://devacs.edatahome.../那个，改成 http://127.0.0.1
 
-### 中兴光猫隐藏URL
+## 中兴光猫隐藏URL
 
 > 恢复出厂：http://192.168.1.1/return2factory.html
 
@@ -1607,7 +1601,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > > *注意空格和大小写
 
-### 全部是个人尝试切换地区后读取转载请备注出处
+## 全部是个人尝试切换地区后读取转载请备注出处
 
 > 北京 无 192.168.1.1
 
@@ -1671,7 +1665,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > 内蒙古 CUAdmin CUAdmin 192.168.1.1
 
-### 陕西西安联通手动更换升级光猫
+## 陕西西安联通手动更换升级光猫
 
 > 其实目前所用光猫是华为的千兆光猫，性能目前来说也是足够用的。但是为什么要更换呢，这是因为这个光猫实际有两个LAN口，其中一个千兆，另一个只有百兆。而实际我现在在弱电箱中放了一个无线路由器，还有一个旁路路由。当然为什么要这么复杂呢，这里就不解释了。
 
@@ -1719,7 +1713,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
 
 > > SU_WAP>load pack by tftp svrip 192.168.1.2 remotefile allshell2.bin 华为广袤刷机补全
 
-## LINKSYS EA8500 TTL 降级
+# LINKSYS EA8500 TTL 降级
 
 > setenv flashimg 'tftp $loadaddr $image;nand erase $prikern $imgsize;nand write $loadaddr $prikern $filesize'  
  
@@ -1741,7 +1735,7 @@ mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13
  
 > reset
 
-### 备份系统信息
+## 备份系统信息
 
 > printenv
 
@@ -1776,7 +1770,7 @@ stdout=serial
 
 > Environment size: 804/262140 bytes
 
-## IPQ5018 Openwrt TTL NOTEST
+# IPQ5018 Openwrt TTL NOTEST
 
 > TTL 打开PuTTY 选择串口 串行口选刚才的COM端口号速度固定115200
 
@@ -1820,11 +1814,11 @@ stdout=serial
 > 固件来自slienna/about-AX300M-WiFi6-ROUTER: about-AX300M-WiFi6-ROUTER (github.com)
 
 
-## OneCloud 
+# OneCloud 
 
 > > Make a img
 
-### DD
+## DD
 
 ```
 usernam@usernam-ubuntu:/media/usernam/新加卷/OneCloud/New$ fdisk openwrt-10.13.2023-meson-meson8b-thunder-onecloud-ext4-sdcard.img
@@ -2070,7 +2064,7 @@ usernam@usernam-ubuntu:/media/usernam/新加卷/OneCloud/New$ sudo dd if=/dev/lo
 usernam@usernam-ubuntu:/media/usernam/新加卷/OneCloud/New$ 
 ```
 
-### Packrepack
+## Packrepack
 
 ```
 usernam@usernam-ubuntu:/media/usernam/新加卷/OneCloud/linux-amlogic-toolkit$ ./bin/build
@@ -2180,7 +2174,7 @@ Done
 usernam@usernam-ubuntu:/media/usernam/新加卷/OneCloud/linux-amlogic-toolkit$ 
 ```
 
-### portainer
+## portainer
 
 ```
 portainer http://192.168.0.110:9000/#!/2/docker/images
@@ -2211,7 +2205,7 @@ root@aml-s812:~# sudo systemctl daemon-reload
 
 ```
 
-### clouddriver 
+## clouddriver 
 
 ```
 clouddriver http://192.168.0.110:19798/
