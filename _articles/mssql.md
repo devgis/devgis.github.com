@@ -3,7 +3,7 @@ layout: post
 title: Sql Server数据库
 description: SQL Server数据库中锁涉及的TSQL知识以及管理优化等知识点。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-27 11:14:40
+updatedate: 2024-03-27 12:05:40
 ---
 - [版本](#版本)
 - [SQL Server 服务](#sql-server-服务)
@@ -224,6 +224,83 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 安全性和合规性：提高了安全性和对法规遵从性的支持，例如通过 Azure Information Protection 和 Microsoft Information Protection 来保护数据。
 
 自定义资源池：提供了自定义的资源管理功能，用于多租户环境中的资源隔离和管理。
+
+# Docker
+
+基于Ubuntu的Microsoft SQL Server官方镜像
+mssql-server Docker hub：https://hub.docker.com/_/microsoft-mssql-server
+
+拉取Microsoft SQL Server 2022容器镜像
+sudo docker pull mcr.microsoft.com/mssql/server:2022-latest
+
+检查镜像是否成功拉取到本地：
+
+docker images
+
+创建并运行一个mssql容器,使用以下命令启动容器（Docker 镜像启动后，将会自动启动 SQL Server），其中 Ysa123456789@ 为 SQL Server sa 用户的密码：这个命令的含义是在 Docker 中以后台模式 (-d) 运行 Microsoft SQL Server 2022 的最新版本 (mcr.microsoft.com/mssql/server:2022-latest) 镜像，并将容器命名为 mssql2022 (--name mssql2022)。同时，通过 -p 1433:1433 参数将容器的 1433 端口映射到主机的 1433 端口上，使得可以通过主机的 1433 端口访问 SQL Server。在容器启动过程中，需要设置两个环境变量：
+
+ACCEPT_EULA=Y 表示接受使用条款。
+
+MSSQL_SA_PASSWORD=Ysa123456789@ 表示设置 SA 用户的密码为 "Ysa123456789@"[一定要注意密码一点要严格设置不然有坑]。
+
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Ysa123456789@" -e "MSSQL_PID=J4V48-P8MM4-9N3J9-HD97X-DYMRM" -p 1433:1433 --name mssql2022 -d mcr.microsoft.com/mssql/server:2022-latest
+
+-e "MSSQL_PID=J4V48-P8MM4-9N3J9-HD97X-DYMRM" 序列号
+
+SA_PASSWORD=Ysa123456789@ 为密码，要求是最少8位的强密码，要有大写字母，小写字母，数字以及特殊符号，不然服务会自动停止。
+
+验证容器是否创建成功
+
+docker ps
+
+查看容器ID docker ps 
+
+aac182938f7d 
+
+进入容器
+
+sudo docker exec -it aac182938f7d  sh 
+
+如果使用docker ps查看不到在使用docker ps -a查看，如果docker ps -a可以查看到那就说明容器没有启动需要使用docker start name来启动容器！
+
+设置 Docker 主机防火墙规则
+
+默认情况下，Docker 带有一个内置的防火墙，需要开放 1433 端口才能让外部访问 SQL Server。使用以下命令开放 Docker 主机的 1433 端口：
+
+sudo ufw allow 1433/tcp
+
+重启防火墙，注意重启防火墙之后才会生效。
+
+sudo ufw reload
+
+服务器防火墙配置1433的开放端口
+
+安装sqlcmd客户端工具：
+
+安装客户端工具
+
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+
+curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+
+sudo apt-get update
+
+sudo apt-get install mssql-tools18 unixodbc-dev
+
+echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bash_profile
+
+若要使 sqlcmd 和 bcp 能从交互式/非登录会话的 bash shell 进行访问，请使用下列命令修改 ~/.bashrc 文件中的 PATH：Bash复制
+
+echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
+source ~/.bashrc
+
+sqlcmd -S localhost -U sa -P 'Ysa123456789@' TrustServerCertificate=true
+
+sqlcmd -S 192.168.60.128 -N -C -U  sa -P 不要带密码，否则貌似会失败
+
+Ysa123456789
+
+sqlcmd -S 127.0.0.1 -U  sa -P Ysa123456789
 
 # SQL Server 服务
 
@@ -765,7 +842,13 @@ PagePartition声明：public PagePiece PagePartition(string RecordSet, string Id
 
 使用SQL执行计划
 
-看SQL语句执行计划有三种方式：①快捷键按Ctrl+L；②选中要执行的SQL然后点击右键，弹出的菜单里面选“显示估计的执行计划”；③按Ctrl+M打开显示执行计划窗口，选择每次执行SQL都会显示出相应的执行计划
+看SQL语句执行计划有三种方式：
+
+①快捷键按Ctrl+L；
+
+②选中要执行的SQL然后点击右键，弹出的菜单里面选“显示估计的执行计划”；
+
+③按Ctrl+M打开显示执行计划窗口，选择每次执行SQL都会显示出相应的执行计划
 
 执行计划的图表是从右向左看的\
 

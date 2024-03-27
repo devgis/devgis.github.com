@@ -3,7 +3,7 @@ layout: post
 title: Oracle数据库
 description: Oracle数据库中PLSQL,数据库管理优化。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-26 11:00:00
+updatedate: 2024-03-27 12:07:00
 ---
 - [Oracle概述](#oracle概述)
 - [数据库结构](#数据库结构)
@@ -343,6 +343,51 @@ Oracle 12c是一款功能强大、性能优越的数据库管理系统。
 
 2019年推出的Oracle 19c是当前最新的Oracle数据库版本，采用了Autonomous Database技术，强调数据库的自动化管理和自主运维。该版本具有很多新的功能，如自动索引创建、Flashback Pluggable Database、Database Replay等，便于企业用户提高数据处理效率和节约运维成本。
 
+# Docker
+
+docker search Oracle
+
+列表中不显示但是似乎能用，比较大有好几个G，因此下载比较慢:
+
+docker pull truevoly/oracle-12c 
+
+查看下镜像下载成功了没：
+
+docker images
+
+挂载目录:
+
+mkdir -p /data/oracle/data_temp  && chmod 777 /data/oracle/data_temp
+
+运行容器：
+
+docker run --restart always -d -p 8080:8080 -p 1521:1521 -v /data/oracle/data_temp:/home/oracle/data_temp   -v /etc/localtime:/etc/localtime:ro  --name orcl truevoly/oracle-12c
+会得到一个容器ID例如 3294ec3b81734afcb263c1b4577cf78f7df58cb5e4b8d4678eb0b6461c6da1e9
+ 
+可以查看安装进程 
+
+doker logs -f 3294ec3b81734afcb263c1b4577cf78f7df58cb5e4b8d4678eb0b6461c6da1e9
+
+docker ps 查看容器id 例如我查到的是：
+
+3294ec3b8173
+
+进入docker内部
+
+docker exec -it 3294ec3b8173 sh （此处的bd就是上面ps查询出来的 CONTAINER：bd40cca054ad，这ID每个人查出来的都不一样，复制到前面即可。）
+
+安装完成后就可以进如
+
+可以用sqlplus测试：
+
+sqlplus system/oracle@//localhost:1521/xe
+
+链接 sqlplus /nolog
+
+以dba登录 密码默认为oracle:
+
+connect sys as sysdba 
+ 
 # 数据库结构
 
 ## 体系结构
