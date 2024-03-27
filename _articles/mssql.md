@@ -3,7 +3,7 @@ layout: post
 title: Sql Server数据库
 description: SQL Server数据库中锁涉及的TSQL知识以及管理优化等知识点。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-26 10:58:40
+updatedate: 2024-03-27 11:14:40
 ---
 - [版本](#版本)
 - [SQL Server 服务](#sql-server-服务)
@@ -32,7 +32,6 @@ updatedate: 2024-03-26 10:58:40
 
 1. SQL Server 2005 组件中的新功能。
 
-主题	说明
 Notification Services 增强功能
 
 Notification Services 是一种新平台，用于生成发送并接收通知的高伸缩性应用程序。Notification Services 可以使用各种设备向大量订阅方及时发送个性化消息。
@@ -121,32 +120,48 @@ SQL Server 2008 R2 是 SQL Server 2008 的一个递增版本，此版本引入�
 
 * SQL Server 2016 (13.x) 
 
-自微软在2015年5月第一周召开的“微软Ignite大会”上宣布推出SQL Server 2016后，有关SQL Server 2016的话题就备受关注和热议。以下为我们认为最值得关注的10大特性，特整理以飨读者。
 全程加密技术(Always Encrypted)
+
 全程加密技术(Always Encrypted)支持在SQL Server中保持数据加密，只有调用SQL Server的应用才能访问加密数据。该功能支持客户端应用所有者控制保密数据，指定哪些人有权限访问。SQL Server 2016通过验证加密密钥实现了对客户端应用的控制。该加密密钥永远不会传递给SQL Server。使用该功能，你可以避免数据库或者操作系统管理员接触客户应用程序敏感数据(包括静态数据和动态数据)。该功能现在支持敏感数据存储在云端管理数据库中，并且永远保持加密。即便是云供应商也看不到数据，你晚上可以睡安稳觉了。
+
 动态数据屏蔽(Dynamic Data Masking)
+
 如果你对保护数据感兴趣，希望一部分人可以看到加密数据，而另一些人只能看到加密数据混淆后的乱码，那么你一定会对动态数据屏蔽感兴趣。利用动态数据屏蔽功能，你可以将SQL Server数据库表中待加密数据列混淆，那些未授权用户看不到这部分数据。利用动态数据屏蔽功能，你还可以定义数据的混淆方式。例如，如果你在表中接收存储信用卡号，但是你希望只看到卡号后四位。使用动态数据屏蔽功能定义屏蔽规则就可以限制未授权用户只能看到信用卡号后四位，而有权限的用户可以看到完整信用卡信息。
+
 JSON支持
+
 JSON就是Java script Object Notation(轻量级数据交换格式)。在SQL Server 2016中，你现在可以在应用和SQL Server数据库引擎之间用JSON格式交互。微软公司在SQL Server中增加了对JSON的支持，可以解析JSON格式数据然后以关系格式存储。此外，利用对JSON的支持，还可以把关系型数据转换成JSON格式数据。微软公司还增加了一些函数提供对存储在SQL Server中的JSON数据执行查询。SQL Server有了这些内置增强支持JSON操作的函数，应用程序使用JSON数据与SQL Server交互就更容易了。
+
 多TempDB数据库文件
+
 如果你运行的是多核计算机，那么运行多个tempdb数据文件就是最佳实践做法。以前直到SQL Server 2014版本，你安装SQL Server之后总是不得不手工添加tempdb数据文件。在SQL Server 2016中，你现在可以在安装SQL Server的时候直接配置需要的tempdb文件数量。这样你就不再需要安装完成之后再手工添加tempdb文件了。
+
 Polybase
+
 Polybase支持查询分布式数据集。有了Polybase，你可以使用Transact SQL语句查询Hadoop或者SQL Azure blob存储。你现在可以使用Polybase写临时查询，实现SQL Server关系型数据与Hadoop或者SQL Azure blog存储中的半结构化数据之间的关联查询。此外，你还可以利用SQL Server的动态列存储索引针对半结构化数据来优化查询。如果组织跨多个分布式位置传递数据，Polybase就成了利用SQL Server技术访问这些位置的半结构化数据的便捷解决方案了。
+
 Query Store
+
 如果你经常使用执行计划，你就会喜欢新版的Query Store功能。在2016之前的版本中，你可以使用动态管理试图(DMV)来查看现有执行计划。但是，DMV只支持你查看计划缓存中当前活跃的计划。如果出了计划缓存，你看不到计划的历史情况。有了Query Store功能，SQL现在可以保存历史执行计划。不仅如此，该功能还可以保存那些历史计划的查询统计。这是一个很好的补充功能，你可以利用该功能随着时间推移跟踪执行计划的性能。
+
 行级安全(Row Level Security)
+
 SQL数据库引擎具备了行级安全特性以后，就可以根据SQL Server登录权限限制对行数据的访问。限制行是通过内联表值函数过滤谓词定义实现的。安全策略将确保过滤器谓词获取每次“SELECT”或者 “DELETE”操作的执行。在数据库层面实现行级安全意味着应用程序开发人员不再需要维护代码限制某些登录或者允许某些登录访问所有数据。有了这一功能，用户在查询包含行级安全设置的表时，他们甚至不知道他们查询的数据是已经过滤后的部分数据。
+
 SQL SERVER支持R语言
+
 微软公司收购Revolution Analytics公司之后，现在可以在SQL Server上针对大数据使用R语言做高级分析功能了。SQL Server支持R语言处理以后，数据科学家们可以直接利用现有的R代码并在SQL Server数据库引擎上运行。这样我们就不用为了执行R语言处理数据而把SQL Server数据导出来处理。该功能把R语言处理带给了数据。
 (译注：Revolution Analytics公司是耶鲁大学的派生公司，成立于2007年，是一家基于开源项目R语言做计算机软件和服务的供应商。该公司去年被微软收购。)
+
 Stretch Database
+
 Stretch Database功能提供了把内部部署数据库扩展到Azure SQL 数据库的途径。有了Stretch Database功能，访问频率最高的数据会存储在内部数据库，而访问较少的数据会离线存储在Azure SQL 数据库中。当你设置数据库为“stretch“时，那些比较过时的数据就会在后台迁移到Azure SQL数据库。如果你需要运行查询同时访问活跃数据和stretched数据库中的历史信息，数据库引擎会将内部数据库和Azure SQL数据库无缝对接，查询会返回你要的结果，就像在同一个数据源一样。该功能使得DBA工作更容易了，他们可以归档历史信息转到更廉价的存储介质，无需修改当前实际应用代码。这样你就可以把常用的内部数据库查询保持最佳性能状态。
+
 历史表(Temporal Table)
+
 历史表会在基表中保存数据的旧版本信息。有了历史表功能，SQL Server会在每次基表有行更新时自动管理迁移旧的数据版本到历史表中。历史表在物理上是与基表独立的另一个表，但是与基表是有关联关系的。如果你已经构建或者计划构建自己的方法来管理行数据版本，那么你应该先看看SQL Server 2016中新提供的历史表功能，然后再决定是否需要自行构建解决方案。
 
 * SQL Server 2017(14.x) 
-
-SQL Server 2017 中的新功能包括但不限于以下几点：
 
 机器学习服务（数据库内机器学习）：使用Python或R语言进行高级分析。
 
@@ -167,8 +182,6 @@ SQL Server 2017 中的新功能包括但不限于以下几点：
 更新的Extended Events和动态管理视图：提供了更多的诊断和性能数据。
 
 数据库复制：增加了对Linux的复制支持。
-
-这些新功能的详细信息可以在SQL Server 2017的官方文档中找到。由于这个问题是关于代码的，我将不提供具体的代码示例，因为新功能主要通过使用SQL语句或管理工具进行配置，而不是通过代码实现。
 
 * sql server 2019 (15.x) 
 
@@ -194,13 +207,7 @@ JSON支持：增强了JSON数据的处理和分析。
 
 机器学习模型管理：提供模型的管理和部署功能。
 
-具体代码示例，由于涉及到的是新功能，可能需要在SQL Server 2019的实际环境中进行操作，这里暂时不提供。
-
 * sql server 2022  (16.x)
-
-SQL Server 2022 作为微软在2022年发布的数据库版本，并没有正式命名为 SQL Server 2022，因为微软的产品发布通常会按年份来命名，例如 SQL Server 2019、SQL Server 2022 等。目前最新的数据库版本通常被称为“下一代数据平台”。
-
-关于 SQL Server 的新功能，可以参考微软官方文档或者发布会的介绍。以下是一些在 SQL Server 的新版本中可能会看到的关键功能的简要描述：
 
 开源数据库：微软正在与开源社区合作，将 SQL Server 与 Linux 操作系统和开源数据库技术相集成。
 
@@ -218,19 +225,25 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 
 自定义资源池：提供了自定义的资源管理功能，用于多租户环境中的资源隔离和管理。
 
-具体的新功能列表和详细信息可以查阅官方文档或者相关的发布说明。
-
 # SQL Server 服务
 
-* SQL Server(MSSQLSERVER)是必须要开启的，这个是数据库引擎服务，就像汽车的发动机一样。
+* SQL Server(MSSQLSERVER)
+
+SQL Server 数据库引擎SQL Server 数据库引擎包括数据引擎（用于存储、处理和保护数据的核心服务）、复制、全文搜索、管理关系数据和 XML 数据的工具（以数据分析集成和用于访问异类数据源的 PolyBase 集成的方式）以及使用关系数据运行 Python 和 R 脚本的机器学习服务。
 
 * SQL Server代理(MSSQLSERVER)是代理服务，比如你有一些自动运行的，定时作业，或者是一些维护计划，比如定时备份数据库等操作，那么就要打开，否则，就不会备份数据库了。
 
-* SQL Server Reporting Services (MSSQLSERVER)是报表服务，一般不用开启，除非你做了报表，通过这个组件来提供报表服务，才需要开启。
+* SQL Server Reporting Services (MSSQLSERVER)
+
+Reporting Services 包括用于创建、管理和部署表格报表、矩阵报表、图形报表以及自由格式报表的服务器和客户端组件。 Reporting Services 还是一个可用于开发报表应用程序的可扩展平台。
 
 * SQL Server Integration Services (SSIS)
 
-* SQL Server Analysis Services (SSAS)是分析服务，一般不用开启，除非你做多位分析，和数据挖掘，才需要开启。
+Integration ServicesIntegration Services 是一组图形工具和可编程对象，用于移动、复制和转换数据。 它还包括用于 Integration Services 的“数据质量服务 (DQS)”组件。
+
+* SQL Server Analysis Services (SSAS)
+
+Analysis ServicesAnalysis Services 包括一些工具，可用于创建和管理联机分析处理 (OLAP) 以及数据挖掘应用程序。Reporting ServicesReporting Services 包括用于创建、管理和部署表格报表、矩阵报表、图形报表以及自由格式报表的服务器和客户端组件。 
 
 * SQL Full-text Filter Daemon Launcher (MSSQLSERVER)是全文检索服务，如果你没有使用全文检索技术，那么也不需要开启。
 
@@ -239,6 +252,21 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 * Sql Browser 服务 一般你要进行远程访问，不需要开启sql browser开启sql browser，通过：服务器ip,端口 这种方式就可以访问远程的服务器。
 
 * SQL Server Master Data Services(MDS)
+
+Master Data ServicesMaster Data Services (MDS) 是针对主数据管理的 SQL Server 解决方案。 可以配置 MDS 来管理任何领域（产品、客户、帐户）；MDS 中可包括层次结构、各种级别的安全性、事务、数据版本控制和业务规则，以及可用于管理数据的 用于 Excel 的外接程序 。
+
+* 机器学习服务
+
+（数据库内）机器学习服务（数据库内）支持使用企业数据源的分布式、可缩放的机器学习解决方案。 SQL Server 2016 支持 R 语言。 SQL Server 2022 (16.x) 支持 R 和 Python。
+
+* 通过 PolyBase 进行数据虚拟化
+
+从 SQL Server 查询不同类型的数据源上的不同类型数据。
+
+* Azure 连接服务
+
+SQL Server 2022 (16.x) 扩展了 Azure 连接服务和功能，包括 Azure Synapse Link、Microsoft Purview 访问策略、SQL Server 的 Azure 扩展、即用即付计费，以及 SQL 托管实例的链接功能。
+下表列出了 SQL Server 中可用的索引类型，并提供了指向其他信息的链接。
 
 * SQL Server Management Studio (SSMS):数据库管理工具，2016版以后需要独立下载安装。
 
@@ -262,7 +290,7 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 
 在锁定数据的时候要配合锁的范围和粒度。
 
-例如 select \* from Table with（RowLock，XLock） where ID=1 就可以将Table的一行设置独占锁。一般情况下在事务的开始可以先使用Update操作一个表的行进行加独占锁。
+例如 select * from Table with（RowLock，XLock） where ID=1 就可以将Table的一行设置独占锁。一般情况下在事务的开始可以先使用Update操作一个表的行进行加独占锁。
 
 还可以使用应用程序锁来防止多客户端同时执行某个操作。
 
@@ -271,8 +299,6 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 释放应用程序锁 exec SP_ReleaseAppLock @Resource='锁名' @LockOwner='Session'
 
 如果LockOwner指定为Session时要执行释放代码,指定为Transaction时在事务结束时自动释放
-
- 
 
 四、锁定时间的长短
 
@@ -298,17 +324,15 @@ JSON 功能：增强了 JSON 的处理能力，包括索引、查询和数据类
 
 SET LOCK_TIMEOUT 设置允许应用程序设置语句等待阻塞资源的最长时间。当语句等待的时间大于 LOCK_TIMEOUT 设置时，系统将自动取消阻塞的语句，并给应用程序返回"已超过了锁请求超时时段"的 1222 号错误信息
 
-示例\
-
-下例将锁超时期限设置为 1,800 毫秒。\
+下例将锁超时期限设置为 1,800 毫秒。
 
 SET LOCK_TIMEOUT 1800
 
-3\) 设置事务隔离级别。
+3) 设置事务隔离级别。
 
-4 ) 对 SELECT、INSERT、UPDATE 和 DELETE 语句使用表级锁定提示。
+4) 对 SELECT、INSERT、UPDATE 和 DELETE 语句使用表级锁定提示。
 
-5\) 配置索引的锁定粒度\
+5) 配置索引的锁定粒度
 
 可以使用 sp_indexoption 系统存储过程来设置用于索引的锁定粒度
 
@@ -324,11 +348,11 @@ SET LOCK_TIMEOUT 1800
 
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
 
-SELECT \* FROM table ROWLOCK WHERE id = 1
+SELECT * FROM table ROWLOCK WHERE id = 1
 
 2 锁定数据库的一个表
 
-SELECT \* FROM table WITH (HOLDLOCK)
+SELECT * FROM table WITH (HOLDLOCK)
 
 加锁语句：\
 
@@ -382,7 +406,7 @@ commit tran\
 
 begin tran\
 
-select \* from table1\
+select * from table1\
 
 where B='b2'\
 
@@ -396,7 +420,7 @@ commit tran
 
 begin tran\
 
-select \* from table1 holdlock -holdlock人为加锁\
+select * from table1 holdlock -holdlock人为加锁\
 
 where B='b2'\
 
@@ -454,9 +478,9 @@ sp_releaseapplock 为应用程序资源解锁
 
 注意: 锁定数据库的一个表的区别
 
-SELECT \* FROM table WITH (HOLDLOCK) 其他事务可以读取表，但不能更新删除
+SELECT * FROM table WITH (HOLDLOCK) 其他事务可以读取表，但不能更新删除
 
-SELECT \* FROM table WITH (TABLOCKX) 其他事务不能读取表,更新和删除
+SELECT * FROM table WITH (TABLOCKX) 其他事务不能读取表,更新和删除
 
  
 
@@ -532,7 +556,7 @@ drop table #t
 
 1 如何锁一个表的某一行\
 
-/\*\
+/*\
 
   测试环境：windows 2K server + Mssql 2000\
 
@@ -542,7 +566,7 @@ drop table #t
 
   功能：sql遍历文件夹下的文本文件名,当然你修改部分代码后可以完成各种文件的列表。\
 
-\*/
+*/
 
 \
 
@@ -552,7 +576,7 @@ SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
 
 begin tran
 
-select \* from tablename with (rowlock) where id=3
+select * from tablename with (rowlock) where id=3
 
 waitfor delay '00:00:05'
 
@@ -566,17 +590,17 @@ update tablename set colname='10' where id<>3 --可立即执行
 
 2 锁定数据库的一个表
 
-SELECT \* FROM table WITH (HOLDLOCK) 
+SELECT * FROM table WITH (HOLDLOCK) 
 
 \
 
 注意: 锁定数据库的一个表的区别
 
-SELECT \* FROM table WITH (HOLDLOCK) \
+SELECT * FROM table WITH (HOLDLOCK) \
 
 其他事务可以读取表，但不能更新删除
 
-SELECT \* FROM table WITH (TABLOCKX) \
+SELECT * FROM table WITH (TABLOCKX) \
 
 其他事务不能读取表,更新和删除
 
@@ -596,13 +620,13 @@ Transact-SQL 语句中的设置
 
 \-- the first method
 
-select \* from Table1 with(nolock)
+select * from Table1 with(nolock)
 
 \-- the second method
 
 SET TRANSACTION ISOLATION LEVEL Read UnCommitted;
 
-select \* from Table1
+select * from Table1
 
 这种方式比较灵活，可以重点语句重点对待，缺点就是 要设置的实在是太多了，因为这种方式的作用域实在是太小了啊啊啊啊
 
@@ -640,7 +664,7 @@ SERIALIZABLE	否	否
 
 示例：
 
-SELECT \* FROM (SELECT ROW_NUMBER() OVER(ORDER BY menuId) AS RowId,\* FROM sys_menu ) AS r WHERE RowId BETWEEN 1 AND 10
+SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY menuId) AS RowId,* FROM sys_menu ) AS r WHERE RowId BETWEEN 1 AND 10
 
 用[子查询](https://so.csdn.net/so/search?q=%E5%AD%90%E6%9F%A5%E8%AF%A2\&spm=1001.2101.3001.7020)新增一列行号（ROW_NUMBER）RowId查询，比较高效的查询方式，只有在SQL Server2005或更高版本才支持。
 
@@ -648,13 +672,13 @@ BETWEEN 1 AND 10 是指查询第1到第10条数据（闭区间），在这里�
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT \* FROM (SELECT ROW_NUMBER() OVER(ORDER BY 排序字段) AS RowId,\* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)\*pageSize + 1) AND (pageIndex \* PageSize)
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY 排序字段) AS RowId,* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)*pageSize + 1) AND (pageIndex * PageSize)
 
 2、offset fetch next方式（SQL2012及以上的版本才支持：推荐使用 ）
 
 示例：​​​​​​​
 
-\--offset fetch next方式查询，最高效的查询方式，只有在SQL Server2012或更高版本才支持SELECT \* FROM sys_menu ORDER BY menuId offset 0 ROWS FETCH NEXT 10 ROWS ONLY
+\--offset fetch next方式查询，最高效的查询方式，只有在SQL Server2012或更高版本才支持SELECT * FROM sys_menu ORDER BY menuId offset 0 ROWS FETCH NEXT 10 ROWS ONLY
 
 offset 是跳过多少行，
 
@@ -664,13 +688,13 @@ next是取接下来的多少行，
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT \* FROM 表名 ORDER BY 排序字段 offset ((pageIndex - 1) \* pageSize) ROWS FETCH NEXT pageSize ROWS ONLY
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM 表名 ORDER BY 排序字段 offset ((pageIndex - 1) * pageSize) ROWS FETCH NEXT pageSize ROWS ONLY
 
 3、top not in方式 （不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT TOP 10 menuId, \*FROM sys_menu WHERE menuId NOT IN (SELECT TOP 10 menuId FROM sys_menu)
+\--查询第11-20条记录SELECT TOP 10 menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP 10 menuId FROM sys_menu)
 
 这条语句的原理是先查询1-10条记录的ID，然后再查询ID不属于这1-10条记录的ID，并且只需要10条记录，因为每页大小就是10，
 
@@ -680,13 +704,13 @@ next是取接下来的多少行，
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize menuId, \*FROM sys_menu WHERE menuId NOT IN (SELECT TOP ((pageSize-1)\*pageIndex) menuId FROM sys_menu)
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP ((pageSize-1)*pageIndex) menuId FROM sys_menu)
 
 4、通过升序与降序方式进行查询分页（不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT \* FROM( SELECT TOP 10 \* FROM( SELECT TOP 20 \* FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
+\--查询第11-20条记录SELECT * FROM( SELECT TOP 10 * FROM( SELECT TOP 20 * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
 
 这条语句首先查询前20条记录，然后在倒序查询前10条记录（即倒数10条记录），
 
@@ -694,13 +718,13 @@ next是取接下来的多少行，
 
 通用方法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT \* FROM( SELECT TOP pageSize \* FROM( SELECT TOP ((pageIndex - 1) \* pageSize +(pageSize\*2)) \* FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM( SELECT TOP pageSize * FROM( SELECT TOP ((pageIndex - 1) * pageSize +(pageSize*2)) * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
 
 5、采用MAX(ID)或者MIN(ID)函数（不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT TOP 10 \* FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP 10 menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
+\--查询第11-20条记录SELECT TOP 10 * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP 10 menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
 
 这个理解起来也简单，先把第10条记录的id找出来（当然这里面是直接使用MAX()进行查找，MIN()函数的用法也是类似的），
 
@@ -710,7 +734,7 @@ next是取接下来的多少行，
 
 通用用法
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize \* FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP ((PageIndex-1)\*PageSize) menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
+\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP ((PageIndex-1)*PageSize) menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
 
 上述1\~5方案，再配合存储过程，你就能制造出适合你自己的“分页”轮子，日后反复使用。
 
@@ -732,7 +756,7 @@ using DeveloperSharp.Structure.Model;using DeveloperSharp.Framework.QueryEngine;
 
 代码如下：​​​​​​​
 
-using DeveloperSharp.Extension;//Table扩展所在的命名空间----------------------------- class Program { static void Main(string\[] args) { TestData td = new TestData(); //分页 var pp = td.PagePartition("select top 5000 \* from t_Order where Id>10 order by Id desc", 20, 162); List\<Product> Products = pp.Table.ToList\<Product>(); foreach (var P in Products) { Console.WriteLine(P.Name); } Console.ReadLine(); } }
+using DeveloperSharp.Extension;//Table扩展所在的命名空间----------------------------- class Program { static void Main(string\[] args) { TestData td = new TestData(); //分页 var pp = td.PagePartition("select top 5000 * from t_Order where Id>10 order by Id desc", 20, 162); List\<Product> Products = pp.Table.ToList\<Product>(); foreach (var P in Products) { Console.WriteLine(P.Name); } Console.ReadLine(); } }
 
 Product类代码如下：​​​​​​​
 

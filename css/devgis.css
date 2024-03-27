@@ -92,3 +92,8 @@ a.page-link {
     color:#3090C7;
     font-weight: bold;
 }
+
+.copyright {
+    border-bottom: 1px solid #ddd;
+    background-color: #fff; 
+}
