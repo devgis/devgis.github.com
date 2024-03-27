@@ -354,23 +354,21 @@ SELECT * FROM table ROWLOCK WHERE id = 1
 
 SELECT * FROM table WITH (HOLDLOCK)
 
-加锁语句：\
+加锁语句：
 
-sybase:\
+sybase:
 
 update 表 set col1=col1 where 1=0 ;\
 
-MSSQL:\
+MSSQL:
 
 select col1 from 表 (tablockx) where 1=0 ;\
 
-oracle:\
+oracle:
 
-LOCK TABLE 表 IN EXCLUSIVE MODE ；\
+LOCK TABLE 表 IN EXCLUSIVE MODE ；
 
 加锁后其它人不可操作，直到加锁用户解锁，用commit或rollback解锁
-
-\
 
 几个例子帮助大家加深印象\
 
@@ -482,15 +480,11 @@ SELECT * FROM table WITH (HOLDLOCK) 其他事务可以读取表，但不能
 
 SELECT * FROM table WITH (TABLOCKX) 其他事务不能读取表,更新和删除
 
- 
-
-\
-
-\--查看锁信息
+--查看锁信息
 
 exec  sp_who
 
-\----------------------------------------------\
+----------------------------------------------
 
 create table #t(req_spid int,obj_name sysname)
 
@@ -508,55 +502,51 @@ while @@fetch_status=0\
 
 beginset @s='select @objname=name from \['+\@dbname+']..sysobjects where id=@id'exec sp_executesql @s,N'@objname sysname out,@id int',@objname out,@idinsert into #t values(@rid,@objname)fetch next from tb into @rid,@dbname,@id\
 
-end\
+end
 
-close tb\
+close tb
 
 deallocate tb
 
-select 进程id=a.req_spid\
+select 进程id=a.req_spid
 
-   ,数据库=db_name(rsc_dbid)\
+   ,数据库=db_name(rsc_dbid)
 
-   ,类型=case rsc_type when 1 then 'NULL 资源（未使用）'\
+   ,类型=case rsc_type when 1 then 'NULL 资源（未使用）'
 
-   when 2 then '数据库'\
+   when 2 then '数据库'
 
-   when 3 then '文件'\
+   when 3 then '文件'
 
-   when 4 then '索引'\
+   when 4 then '索引'
 
-   when 5 then '表'\
+   when 5 then '表'
 
-   when 6 then '页'\
+   when 6 then '页'
 
-   when 7 then '键'\
+   when 7 then '键'
 
-   when 8 then '扩展盘区'\
+   when 8 then '扩展盘区'
 
-   when 9 then 'RID（行 ID)'\
+   when 9 then 'RID（行 ID）'
 
-   when 10 then '应用程序'end\
+   when 10 then '应用程序'end
 
-   ,对象id=rsc_objid\
+   ,对象id=rsc_objid
 
-   ,对象名=b.obj_name\
+   ,对象名=b.obj_name
 
-   ,rsc_indid\
+   ,rsc_indid
 
 from master..syslockinfo a left join #t b on a.req_spid=b.req_spid
 
-go\
+go
 
 drop table #t
 
- 
-
- 
-
 1 如何锁一个表的某一行\
 
-/*\
+/*
 
   测试环境：windows 2K server + Mssql 2000\
 
@@ -568,7 +558,6 @@ drop table #t
 
 */
 
-\
 
 A 连接中执行
 
@@ -592,15 +581,13 @@ update tablename set colname='10' where id<>3 --可立即执行
 
 SELECT * FROM table WITH (HOLDLOCK) 
 
-\
-
 注意: 锁定数据库的一个表的区别
 
-SELECT * FROM table WITH (HOLDLOCK) \
+SELECT * FROM table WITH (HOLDLOCK) 
 
 其他事务可以读取表，但不能更新删除
 
-SELECT * FROM table WITH (TABLOCKX) \
+SELECT * FROM table WITH (TABLOCKX) 
 
 其他事务不能读取表,更新和删除
 
@@ -618,11 +605,11 @@ Transact-SQL 语句中的设置
 
 就是在当前 SQL 语句中，设置的事务隔离级别只影响当前 sql 语句, 有两种方式：
 
-\-- the first method
+-- the first method
 
 select * from Table1 with(nolock)
 
-\-- the second method
+-- the second method
 
 SET TRANSACTION ISOLATION LEVEL Read UnCommitted;
 
@@ -666,19 +653,19 @@ SERIALIZABLE	否	否
 
 SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY menuId) AS RowId,* FROM sys_menu ) AS r WHERE RowId BETWEEN 1 AND 10
 
-用[子查询](https://so.csdn.net/so/search?q=%E5%AD%90%E6%9F%A5%E8%AF%A2\&spm=1001.2101.3001.7020)新增一列行号（ROW_NUMBER）RowId查询，比较高效的查询方式，只有在SQL Server2005或更高版本才支持。
+用子查询新增一列行号（ROW_NUMBER）RowId查询，比较高效的查询方式，只有在SQL Server2005或更高版本才支持。
 
 BETWEEN 1 AND 10 是指查询第1到第10条数据（闭区间），在这里面需要注意的是OVER的括号里面可以写多个排序字段。
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY 排序字段) AS RowId,* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)*pageSize + 1) AND (pageIndex * PageSize)
+--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY 排序字段) AS RowId,* FROM 表名 ) AS r WHERE RowId BETWEEN ((pageIndex-1)*pageSize + 1) AND (pageIndex * PageSize)
 
 2、offset fetch next方式（SQL2012及以上的版本才支持：推荐使用 ）
 
 示例：​​​​​​​
 
-\--offset fetch next方式查询，最高效的查询方式，只有在SQL Server2012或更高版本才支持SELECT * FROM sys_menu ORDER BY menuId offset 0 ROWS FETCH NEXT 10 ROWS ONLY
+--offset fetch next方式查询，最高效的查询方式，只有在SQL Server2012或更高版本才支持SELECT * FROM sys_menu ORDER BY menuId offset 0 ROWS FETCH NEXT 10 ROWS ONLY
 
 offset 是跳过多少行，
 
@@ -688,13 +675,13 @@ next是取接下来的多少行，
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM 表名 ORDER BY 排序字段 offset ((pageIndex - 1) * pageSize) ROWS FETCH NEXT pageSize ROWS ONLY
+--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM 表名 ORDER BY 排序字段 offset ((pageIndex - 1) * pageSize) ROWS FETCH NEXT pageSize ROWS ONLY
 
 3、top not in方式 （不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT TOP 10 menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP 10 menuId FROM sys_menu)
+--查询第11-20条记录SELECT TOP 10 menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP 10 menuId FROM sys_menu)
 
 这条语句的原理是先查询1-10条记录的ID，然后再查询ID不属于这1-10条记录的ID，并且只需要10条记录，因为每页大小就是10，
 
@@ -704,13 +691,13 @@ next是取接下来的多少行，
 
 通用用法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP ((pageSize-1)*pageIndex) menuId FROM sys_menu)
+--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize menuId, *FROM sys_menu WHERE menuId NOT IN (SELECT TOP ((pageSize-1)*pageIndex) menuId FROM sys_menu)
 
 4、通过升序与降序方式进行查询分页（不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT * FROM( SELECT TOP 10 * FROM( SELECT TOP 20 * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
+--查询第11-20条记录SELECT * FROM( SELECT TOP 10 * FROM( SELECT TOP 20 * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
 
 这条语句首先查询前20条记录，然后在倒序查询前10条记录（即倒数10条记录），
 
@@ -718,13 +705,13 @@ next是取接下来的多少行，
 
 通用方法​​​​​​​
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM( SELECT TOP pageSize * FROM( SELECT TOP ((pageIndex - 1) * pageSize +(pageSize*2)) * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
+--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT * FROM( SELECT TOP pageSize * FROM( SELECT TOP ((pageIndex - 1) * pageSize +(pageSize*2)) * FROM sys_menu ORDER BY menuId ASC) AS TEMP1 ORDER BY menuId DESC) AS TEMP2 ORDER BY menuId ASC
 
 5、采用MAX(ID)或者MIN(ID)函数（不推荐）
 
 示例：​​​​​​​
 
-\--查询第11-20条记录SELECT TOP 10 * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP 10 menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
+--查询第11-20条记录SELECT TOP 10 * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP 10 menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
 
 这个理解起来也简单，先把第10条记录的id找出来（当然这里面是直接使用MAX()进行查找，MIN()函数的用法也是类似的），
 
@@ -734,9 +721,9 @@ next是取接下来的多少行，
 
 通用用法
 
-\--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP ((PageIndex-1)*PageSize) menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
+--pageIndex 表示指定页--pageSize 表示每页显示的条数SELECT TOP pageSize * FROM sys_menu WHERE menuId> (SELECT MAX(menuId) FROM(SELECT TOP ((PageIndex-1)*PageSize) menuId FROM sys_menu ORDER BY menuId) AS TEMP1) --（第10条的id）
 
-上述1\~5方案，再配合存储过程，你就能制造出适合你自己的“分页”轮子，日后反复使用。
+上述1~5方案，再配合存储过程，你就能制造出适合你自己的“分页”轮子，日后反复使用。
 
 但它们有一定自身局限性：方案1、2、5都需要依赖一个排序Id（这个Id要么是个排序列，要么是个主键）。方案3、4则效率太低，完全不推荐。
 
@@ -773,8 +760,6 @@ PagePartition声明：public PagePiece PagePartition(string RecordSet, string Id
 （2）    RecordSet是你需要分页的“数据总集”的SQL语句。该SQL语句的形式丰富多样，可以带条件、排序、甚至还能是多表的联合查询、等。
 
 （3）   此方法符合最开始的【第二种】方案，是在SQL Server内部进行的分页操作。而且可以不依赖于排序/排序Id。
-
-<https://blog.csdn.net/mzl87/article/details/128609918>
 
 # 执行计划
 
@@ -830,8 +815,6 @@ SQL Server查找数据记录的几种方式：
 
 set statistics profile on 
 
-
-
 select *,name from test_index where name='Tom' 
 
 union  ALL    
@@ -842,13 +825,13 @@ select *,name from test_index where age>=12
 
 ![](https://img2023.cnblogs.com/blog/637434/202212/637434-20221206110104206-1690740487.png)
 
-字段解释：\
+字段解释：
 
-【Rows】：表示在一个执行步骤中，所产生的记录条数。\
+【Rows】：表示在一个执行步骤中，所产生的记录条数。
 
-【Executes】：表示某个执行步骤被执行的次数。\
+【Executes】：表示某个执行步骤被执行的次数。
 
-【Stmt Text】：表示要执行的步骤的描述。\
+【Stmt Text】：表示要执行的步骤的描述。
 
 【EstimateRows】：表示要预期返回多少行数据。
 
