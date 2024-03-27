@@ -314,7 +314,6 @@ Oracle 12c是一款功能强大、性能优越的数据库管理系统。
 
 这些功能使得Oracle 12c成为企业级应用程序的数据库，并为企业提供了强大的数据管理和分析能力。
 
-
 2. Oracle 8i
 
 1999年发布的Oracle 8i是一次重大的数据库技术革新，主要目的是提高了数据库的可用性、可扩展性和可管理性。在其引入了诸多新技术，如Java Stored Procedures、Oracle Java Virtual Machine、XML支持、事务处理等，为用户提供了更强大的业务处理和数据管理能力。
@@ -945,6 +944,414 @@ OPTIMAL 模式是从驱动表（也称Build Table）上获取的结果集比较�
 (3): MULTIPASS HASH JOIN：
 
 当内存特别小或者相对而言Hash Table的数据特别大时，会使用 MULTIPASS 模式。MULTIPASS会多次读取磁盘数据，应尽量避免使用该模式。
+
+# Hint
+
+oracle中hint 详解
+Hint概述
+
+基于代价的优化器是很聪明的，在绝大多数情况下它会选择正确的优化器，减轻了DBA的负担。但有时它也聪明反被聪明误，选择了很差的执行计划，使某个语句的执行变得奇慢无比。
+
+此时就需要DBA进行人为的干预，告诉优化器使用我们指定的存取路径或连接类型生成执行计划，从 而使语句高效的运行。例如，如果我们认为对于一个特定的语句，执行全表扫描要比执行索引扫描更有效，则我们就可以指示优化器使用全表扫描。在Oracle 中，是通过为语句添加 Hints(提示)来实现干预优化器优化的目的。 不建议在代码中使用hint，在代码使用hint使得CBO无法根据实际的数据状态选择正确的执行计划。毕竟 数据是不断变化的， 10g以后的CBO也越来越完善，大多数情况下我们该让Oracle自行决定采用什么执行计划。
+
+Oracle Hints是一种机制，用来告诉优化器按照我们的告诉它的方式生成执行计划。我们可以用Oracle Hints来实现： 1) 使用的优化器的类型 2) 基于代价的优化器的优化目标，是all_rows还是first_rows。 3) 表的访问路径，是全表扫描，还是索引扫描，还是直接利用rowid。 4) 表之间的连接类型 5) 表之间的连接顺序 6) 语句的并行程度
+
+除了”RULE”提示外，一旦使用的别的提示，语句就会自动的改为使用CBO优化器，此时如果你的数据字典中没有统计数据，就会使用缺省的统计数据。所以建议大家如果使用CBO或Hints提示，则最好对表和索引进行定期的分析。
+
+如何使用Hints:
+
+Hints只应用在它们所在sql语句块(statement  block，由select、update、delete关键字标识)上，对其它SQL语句或语句的其它部分没有影响。如：对于使用union操作的2个sql语句，如果只在一个sql语句上有Hints，则该Hints不会影响另一个sql语句。
+
+我们可以使用注释(comment)来为一个语句添加Hints，一个语句块只能有一个注释，而且注释只能放在SELECT, UPDATE, or DELETE关键字的后面
+
+使用Oracle Hints的语法：
+
+{DELETE|INSERT|SELECT|UPDATE} /*+ hint [text] [hint[text]]... */
+
+or
+
+{DELETE|INSERT|SELECT|UPDATE} --+ hint [text] [hint[text]]...
+
+注解： 1) DELETE、INSERT、SELECT和UPDATE是标识一个语句块开始的关键字，包含提示的注释只能出现在这些关键字的后面，否则提示无效。 2) “+”号表示该注释是一个Hints，该加号必须立即跟在”/*”的后面，中间不能有空格。 3) hint是下面介绍的具体提示之一，如果包含多个提示，则每个提示之间需要用一个或多个空格隔开。 4) text 是其它说明hint的注释性文本
+
+5)使用表别名。如果在查询中指定了表别名，那么提示必须也使用表别名。例如：select /*+ index(e,dept_idx) */ * from emp e; 6)不要在提示中使用模式名称：如果在提示中指定了模式的所有者，那么提示将被忽略。例如： select /*+ index(scott.emp,dept_idx) */ * from emp
+
+注意：如果你没有正确的指定Hints，Oracle将忽略该Hints，并且不会给出任何错误。
+
+hint被忽略
+
+如果CBO认为使用hint会导致错误的结果时，hint将被忽略，详见下例
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+SQL> select /*+ index(t t_ind) */ count(*) from t;
+ Execution Plan
+ ----------------------------------------------------------
+ Plan hash value: 2966233522
+ -------------------------------------------------------------------
+ | Id  | Operation          | Name | Rows  | Cost (%CPU)| Time     |
+ -------------------------------------------------------------------
+ |   0 | SELECT STATEMENT   |      |     1 |    57   (2)| 00:00:01 |
+ |   1 |  SORT AGGREGATE    |      |     1 |            |          |
+ |   2 |   TABLE ACCESS FULL| T    | 50366 |    57   (2)| 00:00:01 |
+ ------------------------------------------------------------------- 
+因为我们是对记录求总数，且我们并没有在建立索引时指定不能为空，如果CBO选择在索引上进行count时，但索引字段上的值为空时，结果将不准确，故CBO没有选择索引。
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+SQL>  select /*+ index(t t_ind) */ count(id) from t;
+ Execution Plan
+ ----------------------------------------------------------
+ Plan hash value: 646498162
+ --------------------------------------------------------------------------
+ | Id  | Operation        | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+ --------------------------------------------------------------------------
+ |   0 | SELECT STATEMENT |       |     1 |     5 |   285   (1)| 00:00:04 |
+ |   1 |  SORT AGGREGATE  |       |     1 |     5 |            |          |
+ |   2 |   INDEX FULL SCAN| T_IND | 50366 |   245K|   285   (1)| 00:00:04 |
+ --------------------------------------------------------------------------
+ 因为我们只对id进行count，这个动作相当于count索引上的所有id值，这个操作和对表上的id字段进行count是一样的(组函数会忽略null值)，故使用了索引。
+
+和优化器相关的hint
+
+1、/*+ ALL_ROWS */ 表明对语句块选择基于开销的优化方法,并获得最佳吞吐量,使资源消耗最小化.
+
+SELECT /*+ ALL+_ROWS*/ EMP_NO,EMP_NAM,DAT_IN FROM BSEMPMS WHERE EMP_NO='SCOTT';
+
+2、/*+ FIRST_ROWS(n) */ 表明对语句块选择基于开销的优化方法,并获得最佳响应时间,使资源消耗最小化.
+
+SELECT /*+FIRST_ROWS(20) */ EMP_NO,EMP_NAM,DAT_IN FROM BSEMPMS WHERE EMP_NO='SCOTT';
+
+3、/*+ RULE*/ 表明对语句块选择基于规则的优化方法.
+
+SELECT /*+ RULE */ EMP_NO,EMP_NAM,DAT_IN FROM BSEMPMS WHERE EMP_NO='SCOTT';
+
+ 和访问路径相关的hint 
+
+1、/*+ FULL(TABLE)*/ 表明对表选择全局扫描的方法.
+
+SELECT /*+FULL(A)*/ EMP_NO,EMP_NAM FROM BSEMPMS A WHERE EMP_NO='SCOTT';
+
+2、/*+ INDEX(TABLE INDEX_NAME) */ 表明对表选择索引的扫描方法.
+
+SELECT /*+INDEX(BSEMPMS SEX_INDEX) */ * FROM BSEMPMS WHERE SEX='M';
+
+3、/*+ INDEX_ASC(TABLE INDEX_NAME)*/ 表明对表选择索引升序的扫描方法.
+
+SELECT /*+INDEX_ASC(BSEMPMS PK_BSEMPMS) */ * FROM BSEMPMS WHERE DPT_NO='SCOTT';
+
+4、/*+ INDEX_COMBINE*/ 为指定表选择位图访问路经,如果INDEX_COMBINE中没有提供作为参数的索引,将选择出位图索引的布尔组合方式.
+
+SELECT /*+INDEX_COMBINE(BSEMPMS SAL_BMI HIREDATE_BMI) */  * FROM BSEMPMS WHERE SAL<5000000 AND HIREDATE
+
+5、/*+ INDEX_JOIN(TABLE INDEX_NAME1 INDEX_NAME2) */ 当谓词中引用的列都有索引的时候，可以通过指定采用索引关联的方式，来访问数据
+
+select /*+ index_join(t t_ind t_bm) */ id from t where id=100 and object_name='EMPLOYEES'
+
+6、/*+ INDEX_DESC(TABLE INDEX_NAME)*/ 表明对表选择索引降序的扫描方法.
+
+SELECT /*+INDEX_DESC(BSEMPMS PK_BSEMPMS) */ * FROM BSEMPMS WHERE DPT_NO='SCOTT';
+
+7、/*+ INDEX_FFS(TABLE INDEX_NAME) */ 对指定的表执行快速全索引扫描,而不是全表扫描的办法.
+
+SELECT /* + INDEX_FFS(BSEMPMS IN_EMPNAM)*/ * FROM BSEMPMS WHERE DPT_NO='TEC305';
+
+8、/*+ INDEX_SS(T T_IND) */ 从9i开始，oracle引入了这种索引访问方式。当在一个联合索引中，某些谓词条件并不在联合索引的第一列时，可以通过Index Skip Scan来访问索引获得数据。当联合索引第一列的唯一值个数很少时，使用这种方式比全表扫描效率高。
+
+1
+ SQL> create table t as select 1 id,object_name from dba_objects;<br> Table created.<br> SQL> insert into t select 2,object_name from dba_objects;       <br> 50366 rows created.<br> SQL> insert into t select 3,object_name from dba_objects;       <br> 50366 rows created.  <br> SQL> insert into t select 4,object_name from dba_objects;       <br> 50366 rows created.  <br> SQL> commit;<br> Commit complete.<br> SQL> create index t_ind on t(id,object_name);<br> Index created.<br> SQL> exec dbms_stats.gather_table_stats('HR','T',cascade=>true);<br> PL/SQL procedure successfully completed.
+ 
+
+执行全表扫描
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+SQL> select /*+ full(t) */ * from t where object_name='EMPLOYEES';
+6 rows selected.
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1601196873
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |     5 |   135 |   215   (3)| 00:00:03 |
+|*  1 |  TABLE ACCESS FULL| T    |     5 |   135 |   215   (3)| 00:00:03 |
+--------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - filter("OBJECT_NAME"='EMPLOYEES')
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+        942  consistent gets
+          0  physical reads
+          0  redo size
+        538  bytes sent via SQL*Net to client
+        385  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          6  rows processed
+ 
+
+ 不采用hint
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+SQL>  select * from t where object_name='EMPLOYEES';
+6 rows selected.
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2869677071
+--------------------------------------------------------------------------
+| Id  | Operation        | Name  | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT |       |     5 |   135 |     5   (0)| 00:00:01 |
+|*  1 |  INDEX SKIP SCAN | T_IND |     5 |   135 |     5   (0)| 00:00:01 |
+--------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - access("OBJECT_NAME"='EMPLOYEES')
+       filter("OBJECT_NAME"='EMPLOYEES')
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+         17  consistent gets
+          1  physical reads
+          0  redo size
+        538  bytes sent via SQL*Net to client
+        385  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          6  rows processed
+当全表扫描扫描了942个块，联合索引只扫描了17个数据块。可以看到联合索引的第一个字段的值重复率很高时，即使谓词中没有联合索引的第一个字段，依然会使用index_ss方式，效率远远高于全表扫描效率。但当  第一个字段的值重复率很低时，使用 index_ss的效率要低于 全表扫描，读者可以自行实验 
+
+和表的关联相关的hint 
+
+/*+ leading(table_1,table_2) */
+
+在多表关联查询中，指定哪个表作为驱动表，即告诉优化器首先要访问哪个表上的数据。
+
+select /*+ leading(t,t1) */ t.* from t,t1 where t.id=t1.id; /*+ order */
+
+让Oracle根据from后面表的顺序来选择驱动表，oracle建议使用leading，他更为灵活
+
+select /*+ order */ t.* from t,t1 where t.id=t1.id;
+
+/*+ use_nl(table_1,table_2) */ 在多表关联查询中，指定使用nest loops方式进行多表关联。
+
+select /*+ use_nl(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+/*+ use_hash(table_1,table_2) */ 在多表关联查询中，指定使用hash join方式进行多表关联。
+
+select /*+ use_hash(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+在多表关联查询中，指定使用hash join方式进行多表关联，并指定表t为驱动表。
+
+select /*+ use_hash(t,t1) leading(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+/*+ use_merge(table_1,table_2) */ 在多表关联查询中，指定使用merge join方式进行多表关联。
+
+select /*+ use_merge(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+/*+ no_use_nl(table_1,table_2) */ 在多表关联查询中，指定不使用nest loops方式进行多表关联。
+
+select /*+ no_use_nl(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+/*+ no_use_hash(table_1,table_2) */ 在多表关联查询中，指定不使用hash join方式进行多表关联。
+
+select /*+ no_use_hash(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+/*+ no_use_merge(table_1,table_2) */ 在多表关联查询中，指定不使用merge join方式进行多表关联。
+
+select /*+ no_use_merge(t,t1) */ t.* from t,t1 where t.id=t1.id;
+
+其他常用的hint
+
+/*+ parallel(table_name n) */
+
+在sql中指定执行的并行度，这个值将会覆盖自身的并行度
+
+select /*+ parallel(t 4) */ count(*)  from t;
+
+/*+ no_parallel(table_name) */
+
+在sql中指定执行的不使用并行
+
+select /*+ no_parallel(t) */ count(*)  from t;
+
+/*+ append */以直接加载的方式将数据加载入库
+
+insert into t /*+ append */ select * from t;
+
+/*+ dynamic_sampling(table_name n) */
+
+设置sql执行时动态采用的级别，这个级别为0~10 select /*+ dynamic_sampling(t 4) */ * from t where id > 1234
+
+/*+ cache(table_name) */ 进行全表扫描时将table置于LRU列表的最活跃端，类似于table的cache属性
+
+select /*+ full(employees) cache(employees) */ last_name from employees
+
+附录hint表格
+
+Hints for Optimization Approaches and Goals  
+
+ALL_ROWS	The ALL_ROWS hint explicitly chooses the cost-based approach to optimize a statement block with a goal of best throughput (that is, minimum total resource consumption).
+FIRST_ROWS	The FIRST_ROWS hint explicitly chooses the cost-based approach to optimize a statement block with a goal  of best response time (minimum resource usage to return first row). In newer Oracle version you should give a parameter with this hint: FIRST_ROWS(n) means that the optimizer will determine an executionplan to give a fast response for returning the first n rows.
+CHOOSE	The CHOOSE hint causes the optimizer to choose between the rule-based  approach and the cost-based approach for a SQL statement based on the  presence of statistics for the tables accessed by the statement
+RULE	The RULE hint explicitly chooses rule-based optimization for a statement block. This hint also causes the optimizer to ignore any other hints  specified for the statement block. The RULE hint does not work any more in Oracle 10g.
+Hints for Access Paths  
+
+FULL	The FULL hint explicitly chooses a full table scan for the specified table. The syntax of the FULL hint is FULL(table) where table specifies the alias of the table (or table name if alias does not exist) on which the full table  scan is to be performed.
+ROWID	The ROWID hint explicitly chooses a table scan by ROWID for the specified table. The syntax of the ROWID hint is ROWID(table) where table specifies the name or alias of the table on which the table access by ROWID is to be performed.  (This hint depricated in Oracle 10g)
+CLUSTER	The CLUSTER hint explicitly chooses a cluster scan to access the specified table. The syntax of the CLUSTER hint is CLUSTER(table) where table specifies the name or alias of the table to be accessed by a cluster scan.
+HASH	The HASH hint explicitly chooses a hash scan to access the specified table. The syntax of the HASH hint is HASH(table) where table specifies the name or alias of the table to be accessed by a hash scan.
+HASH_AJ	The HASH_AJ hint transforms a NOT IN subquery into a hash anti-join to  access the specified table. The syntax of the HASH_AJ hint is HASH_AJ(table) where table specifies the name or alias of the table to be  accessed.(depricated in Oracle 10g)
+INDEX	The INDEX hint explicitly chooses an index scan for the specified table. The syntax of the INDEX hint is INDEX(table index) where:table specifies the name or alias of the table associated with the index to be scanned and index specifies an index on which an index scan is to be performed. This hint may optionally specify one or more indexes:
+NO_INDEX	The NO_INDEX hint explicitly disallows a set of indexes for the specified table. The syntax of the NO_INDEX hint is NO_INDEX(table index)
+INDEX_ASC	The INDEX_ASC hint explicitly chooses an index scan for the specified table. If the statement uses an index range scan, Oracle scans the index entries in ascending order of their indexed values.
+INDEX_COMBINE	If no indexes are given as arguments for the INDEX_COMBINE hint, the optimizer will use on the table whatever boolean combination of bitmap indexes has the best cost estimate. If certain indexes are given as arguments, the optimizer will try to use some boolean combination of those particular bitmap indexes. The syntax of INDEX_COMBINE is INDEX_COMBINE(table index).
+INDEX_JOIN 	Explicitly instructs the optimizer to use an index join as an access  path. For the hint to have a positive effect, a sufficiently small  number of indexes must exist that contain all the columns required to  resolve the query.  
+INDEX_DESC	The INDEX_DESC hint explicitly chooses an index scan for the specified table. If the statement uses an index range scan, Oracle scans the index entries in descending order of their indexed values.
+INDEX_FFS	This hint causes a fast full index scan to be performed rather than a full table.
+NO_INDEX_FFS	Do not use fast full index scan (from Oracle 10g)
+INDEX_SS	Exclude range scan from query plan (from Oracle 10g)
+INDEX_SS_ASC	Exclude range scan from query plan (from Oracle 10g)
+INDEX_SS_DESC 	Exclude range scan from query plan (from Oracle 10g)
+NO_INDEX_SS 	The NO_INDEX_SS hint causes the optimizer to exclude a skip scan of the specified indexes on the  specified table. (from Oracle 10g)
+ 
+Hints for Query Transformations  
+
+NO_QUERY_TRANSFORMATION 	Prevents the optimizer performing query transformations. (from Oracle 10g)
+USE_CONCAT	The USE_CONCAT hint forces combined OR conditions in the WHERE clause of a query to be transformed into a compound query using the UNION ALL set operator. Normally, this transformation occurs only if the cost of the query using the concatenations is cheaper than the cost without them.
+NO_EXPAND	The NO_EXPAND hint prevents the optimizer from considering OR-expansion  for queries having OR conditions or IN-lists in the WHERE clause.  Usually, the optimizer considers using OR expansion and uses this method if it decides that the cost is lower than not using it.
+REWRITE	The REWRITE hint forces the optimizer to rewrite a query in terms of  materialized views, when possible, without cost consideration. Use the  REWRITE hint with or without a view list. If you use REWRITE with a view list and the list contains an eligible materialized view, then Oracle  uses that view regardless of its cost.
+NOREWRITE / NO_REWRITE 	In Oracle 10g renamed to NO_REWRITE. The NOREWRITE/NO_REWRITE hint disables query rewrite for the query block, overriding the setting of  the parameter QUERY_REWRITE_ENABLED.
+MERGE	The MERGE hint lets you merge views in a query.
+NO_MERGE	The NO_MERGE hint causes Oracle not to merge mergeable views. This hint is most often used to reduce the number of possible permutations for a query and make optimization faster.
+FACT	The FACT hint indicated that the table should be considered as a fact table.  This is used in the context of the star transformation. 
+NO_FACT	The NO_FACT hint is used in the context of the star transformation to  indicate to the transformation that the hinted table should not be  considered as a fact table.
+STAR_TRANSFORMATION	The STAR_TRANSFORMATION hint makes the optimizer use the best plan in  which the transformation has been used. Without the hint, the optimizer  could make a query optimization decision to use the best plan generated  without the transformation, instead of the best plan for the transformed query.
+NO_STAR_TRANSFORMATION 	Do not use star transformation (from Oracle 10g)
+UNNEST	The UNNEST hint specifies subquery unnesting.
+NO_UNNEST	Use of the NO_UNNEST hint turns off unnesting for specific subquery blocks.
+ 
+Hints for Join Orders  
+
+LEADING	Give this hint to indicate the leading table in a join. This will indicate only 1 table. If you want to specify the whole order of tables, you can use the ORDERED hint. Syntax: LEADING(table)
+ORDERED	The ORDERED hint causes Oracle to join tables in the order in which they appear in the FROM clause. If you omit the ORDERED hint from a SQL statement performing a join , the optimizer chooses the order in which to join the tables. You may want to use the ORDERED hint to specify a join order if you know something about the number of rows selected from each table that the optimizer does not. Such information would allow you to choose an inner and outer table better than the optimizer could.
+ 
+Hints for Join Operations  
+
+USE_NL	The USE_NL hint causes Oracle to join each specified table to another row source with a nested loops join using the specified table as the inner table. The syntax of the USE_NL hint is USE_NL(table table) where table is the name or alias of a table to be used as the inner table of a nested loops join.
+NO_USE_NL	Do not use nested loop (from Oracle 10g)
+USE_NL_WITH_INDEX 	Specifies a nested loops join. (from Oracle 10g)
+USE_MERGE	The USE_MERGE hint causes Oracle to join each specified table with another row source with a sort-merge join. The syntax of the USE_MERGE hint is USE_MERGE(table table) where table is a table to be joined to the row source resulting from joining the previous tables in the join order using a sort-merge join.
+NO_USE_MERGE	Do not use merge (from Oracle 10g)
+USE_HASH	The USE_HASH hint causes Oracle to join each specified table with another row source with a hash join. The syntax of the USE_HASH hint is USE_HASH(table table) where table is a table to be joined to the row source resulting from joining the previous tables in the join order using a hash join.
+NO_USE_HASH	Do not use hash (from Oracle 10g)
+Hints for Parallel Execution
+PARALLEL	The PARALLEL hint allows you to specify the desired number of concurrent query servers that can be used for the query. The syntax is PARALLEL(table number number). The PARALLEL hint must use the table alias if an alias is specified in the query. The PARALLEL hint can then take two values separated by commas after the table name. The first value specifies the degree of parallelism for the given table, the second value specifies how the table is to be split among the instances of a parallel server. Specifying DEFAULT or no value signifies the query coordinator should examine the settings of the initialization parameters (described in a later section) to determine the default degree of parallelism.
+NOPARALLEL / NO_PARALLEL	The NOPARALLEL hint allows you to disable parallel scanning of a table, even if the table was created with a PARALLEL clause. In Oracle 10g this hint was renamed to NO_PARALLEL.
+PQ_DISTRIBUTE	The PQ_DISTRIBUTE hint improves the performance of parallel join  operations. Do this by specifying how rows of joined tables should be  distributed among producer and consumer query servers. Using this hint  overrides decisions the optimizer would normally make.
+NO_PARALLEL_INDEX	The NO_PARALLEL_INDEX hint overrides a PARALLEL attribute setting on an index to avoid a parallel index scan operation.
+Additional Hints
+APPEND	When the APPEND hint is used with the INSERT statement, data is appended to the table. Existing free space in the block is not used. If a table or an index is specified with nologging, this hint applied  with an insert statement produces  a direct path insert which reduces generation of redo. 
+NOAPPEND	Overrides the append mode. 
+CACHE	The CACHE hint specifies that the blocks retrieved for the table in the hint are placed at the most recently used end of the LRU list in the buffer cache when a full table scan is performed. This option is useful for small lookup tables. In the following example, the CACHE hint overrides the table default caching specification.
+NOCACHE	The NOCACHE hint specifies that the blocks retrieved for this table are placed at the least recently used end of the LRU list in the buffer cache when a full table scan is performed. This is the normal behavior of blocks in the buffer cache.
+PUSH_PRED	The PUSH_PRED hint forces pushing of a join predicate into the view.
+NO_PUSH_PRED	The NO_PUSH_PRED hint prevents pushing of a join predicate into the view.
+PUSH_SUBQ	The PUSH_SUBQ hint causes nonmerged subqueries to be evaluated at the earliest possible place in the execution plan.
+NO_PUSH_SUBQ	The NO_PUSH_SUBQ hint causes non-merged subqueries to be evaluated as the last step in the execution plan.
+QB_NAME 	Specifies a name for a query block. (from Oracle 10g)
+CURSOR_SHARING_EXACT	Oracle can replace literals in SQL statements with bind variables, if it is safe to do so. This is controlled with the CURSOR_SHARING startup  parameter. The CURSOR_SHARING_EXACT hint causes this behavior to be  switched off. In other words, Oracle executes the SQL statement without  any attempt to replace literals by bind variables.
+DRIVING_SITE	The DRIVING_SITE hint forces query execution to be done for the table at a different site than that selected by Oracle
+DYNAMIC_SAMPLING	The DYNAMIC_SAMPLING hint lets you control dynamic sampling to improve  server performance by determining more accurate predicate selectivity  and statistics for tables and indexes. You can set the value of  DYNAMIC_SAMPLING to a value from 0 to 10. The higher the level, the more effort the compiler puts into dynamic sampling and the more broadly it  is applied. Sampling defaults to cursor level unless you specify a  table.
+SPREAD_MIN_ANALYSIS	This hint omits some of the compile time optimizations of the rules,  mainly detailed dependency graph analysis, on spreadsheets. Some  optimizations such as creating filters to selectively populate  spreadsheet access structures and limited rule pruning are still used. (from Oracle 10g)
+Hints with unknown status  
+
+MERGE_AJ	The MERGE_AJ hint transforms a NOT IN subquery into a merge anti-join to access the specified table. The syntax of the MERGE_AJ hint is MERGE_AJ(table) where table specifies the name or alias of the table to  be accessed.(depricated in Oracle 10g)
+AND_EQUAL	The AND_EQUAL hint explicitly chooses an execution plan that uses an access path that merges the scans on several single-column indexes. The syntax of the AND_EQUAL hint is AND_EQUAL(table index index) where table specifies the name or alias of the table associated with the indexes to be merged. and index specifies an index on which an index scan is to be performed. You must specify at least two indexes. You cannot specify more than five. (depricated in Oracle 10g)
+STAR	The STAR hint forces the large table to be joined last using a nested loops join on the index. The optimizer will consider different permutations of the small tables. (depricated in Oracle 10g)
+BITMAP	Usage: BITMAP(table_name index_name) Uses a bitmap index to access the table. (depricated ?)
+HASH_SJ	Use a Hash Anti-Join to evaluate a NOT IN sub-query. Use this hint in the sub-query, not in the main query. Use this when your high volume NOT IN sub-query is using a FILTER or NESTED LOOPS join.  Try MERGE_AJ if HASH_AJ refuses to work.(depricated in Oracle 10g)
+NL_SJ	Use a Nested Loop in a sub-query. (depricated in Oracle 10g)
+NL_AJ	Use an anti-join in a sub-query. (depricated in Oracle 10g)
+ORDERED_PREDICATES 	(depricated in Oracle 10g)
+EXPAND_GSET_TO_UNION 	(depricated in Oracle 10g)
 
 # Oracle 优化器
 

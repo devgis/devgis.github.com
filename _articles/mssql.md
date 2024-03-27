@@ -918,6 +918,214 @@ select *,name from test_index where age>=12
 
 【EstimateRows】：表示要预期返回多少行数据。
 
+# hint 
+
+提示是指定的强制选项或策略，由 SQL Server 查询处理器针对 SELECT、INSERT、UPDATE 或 DELETE 语句执行。 提示将覆盖查询优化器可能为查询选择的任何执行计划。
+
+## 联接提示
+
+<join_hint> ::=   
+     { LOOP | HASH | MERGE | REMOTE }  
+
+
+REMOTE 只可用于 INNER JOIN 操作。
+
+A. 使用 HASH
+
+SELECT p.Name, pr.ProductReviewID  
+FROM Production.Product AS p  
+LEFT OUTER HASH JOIN Production.ProductReview AS pr  
+ON p.ProductID = pr.ProductID  
+ORDER BY ProductReviewID DESC;  
+
+B. 使用 LOOP
+
+DELETE FROM Sales.SalesPersonQuotaHistory   
+FROM Sales.SalesPersonQuotaHistory AS spqh  
+    INNER LOOP JOIN Sales.SalesPerson AS sp  
+    ON spqh.SalesPersonID = sp.SalesPersonID  
+WHERE sp.SalesYTD > 2500000.00;  
+GO  
+
+C. 使用 MERGE
+
+SELECT poh.PurchaseOrderID, poh.OrderDate, pod.ProductID, pod.DueDate, poh.VendorID   
+FROM Purchasing.PurchaseOrderHeader AS poh  
+INNER MERGE JOIN Purchasing.PurchaseOrderDetail AS pod   
+    ON poh.PurchaseOrderID = pod.PurchaseOrderID;  
+GO  
+
+连接方式总结：
+ 
+1）嵌套循环(nest loop):
+ 
+对于被连接的数据子集较小的情况，嵌套循环连接是较好的选择。在嵌套循环中，外表驱动内表，外表返回的每一行都要在内表中检索找到它匹配的行，因此整个查询返回的结果集不能太大（大于10000不合适），要把返回子集较小的表作为外表（驱动表），而且在内表的连接字段上一定要有索引。
+ 
+2）哈希连接(hash join):
+ 
+哈希连接是大数据集连接时常用的方式，优化器使用两个表中较小的表，利用连接键在内存中建立散列表，然后扫描较大的表并探测散列表，找出与散列表匹配的行。
+ 
+这种方式适用于较小的表完全可以放入内存的情况，这样成本就是访问两个表的成本之和。但是在表很大的情况下并不能完全放入内存，这时优化器将它分割成若干不同的分区，不能放入内存的部分就把该分区写入磁盘的临时段。哈希连接只能应用于等值连接(如WHERE A.COL3 = B.COL4)、非等值连接(WHERE A.COL3 > B.COL4)、外连接(WHERE A.COL3 = B.COL4(+))。
+ 
+3）排序合并连接（Sort Merge Join ）
+ 
+通常情况下哈希连接的效果都比排序合并连接要好。然而如果行源已经被排过序，在执行排序合并连接时不需要再排序了，这时排序归并连接的性能会忧于哈希连接。
+
+## 查询提示
+
+<query_hint> ::=
+{ { HASH | ORDER } GROUP
+  | { CONCAT | HASH | MERGE } UNION
+  | { LOOP | MERGE | HASH } JOIN
+  | DISABLE_OPTIMIZED_PLAN_FORCING
+  | EXPAND VIEWS
+  | FAST <integer_value>
+  | FORCE ORDER
+  | { FORCE | DISABLE } EXTERNALPUSHDOWN
+  | { FORCE | DISABLE } SCALEOUTEXECUTION
+  | IGNORE_NONCLUSTERED_COLUMNSTORE_INDEX
+  | KEEP PLAN
+  | KEEPFIXED PLAN
+  | MAX_GRANT_PERCENT = <numeric_value>
+  | MIN_GRANT_PERCENT = <numeric_value>
+  | MAXDOP <integer_value>
+  | MAXRECURSION <integer_value>
+  | NO_PERFORMANCE_SPOOL
+  | OPTIMIZE FOR ( @variable_name { UNKNOWN | = <literal_constant> } [ , ...n ] )
+  | OPTIMIZE FOR UNKNOWN
+  | PARAMETERIZATION { SIMPLE | FORCED }
+  | QUERYTRACEON <integer_value>
+  | RECOMPILE
+  | ROBUST PLAN
+  | USE HINT ( <use_hint_name> [ , ...n ] )
+  | USE PLAN N'<xml_plan>'
+  | TABLE HINT ( <exposed_object_name> [ , <table_hint> [ [ , ] ...n ] ] )
+}
+
+<table_hint> ::=
+{ NOEXPAND [ , INDEX ( <index_value> [ , ...n ] ) | INDEX = ( <index_value> ) ]
+  | INDEX ( <index_value> [ , ...n ] ) | INDEX = ( <index_value> )
+  | FORCESEEK [ ( <index_value> ( <index_column_name> [ , ... ] ) ) ]
+  | FORCESCAN
+  | HOLDLOCK
+  | NOLOCK
+  | NOWAIT
+  | PAGLOCK
+  | READCOMMITTED
+  | READCOMMITTEDLOCK
+  | READPAST
+  | READUNCOMMITTED
+  | REPEATABLEREAD
+  | ROWLOCK
+  | SERIALIZABLE
+  | SNAPSHOT
+  | SPATIAL_WINDOW_MAX_CELLS = <integer_value>
+  | TABLOCK
+  | TABLOCKX
+  | UPDLOCK
+  | XLOCK
+}
+
+<use_hint_name> ::=
+{ 'ASSUME_JOIN_PREDICATE_DEPENDS_ON_FILTERS'
+  | 'ASSUME_MIN_SELECTIVITY_FOR_FILTER_ESTIMATES'
+  | 'ASSUME_FULL_INDEPENDENCE_FOR_FILTER_ESTIMATES'
+  | 'ASSUME_PARTIAL_CORRELATION_FOR_FILTER_ESTIMATES'
+  | 'DISABLE_BATCH_MODE_ADAPTIVE_JOINS'
+  | 'DISABLE_BATCH_MODE_MEMORY_GRANT_FEEDBACK'
+  | 'DISABLE_DEFERRED_COMPILATION_TV'
+  | 'DISABLE_INTERLEAVED_EXECUTION_TVF'
+  | 'DISABLE_OPTIMIZED_NESTED_LOOP'
+  | 'DISABLE_OPTIMIZER_ROWGOAL'
+  | 'DISABLE_PARAMETER_SNIFFING'
+  | 'DISABLE_ROW_MODE_MEMORY_GRANT_FEEDBACK'
+  | 'DISABLE_TSQL_SCALAR_UDF_INLINING'
+  | 'DISALLOW_BATCH_MODE'
+  | 'ENABLE_HIST_AMENDMENT_FOR_ASC_KEYS'
+  | 'ENABLE_QUERY_OPTIMIZER_HOTFIXES'
+  | 'FORCE_DEFAULT_CARDINALITY_ESTIMATION'
+  | 'FORCE_LEGACY_CARDINALITY_ESTIMATION'
+  | 'QUERY_OPTIMIZER_COMPATIBILITY_LEVEL_n'
+  | 'QUERY_PLAN_PROFILE'
+}
+
+https://learn.microsoft.com/zh-cn/sql/t-sql/queries/hints-transact-sql-query?view=sql-server-ver16
+
+## 表提示
+
+WITH  ( <table_hint> [ [ , ] ...n ] )
+
+<table_hint> ::=
+{ NOEXPAND
+  | INDEX ( <index_value> [ , ...n ] ) | INDEX = ( <index_value> )
+  | FORCESEEK [ ( <index_value> ( <index_column_name> [ , ... ] ) ) ]
+  | FORCESCAN
+  | HOLDLOCK
+  | NOLOCK
+  | NOWAIT
+  | PAGLOCK
+  | READCOMMITTED
+  | READCOMMITTEDLOCK
+  | READPAST
+  | READUNCOMMITTED
+  | REPEATABLEREAD
+  | ROWLOCK
+  | SERIALIZABLE
+  | SNAPSHOT
+  | SPATIAL_WINDOW_MAX_CELLS = <integer_value>
+  | TABLOCK
+  | TABLOCKX
+  | UPDLOCK
+  | XLOCK
+}
+
+<table_hint_limited> ::=
+{
+    KEEPIDENTITY
+  | KEEPDEFAULTS
+  | HOLDLOCK
+  | IGNORE_CONSTRAINTS
+  | IGNORE_TRIGGERS
+  | NOLOCK
+  | NOWAIT
+  | PAGLOCK
+  | READCOMMITTED
+  | READCOMMITTEDLOCK
+  | READPAST
+  | REPEATABLEREAD
+  | ROWLOCK
+  | SERIALIZABLE
+  | SNAPSHOT
+  | TABLOCK
+  | TABLOCKX
+  | UPDLOCK
+  | XLOCK
+}
+
+https://learn.microsoft.com/zh-cn/sql/t-sql/queries/hints-transact-sql-table?view=sql-server-ver16
+
+## 并行
+
+并行Hint提示 （MAXDOP N Hint）
+
+在当前多核超线程的今天，并行运算已经不算什么稀罕了，所以在SQL Server中也有它自己的并行运算符，来充分的利用现有硬件资源，最大限度的提升运行效率。
+
+在本系列中有两篇文章专门介绍关于SQL Server的并行运算，可以点击查看：SQL Server并行运算总结、SQL Server并行运算总结篇二
+
+所以，在Hint中也给出了关于并行运算的提示：MAXDOP N Hint，这个Hint还是经常用的，尤其索引操作的时候，为了缩短操作时间，我们常常会最大限度的利用并行运算。
+
+另外，此Hint会优先于数据库级别的配置选项。也就说尽管在数据库中设置了MAXDOP 1(强制顺序运行)，如果使用了此Hint也会忽略数据库设置的。
+
+当然，并行运算虽然大部分情况能提升运行效率，但是也非绝对，我们知道多线程的操作是需要维护线程之间的数据交换和执行顺序等，所有有时候多线程的执行并不一定会单线程效率高。
+
+SELECT MIN(B1.[KEY]+B2.[KEY]) 
+FROM BigTable B1 CROSS JOIN BigTable2 B2
+OPTION(MAXDOP 1) 
+
+索引Hint提示 （INDEX  Hint）
+
+所谓的索引Hint提示，就是强制查询优化器为一个查询语句执行扫描或者使用一个指定的索引。
+
 # 镜像
 
 # log shipping（日志传送）
