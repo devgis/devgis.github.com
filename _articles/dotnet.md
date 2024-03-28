@@ -46,7 +46,7 @@ updatedate: 2024-03-26 11:06:26
     - [信号和句柄（EventWaitHandle,ManualResetEvent，AutoResetEvent）](#信号和句柄eventwaithandlemanualreseteventautoresetevent)
     - [Interlocked](#interlocked)
     - [ReaderWriterLock](#readerwriterlock)
-    - [Task,Task\<T\>](#tasktaskt)
+    - [Task,Task<T\>](#tasktaskt)
     - [ThreadPool](#threadpool)
     - [CancellationTokenSource  取消线程任务](#cancellationtokensource--取消线程任务)
   - [定制特性](#定制特性)
@@ -370,7 +370,7 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
 * 异步成员【async 和 await，版本之子。】
 * 调用方信息特性【CallerMemberName 等，方便确定调用方信息。】 C# 6.0 发布日期：2015 年 7 月 版本 6.0 随 Visual Studio 2015 一起发布，发布了很多使得 C# 编程更有效率的小功能。对应 .NET Framework 4.6、4.6.1、4.6.2。.NET Core 出现了，好消息是 .NET 开放源码了，坏消息是微软开始折腾，从这开始语法糖多得齁嗓子。得益于诸多新特性，代码变得简短了，但是引入了很多新符号，心智负 担加重了。“Null 条件运算符”、“字符串内插”、“nameof 表达式”是我比较喜欢的特性。
 * 静态导入【using static 指令命名了一种类型，无需指定类型名称即可访问其静态成员和嵌套类型。】可以using static非静态类型，但是只能使用它的静态方法。 using static System.Console; namespace csharp6 { internal class Program { private static void Main(string\[] args) { WriteLine("blackheart"); } } }
-* 异常筛选器【catch (ExceptionType \[e]) when (expr)】 using System; using System.Net.Http; using System.Threading.Tasks; class Program { static void Main() { Console.WriteLine(MakeRequest().Result); } public static async Task\<string> MakeRequest() { var client = new HttpClient(); var streamTask = client.GetStringAsync("<https://localHost:10000>"); try { var responseText = await streamTask; return responseText; } catch (HttpRequestException e) when (e.Message.Contains("301")) { return "Site Moved"; } catch (HttpRequestException e) when (e.Message.Contains("404")) { return "Page Not Found"; } catch (HttpRequestException e) { return e.Message; } } }
+* 异常筛选器【catch (ExceptionType \[e]) when (expr)】 using System; using System.Net.Http; using System.Threading.Tasks; class Program { static void Main() { Console.WriteLine(MakeRequest().Result); } public static async Task<string> MakeRequest() { var client = new HttpClient(); var streamTask = client.GetStringAsync("<https://localHost:10000>"); try { var responseText = await streamTask; return responseText; } catch (HttpRequestException e) when (e.Message.Contains("301")) { return "Site Moved"; } catch (HttpRequestException e) when (e.Message.Contains("404")) { return "Page Not Found"; } catch (HttpRequestException e) { return e.Message; } } }
 * 自动属性初始化表达式【public string Foo { get; set; } = string.Empty;】
 * 表达式主体定义【例如：public override string ToString() => \$"{foo} {bar}";】
 * Null 条件运算符【成员访问?. 或元素访问?\[]】 namespace csharp6 { internal class Person { public string Name { get; set; } } internal class Program { private static void Main() { Person person = null; string name = person?.Name; } } }
@@ -378,9 +378,9 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
 * nameof 表达式【nameof(Foo)】 C# 7.0 发布日期：2017 年 3 月 C# 7.0 版已与 Visual Studio 2017 一起发布。 对应 .NET Framework 4.7、4.7.1、4.7.2。后续还有 C# 7.1、7.2、7.3 。
 * out 变量【if (Int32.TryParse(foo, out int bar)) Console.WriteLine(\$"Converted '{foo}' to {bar}");】
 * 元组【(double Foo, int Bar) t2 = (4.5, 3);】
-* 模式匹配 **模式匹配**也许能算的上C#本次更新最重量级的升级，也是最受关注的特性（也许没有之一），通过模式匹配，我们可以简化大量的条件代码。   **Switch语句** 大家也许遇到过这样的情景，假设你的代码中，有一个**Nullable\<int>的值，需要对其在**正整数，**非正整数**，**Null**三种情况下分别作不同的逻辑处理。大多数童鞋直接想到是类似于下面的逻辑： 1 void Foo(int? num) 2 { 3     if (!num.HasValue) 4      /\* null logic */ 5     else if (num.Value > 0) 6      /* positive int logic */ 7     else 8      /* negative int & zero logic \*/ 9 请大家思考一下，这个逻辑是否可以用switch-case语句来做，在VB及很多**非C系**的语言中，答案是肯定的，比如**VB.NET中**可以这样写： 1 Sub Foo(Num As Integer?) 2     Select Case Num 3         Case Not Num.HasValue 4         'null logic 5         Case Num > 0 6         'positive Int logic 7         Case Num <= 0 8             'negative Int() & zero logic 9         Case Else 10 11     End Select 12 End Sub 说到这里，在具体讨论**模式匹配**在switch-case中的应用之前，先淡淡的吐槽一下C#，本来理所应当的一个简单的小语法，到了C#7.0才加入。 看看C#7.0加入的类型模式（Type Pattern）：
+* 模式匹配 **模式匹配**也许能算的上C#本次更新最重量级的升级，也是最受关注的特性（也许没有之一），通过模式匹配，我们可以简化大量的条件代码。   **Switch语句** 大家也许遇到过这样的情景，假设你的代码中，有一个**Nullable<int>的值，需要对其在**正整数，**非正整数**，**Null**三种情况下分别作不同的逻辑处理。大多数童鞋直接想到是类似于下面的逻辑： 1 void Foo(int? num) 2 { 3     if (!num.HasValue) 4      /\* null logic */ 5     else if (num.Value > 0) 6      /* positive int logic */ 7     else 8      /* negative int & zero logic \*/ 9 请大家思考一下，这个逻辑是否可以用switch-case语句来做，在VB及很多**非C系**的语言中，答案是肯定的，比如**VB.NET中**可以这样写： 1 Sub Foo(Num As Integer?) 2     Select Case Num 3         Case Not Num.HasValue 4         'null logic 5         Case Num > 0 6         'positive Int logic 7         Case Num <= 0 8             'negative Int() & zero logic 9         Case Else 10 11     End Select 12 End Sub 说到这里，在具体讨论**模式匹配**在switch-case中的应用之前，先淡淡的吐槽一下C#，本来理所应当的一个简单的小语法，到了C#7.0才加入。 看看C#7.0加入的类型模式（Type Pattern）：
 
-    1 void Foo(int? num) 2 { 3     switch (num) 4     { 5         case null: 6             //null logic 7             break; 8         case int n when n > 0: 9             //positive Int logic 10             break; 11         case int n when n <= 0: 12             //negative Int() & zero logic 13             break; 14     } 15 } 这个不多说了，大家自己体会，单纯的在**Nullable\<int>下，可能体现的不是很清晰，个人认为这个小变动其实意义并不是很大，同样场景下，或许**if-if else-else会让代码更清晰易读些。   如果说模式匹配仅仅是完善了一下switch-case，那可真是太大才小用了，下面我们看一个好玩的。  **Match表达式** 虽然把match带到C#中看起来并不是什么大事，但是会引起的代码简化还是非常爽的。 就像很多人说三元表达式（**\<condition>？\<true result> : \<false result>** ）将**if-else**简化一样。match表达式，是**将switch-case结构简化**到了一个新限度。 看match表达式代码前，我们先来看一行略坑的三元表达式。 var reuslt = x == null ? default(int) : (x is Func\<int> ? (x as Func\<int>)() : (x is int ? Convert.ToInt32(x) : default(int))); 好吧，我承认我是故意让你们抓狂的。^\_^， 为了能稳住大家看完上面这行代码后的情绪，来一副match表达式消消火。 var result = x match( case Func\<int> f: f(), case int i: i, case \*: default(int) ); 这两种写法效果上是等效的，有没有非常干净清爽的感觉？写过match表达式的码农，应该再也不想回去嵌套 **<\*>?<\*>:<\*>** 了。 （*注：目前这种写法还未确认，C#7.0发布后可能会有略微变动*）   **Is表达式** 如果说上面两个变化是“语法糖”，那么**is表达式**可是要玩真的了。 说点题外话，其实对**正则表达式**熟悉的童鞋可能知道，本质上\*\*\[模式匹配]**和正则表达式要解决的问题**逻辑**类似，以一个确定的模式，来判断或查找一个确定的实例**。只不过在正则表达式中，这里说的"模式"是正则表达式，"实例"指字符串。而\[模式匹配]下，所针对的"实例"是对象，那么"模式"，就可以理解成is表达式\*\*了。 举个例子，比如你要查找并列出 一组电子设备中，所有iPhone的IMEI串号，我们在C#6.0中，会这样做： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 class Device 2 { 3     public ProductLineOption ProductLine { get; set; } 4 } 5 6 class MobiePhone : Device 7 { 8     public string IMEICode { get; set; } 9 } 10 11 IEnumerable\<Device> GetAllDevices() { /\* 获取并返回所有设备 \*/ }; 12 13 IEnumerable\<string> GetAlliPhoneIMEI() 14 { 15     var deviceList = this.GetAllDevices(); 16     foreach (Device device in deviceList) 17     { 18         MobiePhone phone = device as MobiePhone; 19         if (phone == null) continue; 20 21         if (phone.ProductLine == ProductLineOption.IPhone) 22         { 23             yield return phone.IMEICode; 24         } 25     } 26 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 一个非常典型的传统方法，没什么好说的。我们直接来看C#7.0 中\*\* is表达式\*\*怎么等效的实现这段逻辑： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 IEnumerable\<string> GetAlliPhoneIMEI() 2 { 3     List\<Device> deviceList = this.GetAllDevices(); 4     foreach (Device device in deviceList) 5     { 6         if (device is MobiePhone { IMEICode is var imei, ProductLine is ProductLineOption.IPhone}) 7         { 8             yield return imei; 9         } 10     } 11 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 如果你还是觉得这没什么，那么，其实这个例子中，仅仅体现出模式匹配中的**属性模式**。 根据Doc:#[patterns](https://github.com/dotnet/roslyn/blob/future/docs/features/patterns.md) C#7.0会提供一下几种匹配方式：
+    1 void Foo(int? num) 2 { 3     switch (num) 4     { 5         case null: 6             //null logic 7             break; 8         case int n when n > 0: 9             //positive Int logic 10             break; 11         case int n when n <= 0: 12             //negative Int() & zero logic 13             break; 14     } 15 } 这个不多说了，大家自己体会，单纯的在**Nullable<int>下，可能体现的不是很清晰，个人认为这个小变动其实意义并不是很大，同样场景下，或许**if-if else-else会让代码更清晰易读些。   如果说模式匹配仅仅是完善了一下switch-case，那可真是太大才小用了，下面我们看一个好玩的。  **Match表达式** 虽然把match带到C#中看起来并不是什么大事，但是会引起的代码简化还是非常爽的。 就像很多人说三元表达式（**<condition>？<true result> : <false result>** ）将**if-else**简化一样。match表达式，是**将switch-case结构简化**到了一个新限度。 看match表达式代码前，我们先来看一行略坑的三元表达式。 var reuslt = x == null ? default(int) : (x is Func<int> ? (x as Func<int>)() : (x is int ? Convert.ToInt32(x) : default(int))); 好吧，我承认我是故意让你们抓狂的。^_^， 为了能稳住大家看完上面这行代码后的情绪，来一副match表达式消消火。 var result = x match( case Func<int> f: f(), case int i: i, case \*: default(int) ); 这两种写法效果上是等效的，有没有非常干净清爽的感觉？写过match表达式的码农，应该再也不想回去嵌套 **<\*>?<\*>:<\*>** 了。 （*注：目前这种写法还未确认，C#7.0发布后可能会有略微变动*）   **Is表达式** 如果说上面两个变化是“语法糖”，那么**is表达式**可是要玩真的了。 说点题外话，其实对**正则表达式**熟悉的童鞋可能知道，本质上\*\*\[模式匹配]**和正则表达式要解决的问题**逻辑**类似，以一个确定的模式，来判断或查找一个确定的实例**。只不过在正则表达式中，这里说的"模式"是正则表达式，"实例"指字符串。而\[模式匹配]下，所针对的"实例"是对象，那么"模式"，就可以理解成is表达式\*\*了。 举个例子，比如你要查找并列出 一组电子设备中，所有iPhone的IMEI串号，我们在C#6.0中，会这样做： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 class Device 2 { 3     public ProductLineOption ProductLine { get; set; } 4 } 5 6 class MobiePhone : Device 7 { 8     public string IMEICode { get; set; } 9 } 10 11 IEnumerable<Device> GetAllDevices() { /\* 获取并返回所有设备 \*/ }; 12 13 IEnumerable<string> GetAlliPhoneIMEI() 14 { 15     var deviceList = this.GetAllDevices(); 16     foreach (Device device in deviceList) 17     { 18         MobiePhone phone = device as MobiePhone; 19         if (phone == null) continue; 20 21         if (phone.ProductLine == ProductLineOption.IPhone) 22         { 23             yield return phone.IMEICode; 24         } 25     } 26 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 一个非常典型的传统方法，没什么好说的。我们直接来看C#7.0 中\*\* is表达式\*\*怎么等效的实现这段逻辑： [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 1 IEnumerable<string> GetAlliPhoneIMEI() 2 { 3     List<Device> deviceList = this.GetAllDevices(); 4     foreach (Device device in deviceList) 5     { 6         if (device is MobiePhone { IMEICode is var imei, ProductLine is ProductLineOption.IPhone}) 7         { 8             yield return imei; 9         } 10     } 11 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码") 如果你还是觉得这没什么，那么，其实这个例子中，仅仅体现出模式匹配中的**属性模式**。 根据Doc:#[patterns](https://github.com/dotnet/roslyn/blob/future/docs/features/patterns.md) C#7.0会提供一下几种匹配方式：
 
     * 类型模式
     * 常量模式
@@ -394,10 +394,10 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
         38         {
         39             if (a is Cat { Name is var name }) //类型及属性匹配，is表达式
         40             {
-        41                 Console.WriteLine($`"Name of {nameof(Cat)} is {name}"); 42             } 43 44             string sound = ""; 45             switch (a) //匹配switch语句 46             { 47                 case Dog d when d.Name == "hola": 48                     sound = "woof... hola" + d.BarkLikeCrazy(); 49                     break; 50                 case Dog d: 51                     sound = "woof..." + d.BarkLikeCrazy(); 52                     break; 53                 case Cat c: 54                     sound = "meow"; 55                     break; 56                 case IEnumerable\<Animal> l when l.Any(): 57                     //TODO: any logic; 58                     break; 59                 case null: 60                     sound = "no animal"; 61                     break; 62                 default: 63                     sound = "I'm mute.."; 64                     break; 65             } 66             Console.WriteLine(\$"{a.ToString()} - {sound}"); 67         } 68     } 69 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")   
+        41                 Console.WriteLine($`"Name of {nameof(Cat)} is {name}"); 42             } 43 44             string sound = ""; 45             switch (a) //匹配switch语句 46             { 47                 case Dog d when d.Name == "hola": 48                     sound = "woof... hola" + d.BarkLikeCrazy(); 49                     break; 50                 case Dog d: 51                     sound = "woof..." + d.BarkLikeCrazy(); 52                     break; 53                 case Cat c: 54                     sound = "meow"; 55                     break; 56                 case IEnumerable<Animal> l when l.Any(): 57                     //TODO: any logic; 58                     break; 59                 case null: 60                     sound = "no animal"; 61                     break; 62                 default: 63                     sound = "I'm mute.."; 64                     break; 65             } 66             Console.WriteLine(\$"{a.ToString()} - {sound}"); 67         } 68     } 69 } [![复制代码](https://common.cnblogs.com/images/copycode.gif "复制代码")](javascript\:void\(0\); "复制代码")   
 * 本地函数【内部函数，让我想起了 Delphi】 public class C { public void M() { int result = add(100, 200); // 本地函数 add int add(int a, int b) { return a + b; } } }
 * ref 局部变量【指针既视感】 而ref参数的行为与此不同。使用ref参数，不会创建开辟新的空间，而是调用放提供一个现有的包含初始值的空间。可以理解为一个空间同时被两个地址指向：一个是调用方使用的该变量的表示，另一个是形参的名称。
-* 弃元【(\_, \_, foo) = bar.baz();，配合元组，你可以给，但我可以不要。】 弃元相当于未赋值的变量；它们没有值。 因为只有一个弃元变量，甚至不为该变量分配存储空间，所以弃元可减少内存分配。 因为它们使代码的意图清楚，增强了其可读性和可维护性。 using System; using System.Collections.Generic; public class Example { public static void Main() { var (\_, \_, \_, pop1, \_, pop2) = QueryCityDataForYears("New York City", 1960, 2010);
+* 弃元【(_, _, foo) = bar.baz();，配合元组，你可以给，但我可以不要。】 弃元相当于未赋值的变量；它们没有值。 因为只有一个弃元变量，甚至不为该变量分配存储空间，所以弃元可减少内存分配。 因为它们使代码的意图清楚，增强了其可读性和可维护性。 using System; using System.Collections.Generic; public class Example { public static void Main() { var (_, _, _, pop1, _, pop2) = QueryCityDataForYears("New York City", 1960, 2010);
 
                 Console.WriteLine($"Population change, 1960 to 2010: {pop2 - pop1:N0}");
             }
@@ -472,7 +472,7 @@ C# 8.0 发布日期：2019 年 9 月 C# 8.0 版是专门面向 .NET C# Core 的�
 
 ### 集合类型
 
-> ArrayList ArrayList是List接口的可变数组非同步实现，并允许包括null在内的所有元素，相当于List < object> List < T > 泛型的List 类是一个不限长度的集合类型，它内部实际就是一个数组，初始长度是4，每次数组到达限制，就会把现有容量翻倍，它提供用于对集合进行搜索、排序和操作等方法 List是数组链表，数组链表访问快,复杂度O(1),但是添加删除复杂度O(n) LinkedList LinkedList是List接口的双向链表非同步实现，并允许包括null在内的所有元素。底层的数据结构是基于双向链表的，LinkedList是指针链表，指针链表访问复杂度是O(n),但是添加删除很快O(1),如果对这个集合在中间的添加删除操作非常频繁的话，就建议使用LinkedList。 Dictionary < K, V> 存储键值对的关联性集合，查询等操作速度很快,因为它的时间复杂度是O(1)，单线程中推荐使用Dictionary,有泛型优势,且读取速度较快,容量利用更充分. Hashtable Hashtable是System.Collections命名空间提供的一个容器，用于处理和表现类似key/value的键值对 Hashtable使用了闭散列法来解决冲突，它通过一个结构体bucket来表示哈希表中的单个元素，这个结构体中有三个成员： （1） key ：表示键，即哈希表中的关键字。 （2） val ：表示值，即跟关键字所对应值。 （3） hash\_coll ：它是一个int类型，用于表示键所对应的哈希码。 哈希表的所有元素存放于一个名称为buckets（又称为数据桶） 的bucket数组之中 优点： （1）在使用哈希表保存集合元素（一种键/值对）时，首先要根据键自动计算哈希代码，以确定该元素的保存位置，再把元素的值放入相应位置所指向的存储桶中。在查找时，再次通过键所对应的哈希代码到特定存储桶中搜索，这样将大大减少为查找一个元素进行比较的次数 （2）多线程程序中推荐使用Hashtable，对Hashtable进一步调用Synchronized()方法可以获得完全线程安全的类型 Dictionary< TKey, TValue> 是 Hashtable 的泛型版本，它们之间实现上区别不大，运行效率上有一些差别 Hashtable由于键值类型都object，所以涉及装箱拆箱操作，在添加数据的效率上要差一些，但是频繁使用数据时效率更高，HashTable的优点就在于其索引的方式，速度非常快。如果以任意类型键值访问其中元素会快于其他集合，特别是当数据量特别大的时候，效率差别尤其大。 SortedList 表示基于相关的 IComparer 实现按键进行排序的键/值对的集合,与哈希表类似，区别在于SortedList中的Key数组排好序的 堆栈（Stack） 表示对象的简单的后进先出非泛型集合。Push方法入栈，Pop方法出栈 队列（Queue） 队列先进先出,enqueue方法入队列，dequeue方法出队列 SortedList< TKey,TValue> SortedList< TKey,TValue>是支持排序的关联性集合，将数据存储在数组中的。也就是说添加和移除操作都是线性的，时间复杂度是O(n)，因为操作其中的元素可能导致所有的数据移动。但是因为在查找的时候利用了二分搜索，所以查找的性能会好一些，时间复杂度是O(log n)。所以推荐使用场景是这样地：如果你想要快速查找，又想集合按照key的顺序排列，最后这个集合的操作（添加和移除）比较少的话，就是SortedList了。集合中的数据是有序的。可以通过key来匹配数据，也可以通过int下标来获取数据。 添加操作比ArrayList，Hashtable略慢；查找、删除操作比ArrayList快，比Hashtable慢 10）SortedDictioanry< TKey,TValue> SortedDictionary< TKey,TValue>和Dictionary< TKey,TValue>大致上是类似的，但是在实现方式上有一点点区别SortedDictionary< TKey,TValue>用二叉树作为存储结构的。并且按key的顺序排列　　SortedDictionary< TKey,TValue>相比于SortedList< TKey,TValue>其性能优化了 SortedList< TKey,TValue>其内部维护的是数组而SortedDictionary< TKey,TValue>内部维护的是\*\*红黑树(平衡二叉树)\*\*的一种，因此其占用的内存，性能都好于SortedDictionary< TKey,TValue>　唯一差在不能用下标取值。 HashSet< T> HashSet是一个无序的能够保持唯一性的集合,不支持下标访问。 SortedSet< T> SortedSet内部也是一个二叉树，用来支持按顺序的排列元素。算法，存储结构都与哈希表相同，主要是设计用来做高性能集运算的，例如对两个集合求交集、并集、差集等。集合中包含一组不重复出现且无特定顺序的元素。 BitArray BitArray用于二进制运算，“或”、“非”、“与”、"异或非"等这种操作，只能存true或false； ListDictionary 单向链表，每次添加数据时都要遍历链表，数据量大时效率较低，数据量较大且插入频繁的情况下，不宜选用 HybridDictionary HybridDictionary的类，充分利用了Hashtable查询效率高和ListDictionary占用内存空间少的优点，内置了Hashtable和ListDictionary两个容器，添加数据时内部逻辑如下： 当数据量小于8时，Hashtable为null，用ListDictionary保存数据。 当数据量大于8时，实例化Hashtable，数据转移到Hashtable中，然后将　　ListDictionary置为null。
+> ArrayList ArrayList是List接口的可变数组非同步实现，并允许包括null在内的所有元素，相当于List < object> List < T > 泛型的List 类是一个不限长度的集合类型，它内部实际就是一个数组，初始长度是4，每次数组到达限制，就会把现有容量翻倍，它提供用于对集合进行搜索、排序和操作等方法 List是数组链表，数组链表访问快,复杂度O(1),但是添加删除复杂度O(n) LinkedList LinkedList是List接口的双向链表非同步实现，并允许包括null在内的所有元素。底层的数据结构是基于双向链表的，LinkedList是指针链表，指针链表访问复杂度是O(n),但是添加删除很快O(1),如果对这个集合在中间的添加删除操作非常频繁的话，就建议使用LinkedList。 Dictionary < K, V> 存储键值对的关联性集合，查询等操作速度很快,因为它的时间复杂度是O(1)，单线程中推荐使用Dictionary,有泛型优势,且读取速度较快,容量利用更充分. Hashtable Hashtable是System.Collections命名空间提供的一个容器，用于处理和表现类似key/value的键值对 Hashtable使用了闭散列法来解决冲突，它通过一个结构体bucket来表示哈希表中的单个元素，这个结构体中有三个成员： （1） key ：表示键，即哈希表中的关键字。 （2） val ：表示值，即跟关键字所对应值。 （3） hash_coll ：它是一个int类型，用于表示键所对应的哈希码。 哈希表的所有元素存放于一个名称为buckets（又称为数据桶） 的bucket数组之中 优点： （1）在使用哈希表保存集合元素（一种键/值对）时，首先要根据键自动计算哈希代码，以确定该元素的保存位置，再把元素的值放入相应位置所指向的存储桶中。在查找时，再次通过键所对应的哈希代码到特定存储桶中搜索，这样将大大减少为查找一个元素进行比较的次数 （2）多线程程序中推荐使用Hashtable，对Hashtable进一步调用Synchronized()方法可以获得完全线程安全的类型 Dictionary< TKey, TValue> 是 Hashtable 的泛型版本，它们之间实现上区别不大，运行效率上有一些差别 Hashtable由于键值类型都object，所以涉及装箱拆箱操作，在添加数据的效率上要差一些，但是频繁使用数据时效率更高，HashTable的优点就在于其索引的方式，速度非常快。如果以任意类型键值访问其中元素会快于其他集合，特别是当数据量特别大的时候，效率差别尤其大。 SortedList 表示基于相关的 IComparer 实现按键进行排序的键/值对的集合,与哈希表类似，区别在于SortedList中的Key数组排好序的 堆栈（Stack） 表示对象的简单的后进先出非泛型集合。Push方法入栈，Pop方法出栈 队列（Queue） 队列先进先出,enqueue方法入队列，dequeue方法出队列 SortedList< TKey,TValue> SortedList< TKey,TValue>是支持排序的关联性集合，将数据存储在数组中的。也就是说添加和移除操作都是线性的，时间复杂度是O(n)，因为操作其中的元素可能导致所有的数据移动。但是因为在查找的时候利用了二分搜索，所以查找的性能会好一些，时间复杂度是O(log n)。所以推荐使用场景是这样地：如果你想要快速查找，又想集合按照key的顺序排列，最后这个集合的操作（添加和移除）比较少的话，就是SortedList了。集合中的数据是有序的。可以通过key来匹配数据，也可以通过int下标来获取数据。 添加操作比ArrayList，Hashtable略慢；查找、删除操作比ArrayList快，比Hashtable慢 10）SortedDictioanry< TKey,TValue> SortedDictionary< TKey,TValue>和Dictionary< TKey,TValue>大致上是类似的，但是在实现方式上有一点点区别SortedDictionary< TKey,TValue>用二叉树作为存储结构的。并且按key的顺序排列　　SortedDictionary< TKey,TValue>相比于SortedList< TKey,TValue>其性能优化了 SortedList< TKey,TValue>其内部维护的是数组而SortedDictionary< TKey,TValue>内部维护的是\*\*红黑树(平衡二叉树)\*\*的一种，因此其占用的内存，性能都好于SortedDictionary< TKey,TValue>　唯一差在不能用下标取值。 HashSet< T> HashSet是一个无序的能够保持唯一性的集合,不支持下标访问。 SortedSet< T> SortedSet内部也是一个二叉树，用来支持按顺序的排列元素。算法，存储结构都与哈希表相同，主要是设计用来做高性能集运算的，例如对两个集合求交集、并集、差集等。集合中包含一组不重复出现且无特定顺序的元素。 BitArray BitArray用于二进制运算，“或”、“非”、“与”、"异或非"等这种操作，只能存true或false； ListDictionary 单向链表，每次添加数据时都要遍历链表，数据量大时效率较低，数据量较大且插入频繁的情况下，不宜选用 HybridDictionary HybridDictionary的类，充分利用了Hashtable查询效率高和ListDictionary占用内存空间少的优点，内置了Hashtable和ListDictionary两个容器，添加数据时内部逻辑如下： 当数据量小于8时，Hashtable为null，用ListDictionary保存数据。 当数据量大于8时，实例化Hashtable，数据转移到Hashtable中，然后将　　ListDictionary置为null。
 
 ## 类
 
@@ -533,7 +533,7 @@ C# 8.0 发布日期：2019 年 9 月 C# 8.0 版是专门面向 .NET C# Core 的�
 
 ## 异步编程
 
-async和await的概念 async：将方法标记为异步方法，表示该方法包含异步操作。 await：用于等待一个异步操作完成，然后继续执行下面的代码。await只能在async方法内部使用。 Task和Task 在异步编程中，经常使用Task和Task\<T>来表示异步操作的结果。Task表示一个异步操作，而Task\<T>表示一个异步操作的结果。 异步和多线程的区别 异步编程和多线程是不同的概念。异步编程不一定涉及多线程，而是利用异步任务的等待和非阻塞特性来提高程序的并发性。多线程是通过创建多个线程来实现并发执行。&#x20;
+async和await的概念 async：将方法标记为异步方法，表示该方法包含异步操作。 await：用于等待一个异步操作完成，然后继续执行下面的代码。await只能在async方法内部使用。 Task和Task 在异步编程中，经常使用Task和Task<T>来表示异步操作的结果。Task表示一个异步操作，而Task<T>表示一个异步操作的结果。 异步和多线程的区别 异步编程和多线程是不同的概念。异步编程不一定涉及多线程，而是利用异步任务的等待和非阻塞特性来提高程序的并发性。多线程是通过创建多个线程来实现并发执行。&#x20;
 
     class Program
     {
@@ -561,11 +561,11 @@ async和await的概念 async：将方法标记为异步方法，表示该方法�
 
 ## Fluent API(流式接口)
 
-> 是软件工程中面向对象API的一种实现方式,以提供更为可读的源码。从表现上来看,接口调用呈现链式调用(瀑布式调用),看起来非常流畅,荡气回肠 StringBuilder sb = new StringBuilder() .append(1) .append("2") .append(1.1); modelBuilder.Entity\<Person>().Property(p => p.RowVersion).IsRowVersion();
+> 是软件工程中面向对象API的一种实现方式,以提供更为可读的源码。从表现上来看,接口调用呈现链式调用(瀑布式调用),看起来非常流畅,荡气回肠 StringBuilder sb = new StringBuilder() .append(1) .append("2") .append(1.1); modelBuilder.Entity<Person>().Property(p => p.RowVersion).IsRowVersion();
 
 ## 委托
 
-委托是C#中的一种引用类型,委托的本质是一个类,定义了方法的类型,是将方法作为参数传递到另一个方法的特殊类。 匿名函数 匿名函数是一个“内联”语句或表达式，可在需要委托类型的任何地方使用。 可以使用匿名函数来初始化命名委托，或传递命名委托（而不是命名委托类型）作为方法参数。 C#中有两种匿名函数：Lambda 表达式 和 匿名方法。 委托的使用 声明委托 private delegate void Delegate1(string parm1); 实例化委托 Delegate1 d1 = new Delegate1(OnDelegate1); 调用委托 d("teststr"); C#内置了许多泛型委托，可以直接使用 Action Action是无返回值的泛型委托。Action 表示无参，无返回值的委托 Action\<int,string> 表示有传入参数int,string无返回值的委托 Action\<int,string,bool> 表示有传入参数int,string,bool无返回值的委托 Action\<int,int,int,int> 表示有传入4个int型参数，无返回值的委托 Action至少0个参数，至多16个参数，无返回值。 使用比较简单 Action\<string> action1 = new Action\<string>(OnAction1);直接 action1("action1")就可以调用。 Func委托 Func是有返回值的泛型委托，<>中，最后一个类型为返回值类型。 Func\<int> 表示无参，返回值为int的委托 Func\<object,string,int> 表示传入参数为object, string 返回值为int的委托 Func至少0个参数，至多16个参数，根据返回值泛型返回。必须有返回值，不可void 实例化 Func\<string, string, int> func2 = new Func\<string, string, int>(OnFunc2); 调用 func2("name1", "name2")。 Predicate委托 表示一种方法，该方法定义一组条件并确定指定对象是否符合这些条件。 其实就是类似t=>t.GameID==gameInfo.GameID public delegate bool Predicate\<in T>(T obj); Predicate 是返回bool型的泛型委托 Predicate有且只有一个参数，返回值固定为bool 关于委托的总结 委托类似于 C++ 函数指针，但它们是类型安全的。 委托允许将方法作为参数进行传递。 委托可用于定义回调方法。 委托可以链接在一起；例如，可以对一个事件调用多个方法。 Delegate至少0个参数，至多32个参数，可以无返回值，也可以指定返回值类型 Func可以接受0个至16个传入参数，必须具有返回值 Action可以接受0个至16个传入参数，无返回值 Predicate只能接受一个传入参数，返回值为bool类型
+委托是C#中的一种引用类型,委托的本质是一个类,定义了方法的类型,是将方法作为参数传递到另一个方法的特殊类。 匿名函数 匿名函数是一个“内联”语句或表达式，可在需要委托类型的任何地方使用。 可以使用匿名函数来初始化命名委托，或传递命名委托（而不是命名委托类型）作为方法参数。 C#中有两种匿名函数：Lambda 表达式 和 匿名方法。 委托的使用 声明委托 private delegate void Delegate1(string parm1); 实例化委托 Delegate1 d1 = new Delegate1(OnDelegate1); 调用委托 d("teststr"); C#内置了许多泛型委托，可以直接使用 Action Action是无返回值的泛型委托。Action 表示无参，无返回值的委托 Action<int,string> 表示有传入参数int,string无返回值的委托 Action<int,string,bool> 表示有传入参数int,string,bool无返回值的委托 Action<int,int,int,int> 表示有传入4个int型参数，无返回值的委托 Action至少0个参数，至多16个参数，无返回值。 使用比较简单 Action<string> action1 = new Action<string>(OnAction1);直接 action1("action1")就可以调用。 Func委托 Func是有返回值的泛型委托，<>中，最后一个类型为返回值类型。 Func<int> 表示无参，返回值为int的委托 Func<object,string,int> 表示传入参数为object, string 返回值为int的委托 Func至少0个参数，至多16个参数，根据返回值泛型返回。必须有返回值，不可void 实例化 Func<string, string, int> func2 = new Func<string, string, int>(OnFunc2); 调用 func2("name1", "name2")。 Predicate委托 表示一种方法，该方法定义一组条件并确定指定对象是否符合这些条件。 其实就是类似t=>t.GameID==gameInfo.GameID public delegate bool Predicate<in T>(T obj); Predicate 是返回bool型的泛型委托 Predicate有且只有一个参数，返回值固定为bool 关于委托的总结 委托类似于 C++ 函数指针，但它们是类型安全的。 委托允许将方法作为参数进行传递。 委托可用于定义回调方法。 委托可以链接在一起；例如，可以对一个事件调用多个方法。 Delegate至少0个参数，至多32个参数，可以无返回值，也可以指定返回值类型 Func可以接受0个至16个传入参数，必须具有返回值 Action可以接受0个至16个传入参数，无返回值 Predicate只能接受一个传入参数，返回值为bool类型
 
 ## 事件
 
@@ -661,17 +661,17 @@ Mutex可以实现进程同步，互斥锁的带有三个参数的构造函数
 
 > 该锁确保在对资源获取赋值或更新时，只有它自己可以访问这些资源，其他线程都不可以访问。即排它锁。 readerwritelock.AcquireWriterLock(t); readerwritelock.ReleaseWriterLock();
 
-### Task,Task\<T>
+### Task,Task<T>
 
 public class Task : IAsyncResult, IDisposable&#x20;
 
 > 属性&#x20;
 
-AsyncState获取在创建 Task 时提供的状态对象，如果未提供，则为 null。 CompletedTask获取一个已成功完成的任务。 CreationOptions 获取用于创建此任务的 TaskCreationOptions。 CurrentId返回当前正在执行 Task 的 ID。 Exception获取导致 AggregateException 提前结束的 Task。 如果 Task 成功完成或尚未引发任何异常，这将返回 null。 Factory提供对用于创建和配置 Task 和 Task\<TResult实例的工厂方法的访问。 Id获取此 Task 实例的 ID。 IsCanceled获取此 Task 实例是否由于被取消的原因而已完成执行。 IsCompleted获取一个值，它表示是否已完成任务。 IsCompletedSuccessfully 了解任务是否运行到完成。 IsFaulted 获取 Task 是否由于未经处理异常的原因而完成。 Status获取此任务的 TaskStatus。
+AsyncState获取在创建 Task 时提供的状态对象，如果未提供，则为 null。 CompletedTask获取一个已成功完成的任务。 CreationOptions 获取用于创建此任务的 TaskCreationOptions。 CurrentId返回当前正在执行 Task 的 ID。 Exception获取导致 AggregateException 提前结束的 Task。 如果 Task 成功完成或尚未引发任何异常，这将返回 null。 Factory提供对用于创建和配置 Task 和 Task<TResult实例的工厂方法的访问。 Id获取此 Task 实例的 ID。 IsCanceled获取此 Task 实例是否由于被取消的原因而已完成执行。 IsCompleted获取一个值，它表示是否已完成任务。 IsCompletedSuccessfully 了解任务是否运行到完成。 IsFaulted 获取 Task 是否由于未经处理异常的原因而完成。 Status获取此任务的 TaskStatus。
 
 > 方法
 
-ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创建一个在目标 Task 完成时接收调用方提供的状态信息并执行的延续任务。 Delay创建一个在指定的毫秒数后完成的任务。 Dispose释放 Task 类的当前实例所使用的所有资源。 FromCanceled\<TResult>(CancellationToken)创建 Task\<TResult>，它因指定的取消标记进行的取消操作而完成。 FromException(Exception)创建 Task，它在完成后出现指定的异常。 FromException\<TResult>(Exception)创建 Task\<TResult>，它在完成后出现指定的异常。 FromResult\<TResult>(TResult)创建指定结果的、成功完成的 Task\<TResult>。 GetAwaiter()获取用于等待此 Task 的 awaiter。 Run将在线程池上运行的指定工作排队，并返回代表该工作的 Task 对象。 可使用取消标记来取消工作（如果尚未启动）。 RunSynchronously对当前的 Task 同步运行 TaskScheduler。 Start启动 Task，并将它安排到当前的 TaskScheduler 中执行。 Wait等待 Task 完成执行过程。 如果在任务完成之前取消标记已取消，等待将终止。 WaitAll等待提供的所有 Task 对象完成执行过程。 WaitAny等待提供的任一 Task 对象完成执行过程。 WaitAsync获取一个 ， Task 它将在完成此操作 Task 或指定的 CancellationToken 请求取消时完成。 WhenAll创建一个任务，该任务将在可枚举集合中的所有 Task 对象都已完成时完成。 WhenAny任何提供的任务已完成时，创建将完成的任务。 Yield()创建异步产生当前上下文的等待任务。
+ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创建一个在目标 Task 完成时接收调用方提供的状态信息并执行的延续任务。 Delay创建一个在指定的毫秒数后完成的任务。 Dispose释放 Task 类的当前实例所使用的所有资源。 FromCanceled<TResult>(CancellationToken)创建 Task<TResult>，它因指定的取消标记进行的取消操作而完成。 FromException(Exception)创建 Task，它在完成后出现指定的异常。 FromException<TResult>(Exception)创建 Task<TResult>，它在完成后出现指定的异常。 FromResult<TResult>(TResult)创建指定结果的、成功完成的 Task<TResult>。 GetAwaiter()获取用于等待此 Task 的 awaiter。 Run将在线程池上运行的指定工作排队，并返回代表该工作的 Task 对象。 可使用取消标记来取消工作（如果尚未启动）。 RunSynchronously对当前的 Task 同步运行 TaskScheduler。 Start启动 Task，并将它安排到当前的 TaskScheduler 中执行。 Wait等待 Task 完成执行过程。 如果在任务完成之前取消标记已取消，等待将终止。 WaitAll等待提供的所有 Task 对象完成执行过程。 WaitAny等待提供的任一 Task 对象完成执行过程。 WaitAsync获取一个 ， Task 它将在完成此操作 Task 或指定的 CancellationToken 请求取消时完成。 WhenAll创建一个任务，该任务将在可枚举集合中的所有 Task 对象都已完成时完成。 WhenAny任何提供的任务已完成时，创建将完成的任务。 Yield()创建异步产生当前上下文的等待任务。
 
     Task.Run(() =>
         {
@@ -682,7 +682,7 @@ ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创
 
 ### ThreadPool
 
-> QueueUserWorkItem(WaitCallback)	 将方法排入队列以便执行。 此方法在有线程池线程变得可用时执行。 WaitCallback的原型是public delegate void WaitCallback(object? state); QueueUserWorkItem(WaitCallback, Object)	 将方法排入队列以便执行，并指定包含该方法所用数据的对象。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem\<TState>(Action\<TState>, TState, Boolean) 将 Action\<T> 委托指定的方法排入队列以便执行，并提供该方法使用的数据。 此方法在有线程池线程变得可用时执行。 属性 CompletedWorkItemCount 获取迄今为止已处理的工作项数。 PendingWorkItemCount 获取当前已加入处理队列的工作项数。 ThreadCount 获取当前存在的线程池线程数。 方法 BindHandle(IntPtr) 已过时。 将操作系统句柄绑定到 ThreadPool。 BindHandle(SafeHandle) 将操作系统句柄绑定到 ThreadPool。 GetAvailableThreads(Int32, Int32) 检索由 GetMaxThreads(Int32, Int32) 方法返回的最大线程池线程数和当前活动线程数之间的差值。 GetMaxThreads(Int32, Int32) 检索可以同时处于活动状态的线程池请求的数目。 所有大于此数目的请求将保持排队状态，直到线程池线程变为可用。 GetMinThreads(Int32, Int32) 发出新的请求时，在切换到管理线程创建和销毁的算法之前检索线程池按需创建的线程的最小数量。 QueueUserWorkItem(WaitCallback) 将方法排入队列以便执行。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem(WaitCallback, Object) 将方法排入队列以便执行，并指定包含该方法所用数据的对象。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem\<TState>(Action\<TState>, TState, Boolean) 将 Action\<T> 委托指定的方法排入队列以便执行，并提供该方法使用的数据。 此方法在有线程池线程变得可用时执行。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int32, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 32 位有符号整数来表示超时值（以毫秒为单位）。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int64, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 64 位有符号整数来表示超时值（以毫秒为单位）。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, TimeSpan, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 TimeSpan 值来表示超时时间。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, UInt32, Boolean) 指定表示超时（以毫秒为单位）的 32 位无符号整数，注册一个委托等待 WaitHandle。 SetMaxThreads(Int32, Int32) 设置可以同时处于活动状态的线程池的请求数目。 所有大于此数目的请求将保持排队状态，直到线程池线程变为可用。 SetMinThreads(Int32, Int32) 发出新的请求时，在切换到管理线程创建和销毁的算法之前设置线程池按需创建的线程的最小数量。 UnsafeQueueNativeOverlapped(NativeOverlapped\*) 将重叠的 I/O 操作排队以便执行。 UnsafeQueueUserWorkItem(IThreadPoolWorkItem, Boolean) 将指定的工作项对象排队到线程池。 UnsafeQueueUserWorkItem(WaitCallback, Object) 将指定的委托排队到线程池，但不会将调用堆栈传播到辅助线程。 UnsafeQueueUserWorkItem\<TState>(Action\<TState>, TState, Boolean) 将 Action\<T> 委托指定的方法排入队列以便执行，并指定包含该方法使用的数据的对象。 此方法在有线程池线程变得可用时执行。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int32, Boolean) 注册一个等待 WaitHandle 的委托，并使用一个 32 位带符号整数来表示超时时间（以毫秒为单位）。 此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int64, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 64 位有符号整数来表示超时值（以毫秒为单位）。 此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, TimeSpan, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 TimeSpan 值来表示超时时间。此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, UInt32, Boolean) 指定表示超时（以毫秒为单位）的 32 位无符号整数，注册一个委托等待 WaitHandle。 此方法不将调用堆栈传播到辅助 ThreadPool.QueueUserWorkItem(o => { }, source);
+> QueueUserWorkItem(WaitCallback)	 将方法排入队列以便执行。 此方法在有线程池线程变得可用时执行。 WaitCallback的原型是public delegate void WaitCallback(object? state); QueueUserWorkItem(WaitCallback, Object)	 将方法排入队列以便执行，并指定包含该方法所用数据的对象。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem<TState>(Action<TState>, TState, Boolean) 将 Action<T> 委托指定的方法排入队列以便执行，并提供该方法使用的数据。 此方法在有线程池线程变得可用时执行。 属性 CompletedWorkItemCount 获取迄今为止已处理的工作项数。 PendingWorkItemCount 获取当前已加入处理队列的工作项数。 ThreadCount 获取当前存在的线程池线程数。 方法 BindHandle(IntPtr) 已过时。 将操作系统句柄绑定到 ThreadPool。 BindHandle(SafeHandle) 将操作系统句柄绑定到 ThreadPool。 GetAvailableThreads(Int32, Int32) 检索由 GetMaxThreads(Int32, Int32) 方法返回的最大线程池线程数和当前活动线程数之间的差值。 GetMaxThreads(Int32, Int32) 检索可以同时处于活动状态的线程池请求的数目。 所有大于此数目的请求将保持排队状态，直到线程池线程变为可用。 GetMinThreads(Int32, Int32) 发出新的请求时，在切换到管理线程创建和销毁的算法之前检索线程池按需创建的线程的最小数量。 QueueUserWorkItem(WaitCallback) 将方法排入队列以便执行。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem(WaitCallback, Object) 将方法排入队列以便执行，并指定包含该方法所用数据的对象。 此方法在有线程池线程变得可用时执行。 QueueUserWorkItem<TState>(Action<TState>, TState, Boolean) 将 Action<T> 委托指定的方法排入队列以便执行，并提供该方法使用的数据。 此方法在有线程池线程变得可用时执行。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int32, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 32 位有符号整数来表示超时值（以毫秒为单位）。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int64, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 64 位有符号整数来表示超时值（以毫秒为单位）。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, TimeSpan, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 TimeSpan 值来表示超时时间。 RegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, UInt32, Boolean) 指定表示超时（以毫秒为单位）的 32 位无符号整数，注册一个委托等待 WaitHandle。 SetMaxThreads(Int32, Int32) 设置可以同时处于活动状态的线程池的请求数目。 所有大于此数目的请求将保持排队状态，直到线程池线程变为可用。 SetMinThreads(Int32, Int32) 发出新的请求时，在切换到管理线程创建和销毁的算法之前设置线程池按需创建的线程的最小数量。 UnsafeQueueNativeOverlapped(NativeOverlapped\*) 将重叠的 I/O 操作排队以便执行。 UnsafeQueueUserWorkItem(IThreadPoolWorkItem, Boolean) 将指定的工作项对象排队到线程池。 UnsafeQueueUserWorkItem(WaitCallback, Object) 将指定的委托排队到线程池，但不会将调用堆栈传播到辅助线程。 UnsafeQueueUserWorkItem<TState>(Action<TState>, TState, Boolean) 将 Action<T> 委托指定的方法排入队列以便执行，并指定包含该方法使用的数据的对象。 此方法在有线程池线程变得可用时执行。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int32, Boolean) 注册一个等待 WaitHandle 的委托，并使用一个 32 位带符号整数来表示超时时间（以毫秒为单位）。 此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, Int64, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 64 位有符号整数来表示超时值（以毫秒为单位）。 此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, TimeSpan, Boolean) 注册一个等待 WaitHandle 的委托，并指定一个 TimeSpan 值来表示超时时间。此方法不将调用堆栈传播到辅助线程。 UnsafeRegisterWaitForSingleObject(WaitHandle, WaitOrTimerCallback, Object, UInt32, Boolean) 指定表示超时（以毫秒为单位）的 32 位无符号整数，注册一个委托等待 WaitHandle。 此方法不将调用堆栈传播到辅助 ThreadPool.QueueUserWorkItem(o => { }, source);
 
 ### CancellationTokenSource  取消线程任务
 
@@ -726,9 +726,9 @@ ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创
 
 ## 程序集加载和反射
 
-> （1）Assembly：定义和加载程序集，加载在程序集中的所有模块以及从此程序集中查找类型并创建该类型的实例。 创建带参数对象 Assembly assembly = Assembly.Load("TestClass");//加载程序集 Type type = assembly.GetType("TestClass.Person");//获取类名称（要带上命名空间） object o = Activator.CreateInstance(type, new object\[] {"a",666 });//创建Person实体,有参构造 Person person = o as Person; return person; （2）Module：获取包含模块的程序集以及模块中的类等，还可以获取在模块上定义的所有全局方法或其他特定的非全局方法。 （3）ConstructorInfo：获取构造函数的名称、参数、访问修饰符（如pulic 或private）和实现详细信息（如abstract或virtual）等。 （4）MethodInfo(GetMethod/GetMethods)：获取方法的名称、返回类型、参数、访问修饰符（如pulic 或private）和实现详细信息（如abstract或virtual）等。 调用方法 Assembly assembly= Assembly.Load("TestClass"); Type type = assembly.GetType("TestClass.Person"); object o = Activator.CreateInstance(type); MethodInfo methodInfo = type.GetMethod("getName1"); string result=methodInfo.Invoke(o, new object\[] { "这是传入参数" }).ToString(); return result; （5）FiedInfo(GetField/GetFields)：获取字段的名称、访问修饰符（如public或private）和实现详细信息（如static）等，并获取或设置字段值。 （6）EventInfo(GetEvent/GetEvents)：获取事件的名称、事件处理程序数据类型、自定义属性、声明类型和反射类型等，添加或移除事件处理程序。 （7）PropertyInfo(GetProperty/GetProperties)：获取属性的名称、数据类型、声明类型、反射类型和只读或可写状态等，获取或设置属性值。 （8）ParameterInfo：获取参数的名称、数据类型、是输入参数还是输出参数，以及参数在方法签名中的位置等。 （9）MemberInfo(GetMember/GetMembers):获取字段、事件、属性等各种信息 对于 Web 性能优化，您有哪些了解和经验吗？ 前端优化 （1）减少 HTTP 请求的次数。 （2）启用浏览器缓存。 （3）css文件放 在里面，js文件尽量放在页面的底部。因为请求js文件是很花费时间，如果放在里面，就会导致页面的 DOM树呈现需要等待js文件加载完成。这也就是为什么很多网站的源码里面看到引用的文件放在最后的原因。 （4）使用压缩的css和js文件。这个不用多说，网络流量小。 （5）如果条件允许，尽量使用CDN的方式引用文件，这样就能减少网络流量。 （6）在写js和css的语法时，尽量避免重复的css，尽量减少js里面循环的次数，诸如此类。 2、后端优化： （1）程序的优化：减少代码的层级结构、避免循环嵌套、避免循环CURD数据库、优化算法等等。 （2）数据库的优化：启用数据库缓存、常用的字段建索引、尽量避免大事务操作、避免select \* 的写法、尽量不用in和not in 这种耗性能的用法等等。 （3）服务器优化：负载均衡、Web服务器和数据库分离、UI和Service分离等等。 MVC理解 MVC，顾名思义，Model、View、Controller。所有的 界面代码放在View里面，所有涉及和界面交互以及URL路由相关的逻辑都在Controller里面，Model提供数据模型。MVC的架构方式会让系 统的可维护性更高，使得每一部分更加专注自己的职责，并且MVC提供了强大的路由机制，方便了页面切换和界面交互。然后可以结合和WebForm的比较， 谈谈MVC如何解决复杂的控件树生成、如何避免了复杂的页面生命周期。 路由： 1、首先我们要理解MVC中路由的作用：url Routing的作用是将浏览器的URL请求映射到特定的MVC控制器动作。 2、当我们访问<http://localhost:8080/Home/Index> 这个地址的时候，请求首先被UrlRoutingModule截获，截获请求后，从Routes中得到与当前请求URL相符合的RouteData对象， 将RouteData对象和当前URL封装成一个RequestContext对象，然后从Requestcontext封装的RouteData中得到 Controller名字，根据Controller的名字，通过反射创建控制器对象，这个时候控制器才真正被激活，最后去执行控制器里面对应的 action。 谈谈你觉得做的不错系统，大概介绍下用到了哪些技术 这是一道非常开放的面试题,是想通过这个问题快速了解面试者的技术水平。此题只要结合你最近项目用到的技术谈谈就好了。 说说你最擅长的技术？并说说你是如何使用的？ 简单谈谈MEF在我们项目里面的使用吧。 在谈MEF之前，我们必须要先谈谈DIP、IOC、DI 依赖倒置原则（DIP）：一种软件架构设计的原则（抽象概念） 控制反转（IoC）：一种反转流、依赖和接口的方式（DIP的具体实现方式）。 依赖注入（DI）：IoC的一种实现方式，用来反转依赖（IoC的具体实现方式）。   IIS的工作原理 1、当客户端发送HTTP Request时，服务端的HTTP.sys（可以理解为IIS的一个监听组件） 拦截到这个请求； 2、HTTP.sys 联系 WAS 向配置存储中心请求配置信息。 3、然后将请求传入IIS的应用程序池。 4、检查请求的后缀，启动aspnet\_isapi.dll这个dll，这个dll是.net framework里面的，也就是说到这一步，请求进入了.net framework的管辖范围。 5、这个时候如果是WebForm，开始执行复杂的页面生命周期（HttpRuntime→ProcessRequest→HttpContext→HttpHandler）；如果是MVC，则启动mvc的路由机制，根据路由规则为URL来指定HttpHandler。 6、httpHandler处理请求后，请求结束，给出Response，客户端处理响应，整个过程结束。 Http协议 1、http协议是浏览器和服务器双方共同遵循的规范，是一种基于TCP/IP应用层协议。 2、http是一种典型的请求/响应协议。客户端发送请求，请求的内容以及参数存放到请求报文里面，服务端收到请求后，做出响应，返回响应的结果放到响应报文里面。通过F12可以查看请求报文和响应报文。 3、http协议是”无状态”的，当客户端向服务端发送一次http请求后，服务端收到请求然后返回给客户端相应的结果，服务器会立即断开连接并释放资源。在实际开发过程中，我们有时需要“保持”这种状态，所以衍生出了Session/Cookie这些技术。 4、http请求的方式主要有get/post。 5、http状态码最好记几个，博主有一次面试就被问到了。200（请求成功）、404（请求的资源不存在）、403（禁止访问）、5xx（服务端错误） 关于代码优化你怎么理解？你会考虑去代码重构吗？ 1、对于代码优化，之前的公司每周会做代码审核，审核的主要作用就是保证代码的正确性和执行效率，比如减少代码的层级结构、避免循环嵌套、避免循环CURD数据库、尽量避免一次取出大量数据放在内存中（容易内存溢出）、优化算法等。 2、对于陈旧代码，可能很多地方有调用，并且开发和维护人员很有可能不是同一个人，所以重构时要格外小心，如果没有十足的把握，不要轻易重构。如果必须要重构，必须做好充分的单元测试和全局测试。 谈谈你的优点和缺点？ 这个问题仁者见仁智者见智。 网站运行慢，如何定位问题？发现问题如何解决？ 浏览器F12→网络→查看http请求数以及每个请求的耗时，找到问题的根源，然后依次解决，解决方案可以参考问题一里面的Web优化方案。 可以使用Fiddler等嗅探工具查看网络请求长度和数据包大小等，然后更具相应数据推断出现问题的点，并进行重点优化。 线程与进程的区别 进程是一个可拥有资源的独立单位 线程是可独立调度和分派的基本单位 ASP.NET 页面之间传递值的几种方式。  使用Querystring 方法：QueryString 也叫查询字符串， 这种方法将要传递的数据附加在网页地址(URL)后面进行传递。如页面A.aspx 跳转到页面B.aspx，可以用Request.Redirect("B.aspx?参数名称=参数值")方法，也可以用超链接：，页面跳转后，在目标页面中可用Ruquest\["参数名称"]来接收参数。使用QuerySting 方法的优点是实现简单， 不使用服务器资源；缺点是传递的值会显示在浏览器的地址栏上，有被篡改的风险，不能传递对象，只有在通过URL 请求页时查询字符串才是可行的。 利用隐藏域：隐藏域不会显示在用户的浏览器中， 一般是在页面中加入一个隐藏控件， 与服务器进行交互时把值赋给隐藏控件并提交给下一页面。隐藏域可以是任何存储在网页中的与网页有关的信息的存储库。使用隐藏域存入数值时用：hidden 控件.value=数值，取出接收数值时用：变量=hidden 控件.value。使用隐藏域的优点是实现简单， 隐藏域是标准的HTML 控件，不需要复杂的编程逻辑。隐藏域在页上存储和读取，不需要任何服务器资源，几乎所有浏览器和客户端设备都支持具有隐藏域的窗体。缺点是存储结构少，仅仅支持简单的数据结构，存储量少，因为它被存储在页面本身，所以无法存储较大的值，而且大的数据量会受到防火墙和代理的阻止。 ViewState：ViewState 是由ASP.NET 页面框架管理的一个隐藏的窗体字段。当ASP.NET 执行某个页面时，该页面上的ViewState 值和所有控件将被收集并格式化成一个编码字符串， 然后被分配给隐藏窗体字段的值属性。使用ViewState 传递数据时可用：ViewState \[" 变量名"]=数值，在取出数据时用：变量=ViewState\["变量名"]。使用ViewState 的优点是：在对同一页的多个请求间自动保留值，不用服务器端资源，实现简单，视图状态中的值经过哈希计算和压缩，并且针对Unicode 实现进行编码，其安全性要高于使用隐藏域；缺点是因为ViewState 存储在页面本身，因此如果存储较大的值，用户显示页和发送页时的速度可能会减慢。虽然视图状态以哈希格式存储数据，但它仍可以被篡改。 在MVC中则有ViewData,ViewBag,TempData。 使用Cookie：Cookie 可以在页面之间传递少量信息， 可以存储在客户端的文本文件中，也可存储在客户端的内存中。Cookie 方法适用于存储少量页面中经常改动的信息， 如为登陆过的网站保存登陆用户名，为用户输入提供方便，还有在一些用户自定义项目上保存用户的个性化设置。使用Cookie传递数据时可用：Response.Cookies\["键名"]=键值；取出数据用：变量名=Request.Cookies\["键名"]。使用Cookie 优点是：Cookie 存储在客户端， 不使用服务器资源，实现简单，可配置到期时间。缺点是：可以存储的数据量比较少，由于Cookie 并不被所有的浏览器支持，而且还可能被用户禁止或删除，所以不能用于保存关键数据。另外，Cookie 保存的形式是简单的明文文本，在它里面不宜保存敏感的、未加密的数据。 使用Application 变量：使用Application 变量也可以实现页面间的传值，Application变量是全局性的，所有用户共享一个Application 变量，一旦定义，它将影响到程序的所有部分。如果想在整个应用程序范围使用某个变量值Application 对象将是最佳的选择。存入数据时， 把值添加到Application 变量里：Application\["变量名"]=数值；取出数据用：变量=Application\["变量名"]；在不需要使用该Application 时，要显式清除它：Application\["量名"]=null。Application 优点：易于使用，全局范围。可供应用程序中的所有页来访问。缺点：若保存数据的服务器端进程被损坏（如因服务器崩溃、升级或关闭而损坏），那么数据就会丢失，所以利用Application 一定要有保底的策略；占用服务器端的内存，这可能会影响服务器的性能以及应用程序的可伸缩性。 使用Session 变量 ：Session 对象可以用来存储需要维护的指定对话的信息，不同的客户端生成不同的Session 对象。Session 用于存储特定于单独会话的短期信息。Session 的使用方法和格式与Application 相同。 优点：易于实现，并且提供较高的安全性和持久性，可以应对IIS 重启和辅助进程重启，可在多进程中使用。缺点是耗用服务器端的内存。所以不要存储大量的信息。Session 最常见的用途是与Cookie 一起向Web 应用程序提供用户标识功能，Session也可用于不支持Cookie 的浏览器。但是，使用无Cookie 的Session 需要将会话标识符放置在查询字符串中，同样会遇到本文在查询字符串一节中陈述的安全问题。 使用类的静态属性：这种方法是利用类的静态属性实现两个页面间的值传。定义一个包含静态属性的类；将要传送的值赋给静态属性；目标页面中可以通过静态属性获得源页面中要传的值。优点是可以方便传送多个数据，缺点是需要额外编程，增加程序设计的工作量，占用服务器内存。 使用Server.Transfer :通过Server.Transfer 方法把执行流程从当前的ASPX 文件转到同一服务器上的另一个ASPX 页面的同时,可保留表单数据或查询字符串，做法是把该方法的第二个参数设置成True，在第一个页面用Server.Transfer("目标页面名.aspx"，true)；目标页面取出数据用：Ruquest.Form\["控件名称"]或Ruquest.QueryString\["控件名称"]。Asp.net2.0 中还可以这样来用,代码如下：PreviousPage pg1；pg1=(PreviousPage）Context.Handler；Response.Write(pg1.Name)；说明： 此段代码用在目标页面中取出传递的值，Previous- Page 是原页面的类名，Name 是在原页面定义的属性， 需要传递 的数据存入到此属性中。使用这种方法， 需要写一些代码以创建一些属性以便可以 在另一个页面访问它， 可以在另一个页面以对象属性的方式来 存取数值，这个方法在页面间值传递中是特别有用的，这种方法 不但简洁，同时又是面向对象的。 Cache\:Cache 具有强大的数据操作功能， 以键值对集合的形式存 储数据，可以通过指定关键字来插入和检索数据项。它的基于依 赖性的终止功能， 使它能够精确控制如何并及时更新和消除缓 存中的数据。它可以内部进行锁定管理，不需要象Application 对象那样使用Lock()和Unlock()方法进行串行化管理。缺点是使用 方法较复杂，使用不当反而降低性能.  不同页面跳转情况下可采用的传值方法 2.1 情况一：源页面可以跳转到目标页面，源页面传递数据给目标页面:使用查询字符串， 将少量信息从一页传输到另一页以及不 存在安全性问题时，是一个简单常用的方法；使用Server.Transfer方法，可传递表单数据或查询字符串到另一个页面，还可以 保存初始页的HttpContext， 当目标页和源页面在同一个服务器 时，可以用此方法。 2.2 情况二：页面传递数值给自身页面即在对同一页的多个请求间保留值， ViewState 属性可提供具有基本安全性的功能。也可用隐藏域，存储少量回发到自身或另一页的页信息时使用，不考虑安全性问题时使用。 2.3 情况三：源页面传递数值给目标页面，而源页面不能直接连接到目标页面。有多个方法，具体用哪个要看具体情况。Application： 存储由多个用户使用且更改不频繁的全局信息，此时安全性不成为问题。不要存储大量的信息。Session：存储特定于单独会话的短期信息，并且需要较高的安全性。不要在会话状态中存储大量的信息。需要注意，将为应用程序中每一会话的生存期创建并维护会话状态对象。在支持许多用户的应用程序中， 这可能会占用大量服务器资源并影响可缩放性。Cookie： 当您需要在客户端存储少量信息以及不存在安全性问题时使用。类的静态属性，方便传送多个数据。Cache ：对象用于单个用户、一组用户或所有的用户。可以为多个请求长时间、高效率的保存数据。上述几个方法， 不仅用于情况三， 前面两种情况都可以使用，只是没有必要时尽量少用，否则会造成资源浪费或增加程序的复杂性。
+> （1）Assembly：定义和加载程序集，加载在程序集中的所有模块以及从此程序集中查找类型并创建该类型的实例。 创建带参数对象 Assembly assembly = Assembly.Load("TestClass");//加载程序集 Type type = assembly.GetType("TestClass.Person");//获取类名称（要带上命名空间） object o = Activator.CreateInstance(type, new object\[] {"a",666 });//创建Person实体,有参构造 Person person = o as Person; return person; （2）Module：获取包含模块的程序集以及模块中的类等，还可以获取在模块上定义的所有全局方法或其他特定的非全局方法。 （3）ConstructorInfo：获取构造函数的名称、参数、访问修饰符（如pulic 或private）和实现详细信息（如abstract或virtual）等。 （4）MethodInfo(GetMethod/GetMethods)：获取方法的名称、返回类型、参数、访问修饰符（如pulic 或private）和实现详细信息（如abstract或virtual）等。 调用方法 Assembly assembly= Assembly.Load("TestClass"); Type type = assembly.GetType("TestClass.Person"); object o = Activator.CreateInstance(type); MethodInfo methodInfo = type.GetMethod("getName1"); string result=methodInfo.Invoke(o, new object\[] { "这是传入参数" }).ToString(); return result; （5）FiedInfo(GetField/GetFields)：获取字段的名称、访问修饰符（如public或private）和实现详细信息（如static）等，并获取或设置字段值。 （6）EventInfo(GetEvent/GetEvents)：获取事件的名称、事件处理程序数据类型、自定义属性、声明类型和反射类型等，添加或移除事件处理程序。 （7）PropertyInfo(GetProperty/GetProperties)：获取属性的名称、数据类型、声明类型、反射类型和只读或可写状态等，获取或设置属性值。 （8）ParameterInfo：获取参数的名称、数据类型、是输入参数还是输出参数，以及参数在方法签名中的位置等。 （9）MemberInfo(GetMember/GetMembers):获取字段、事件、属性等各种信息 对于 Web 性能优化，您有哪些了解和经验吗？ 前端优化 （1）减少 HTTP 请求的次数。 （2）启用浏览器缓存。 （3）css文件放 在里面，js文件尽量放在页面的底部。因为请求js文件是很花费时间，如果放在里面，就会导致页面的 DOM树呈现需要等待js文件加载完成。这也就是为什么很多网站的源码里面看到引用的文件放在最后的原因。 （4）使用压缩的css和js文件。这个不用多说，网络流量小。 （5）如果条件允许，尽量使用CDN的方式引用文件，这样就能减少网络流量。 （6）在写js和css的语法时，尽量避免重复的css，尽量减少js里面循环的次数，诸如此类。 2、后端优化： （1）程序的优化：减少代码的层级结构、避免循环嵌套、避免循环CURD数据库、优化算法等等。 （2）数据库的优化：启用数据库缓存、常用的字段建索引、尽量避免大事务操作、避免select \* 的写法、尽量不用in和not in 这种耗性能的用法等等。 （3）服务器优化：负载均衡、Web服务器和数据库分离、UI和Service分离等等。 MVC理解 MVC，顾名思义，Model、View、Controller。所有的 界面代码放在View里面，所有涉及和界面交互以及URL路由相关的逻辑都在Controller里面，Model提供数据模型。MVC的架构方式会让系 统的可维护性更高，使得每一部分更加专注自己的职责，并且MVC提供了强大的路由机制，方便了页面切换和界面交互。然后可以结合和WebForm的比较， 谈谈MVC如何解决复杂的控件树生成、如何避免了复杂的页面生命周期。 路由： 1、首先我们要理解MVC中路由的作用：url Routing的作用是将浏览器的URL请求映射到特定的MVC控制器动作。 2、当我们访问<http://localhost:8080/Home/Index> 这个地址的时候，请求首先被UrlRoutingModule截获，截获请求后，从Routes中得到与当前请求URL相符合的RouteData对象， 将RouteData对象和当前URL封装成一个RequestContext对象，然后从Requestcontext封装的RouteData中得到 Controller名字，根据Controller的名字，通过反射创建控制器对象，这个时候控制器才真正被激活，最后去执行控制器里面对应的 action。 谈谈你觉得做的不错系统，大概介绍下用到了哪些技术 这是一道非常开放的面试题,是想通过这个问题快速了解面试者的技术水平。此题只要结合你最近项目用到的技术谈谈就好了。 说说你最擅长的技术？并说说你是如何使用的？ 简单谈谈MEF在我们项目里面的使用吧。 在谈MEF之前，我们必须要先谈谈DIP、IOC、DI 依赖倒置原则（DIP）：一种软件架构设计的原则（抽象概念） 控制反转（IoC）：一种反转流、依赖和接口的方式（DIP的具体实现方式）。 依赖注入（DI）：IoC的一种实现方式，用来反转依赖（IoC的具体实现方式）。   IIS的工作原理 1、当客户端发送HTTP Request时，服务端的HTTP.sys（可以理解为IIS的一个监听组件） 拦截到这个请求； 2、HTTP.sys 联系 WAS 向配置存储中心请求配置信息。 3、然后将请求传入IIS的应用程序池。 4、检查请求的后缀，启动aspnet_isapi.dll这个dll，这个dll是.net framework里面的，也就是说到这一步，请求进入了.net framework的管辖范围。 5、这个时候如果是WebForm，开始执行复杂的页面生命周期（HttpRuntime→ProcessRequest→HttpContext→HttpHandler）；如果是MVC，则启动mvc的路由机制，根据路由规则为URL来指定HttpHandler。 6、httpHandler处理请求后，请求结束，给出Response，客户端处理响应，整个过程结束。 Http协议 1、http协议是浏览器和服务器双方共同遵循的规范，是一种基于TCP/IP应用层协议。 2、http是一种典型的请求/响应协议。客户端发送请求，请求的内容以及参数存放到请求报文里面，服务端收到请求后，做出响应，返回响应的结果放到响应报文里面。通过F12可以查看请求报文和响应报文。 3、http协议是”无状态”的，当客户端向服务端发送一次http请求后，服务端收到请求然后返回给客户端相应的结果，服务器会立即断开连接并释放资源。在实际开发过程中，我们有时需要“保持”这种状态，所以衍生出了Session/Cookie这些技术。 4、http请求的方式主要有get/post。 5、http状态码最好记几个，博主有一次面试就被问到了。200（请求成功）、404（请求的资源不存在）、403（禁止访问）、5xx（服务端错误） 关于代码优化你怎么理解？你会考虑去代码重构吗？ 1、对于代码优化，之前的公司每周会做代码审核，审核的主要作用就是保证代码的正确性和执行效率，比如减少代码的层级结构、避免循环嵌套、避免循环CURD数据库、尽量避免一次取出大量数据放在内存中（容易内存溢出）、优化算法等。 2、对于陈旧代码，可能很多地方有调用，并且开发和维护人员很有可能不是同一个人，所以重构时要格外小心，如果没有十足的把握，不要轻易重构。如果必须要重构，必须做好充分的单元测试和全局测试。 谈谈你的优点和缺点？ 这个问题仁者见仁智者见智。 网站运行慢，如何定位问题？发现问题如何解决？ 浏览器F12→网络→查看http请求数以及每个请求的耗时，找到问题的根源，然后依次解决，解决方案可以参考问题一里面的Web优化方案。 可以使用Fiddler等嗅探工具查看网络请求长度和数据包大小等，然后更具相应数据推断出现问题的点，并进行重点优化。 线程与进程的区别 进程是一个可拥有资源的独立单位 线程是可独立调度和分派的基本单位 ASP.NET 页面之间传递值的几种方式。  使用Querystring 方法：QueryString 也叫查询字符串， 这种方法将要传递的数据附加在网页地址(URL)后面进行传递。如页面A.aspx 跳转到页面B.aspx，可以用Request.Redirect("B.aspx?参数名称=参数值")方法，也可以用超链接：，页面跳转后，在目标页面中可用Ruquest\["参数名称"]来接收参数。使用QuerySting 方法的优点是实现简单， 不使用服务器资源；缺点是传递的值会显示在浏览器的地址栏上，有被篡改的风险，不能传递对象，只有在通过URL 请求页时查询字符串才是可行的。 利用隐藏域：隐藏域不会显示在用户的浏览器中， 一般是在页面中加入一个隐藏控件， 与服务器进行交互时把值赋给隐藏控件并提交给下一页面。隐藏域可以是任何存储在网页中的与网页有关的信息的存储库。使用隐藏域存入数值时用：hidden 控件.value=数值，取出接收数值时用：变量=hidden 控件.value。使用隐藏域的优点是实现简单， 隐藏域是标准的HTML 控件，不需要复杂的编程逻辑。隐藏域在页上存储和读取，不需要任何服务器资源，几乎所有浏览器和客户端设备都支持具有隐藏域的窗体。缺点是存储结构少，仅仅支持简单的数据结构，存储量少，因为它被存储在页面本身，所以无法存储较大的值，而且大的数据量会受到防火墙和代理的阻止。 ViewState：ViewState 是由ASP.NET 页面框架管理的一个隐藏的窗体字段。当ASP.NET 执行某个页面时，该页面上的ViewState 值和所有控件将被收集并格式化成一个编码字符串， 然后被分配给隐藏窗体字段的值属性。使用ViewState 传递数据时可用：ViewState \[" 变量名"]=数值，在取出数据时用：变量=ViewState\["变量名"]。使用ViewState 的优点是：在对同一页的多个请求间自动保留值，不用服务器端资源，实现简单，视图状态中的值经过哈希计算和压缩，并且针对Unicode 实现进行编码，其安全性要高于使用隐藏域；缺点是因为ViewState 存储在页面本身，因此如果存储较大的值，用户显示页和发送页时的速度可能会减慢。虽然视图状态以哈希格式存储数据，但它仍可以被篡改。 在MVC中则有ViewData,ViewBag,TempData。 使用Cookie：Cookie 可以在页面之间传递少量信息， 可以存储在客户端的文本文件中，也可存储在客户端的内存中。Cookie 方法适用于存储少量页面中经常改动的信息， 如为登陆过的网站保存登陆用户名，为用户输入提供方便，还有在一些用户自定义项目上保存用户的个性化设置。使用Cookie传递数据时可用：Response.Cookies\["键名"]=键值；取出数据用：变量名=Request.Cookies\["键名"]。使用Cookie 优点是：Cookie 存储在客户端， 不使用服务器资源，实现简单，可配置到期时间。缺点是：可以存储的数据量比较少，由于Cookie 并不被所有的浏览器支持，而且还可能被用户禁止或删除，所以不能用于保存关键数据。另外，Cookie 保存的形式是简单的明文文本，在它里面不宜保存敏感的、未加密的数据。 使用Application 变量：使用Application 变量也可以实现页面间的传值，Application变量是全局性的，所有用户共享一个Application 变量，一旦定义，它将影响到程序的所有部分。如果想在整个应用程序范围使用某个变量值Application 对象将是最佳的选择。存入数据时， 把值添加到Application 变量里：Application\["变量名"]=数值；取出数据用：变量=Application\["变量名"]；在不需要使用该Application 时，要显式清除它：Application\["量名"]=null。Application 优点：易于使用，全局范围。可供应用程序中的所有页来访问。缺点：若保存数据的服务器端进程被损坏（如因服务器崩溃、升级或关闭而损坏），那么数据就会丢失，所以利用Application 一定要有保底的策略；占用服务器端的内存，这可能会影响服务器的性能以及应用程序的可伸缩性。 使用Session 变量 ：Session 对象可以用来存储需要维护的指定对话的信息，不同的客户端生成不同的Session 对象。Session 用于存储特定于单独会话的短期信息。Session 的使用方法和格式与Application 相同。 优点：易于实现，并且提供较高的安全性和持久性，可以应对IIS 重启和辅助进程重启，可在多进程中使用。缺点是耗用服务器端的内存。所以不要存储大量的信息。Session 最常见的用途是与Cookie 一起向Web 应用程序提供用户标识功能，Session也可用于不支持Cookie 的浏览器。但是，使用无Cookie 的Session 需要将会话标识符放置在查询字符串中，同样会遇到本文在查询字符串一节中陈述的安全问题。 使用类的静态属性：这种方法是利用类的静态属性实现两个页面间的值传。定义一个包含静态属性的类；将要传送的值赋给静态属性；目标页面中可以通过静态属性获得源页面中要传的值。优点是可以方便传送多个数据，缺点是需要额外编程，增加程序设计的工作量，占用服务器内存。 使用Server.Transfer :通过Server.Transfer 方法把执行流程从当前的ASPX 文件转到同一服务器上的另一个ASPX 页面的同时,可保留表单数据或查询字符串，做法是把该方法的第二个参数设置成True，在第一个页面用Server.Transfer("目标页面名.aspx"，true)；目标页面取出数据用：Ruquest.Form\["控件名称"]或Ruquest.QueryString\["控件名称"]。Asp.net2.0 中还可以这样来用,代码如下：PreviousPage pg1；pg1=(PreviousPage）Context.Handler；Response.Write(pg1.Name)；说明： 此段代码用在目标页面中取出传递的值，Previous- Page 是原页面的类名，Name 是在原页面定义的属性， 需要传递 的数据存入到此属性中。使用这种方法， 需要写一些代码以创建一些属性以便可以 在另一个页面访问它， 可以在另一个页面以对象属性的方式来 存取数值，这个方法在页面间值传递中是特别有用的，这种方法 不但简洁，同时又是面向对象的。 Cache\:Cache 具有强大的数据操作功能， 以键值对集合的形式存 储数据，可以通过指定关键字来插入和检索数据项。它的基于依 赖性的终止功能， 使它能够精确控制如何并及时更新和消除缓 存中的数据。它可以内部进行锁定管理，不需要象Application 对象那样使用Lock()和Unlock()方法进行串行化管理。缺点是使用 方法较复杂，使用不当反而降低性能.  不同页面跳转情况下可采用的传值方法 2.1 情况一：源页面可以跳转到目标页面，源页面传递数据给目标页面:使用查询字符串， 将少量信息从一页传输到另一页以及不 存在安全性问题时，是一个简单常用的方法；使用Server.Transfer方法，可传递表单数据或查询字符串到另一个页面，还可以 保存初始页的HttpContext， 当目标页和源页面在同一个服务器 时，可以用此方法。 2.2 情况二：页面传递数值给自身页面即在对同一页的多个请求间保留值， ViewState 属性可提供具有基本安全性的功能。也可用隐藏域，存储少量回发到自身或另一页的页信息时使用，不考虑安全性问题时使用。 2.3 情况三：源页面传递数值给目标页面，而源页面不能直接连接到目标页面。有多个方法，具体用哪个要看具体情况。Application： 存储由多个用户使用且更改不频繁的全局信息，此时安全性不成为问题。不要存储大量的信息。Session：存储特定于单独会话的短期信息，并且需要较高的安全性。不要在会话状态中存储大量的信息。需要注意，将为应用程序中每一会话的生存期创建并维护会话状态对象。在支持许多用户的应用程序中， 这可能会占用大量服务器资源并影响可缩放性。Cookie： 当您需要在客户端存储少量信息以及不存在安全性问题时使用。类的静态属性，方便传送多个数据。Cache ：对象用于单个用户、一组用户或所有的用户。可以为多个请求长时间、高效率的保存数据。上述几个方法， 不仅用于情况三， 前面两种情况都可以使用，只是没有必要时尽量少用，否则会造成资源浪费或增加程序的复杂性。
 >
-> 反射 [System.Reflection](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection) 命名空间中的类与 [System.Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 使你能够获取有关加载的[程序集](https://learn.microsoft.com/zh-cn/dotnet/standard/assembly/)和其中定义的类型的信息，如[类](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#classes)、[接口](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#interfaces)和值类型（即[结构](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#structures)和[枚举](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#enumerations)）。 可以使用反射在运行时创建、调用和访问类型实例。 [公共语言运行时](https://learn.microsoft.com/zh-cn/dotnet/standard/clr)加载程序管理[应用程序域](https://learn.microsoft.com/zh-cn/dotnet/framework/app-domains/application-domains)，应用程序域构成具有相同应用程序范围的对象周围定义的边界。 此管理包括将每个程序集加载到相应的应用程序域中和控制每个程序集内的类型层次结构的内存布局。 [程序集](https://learn.microsoft.com/zh-cn/dotnet/framework/app-domains/)包含模块、模块包含类型，而类型包含成员。 反射提供封装程序集、模块和类型的对象。 可以使用反射动态地创建类型的实例，将类型绑定到现有对象，或从现有对象中获取类型。 然后，可以调用类型的方法或访问其字段和属性。 反射的典型用法如下所示： [Assembly](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.assembly) 来定义和加载程序集，加载程序集清单中列出的模块，以及在此程序集中定位一个类型并创建一个它的实例。 [Module](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.module) 发现信息，如包含模块的程序集和模块中的类。 还可以获取所有全局方法或模块上定义的其它特定的非全局方法。 [ConstructorInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.constructorinfo) 发现信息，如名称、参数、访问修饰符（如 public 或 private）和构造函数的实现详细信息（如 abstract 或 virtual）。 使用 [Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 的 [GetConstructors](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getconstructors) 或 [GetConstructor](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getconstructor) 方法来调用特定构造函数。 [MethodInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.methodinfo) 发现信息，如名称、返回类型、参数、访问修饰符（如 public 或 private）和方法的实现详细信息（如 abstract 或 virtual）。 使用 [Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 的 [GetMethods](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getmethods) 或 [GetMethod](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getmethod) 方法来调用特定方法。 [FieldInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.fieldinfo) 发现信息，如名称、访问修饰符（如 public 或 private）和一个字段的实现详细信息 （如 static）；并获取或设置字段值。 [EventInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.eventinfo) 发现信息（如名称、事件处理程序的数据类型、自定义特性、声明类型以及事件的反射的类型），并添加或删除事件处理程序。 [PropertyInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.propertyinfo) 发现信息（如名称、数据类型、声明类型，反射的类型和属性的只读或可写状态），并获取或设置属性值。 [ParameterInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.parameterinfo) 发现信息，如参数的名称、数据类型、参数是输入参数还是输出参数以及参数在方法签名中的位置。 [CustomAttributeData](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.customattributedata) 在于应用程序域的仅反射上下文中工作时发现有关自定义特性的信息。 [CustomAttributeData](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.customattributedata) 使你能够检查特性，而无需创建它们的实例。 [System.Reflection.Emit](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.emit) 命名空间的类提供一种专用形式的反射，使你能够在运行时生成类型。 泛型 泛型在 .NET Framework 2.0 中首次引入，它本质上是一个“代码模板”，可让开发者定义[类型安全](https://learn.microsoft.com/zh-cn/previous-versions/dotnet/netframework-4.0/hbzz1a9a\(v=vs.100\))数据结构，无需处理实际数据类型。 例如，[List](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.generic.list-1) 是一个可以声明的[泛型集合](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.generic)，可与 List、List 或 List 等任何类型结合使用。 ArrayList 元素属于 [Object](https://learn.microsoft.com/zh-cn/dotnet/api/system.object) 类型。 添加到集合的任何元素都会以静默方式转换为 Object。 从列表读取元素时，会发生相同的情况。 此过程称为[装箱和取消装箱](https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing)，它会影响性能。 但除了性能之外，在编译时无法确定列表中的数据的类型，这会形成一些脆弱的代码。 泛型解决了此问题，它可以定义每个列表实例将要包含的数据类型。 例如，只能将整数添加到 List，只能将人员添加到 List。泛型还可以在运行时使用。 运行时知道你要使用的数据结构类型，并可以更高效地将数据结构存储在内存中。 ADO.NET 对ADO改进：ADO.NET不依赖于ole db提供程序,而是使用.net托管提供的程序,不使用com,可以断开connection而保留当前数据集可用，强类型转换，xml支持。 五大对象：Connection连接对象，Command执行命令和存储过程，DataReader向前只读的数据流，DataAdapter适配器，支持增删查询，DataSet数据结果存储在内存中离线访问。 override与重载 重载是方法的名称相同。参数或参数类型不同，进行多次重载以适应不同的需要。 Override是子类对基类中函数的重写。为了适应需要。 29.装箱和拆箱的概念和原理 值类型：继承自struct,引用类型继承自Object 引用类型的变量存储对其数据（对象）的引用，而值类型的变量直接包含其数据。 对于引用类型，两种变量可引用同一对象；因此，对一个变量执行的操作会影响另一个变量所引用的对象。 对于值类型，每个变量都具有其自己的数据副本，对一个变量执行的操作不会影响另一个变量（in、ref 和 out 参数变量除外）。 装箱是将值类型转化为引用类型的过程；拆箱是将引用类型转化为值类型的过程。ArrayList 元素属于 [Object](https://learn.microsoft.com/zh-cn/dotnet/api/system.object) 类型。 添加到集合的任何元素都会以静默方式转换为 Object。 从列表读取元素时，会发生相同的情况。 此过程称为[装箱和取消装箱](https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing)，它会影响性能。 多线程&异步编程 Thread: Threadpool Task: 异步编程：async 和 await 线程同步： volatile 阻塞 临界值 锁 互斥锁（Mutex） 信号量 (Semaphore) 信号和句柄（EventWaitHandle,ManualResetEvent，AutoResetEvent） Interlocked ReaderWriterLock 5.用.net做B/S结构的系统，您是用几层结构来开发，每一层之间的关系以及为什么要这样分层？ 答：一般为3层：数据访问层，业务层，表示层。 数据访问层对数据库进行增删查改。 业务层一般分为二层，业务表观层实现与表示层的沟通，业务规则层实现用户密码的安全等。 表示层为了与用户交互例如用户添加表单。 优点： 分工明确，条理清晰，易于调试，而且具有可扩展性。 缺点： 增加成本。 6.能用foreach遍历访问的对象需要实现 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_接口或声明\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_方法的类型。 答：IEnumerable 、 GetEnumerator。 10.session喜欢丢值且占内存，Cookis不安全，请问用什么办法代替这两种原始的方法 答：redis 或者 memcache。当然，微软也提供了解决方案。iis中由于有进程回收机制，系统繁忙的话Session会丢失，可以用Sate server或SQL Server数据库的方式。 14.WebApi概述 Web API是在.NET Framework之上构建的Web的API的框架，Web API是一个编程接口，用于操作可通过标准HTTP方法和标头访问的系统，Web API需要基于.NET 3.5或更高版本才可以进行开发 15.什么是WebService webservice是一种跨平台，跨语言的规范，用于不同平台，不同语言开发的应用之间的交互，是基于网络的、分布式的模块化组件，它执行特定的任务，遵守具体的技术规范。 21 .NET的错误处理机制是什么？ .net错误处理机制采用try->catch->finally结构，发生错误时，层层上抛，直到找到匹配的Catch为止。 26.简要谈一下您对微软.NET架构下remoting和webservice两项技术的理解以及实际中的应用。 WS主要是可利用HTTP，穿透防火墙。而Remoting可以利用TCP/IP，二进制传送提高效率。 remoting是.net中用来跨越machine,process, appdomain进行方法调用的技术,对于三成结构的程序，就可以使用remoting技术来构建．它是分布应用的基础技术.相当于以前的DCOM。 Web Service是一种构建应用程序的普通模型，并能在所有支持internet网通讯的操作系统上实施。Web Service令基于组件的开发和web的结合达到最佳，基于组件的对象模型。 30.Session有什么重大BUG，微软提出了什么方法加以解决？ 是iis中由于有进程回收机制，系统繁忙的话Session会丢失，可以用Sate server或SQL Server数据库的方式存储Session不过这种方式比较慢，而且无法捕获Session的END事件。
+> 反射 [System.Reflection](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection) 命名空间中的类与 [System.Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 使你能够获取有关加载的[程序集](https://learn.microsoft.com/zh-cn/dotnet/standard/assembly/)和其中定义的类型的信息，如[类](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#classes)、[接口](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#interfaces)和值类型（即[结构](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#structures)和[枚举](https://learn.microsoft.com/zh-cn/dotnet/standard/base-types/common-type-system#enumerations)）。 可以使用反射在运行时创建、调用和访问类型实例。 [公共语言运行时](https://learn.microsoft.com/zh-cn/dotnet/standard/clr)加载程序管理[应用程序域](https://learn.microsoft.com/zh-cn/dotnet/framework/app-domains/application-domains)，应用程序域构成具有相同应用程序范围的对象周围定义的边界。 此管理包括将每个程序集加载到相应的应用程序域中和控制每个程序集内的类型层次结构的内存布局。 [程序集](https://learn.microsoft.com/zh-cn/dotnet/framework/app-domains/)包含模块、模块包含类型，而类型包含成员。 反射提供封装程序集、模块和类型的对象。 可以使用反射动态地创建类型的实例，将类型绑定到现有对象，或从现有对象中获取类型。 然后，可以调用类型的方法或访问其字段和属性。 反射的典型用法如下所示： [Assembly](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.assembly) 来定义和加载程序集，加载程序集清单中列出的模块，以及在此程序集中定位一个类型并创建一个它的实例。 [Module](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.module) 发现信息，如包含模块的程序集和模块中的类。 还可以获取所有全局方法或模块上定义的其它特定的非全局方法。 [ConstructorInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.constructorinfo) 发现信息，如名称、参数、访问修饰符（如 public 或 private）和构造函数的实现详细信息（如 abstract 或 virtual）。 使用 [Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 的 [GetConstructors](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getconstructors) 或 [GetConstructor](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getconstructor) 方法来调用特定构造函数。 [MethodInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.methodinfo) 发现信息，如名称、返回类型、参数、访问修饰符（如 public 或 private）和方法的实现详细信息（如 abstract 或 virtual）。 使用 [Type](https://learn.microsoft.com/zh-cn/dotnet/api/system.type) 的 [GetMethods](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getmethods) 或 [GetMethod](https://learn.microsoft.com/zh-cn/dotnet/api/system.type.getmethod) 方法来调用特定方法。 [FieldInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.fieldinfo) 发现信息，如名称、访问修饰符（如 public 或 private）和一个字段的实现详细信息 （如 static）；并获取或设置字段值。 [EventInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.eventinfo) 发现信息（如名称、事件处理程序的数据类型、自定义特性、声明类型以及事件的反射的类型），并添加或删除事件处理程序。 [PropertyInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.propertyinfo) 发现信息（如名称、数据类型、声明类型，反射的类型和属性的只读或可写状态），并获取或设置属性值。 [ParameterInfo](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.parameterinfo) 发现信息，如参数的名称、数据类型、参数是输入参数还是输出参数以及参数在方法签名中的位置。 [CustomAttributeData](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.customattributedata) 在于应用程序域的仅反射上下文中工作时发现有关自定义特性的信息。 [CustomAttributeData](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.customattributedata) 使你能够检查特性，而无需创建它们的实例。 [System.Reflection.Emit](https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.emit) 命名空间的类提供一种专用形式的反射，使你能够在运行时生成类型。 泛型 泛型在 .NET Framework 2.0 中首次引入，它本质上是一个“代码模板”，可让开发者定义[类型安全](https://learn.microsoft.com/zh-cn/previous-versions/dotnet/netframework-4.0/hbzz1a9a\(v=vs.100\))数据结构，无需处理实际数据类型。 例如，[List](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.generic.list-1) 是一个可以声明的[泛型集合](https://learn.microsoft.com/zh-cn/dotnet/api/system.collections.generic)，可与 List、List 或 List 等任何类型结合使用。 ArrayList 元素属于 [Object](https://learn.microsoft.com/zh-cn/dotnet/api/system.object) 类型。 添加到集合的任何元素都会以静默方式转换为 Object。 从列表读取元素时，会发生相同的情况。 此过程称为[装箱和取消装箱](https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing)，它会影响性能。 但除了性能之外，在编译时无法确定列表中的数据的类型，这会形成一些脆弱的代码。 泛型解决了此问题，它可以定义每个列表实例将要包含的数据类型。 例如，只能将整数添加到 List，只能将人员添加到 List。泛型还可以在运行时使用。 运行时知道你要使用的数据结构类型，并可以更高效地将数据结构存储在内存中。 ADO.NET 对ADO改进：ADO.NET不依赖于ole db提供程序,而是使用.net托管提供的程序,不使用com,可以断开connection而保留当前数据集可用，强类型转换，xml支持。 五大对象：Connection连接对象，Command执行命令和存储过程，DataReader向前只读的数据流，DataAdapter适配器，支持增删查询，DataSet数据结果存储在内存中离线访问。 override与重载 重载是方法的名称相同。参数或参数类型不同，进行多次重载以适应不同的需要。 Override是子类对基类中函数的重写。为了适应需要。 29.装箱和拆箱的概念和原理 值类型：继承自struct,引用类型继承自Object 引用类型的变量存储对其数据（对象）的引用，而值类型的变量直接包含其数据。 对于引用类型，两种变量可引用同一对象；因此，对一个变量执行的操作会影响另一个变量所引用的对象。 对于值类型，每个变量都具有其自己的数据副本，对一个变量执行的操作不会影响另一个变量（in、ref 和 out 参数变量除外）。 装箱是将值类型转化为引用类型的过程；拆箱是将引用类型转化为值类型的过程。ArrayList 元素属于 [Object](https://learn.microsoft.com/zh-cn/dotnet/api/system.object) 类型。 添加到集合的任何元素都会以静默方式转换为 Object。 从列表读取元素时，会发生相同的情况。 此过程称为[装箱和取消装箱](https://learn.microsoft.com/zh-cn/dotnet/csharp/programming-guide/types/boxing-and-unboxing)，它会影响性能。 多线程&异步编程 Thread: Threadpool Task: 异步编程：async 和 await 线程同步： volatile 阻塞 临界值 锁 互斥锁（Mutex） 信号量 (Semaphore) 信号和句柄（EventWaitHandle,ManualResetEvent，AutoResetEvent） Interlocked ReaderWriterLock 5.用.net做B/S结构的系统，您是用几层结构来开发，每一层之间的关系以及为什么要这样分层？ 答：一般为3层：数据访问层，业务层，表示层。 数据访问层对数据库进行增删查改。 业务层一般分为二层，业务表观层实现与表示层的沟通，业务规则层实现用户密码的安全等。 表示层为了与用户交互例如用户添加表单。 优点： 分工明确，条理清晰，易于调试，而且具有可扩展性。 缺点： 增加成本。 6.能用foreach遍历访问的对象需要实现 ________________接口或声明________________方法的类型。 答：IEnumerable 、 GetEnumerator。 10.session喜欢丢值且占内存，Cookis不安全，请问用什么办法代替这两种原始的方法 答：redis 或者 memcache。当然，微软也提供了解决方案。iis中由于有进程回收机制，系统繁忙的话Session会丢失，可以用Sate server或SQL Server数据库的方式。 14.WebApi概述 Web API是在.NET Framework之上构建的Web的API的框架，Web API是一个编程接口，用于操作可通过标准HTTP方法和标头访问的系统，Web API需要基于.NET 3.5或更高版本才可以进行开发 15.什么是WebService webservice是一种跨平台，跨语言的规范，用于不同平台，不同语言开发的应用之间的交互，是基于网络的、分布式的模块化组件，它执行特定的任务，遵守具体的技术规范。 21 .NET的错误处理机制是什么？ .net错误处理机制采用try->catch->finally结构，发生错误时，层层上抛，直到找到匹配的Catch为止。 26.简要谈一下您对微软.NET架构下remoting和webservice两项技术的理解以及实际中的应用。 WS主要是可利用HTTP，穿透防火墙。而Remoting可以利用TCP/IP，二进制传送提高效率。 remoting是.net中用来跨越machine,process, appdomain进行方法调用的技术,对于三成结构的程序，就可以使用remoting技术来构建．它是分布应用的基础技术.相当于以前的DCOM。 Web Service是一种构建应用程序的普通模型，并能在所有支持internet网通讯的操作系统上实施。Web Service令基于组件的开发和web的结合达到最佳，基于组件的对象模型。 30.Session有什么重大BUG，微软提出了什么方法加以解决？ 是iis中由于有进程回收机制，系统繁忙的话Session会丢失，可以用Sate server或SQL Server数据库的方式存储Session不过这种方式比较慢，而且无法捕获Session的END事件。
 
 ## 运行时序列化
 
@@ -783,7 +783,7 @@ ConfigureAwait(Boolean) 配置用于等待此 Task的 awaiter。 ContinueWith创
 Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应用程序启动，在Program的Main方法是入口，通过调用CreateWebHostBuilder或者（CreateDefaultBuilder）创建WebHost的，WebHost会利用WebHostBuilder提供的服务器和中间件构建一个请求处理管道；这就是ASP.NET Core框架的核心（一个服务器和若干中间件构成的管道）。 // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 那么中间件就应用程序管道里面的一个组件，也是AOP的一种实现,用来拦截请求进行其他处理和响应，每一个组件都可以对管道中的请求进行拦截，也可以选择是否将请求传递给下一个中间件。  中间件通过RequestDelegate进行构建和处理，最后一个管道或者中断管道的中间件被称为终端中间件。  在中间件中：  HttpContext表示Http请求上下文，可以获取请求信息  是处理Http请求和响应的组件（代码段，一段处理逻辑），  每个组件选择是否将请求传递给管道中的下一个组件。  可以在调用管道中的下一个组件之前和之后执行一些逻辑。  这样的机制使得HTTP请求能够很好的被层层处理和控制，并且层次清晰处理起来甚是方便。  最后一个管道或者中断管道的中间件叫终端中间件； 请求委托（Request delegate）用于构建请求管道，处理每个HTTP请求 管道就是http请求抵达服务器到响应结果返回的中间的一系列的处理过程 2、中间件常用的方法 中间件中定义了Run、Use、Map、MapWhen几种方法，我们下面一一讲解这几种方法。 1、Run() Run()方法中只有一个RequestDelegate委托类型的参数，没有Next参数，所以Run()方法也叫终端中间件，不会将请求传递给下一个中间件，也就是发生了“短路” // Run方法向应用程序的请求管道中添加一个RequestDelegate委托 // 放在管道最后面，终端中间件 // Run方法向应用程序的请求管道中添加一个RequestDelegate委托 // 放在管道最后面，终端中间件 app.Run(handler: async context => { await context.Response.WriteAsync(text: "Hello World1\r\n"); }); app.Run(handler: async context => { await context.Response.WriteAsync(text: "Hello World2\r\n"); }); 2、Use()方法 Use方法的参数是一个Func委托，输入参数是一个RequestDelegate类型的委托，返回参数也是一个RequestDelegate类型的委托，这里表示调用下一个中间件 RequestDelegate是一个委托，有一个HttpContext类型的参数，HttPContext表示Http请求上下文，可以获取请求信息，返回值是Task类型  定义为：Public delegate Task RequestDelegate(HttpContext context) // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 3、自定义中间件 中间件遵循显示依赖原则，并在其构造函数中暴露所有依赖项。  中间件能够利用UseMiddleware扩展方法的优势，直接通过它们的构造函数注入服务。  依赖注入服务是自动完成填充的。 ASP.NET Core约定中间件类必须包括以下内容：
 
 * 具有类型为RequestDelegate参数的公共构造函数，
-* 必须有名为Invoke或InvokeAsync的公共方法，此方法必须满足两个条件：方法返回类型是Task、方法的第一个参数必须是HttpContext类型。 如下代码自定义了一个记录IP的中间件，新建一个类RequestIPMiddleware，代码如下： // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 然后创建一个扩展方法，对IApplicationBuilder进行扩展： using Microsoft.AspNetCore.Builder; namespace MiddlewareDemo.Middleware { public static class RequestIPExtensions { /// <summary> /// 扩展方法，对IApplicationBuilder进行扩展 /// </summary> /// \<param name="builder">\</param> /// \<returns>\</returns> public static IApplicationBuilder UseRequestIP(this IApplicationBuilder builder) { // UseMiddleware\<T> return builder.UseMiddleware\<RequestIPMiddleware>(); } } } 最后在Startup类的Configure方法中使用自定义中间件： app.UseRequestIP(); 4、中间件和过滤器的区别 中间件和过滤器都是一种AOP的思想，功能类似，那么他们有什么区别呢？
+* 必须有名为Invoke或InvokeAsync的公共方法，此方法必须满足两个条件：方法返回类型是Task、方法的第一个参数必须是HttpContext类型。 如下代码自定义了一个记录IP的中间件，新建一个类RequestIPMiddleware，代码如下： // 向应用程序的请求管道中添加一个Func委托，这个委托其实就是所谓的中间件。 // context参数是HttpContext，表示HTTP请求的上下文对象 // next参数表示管道中的下一个中间件委托,如果不调用next，则会使管道短路 // 用Use可以将多个中间件链接在一起 app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use1\r\n"); // 调用下一个委托 await next(); }); app.Use(async (context, next) => { await context.Response.WriteAsync(text: "hello Use2\r\n"); // 调用下一个委托 await next(); }); 然后创建一个扩展方法，对IApplicationBuilder进行扩展： using Microsoft.AspNetCore.Builder; namespace MiddlewareDemo.Middleware { public static class RequestIPExtensions { /// <summary> /// 扩展方法，对IApplicationBuilder进行扩展 /// </summary> /// <param name="builder"></param> /// <returns></returns> public static IApplicationBuilder UseRequestIP(this IApplicationBuilder builder) { // UseMiddleware<T> return builder.UseMiddleware<RequestIPMiddleware>(); } } } 最后在Startup类的Configure方法中使用自定义中间件： app.UseRequestIP(); 4、中间件和过滤器的区别 中间件和过滤器都是一种AOP的思想，功能类似，那么他们有什么区别呢？
 * 过滤器更加贴合业务，它关注于应用程序本身，关注的是如何实现业务，比如对输出结果进行格式化，对请求的ViewModel进行数据校验，这时就肯定要使用过滤器了。过滤器是MVC的一部分，它可以拦截到你Action上下文的一些信息，而中间件是没有这个能力的。可以认为过滤器是附加性的一种功能，它只是中间件附带表现出来的特征。
 * 中间件是管道模型里重要的组成部分，不可或缺，而过滤器可以没有。 5、Asp.Net Core异常处理
 * 使用开发人员异常页面（The developer exception page）
@@ -842,10 +842,10 @@ Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应�
             }
         }
 
-    } 4、四自定义异常捕获中间件 Middleware /// <summary> /// 自定义异常处理中间件 /// </summary> public class ExceptionHandlingMiddleware { private readonly RequestDelegate \_next; public ExceptionHandlingMiddleware(RequestDelegate next) { \_next = next; } public async Task Invoke(HttpContext context) { try { await \_next(context); } catch (Exception ex) { var statusCode = context.Response.StatusCode; await HandleExceptionAsync(context, ex.ToString());\
+    } 4、四自定义异常捕获中间件 Middleware /// <summary> /// 自定义异常处理中间件 /// </summary> public class ExceptionHandlingMiddleware { private readonly RequestDelegate _next; public ExceptionHandlingMiddleware(RequestDelegate next) { _next = next; } public async Task Invoke(HttpContext context) { try { await _next(context); } catch (Exception ex) { var statusCode = context.Response.StatusCode; await HandleExceptionAsync(context, ex.ToString());\
     }\
     } private Task HandleExceptionAsync(HttpContext context,  string msg) {\
-    HandleExceptionHelper hannd = new HandleExceptionHelper(); hannd.log.Error(msg);//记录到日志文件 return context.Response.WriteAsync("ERROR"); } } 6、依赖注入 ASP.NET Core的核心是通过一个Server和若干注册的Middleware（中间件）构成的管道，不论是管道自身的构建，还是Server和Middleware自身的实现，以及构建在这个管道的应用，都需要相应的服务提供支持，ASP.NET Core自身提供了一个DI容器来实现针对服务的注册和消费。 DI框架具有两个核心的功能，即服务的注册和提供，这两个功能分别由对应的对象来承载, 它们分别是ServiceCollection和ServiceProvider 1、依赖注入的三种方式  在ASP.Net Core 依赖注入有三种： Transient ：每次请求时都会创建，并且永远不会被共享。  Scoped ： 在同一个Scope内只初始化一个实例 ，可以理解为（ 每一个request级别只创建一个实例，同一个http request会在一个 scope内）  Singleton ：只会创建一个实例。该实例在需要它的所有组件之间共享。因此总是使用相同的实例。 DI容器跟踪所有已解析的组件， 组件在其生命周期结束时被释放和处理： 如果组件具有依赖关系，则它们也会自动释放和处理。  如果组件实现IDisposable接口，则在组件释放时自动调用Dispose方法。  重要的是要理解，如果将组件A注册为单例，则它不能依赖于使用Scoped或Transient生命周期注册的组件。更一般地说： 服务不能依赖于生命周期小于其自身的服务。 通常你希望将应用范围的配置注册为单例，数据库访问类，比如Entity Framework上下文被推荐以Scoped方式注入，以便可以重用连接。如果要并行运行的话，请记住Entity Framework上下文不能由两个线程共享，如果需要，最好将上下文注册为Transient，然后每个服务都获得自己的上下文实例，并且可以并行运行。 建议的做法： 尽可能将您的服务注册为瞬态服务。 因为设计瞬态服务很简单。 您通常不用关心多线程和内存泄漏，并且您知道该服务的寿命很短。  1、请谨慎使用Scoped，因为如果您创建子服务作用域或从非Web应用程序使用这些服务，则可能会非常棘手。  2、谨慎使用singleton ，因为您需要处理多线程和潜在的内存泄漏问题。  3、在singleton 服务中不要依赖transient 或者scoped 服务，因为如果当一个singleton 服务注入transient服务，这个 transient服务就会变成一个singleton服务，并且如果transient服务不是为支持这种情况而设计的，则可能导致问题。 在这种情况下，ASP.NET Core的默认DI容器已经抛出异常。 2、DI在ASP.NET Core中的应用  在Startup类中初始化  ASP.NET Core可以在Startup.cs的 ConfigureService中配置DI，大家看到 IServiceCollection这个参数应该就比较熟悉了。 public void ConfigureServices(IServiceCollection services) { services.AddTransient\<ILoginService\<ApplicationUser>, EFLoginService>(); services.AddMvc(); ) ASP.NET Core的一些组件已经提供了一些实例的绑定，像AddMvc就是Mvc Middleware在 IServiceCollection上添加的扩展方法。 public static IMvcBuilder AddMvc(this IServiceCollection services) { if (services == null) { throw new ArgumentNullException(nameof(services)); }
+    HandleExceptionHelper hannd = new HandleExceptionHelper(); hannd.log.Error(msg);//记录到日志文件 return context.Response.WriteAsync("ERROR"); } } 6、依赖注入 ASP.NET Core的核心是通过一个Server和若干注册的Middleware（中间件）构成的管道，不论是管道自身的构建，还是Server和Middleware自身的实现，以及构建在这个管道的应用，都需要相应的服务提供支持，ASP.NET Core自身提供了一个DI容器来实现针对服务的注册和消费。 DI框架具有两个核心的功能，即服务的注册和提供，这两个功能分别由对应的对象来承载, 它们分别是ServiceCollection和ServiceProvider 1、依赖注入的三种方式  在ASP.Net Core 依赖注入有三种： Transient ：每次请求时都会创建，并且永远不会被共享。  Scoped ： 在同一个Scope内只初始化一个实例 ，可以理解为（ 每一个request级别只创建一个实例，同一个http request会在一个 scope内）  Singleton ：只会创建一个实例。该实例在需要它的所有组件之间共享。因此总是使用相同的实例。 DI容器跟踪所有已解析的组件， 组件在其生命周期结束时被释放和处理： 如果组件具有依赖关系，则它们也会自动释放和处理。  如果组件实现IDisposable接口，则在组件释放时自动调用Dispose方法。  重要的是要理解，如果将组件A注册为单例，则它不能依赖于使用Scoped或Transient生命周期注册的组件。更一般地说： 服务不能依赖于生命周期小于其自身的服务。 通常你希望将应用范围的配置注册为单例，数据库访问类，比如Entity Framework上下文被推荐以Scoped方式注入，以便可以重用连接。如果要并行运行的话，请记住Entity Framework上下文不能由两个线程共享，如果需要，最好将上下文注册为Transient，然后每个服务都获得自己的上下文实例，并且可以并行运行。 建议的做法： 尽可能将您的服务注册为瞬态服务。 因为设计瞬态服务很简单。 您通常不用关心多线程和内存泄漏，并且您知道该服务的寿命很短。  1、请谨慎使用Scoped，因为如果您创建子服务作用域或从非Web应用程序使用这些服务，则可能会非常棘手。  2、谨慎使用singleton ，因为您需要处理多线程和潜在的内存泄漏问题。  3、在singleton 服务中不要依赖transient 或者scoped 服务，因为如果当一个singleton 服务注入transient服务，这个 transient服务就会变成一个singleton服务，并且如果transient服务不是为支持这种情况而设计的，则可能导致问题。 在这种情况下，ASP.NET Core的默认DI容器已经抛出异常。 2、DI在ASP.NET Core中的应用  在Startup类中初始化  ASP.NET Core可以在Startup.cs的 ConfigureService中配置DI，大家看到 IServiceCollection这个参数应该就比较熟悉了。 public void ConfigureServices(IServiceCollection services) { services.AddTransient<ILoginService<ApplicationUser>, EFLoginService>(); services.AddMvc(); ) ASP.NET Core的一些组件已经提供了一些实例的绑定，像AddMvc就是Mvc Middleware在 IServiceCollection上添加的扩展方法。 public static IMvcBuilder AddMvc(this IServiceCollection services) { if (services == null) { throw new ArgumentNullException(nameof(services)); }
 
         var builder = services.AddMvcCore();
 
@@ -854,9 +854,9 @@ Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应�
         AddDefaultFrameworkParts(builder.PartManager);
         ...
 
-    } 2 Controller中使用  一般可以通过构造函数或者属性来实现注入，但是官方推荐是通过构造函数。这也是所谓的显式依赖。 private ILoginService\<ApplicationUser> \_loginService; public AccountController( ILoginService\<ApplicationUser> loginService) { \_loginService = loginService; } 我们只要在控制器的构造函数里面写了这个参数，ServiceProvider就会帮我们注入进来。这一步是在Mvc初始化控制器的时候完成的，我们后面再介绍到Mvc的时候会往细里讲。 3 View中使用  在View中需要用@inject 再声明一下，起一个别名。 @using MilkStone.Services; @model MilkStone.Models.AccountViewModel.LoginViewModel @inject ILoginService\<ApplicationUser>  loginService
+    } 2 Controller中使用  一般可以通过构造函数或者属性来实现注入，但是官方推荐是通过构造函数。这也是所谓的显式依赖。 private ILoginService<ApplicationUser> _loginService; public AccountController( ILoginService<ApplicationUser> loginService) { _loginService = loginService; } 我们只要在控制器的构造函数里面写了这个参数，ServiceProvider就会帮我们注入进来。这一步是在Mvc初始化控制器的时候完成的，我们后面再介绍到Mvc的时候会往细里讲。 3 View中使用  在View中需要用@inject 再声明一下，起一个别名。 @using MilkStone.Services; @model MilkStone.Models.AccountViewModel.LoginViewModel @inject ILoginService<ApplicationUser>  loginService
 
-    \<!DOCTYPE html>
+    <!DOCTYPE html>
 
     <html>
     &lt;head&gt;&lt;/head&gt;
@@ -948,9 +948,9 @@ Net Core 重要的技术点 1、中间件概念 Asp.Net Core作为控制台应�
 
 # Winform
 
-BeginInvoke 和 Invoke 有什么区别 如果从另外一个线程操作windows窗体上的控件，就会和主线程产生竞争，造成不可预料的结果，甚至死锁。因此windows GUI编程有一个规则，就是只能通过创建控件的线程来操作控件的数据，否则就可能产生不可预料的结果。为了方便地解决这些问题，Control类实现了ISynchronizeInvoke接口，提供了Invoke和BeginInvoke方法来提供让其它线程更新GUI界面控件的机制。 SendMessage是windows api，用来把一个消息发送到一个窗口的消息队列。这个方法是个阻塞方法，也就是操作系统会确保消息的确发送到目的消息队列，并且该消息被处理完毕以后，该函数才返回。返回之前，调用者将会被暂时阻塞。 PostMessage也是一个用来发送消息到窗口消息队列的api函数，但这个方法是非阻塞的。也就是它会马上返回，而不管消息是否真的发送到目的地，也就是调用者不会被阻塞。 使用Invoke完成一个委托方法的封送，就类似于使用SendMessage方法来给界面线程发送消息，是一个同步方法。也就是说在Invoke封送的方法被执行完毕前，Invoke方法不会返回，从而调用者线程将被阻塞。 使用BeginInvoke方法封送一个委托方法，类似于使用PostMessage进行通信，这是一个异步方法。也就是该方法封送完毕后马上返回，不会等待委托方法的执行结束，调用者线程将不会被阻塞。但是调用者也可以使用EndInvoke方法或者其它类似WaitHandle机制等待异步操作的完成。 但是在内部实现上，Invoke和BeginInvoke都是用了PostMessage方法，从而避免了SendMessage带来的问题。而Invoke方法的同步阻塞是靠WaitHandle机制来完成的。 Windows消息机制和Postmessage 和 Sendmessage 如果从另外一个线程操作windows窗体上的控件，就会和主线程产生竞争，造成不可预料的结果，甚至死锁。因此windows GUI编程有一个规则，就是只能通过创建控件的线程来操作控件的数据，否则就可能产生不可预料的结果。为了方便地解决这些问题，Control类实现了ISynchronizeInvoke接口，提供了Invoke和BeginInvoke方法来提供让其它线程更新GUI界面控件的机制。 SendMessage是windows api，用来把一个消息发送到一个窗口的消息队列。这个方法是个阻塞方法，也就是操作系统会确保消息的确发送到目的消息队列，并且该消息被处理完毕以后，该函数才返回。返回之前，调用者将会被暂时阻塞。 PostMessage也是一个用来发送消息到窗口消息队列的api函数，但这个方法是非阻塞的。也就是它会马上返回，而不管消息是否真的发送到目的地，也就是调用者不会被阻塞。 使用Invoke完成一个委托方法的封送，就类似于使用SendMessage方法来给界面线程发送消息，是一个同步方法。也就是说在Invoke封送的方法被执行完毕前，Invoke方法不会返回，从而调用者线程将被阻塞。 使用BeginInvoke方法封送一个委托方法，类似于使用PostMessage进行通信，这是一个异步方法。也就是该方法封送完毕后马上返回，不会等待委托方法的执行结束，调用者线程将不会被阻塞。但是调用者也可以使用EndInvoke方法或者其它类似WaitHandle机制等待异步操作的完成。 但是在内部实现上，Invoke和BeginInvoke都是用了PostMessage方法，从而避免了SendMessage带来的问题。而Invoke方法的同步阻塞是靠WaitHandle机制来完成的。 SendMessage和PostMessage的区别 答：PostMessage 是异步的，SendMessage 是同步的。PostMessage 只把消息放入队列，不管消息是否被处理就返回，消息可能不被处理；而SendMessage 等待消息被处理完了之后才回，如果消息不被处理，发送消息的线程将一直被阻塞。 控件与组件的区别 组件（Component）比控件（Control）涵盖的范围要广，控件是组件的一种。 什么是组件？可以把它理解成一个可以反反复复使用的模块。就是说只要一个模块能够重用，它就可以称当上一个组件，而不用在乎这个模块有没有“外型”。 控件不仅是可以“重用”的模块，而且还有“外型”。平常看到的除了UI对象之外的程序子窗体，都算得上控件。UI对象有3种：菜单、工具栏、快捷键，除开它们其它可以看得到的子窗体都是控件，比如按钮、标签、单选框、复选框、列表、树型选单等。实际上最能体现“控件”本意的就是按钮了。可以把整个程序当作一台收音机，按钮用来控制这台收音机的一些功能。 总结一下：（1）控件是组件的一种，全称叫“控制组件”；（2）控件一定有UI外型，一定看得到。 最后，顺便提一提Windows窗口消息与控件的联系。Windows的窗口消息用宏WM\_XX来表示，比如WM\_PAINT，WM\_CREATE等。它可以分为三大类：标准消息、命令消息、控件通知消息。所谓标准消息，就是除去WM\_COMMAND之外，所有WM\_XX消息的统称；命令消息也就是WM\_COMMAND消息；控件通知消息外型伪装成WM\_COMMAND，是控件向自己的父窗口通知某种情况。 这三类消息的“来源”是不相同的，标准消息来源最广，但不太方便归类。命令消息来自于UI对象，正如上面所说，也就是来自菜单、工具栏、快捷键。命令消息的作用，就是发出命令让程序做什么，这个过程点点鼠标或者按按快捷键就能搞定。控件通知消息（Control Notification）顾名思义就是控件向父窗体报告某种情况。除开UI对象和控件发出的消息之外，剩下的消息全部都是标准消息。
+BeginInvoke 和 Invoke 有什么区别 如果从另外一个线程操作windows窗体上的控件，就会和主线程产生竞争，造成不可预料的结果，甚至死锁。因此windows GUI编程有一个规则，就是只能通过创建控件的线程来操作控件的数据，否则就可能产生不可预料的结果。为了方便地解决这些问题，Control类实现了ISynchronizeInvoke接口，提供了Invoke和BeginInvoke方法来提供让其它线程更新GUI界面控件的机制。 SendMessage是windows api，用来把一个消息发送到一个窗口的消息队列。这个方法是个阻塞方法，也就是操作系统会确保消息的确发送到目的消息队列，并且该消息被处理完毕以后，该函数才返回。返回之前，调用者将会被暂时阻塞。 PostMessage也是一个用来发送消息到窗口消息队列的api函数，但这个方法是非阻塞的。也就是它会马上返回，而不管消息是否真的发送到目的地，也就是调用者不会被阻塞。 使用Invoke完成一个委托方法的封送，就类似于使用SendMessage方法来给界面线程发送消息，是一个同步方法。也就是说在Invoke封送的方法被执行完毕前，Invoke方法不会返回，从而调用者线程将被阻塞。 使用BeginInvoke方法封送一个委托方法，类似于使用PostMessage进行通信，这是一个异步方法。也就是该方法封送完毕后马上返回，不会等待委托方法的执行结束，调用者线程将不会被阻塞。但是调用者也可以使用EndInvoke方法或者其它类似WaitHandle机制等待异步操作的完成。 但是在内部实现上，Invoke和BeginInvoke都是用了PostMessage方法，从而避免了SendMessage带来的问题。而Invoke方法的同步阻塞是靠WaitHandle机制来完成的。 Windows消息机制和Postmessage 和 Sendmessage 如果从另外一个线程操作windows窗体上的控件，就会和主线程产生竞争，造成不可预料的结果，甚至死锁。因此windows GUI编程有一个规则，就是只能通过创建控件的线程来操作控件的数据，否则就可能产生不可预料的结果。为了方便地解决这些问题，Control类实现了ISynchronizeInvoke接口，提供了Invoke和BeginInvoke方法来提供让其它线程更新GUI界面控件的机制。 SendMessage是windows api，用来把一个消息发送到一个窗口的消息队列。这个方法是个阻塞方法，也就是操作系统会确保消息的确发送到目的消息队列，并且该消息被处理完毕以后，该函数才返回。返回之前，调用者将会被暂时阻塞。 PostMessage也是一个用来发送消息到窗口消息队列的api函数，但这个方法是非阻塞的。也就是它会马上返回，而不管消息是否真的发送到目的地，也就是调用者不会被阻塞。 使用Invoke完成一个委托方法的封送，就类似于使用SendMessage方法来给界面线程发送消息，是一个同步方法。也就是说在Invoke封送的方法被执行完毕前，Invoke方法不会返回，从而调用者线程将被阻塞。 使用BeginInvoke方法封送一个委托方法，类似于使用PostMessage进行通信，这是一个异步方法。也就是该方法封送完毕后马上返回，不会等待委托方法的执行结束，调用者线程将不会被阻塞。但是调用者也可以使用EndInvoke方法或者其它类似WaitHandle机制等待异步操作的完成。 但是在内部实现上，Invoke和BeginInvoke都是用了PostMessage方法，从而避免了SendMessage带来的问题。而Invoke方法的同步阻塞是靠WaitHandle机制来完成的。 SendMessage和PostMessage的区别 答：PostMessage 是异步的，SendMessage 是同步的。PostMessage 只把消息放入队列，不管消息是否被处理就返回，消息可能不被处理；而SendMessage 等待消息被处理完了之后才回，如果消息不被处理，发送消息的线程将一直被阻塞。 控件与组件的区别 组件（Component）比控件（Control）涵盖的范围要广，控件是组件的一种。 什么是组件？可以把它理解成一个可以反反复复使用的模块。就是说只要一个模块能够重用，它就可以称当上一个组件，而不用在乎这个模块有没有“外型”。 控件不仅是可以“重用”的模块，而且还有“外型”。平常看到的除了UI对象之外的程序子窗体，都算得上控件。UI对象有3种：菜单、工具栏、快捷键，除开它们其它可以看得到的子窗体都是控件，比如按钮、标签、单选框、复选框、列表、树型选单等。实际上最能体现“控件”本意的就是按钮了。可以把整个程序当作一台收音机，按钮用来控制这台收音机的一些功能。 总结一下：（1）控件是组件的一种，全称叫“控制组件”；（2）控件一定有UI外型，一定看得到。 最后，顺便提一提Windows窗口消息与控件的联系。Windows的窗口消息用宏WM_XX来表示，比如WM_PAINT，WM_CREATE等。它可以分为三大类：标准消息、命令消息、控件通知消息。所谓标准消息，就是除去WM_COMMAND之外，所有WM_XX消息的统称；命令消息也就是WM_COMMAND消息；控件通知消息外型伪装成WM_COMMAND，是控件向自己的父窗口通知某种情况。 这三类消息的“来源”是不相同的，标准消息来源最广，但不太方便归类。命令消息来自于UI对象，正如上面所说，也就是来自菜单、工具栏、快捷键。命令消息的作用，就是发出命令让程序做什么，这个过程点点鼠标或者按按快捷键就能搞定。控件通知消息（Control Notification）顾名思义就是控件向父窗体报告某种情况。除开UI对象和控件发出的消息之外，剩下的消息全部都是标准消息。
 
-操作界面卡顿如何解决 为了让程序执行中不出现界面卡死的现像，最好的方法就是多线程来解决，一个主线程来创建界面，使用一个子线程来执行程序并更新主界面，这样就不会出现卡死的现像了。 使用BeginInvoke方法来调用这个委托：详细例子见[C#多线程解决界面卡死问题的完美解决方案 (clicksun.net)](http://www.clicksun.net/mis/bbs/showapp.asp?id=14664) 也可以通过异步实现：详细例子见[(11条消息) C#用异步操作解决界面卡顿问题\_c# 按钮点击多次卡死\_星河队长的博客-CSDN博客](https://blog.csdn.net/gy0124/article/details/120778146) winform中获取html网页信息有哪几种控件？ webbrowser、webrequest、webclient、socket。 答：第一种在vs中引用dll即a.dll,然后在类中引用命名空间using test，,然后在实例化对象，A testa = new A(); MessageBox.Show(testa.say()); 第二种方式导入dll即\[DllImport("mydll.dll")]; ,然后声明方法static extern string say(); 然后直接调用即可MessageBox.Show(say());。 有什么区别，第一种只能调用c#生成的dll，而第二种则可以调用第三方软件生成的dll。 8、webbrowser能应用在多线程方式下使用么？能在子线程创建吗？一般怎么解决？ 答：能在多线程中使用；不能在子线程创建；一般采用委托来解决，比如MethodInvoker mi = new MethodInvoker(this.WebNevergate); "form实例".BeginInvoke(mi); private void WebNevergate(){"form实"."Webbrowser".Navigate(web\_url);}
+操作界面卡顿如何解决 为了让程序执行中不出现界面卡死的现像，最好的方法就是多线程来解决，一个主线程来创建界面，使用一个子线程来执行程序并更新主界面，这样就不会出现卡死的现像了。 使用BeginInvoke方法来调用这个委托：详细例子见[C#多线程解决界面卡死问题的完美解决方案 (clicksun.net)](http://www.clicksun.net/mis/bbs/showapp.asp?id=14664) 也可以通过异步实现：详细例子见[(11条消息) C#用异步操作解决界面卡顿问题_c# 按钮点击多次卡死_星河队长的博客-CSDN博客](https://blog.csdn.net/gy0124/article/details/120778146) winform中获取html网页信息有哪几种控件？ webbrowser、webrequest、webclient、socket。 答：第一种在vs中引用dll即a.dll,然后在类中引用命名空间using test，,然后在实例化对象，A testa = new A(); MessageBox.Show(testa.say()); 第二种方式导入dll即\[DllImport("mydll.dll")]; ,然后声明方法static extern string say(); 然后直接调用即可MessageBox.Show(say());。 有什么区别，第一种只能调用c#生成的dll，而第二种则可以调用第三方软件生成的dll。 8、webbrowser能应用在多线程方式下使用么？能在子线程创建吗？一般怎么解决？ 答：能在多线程中使用；不能在子线程创建；一般采用委托来解决，比如MethodInvoker mi = new MethodInvoker(this.WebNevergate); "form实例".BeginInvoke(mi); private void WebNevergate(){"form实"."Webbrowser".Navigate(web_url);}
 
 # WPF
 
@@ -994,7 +994,7 @@ WPF英文全称是Windows Presentation Foundation
 
 (Object->Dispatcher) 命名空间\:System.Windows.Threading 程序集\:WindowsBase.dll 属性
 
-> CurrentDispatcher 获取当前正在执行的线程的 Dispatcher，并在该线程没有关联的调度程序时创建一个新的 Dispatcher。 HasShutdownFinished 确定 Dispatcher 是否已经完成关闭。 HasShutdownStarted 确定 Dispatcher 是否正在关闭。 Hooks 获取提供有关 Dispatcher 的其他事件信息的挂钩集合。 Thread 获取与此 Dispatcher 关联的线程。 方法 BeginInvoke 用在其上创建了 Dispatcher 的线程上的指定参数，按指定优先级异步执行指定委托。 BeginInvokeShutdown 异步启动 Dispatcher 的关闭。 CheckAccess() 确定调用线程是否为与此 Dispatcher 关联的线程。 DisableProcessing() 禁用对 Dispatcher 队列的处理。 ExitAllFrames()	 请求退出所有帧，包括嵌套的帧。 FromThread(Thread)	 获取指定线程的 Dispatcher。 Invoke 在与 Action 关联的线程上同步执行指定的 Dispatcher。 Invoke\<TResult> 在与 Func\<TResult> 关联的线程上同步执行指定的 Dispatcher。 InvokeAsync 在与 Action 关联的线程上异步执行指定的 Dispatcher。 InvokeAsync\<TResult> 在与 Func\<TResult> 关联的线程上异步执行指定的 Dispatcher。 InvokeShutdown()	 同步启动 Dispatcher 的关闭过程。 PushFrame(DispatcherFrame)	 进入执行循环。 Run()	 将主执行帧推送到 Dispatcher 的事件队列中。 ValidatePriority(DispatcherPriority, String)	 确定指定的 DispatcherPriority 是否为有效的优先级。 VerifyAccess()	 确定调用线程是否可以访问此 Dispatcher。 Yield() Yield(DispatcherPriority)	 创建异步产生控制权交还给当前计划程序并为该计划程序提供机会处理其他事件的可等待对象。 事件 ShutdownFinished	当 Dispatcher 完成关闭时发生。 ShutdownStarted	当 Dispatcher 开始关闭时发生。 UnhandledException	在通过 Invoke 或 BeginInvoke 执行委托的过程中，如果引发线程异常且未能捕获该异常，则发生此事件。 UnhandledExceptionFilter	当在筛选阶段通过 Invoke 或 BeginInvoke 执行委托的过程中，如果引发线程异常且未能捕获该异常，则发生此事件。 扩展方法 BeginInvoke 用正常优先级在依据其创建指定 Dispatcher 的线程上异步执行指定的委托。 Invoke 用正常优先级在依据其创建指定 Dispatcher 的线程上同步执行指定的委托。
+> CurrentDispatcher 获取当前正在执行的线程的 Dispatcher，并在该线程没有关联的调度程序时创建一个新的 Dispatcher。 HasShutdownFinished 确定 Dispatcher 是否已经完成关闭。 HasShutdownStarted 确定 Dispatcher 是否正在关闭。 Hooks 获取提供有关 Dispatcher 的其他事件信息的挂钩集合。 Thread 获取与此 Dispatcher 关联的线程。 方法 BeginInvoke 用在其上创建了 Dispatcher 的线程上的指定参数，按指定优先级异步执行指定委托。 BeginInvokeShutdown 异步启动 Dispatcher 的关闭。 CheckAccess() 确定调用线程是否为与此 Dispatcher 关联的线程。 DisableProcessing() 禁用对 Dispatcher 队列的处理。 ExitAllFrames()	 请求退出所有帧，包括嵌套的帧。 FromThread(Thread)	 获取指定线程的 Dispatcher。 Invoke 在与 Action 关联的线程上同步执行指定的 Dispatcher。 Invoke<TResult> 在与 Func<TResult> 关联的线程上同步执行指定的 Dispatcher。 InvokeAsync 在与 Action 关联的线程上异步执行指定的 Dispatcher。 InvokeAsync<TResult> 在与 Func<TResult> 关联的线程上异步执行指定的 Dispatcher。 InvokeShutdown()	 同步启动 Dispatcher 的关闭过程。 PushFrame(DispatcherFrame)	 进入执行循环。 Run()	 将主执行帧推送到 Dispatcher 的事件队列中。 ValidatePriority(DispatcherPriority, String)	 确定指定的 DispatcherPriority 是否为有效的优先级。 VerifyAccess()	 确定调用线程是否可以访问此 Dispatcher。 Yield() Yield(DispatcherPriority)	 创建异步产生控制权交还给当前计划程序并为该计划程序提供机会处理其他事件的可等待对象。 事件 ShutdownFinished	当 Dispatcher 完成关闭时发生。 ShutdownStarted	当 Dispatcher 开始关闭时发生。 UnhandledException	在通过 Invoke 或 BeginInvoke 执行委托的过程中，如果引发线程异常且未能捕获该异常，则发生此事件。 UnhandledExceptionFilter	当在筛选阶段通过 Invoke 或 BeginInvoke 执行委托的过程中，如果引发线程异常且未能捕获该异常，则发生此事件。 扩展方法 BeginInvoke 用正常优先级在依据其创建指定 Dispatcher 的线程上异步执行指定的委托。 Invoke 用正常优先级在依据其创建指定 Dispatcher 的线程上同步执行指定的委托。
 
 ### DispatcherObject
 
@@ -1084,7 +1084,7 @@ LogicalTreeHelper
 
 wpf中的动态绑定就必须依赖依赖项属性来实现，除此之外wpf中最重要的动画Animation也必须基于依赖项属性。
 
-> 使用效率更高的保存机制 附加功能 更改通知 属性值继承 使用 注册依赖项属性 添加属性包装器 特征 依赖属性提供用来扩展属性功能的功能，这与字段支持的属性相反。 通常，此类功能代表或支持以下特定功能之一： 资源 数据绑定 样式 动画 元数据重写 在从最初注册依赖属性的类派生时，可以通过重写依赖属性的元数据来更改该属性的某些行为。 重写元数据依赖于 DependencyProperty 标识符。 重写元数据不需要重新实现属性。 元数据的更改由属性系统在本机处理；对于所有从基类继承的属性，每个类都有可能基于每个类型保留元数据。以下示例重写依赖属性 DefaultStyleKey 的元数据。 重写此特定依赖属性的元数据是某个实现模式的一部分，该模式创建可以使用主题中的默认样式的控件。 public class SpinnerControl : ItemsControl { static SpinnerControl() { DefaultStyleKeyProperty.OverrideMetadata( typeof(SpinnerControl), new FrameworkPropertyMetadata(typeof(SpinnerControl)) ); } } 属性值继承 下面的示例演示一个绑定，并设置指定绑定（在前面的绑定示例中未显示出来）的源的 DataContext 属性。 子对象中的任何后续绑定都无需指定源，它们可以使用父对象 StackPanel 中 DataContext 的继承值。 （或者，子对象可以选择直接在 Binding 中指定自己的 DataContext 或 Source，并且有意不将继承值用于其绑定的数据上下文。） \<StackPanel Canvas.Top="50" DataContext="{Binding Source={StaticResource XmlTeamsSource}}"> \<Button Content="{Binding XPath=Team/@TeamName}"/> \</StackPanel> 如何自定义依赖属性 1、声明依赖属性变量。 2、在属性系统中进行注册。 3、使用.NET属性包装依赖属性 public static DependencyProperty  = DependencyProperty.Register("Text", //属性名称 typeof(string), //属性类型 typeof(TestDependencyPropertyWindow), //该属性所有者，即将该属性注册到那个类上 new PropertyMetadata("")); //属性默认值 public string Text { get { return (string)GetValue(TextProperty); } set { SetValue(TextProperty, value); } } 依赖属性的特点 1、属性变更通知 无论什么时候，只要依赖属性的值发生改变，wpf就会自动根据属性的元数据触发一系列的动作，这些动作可以重新呈现UI元素，也可以更新当前的布局，刷新数据绑定等等，这种变更的通知最有趣的特点之一就是属性触发器，它可以在属性值改变的时候，执行一系列自定义的动作，而不需要更改任何其他的代码来实现。通过下面的示例来演示属性变更通知 2、属性值继承 是指属性值自顶向下沿着元素树进行传递。 3、节省内存空间 依赖属性和CLR属性在内存的使用上是截然不同的，每个CLR属性都包含一个非static的字段，因此当我们实例化一个类型的时候，就会创建该类型所拥有的所有CLR属性，也就是说一个对象所占用的内存在调用new操作进行实例化的时候就已经决定了、而wpf允许对象在创建的时候并不包含用于存储数据的空间，只保留在需要用到数据的时候能够获得该默认值，即用其他对象数据或者实时分配空间的能力。 共享依赖项属性
+> 使用效率更高的保存机制 附加功能 更改通知 属性值继承 使用 注册依赖项属性 添加属性包装器 特征 依赖属性提供用来扩展属性功能的功能，这与字段支持的属性相反。 通常，此类功能代表或支持以下特定功能之一： 资源 数据绑定 样式 动画 元数据重写 在从最初注册依赖属性的类派生时，可以通过重写依赖属性的元数据来更改该属性的某些行为。 重写元数据依赖于 DependencyProperty 标识符。 重写元数据不需要重新实现属性。 元数据的更改由属性系统在本机处理；对于所有从基类继承的属性，每个类都有可能基于每个类型保留元数据。以下示例重写依赖属性 DefaultStyleKey 的元数据。 重写此特定依赖属性的元数据是某个实现模式的一部分，该模式创建可以使用主题中的默认样式的控件。 public class SpinnerControl : ItemsControl { static SpinnerControl() { DefaultStyleKeyProperty.OverrideMetadata( typeof(SpinnerControl), new FrameworkPropertyMetadata(typeof(SpinnerControl)) ); } } 属性值继承 下面的示例演示一个绑定，并设置指定绑定（在前面的绑定示例中未显示出来）的源的 DataContext 属性。 子对象中的任何后续绑定都无需指定源，它们可以使用父对象 StackPanel 中 DataContext 的继承值。 （或者，子对象可以选择直接在 Binding 中指定自己的 DataContext 或 Source，并且有意不将继承值用于其绑定的数据上下文。） <StackPanel Canvas.Top="50" DataContext="{Binding Source={StaticResource XmlTeamsSource}}"> <Button Content="{Binding XPath=Team/@TeamName}"/> </StackPanel> 如何自定义依赖属性 1、声明依赖属性变量。 2、在属性系统中进行注册。 3、使用.NET属性包装依赖属性 public static DependencyProperty  = DependencyProperty.Register("Text", //属性名称 typeof(string), //属性类型 typeof(TestDependencyPropertyWindow), //该属性所有者，即将该属性注册到那个类上 new PropertyMetadata("")); //属性默认值 public string Text { get { return (string)GetValue(TextProperty); } set { SetValue(TextProperty, value); } } 依赖属性的特点 1、属性变更通知 无论什么时候，只要依赖属性的值发生改变，wpf就会自动根据属性的元数据触发一系列的动作，这些动作可以重新呈现UI元素，也可以更新当前的布局，刷新数据绑定等等，这种变更的通知最有趣的特点之一就是属性触发器，它可以在属性值改变的时候，执行一系列自定义的动作，而不需要更改任何其他的代码来实现。通过下面的示例来演示属性变更通知 2、属性值继承 是指属性值自顶向下沿着元素树进行传递。 3、节省内存空间 依赖属性和CLR属性在内存的使用上是截然不同的，每个CLR属性都包含一个非static的字段，因此当我们实例化一个类型的时候，就会创建该类型所拥有的所有CLR属性，也就是说一个对象所占用的内存在调用new操作进行实例化的时候就已经决定了、而wpf允许对象在创建的时候并不包含用于存储数据的空间，只保留在需要用到数据的时候能够获得该默认值，即用其他对象数据或者实时分配空间的能力。 共享依赖项属性
 
 ### 附加属性
 
@@ -1136,7 +1136,7 @@ wpf中的动态绑定就必须依赖依赖项属性来实现，除此之外wpf�
 
 ### 样式
 
-> WPF样式的优先级： 标签内样式(最高) > Windows/UserControl/Page  >  Application.xaml(最低) \<Window> \<Grid> \<Grid.Resources> \<Style TargetType="{x\:Type Button}" x\:Key="ButtonStyle"> \<Setter Property="Height" Value="22"/> \<Setter Property="Width" Value="60"/> \</Style> \</Grid.Resources> \<Button Content="Button" Style="{StaticResource ButtonStyle}"/> \<Button Content="Button" Style="{StaticResource ButtonStyle}" Margin="156,144,286,145" /> \</Grid> \</Window> 样式基础 样式(Style)是组织和重用格式化选项的重要工具。不是使用重复的标记填充XAML,以便设置外边距、内边距、颜色以及字体等细节，而是创建一系列封装所有这些细节的样式，然后再需要之处通过属性来应用样式。样式是可应用于元素的属性值集合。使用资源的最常见原因之一就是保存样式。使按钮具有统一格式的实现方式一：资源 设置属性
+> WPF样式的优先级： 标签内样式(最高) > Windows/UserControl/Page  >  Application.xaml(最低) <Window> <Grid> <Grid.Resources> <Style TargetType="{x\:Type Button}" x\:Key="ButtonStyle"> <Setter Property="Height" Value="22"/> <Setter Property="Width" Value="60"/> </Style> </Grid.Resources> <Button Content="Button" Style="{StaticResource ButtonStyle}"/> <Button Content="Button" Style="{StaticResource ButtonStyle}" Margin="156,144,286,145" /> </Grid> </Window> 样式基础 样式(Style)是组织和重用格式化选项的重要工具。不是使用重复的标记填充XAML,以便设置外边距、内边距、颜色以及字体等细节，而是创建一系列封装所有这些细节的样式，然后再需要之处通过属性来应用样式。样式是可应用于元素的属性值集合。使用资源的最常见原因之一就是保存样式。使按钮具有统一格式的实现方式一：资源 设置属性
 
     <Setter Property="FontFamily" Value="Times New Roman"/>
 
@@ -1213,7 +1213,7 @@ wpf中的动态绑定就必须依赖依赖项属性来实现，除此之外wpf�
         </Style>
       </Window.Resources>
 
-> MultiTrigger	与Trigger类似，但这种触发器联合了多个条件。只有满足了所有这些条件，才会启动触发器。 \<Style.Triggers> \<MultiDataTrigger> \<MultiDataTrigger.Conditions> \<Condition Property="Control.IsFocused" Value="true"/> \<Condition Property="Control.IsMouseOver" Value="true"/> \</MultiDataTrigger.Conditions> \<MultiDataTrigger.Setters> \<Setter Property="Control.Foreground" Value="DarkRed"/> \</MultiDataTrigger.Setters> \</MultiDataTrigger> \</Style.Triggers> DataTrigger	这种触发器使用数据绑定，与Trigger类似，只不过监视的是任意绑定数据的变化。
+> MultiTrigger	与Trigger类似，但这种触发器联合了多个条件。只有满足了所有这些条件，才会启动触发器。 <Style.Triggers> <MultiDataTrigger> <MultiDataTrigger.Conditions> <Condition Property="Control.IsFocused" Value="true"/> <Condition Property="Control.IsMouseOver" Value="true"/> </MultiDataTrigger.Conditions> <MultiDataTrigger.Setters> <Setter Property="Control.Foreground" Value="DarkRed"/> </MultiDataTrigger.Setters> </MultiDataTrigger> </Style.Triggers> DataTrigger	这种触发器使用数据绑定，与Trigger类似，只不过监视的是任意绑定数据的变化。
 
      <Window.Resources>
         <Style x:Key="BigFontButton">
@@ -1532,7 +1532,7 @@ xaml：
       }
     }
 
-> 其中 SetProperty 判断 \_myProperty 和 value 是否相等，如果不相等就为 \_myProperty 赋值并触发 OnPropertyChanged 事件。 除了 INotifyPropertyChanged，绑定机制中另一个十分有用的接口是 INotifyDataErrorInfo，它用于公开数据验证的结果。Prism 提供了 ErrorsContainer 以便管理及通知数据验证的错误信息。要使用 ErrorsContainer，可以先写一个类似这样的基类：
+> 其中 SetProperty 判断 _myProperty 和 value 是否相等，如果不相等就为 _myProperty 赋值并触发 OnPropertyChanged 事件。 除了 INotifyPropertyChanged，绑定机制中另一个十分有用的接口是 INotifyDataErrorInfo，它用于公开数据验证的结果。Prism 提供了 ErrorsContainer 以便管理及通知数据验证的错误信息。要使用 ErrorsContainer，可以先写一个类似这样的基类：
 
     public class DomainObject : BindableBase, INotifyDataErrorInfo
     {
@@ -1621,7 +1621,7 @@ xaml：
 
 ### Event Aggregator
 
-> 本来Event Aggregator（事件聚合器）或 Messenger 之类的组件本来并不是 MVVM 的一部分，不过现在也成了 MVVM 框架的一个重要元素。解耦是 MVVM 的一个重要目标，'EventAggregator' 则是实现解耦的重要工具。在 MVVM 中，对于 View 和与他匹配的 ViewModel 之间的交互，可以使用 INotifyProperty 和 Icommand；而对于必须通信的不同 ViewModel 或模块，为了使它们之间实现低耦合，可以使用 Prism 中的 EventAggregator。如下图所示，Publisher 和 Scbscriber 之间没有直接关联，它们通过 Event Aggregator 获取 PubSubEvent 并发送及接收消息： 要使用 EventAggregator，首先需要定义 PubSubEvent： public class TickerSymbolSelectedEvent : PubSubEvent\<string>{} 发布方和订阅方都通过 EventAggregator 索取 PubSubEvent，在 ViewModel中通常都是通过依赖注入获取一个 IEventAggregator：
+> 本来Event Aggregator（事件聚合器）或 Messenger 之类的组件本来并不是 MVVM 的一部分，不过现在也成了 MVVM 框架的一个重要元素。解耦是 MVVM 的一个重要目标，'EventAggregator' 则是实现解耦的重要工具。在 MVVM 中，对于 View 和与他匹配的 ViewModel 之间的交互，可以使用 INotifyProperty 和 Icommand；而对于必须通信的不同 ViewModel 或模块，为了使它们之间实现低耦合，可以使用 Prism 中的 EventAggregator。如下图所示，Publisher 和 Scbscriber 之间没有直接关联，它们通过 Event Aggregator 获取 PubSubEvent 并发送及接收消息： 要使用 EventAggregator，首先需要定义 PubSubEvent： public class TickerSymbolSelectedEvent : PubSubEvent<string>{} 发布方和订阅方都通过 EventAggregator 索取 PubSubEvent，在 ViewModel中通常都是通过依赖注入获取一个 IEventAggregator：
 
     public class MainPageViewModel
     {
@@ -1632,7 +1632,7 @@ xaml：
       }
     }
 
-> 发送方的操作很简单，只需要 通过 GetEvent 拿到 PubSubEvent，把消息发布出去，然后拍拍屁股走人，其它的责任都不用管： eventAggregator.GetEvent\<TickerSymbolSelectedEvent>().Publish("STOCK0"); 订阅方是真正使用这些消息并负责任的人，下面是最简单的通过 Subscribe 订阅事件的代码：
+> 发送方的操作很简单，只需要 通过 GetEvent 拿到 PubSubEvent，把消息发布出去，然后拍拍屁股走人，其它的责任都不用管： eventAggregator.GetEvent<TickerSymbolSelectedEvent>().Publish("STOCK0"); 订阅方是真正使用这些消息并负责任的人，下面是最简单的通过 Subscribe 订阅事件的代码：
 
     public class MainPageViewModel
     {
@@ -1668,23 +1668,23 @@ xaml：
 
 ### PrismApplication\#
 
-> 安装好 Prism.Wpf 和 Prism.Unity 后，下一步要做的是将 App.xaml 的类型替换为 PrismApplication。 \<prism\:PrismApplication x\:Class="PrismTest.App" xmlns="<http://schemas.microsoft.com/winfx/2006/xaml/presentation>" xmlns\:x="<http://schemas.microsoft.com/winfx/2006/xaml>" xmlns\:prism="[http://prismlibrary.com/">](http://prismlibrary.com/">) \<Application.Resources> \</Application.Resources> \</prism\:PrismApplication> 上面是修改过的 App.xaml，将 Application 改为 prism\:PrismApplication，并且移除了 StartupUri="MainWindow\.xaml"。 修改 App.xaml.cs： public partial class App : PrismApplication { public App() { } protected override Window CreateShell() => Container.Resolve\<ShellWindow>(); } PrismApplication 不使用 StartupUri ，而是使用 CreateShell 方法创建主窗口。
+> 安装好 Prism.Wpf 和 Prism.Unity 后，下一步要做的是将 App.xaml 的类型替换为 PrismApplication。 <prism\:PrismApplication x\:Class="PrismTest.App" xmlns="<http://schemas.microsoft.com/winfx/2006/xaml/presentation>" xmlns\:x="<http://schemas.microsoft.com/winfx/2006/xaml>" xmlns\:prism="[http://prismlibrary.com/">](http://prismlibrary.com/">) <Application.Resources> </Application.Resources> </prism\:PrismApplication> 上面是修改过的 App.xaml，将 Application 改为 prism\:PrismApplication，并且移除了 StartupUri="MainWindow\.xaml"。 修改 App.xaml.cs： public partial class App : PrismApplication { public App() { } protected override Window CreateShell() => Container.Resolve<ShellWindow>(); } PrismApplication 不使用 StartupUri ，而是使用 CreateShell 方法创建主窗口。
 
 ### RegisterTypes
 
-> 向IOC容器中注册类型 protected override void RegisterTypes(IContainerRegistry containerRegistry) { containerRegistry.RegisterForNavigation\<BlankPage, BlankViewModel>(PageKeys.Blank); containerRegistry.RegisterForNavigation\<MainPage, MainViewModel>(PageKeys.Main); containerRegistry.RegisterForNavigation\<ShellWindow, ShellViewModel>(); // Configuration var configuration = BuildConfiguration(); // Register configurations to IoC containerRegistry.RegisterInstance\<IConfiguration>(configuration); }
+> 向IOC容器中注册类型 protected override void RegisterTypes(IContainerRegistry containerRegistry) { containerRegistry.RegisterForNavigation<BlankPage, BlankViewModel>(PageKeys.Blank); containerRegistry.RegisterForNavigation<MainPage, MainViewModel>(PageKeys.Main); containerRegistry.RegisterForNavigation<ShellWindow, ShellViewModel>(); // Configuration var configuration = BuildConfiguration(); // Register configurations to IoC containerRegistry.RegisterInstance<IConfiguration>(configuration); }
 
 ### XAML ContainerProvider\#
 
-在 XAML 中直接实例化 ViewModel 并设置 DataContext 是 View 和 ViewModel 之间建立关联的最基本的方法： Copy \<UserControl.DataContext> <viewmodels:MainViewModel/> \</UserControl.DataContext> 但现实中很难这样做，因为相当一部分 ViewModel 都会在构造函数中注入依赖，而 XAML 只能实例化具有无参数构造函数的类型。为了解决这个问题，Prism 提供了 ContainerProvider 这个工具，通过设置 Type 或 Name 从 Container 中解析请求的类型，它的用法如下： Copy \<TextBlock Text="{Binding Path=Foo, Converter={prism\:ContainerProvider {x\:Type local\:MyConverter}}}" /> \<Window> \<Window\.DataContext> \<prism\:ContainerProvider Type="{x\:Type local\:MyViewModel}" /> \</Window\.DataContext> \</Window>
+在 XAML 中直接实例化 ViewModel 并设置 DataContext 是 View 和 ViewModel 之间建立关联的最基本的方法： Copy <UserControl.DataContext> <viewmodels:MainViewModel/> </UserControl.DataContext> 但现实中很难这样做，因为相当一部分 ViewModel 都会在构造函数中注入依赖，而 XAML 只能实例化具有无参数构造函数的类型。为了解决这个问题，Prism 提供了 ContainerProvider 这个工具，通过设置 Type 或 Name 从 Container 中解析请求的类型，它的用法如下： Copy <TextBlock Text="{Binding Path=Foo, Converter={prism\:ContainerProvider {x\:Type local\:MyConverter}}}" /> <Window> <Window\.DataContext> <prism\:ContainerProvider Type="{x\:Type local\:MyViewModel}" /> </Window\.DataContext> </Window>
 
 ### ViewModelLocator
 
-Prism 还提供了 ViewModelLocator，用于将 View 的 DataContext 设置为对应的 ViewModel： Copy \<Window x\:Class="Demo.Views.MainWindow" ... xmlns\:prism="<http://prismlibrary.com/>" prism\:ViewModelLocator.AutoWireViewModel="True"> 在将 View 的 ViewModelLocator.AutoWireViewModel 附加属性设置为 True 的同时，Prism 会为查找这个 View 对应的 ViewModel 类型，然后从 Container 中解析这个类型并设置为 View 的 DataContext。它首先查找 ViewModelLocationProvider 中已经使用 Register 注册的类型，Register 函数的使用方式如下： Copy ViewModelLocationProvider.Register\<MainWindow, CustomViewModel>(); 如果类型未在 ViewModelLocationProvider 中注册，则根据约定好的命名方式找到 ViewModel 的类型，这是默认的查找逻辑的源码： Copy var viewName = viewType.FullName; viewName = viewName.Replace(".Views.", ".ViewModels."); var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName; var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel"; var viewModelName = String.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName); return Type.GetType(viewModelName); 例如 PrismTest.Views.MainView 这个类，对应的 ViewModel 类型就是 PrismTest.ViewModels.MainViewModel。 当然很多项目都不符合这个命名规则，那么可以在 App.xaml.cs 中重写 ConfigureViewModelLocator 并调用 ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver 改变这个查找规则： Copy protected override void ConfigureViewModelLocator() { base.ConfigureViewModelLocator(); ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) => { var viewName = viewType.FullName.Replace(".ViewModels.", ".CustomNamespace."); var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName; var viewModelName = \$"{viewName}ViewModel, {viewAssemblyName}"; return Type.GetType(viewModelName); }); }
+Prism 还提供了 ViewModelLocator，用于将 View 的 DataContext 设置为对应的 ViewModel： Copy <Window x\:Class="Demo.Views.MainWindow" ... xmlns\:prism="<http://prismlibrary.com/>" prism\:ViewModelLocator.AutoWireViewModel="True"> 在将 View 的 ViewModelLocator.AutoWireViewModel 附加属性设置为 True 的同时，Prism 会为查找这个 View 对应的 ViewModel 类型，然后从 Container 中解析这个类型并设置为 View 的 DataContext。它首先查找 ViewModelLocationProvider 中已经使用 Register 注册的类型，Register 函数的使用方式如下： Copy ViewModelLocationProvider.Register<MainWindow, CustomViewModel>(); 如果类型未在 ViewModelLocationProvider 中注册，则根据约定好的命名方式找到 ViewModel 的类型，这是默认的查找逻辑的源码： Copy var viewName = viewType.FullName; viewName = viewName.Replace(".Views.", ".ViewModels."); var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName; var suffix = viewName.EndsWith("View") ? "Model" : "ViewModel"; var viewModelName = String.Format(CultureInfo.InvariantCulture, "{0}{1}, {2}", viewName, suffix, viewAssemblyName); return Type.GetType(viewModelName); 例如 PrismTest.Views.MainView 这个类，对应的 ViewModel 类型就是 PrismTest.ViewModels.MainViewModel。 当然很多项目都不符合这个命名规则，那么可以在 App.xaml.cs 中重写 ConfigureViewModelLocator 并调用 ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver 改变这个查找规则： Copy protected override void ConfigureViewModelLocator() { base.ConfigureViewModelLocator(); ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) => { var viewName = viewType.FullName.Replace(".ViewModels.", ".CustomNamespace."); var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName; var viewModelName = \$"{viewName}ViewModel, {viewAssemblyName}"; return Type.GetType(viewModelName); }); }
 
 ### Dialog Service
 
-Prism 7 和 8 相对于以往的版本最大的改变在于 View 和 ViewModel 的交互，现在的处理方式变得更加易于使用，这篇文章以其中的 DialogService 作为代表讲解 Prism 如何实现 View 和 ViewModel 之间的交互。 DialogService 内部会调用 ViewModelLocator.AutoWireViewModel，所以使用 DialogService 调用的 View 无需添加这个附加属性。 以往在 WPF 中需要弹出一个窗口，首先新建一个 Window，然后调用 ShowDialog，ShowDialog 阻塞当前线程，直到弹出的 Window 关闭，这时候还可以拿到一个返回值，具体代码差不多是这样： Copy var window = new CreateUserWindow { Owner = this }; var dialogResult = window\.ShowDialog(); if (dialogResult == true) { var user = window\.User; //other code; } 简单直接有用。但在 MVVM 模式中，开发者要假装自己不知道要调用的 View，甚至不知道要调用的 ViewModel。开发者只知道要执行的这个操作的名字，要传什么参数，拿到什么结果，至于具体由谁去执行，开发者要假装不知道（虽然很可能都是自己写的）。为了做到这种效果，Prism 提供了 IDialogService 接口。这个接口的具体实现已经在 PrismApplication 里注册了，用户通常只需要从构造函数里注入这个服务： Copy public MainWindowViewModel(IDialogService dialogService) { \_dialogService = dialogService; } IDialogService 提供两组函数，分别是 Show 和 ShowDialog，对应非模态和模态窗口。它们的参数都一样：弹出的对话框的名称、传入的参数、对话框关闭时调用的回调函数： Copy void ShowDialog(string name, IDialogParameters parameters, Action\<IDialogResult> callback); 其中 IDialogResult 类型包含 ButtonResult 类型的 Result 属性和 IDialogParameters 类型的 Parameters 属性，前者用于标识关闭对话框的动作（Yes、No、Cancel等），后者可以传入任何类型的参数作为具体的返回结果。下面代码展示了一个基本的 ShowDialog 函数调用方式： Copy var parameters = new DialogParameters { { "UserName", "Admin" } }; \_dialogService.ShowDialog("CreateUser", parameters, dialogResult => { if (dialogResult.Result == ButtonResult.OK) { var user = dialogResult.Parameters.GetValue\<User>("User"); //other code } }); 为了让 IDialogService 知道上面代码中 “CreateUser” 对应的 View，需要在 'App,xaml.cs' 中的 RegisterTypes 函数中注册它对应的 Dialog： Copy containerRegistry.RegisterDialog\<CreateUserView>("CreateUser"); 上面这种注册方式需要依赖 ViewModelLocator 找到对应的 ViewModel，也可以直接注册 View 和对应的 ViewModel： Copy containerRegistry.RegisterDialog\<CreateUserView, CreateUserViewModel>("CreateUser"); 有没有发现上面的 CreateUserWindow 变成了 CreateUserView？因为使用 DialogService 的时候，View 必须是一个 UserControl，DialogService 自己创建一个 Window 将 View 放进去。这样做的好处是 View 可以不清楚自己是一个弹框或者导航的页面，或者要用在拥有不同 Window 样式的其它项目中，反正只要实现逻辑就好了。由于 View 是一个 UserControl，它不能直接控制拥有它的 Window，只能通过在 View 中添加附加属性定义 Window 的样式： Copy <prism:Dialog.WindowStyle> \<Style TargetType="Window"> \<Setter Property="prism\:Dialog.WindowStartupLocation" Value="CenterScreen" /> \<Setter Property="ResizeMode" Value="NoResize"/> \<Setter Property="ShowInTaskbar" Value="False"/> \<Setter Property="SizeToContent" Value="WidthAndHeight"/> \</Style> \</prism\:Dialog.WindowStyle> 最后一步是实现 ViewModel。对话框的 ViewModel 必须实现 IDialogAware 接口，它的定义如下： Copy public interface IDialogAware { /// <summary> /// 确定是否可以关闭对话框。 /// </summary> bool CanCloseDialog(); /// <summary> /// 关闭对话框时调用。 /// </summary> void OnDialogClosed(); /// <summary> /// 在对话框打开时调用。 /// </summary> void OnDialogOpened(IDialogParameters parameters); /// <summary> /// 将显示在窗口标题栏中的对话框的标题。 /// </summary> string Title { get; } /// <summary> /// 指示 IDialogWindow 关闭对话框。 /// </summary> event Action\<IDialogResult> RequestClose; } 一个简单的实现如下： Copy public class CreateUserViewModel : BindableBase, IDialogAware { public string Title => "Create User"; public event Action\<IDialogResult> RequestClose; private DelegateCommand \_createCommand; public DelegateCommand CreateCommand => \_createCommand ??= new DelegateCommand(Create); private string \_userName; public string UserName { get { return \_userName; } set { SetProperty(ref \_userName, value); } } public virtual void RaiseRequestClose(IDialogResult dialogResult) { RequestClose?.Invoke(dialogResult); } public virtual bool CanCloseDialog() { return true; } public virtual void OnDialogClosed() { } public virtual void OnDialogOpened(IDialogParameters parameters) { UserName = parameters.GetValue\<string>("UserName"); } protected virtual void Create() { var parameters = new DialogParameters { { "User", new User{Name=UserName} } }; RaiseRequestClose(new DialogResult(ButtonResult.OK, parameters)); } } 上面的代码在 OnDialogOpened 中读取传入的参数，在 RaiseRequestClose 关闭对话框并传递结果。至此就完成了弹出对话框并获取结果的整个流程。 自定义 Window 样式在 WPF 程序中很流行，DialogService 也支持自定义 Window 样式。假设 MyWindow 是一个自定义样式的 Window，自定义一个继承它的 MyPrismWindow 类型，并实现接口 IDialogWindow： Copy public partial class MyPrismWindow: MyWindow, IDialogWindow { public IDialogResult Result { get; set; } } 然后调用 RegisterDialogWindow 注册这个 Window 类型。 Copy protected override void RegisterTypes(IContainerRegistry containerRegistry) { containerRegistry.RegisterDialogWindow\<MyPrismWindow>(); } 这样 DialogService 将会使用这个自定义的 Window 类型作为 View 的窗口。
+Prism 7 和 8 相对于以往的版本最大的改变在于 View 和 ViewModel 的交互，现在的处理方式变得更加易于使用，这篇文章以其中的 DialogService 作为代表讲解 Prism 如何实现 View 和 ViewModel 之间的交互。 DialogService 内部会调用 ViewModelLocator.AutoWireViewModel，所以使用 DialogService 调用的 View 无需添加这个附加属性。 以往在 WPF 中需要弹出一个窗口，首先新建一个 Window，然后调用 ShowDialog，ShowDialog 阻塞当前线程，直到弹出的 Window 关闭，这时候还可以拿到一个返回值，具体代码差不多是这样： Copy var window = new CreateUserWindow { Owner = this }; var dialogResult = window\.ShowDialog(); if (dialogResult == true) { var user = window\.User; //other code; } 简单直接有用。但在 MVVM 模式中，开发者要假装自己不知道要调用的 View，甚至不知道要调用的 ViewModel。开发者只知道要执行的这个操作的名字，要传什么参数，拿到什么结果，至于具体由谁去执行，开发者要假装不知道（虽然很可能都是自己写的）。为了做到这种效果，Prism 提供了 IDialogService 接口。这个接口的具体实现已经在 PrismApplication 里注册了，用户通常只需要从构造函数里注入这个服务： Copy public MainWindowViewModel(IDialogService dialogService) { _dialogService = dialogService; } IDialogService 提供两组函数，分别是 Show 和 ShowDialog，对应非模态和模态窗口。它们的参数都一样：弹出的对话框的名称、传入的参数、对话框关闭时调用的回调函数： Copy void ShowDialog(string name, IDialogParameters parameters, Action<IDialogResult> callback); 其中 IDialogResult 类型包含 ButtonResult 类型的 Result 属性和 IDialogParameters 类型的 Parameters 属性，前者用于标识关闭对话框的动作（Yes、No、Cancel等），后者可以传入任何类型的参数作为具体的返回结果。下面代码展示了一个基本的 ShowDialog 函数调用方式： Copy var parameters = new DialogParameters { { "UserName", "Admin" } }; _dialogService.ShowDialog("CreateUser", parameters, dialogResult => { if (dialogResult.Result == ButtonResult.OK) { var user = dialogResult.Parameters.GetValue<User>("User"); //other code } }); 为了让 IDialogService 知道上面代码中 “CreateUser” 对应的 View，需要在 'App,xaml.cs' 中的 RegisterTypes 函数中注册它对应的 Dialog： Copy containerRegistry.RegisterDialog<CreateUserView>("CreateUser"); 上面这种注册方式需要依赖 ViewModelLocator 找到对应的 ViewModel，也可以直接注册 View 和对应的 ViewModel： Copy containerRegistry.RegisterDialog<CreateUserView, CreateUserViewModel>("CreateUser"); 有没有发现上面的 CreateUserWindow 变成了 CreateUserView？因为使用 DialogService 的时候，View 必须是一个 UserControl，DialogService 自己创建一个 Window 将 View 放进去。这样做的好处是 View 可以不清楚自己是一个弹框或者导航的页面，或者要用在拥有不同 Window 样式的其它项目中，反正只要实现逻辑就好了。由于 View 是一个 UserControl，它不能直接控制拥有它的 Window，只能通过在 View 中添加附加属性定义 Window 的样式： Copy <prism:Dialog.WindowStyle> <Style TargetType="Window"> <Setter Property="prism\:Dialog.WindowStartupLocation" Value="CenterScreen" /> <Setter Property="ResizeMode" Value="NoResize"/> <Setter Property="ShowInTaskbar" Value="False"/> <Setter Property="SizeToContent" Value="WidthAndHeight"/> </Style> </prism\:Dialog.WindowStyle> 最后一步是实现 ViewModel。对话框的 ViewModel 必须实现 IDialogAware 接口，它的定义如下： Copy public interface IDialogAware { /// <summary> /// 确定是否可以关闭对话框。 /// </summary> bool CanCloseDialog(); /// <summary> /// 关闭对话框时调用。 /// </summary> void OnDialogClosed(); /// <summary> /// 在对话框打开时调用。 /// </summary> void OnDialogOpened(IDialogParameters parameters); /// <summary> /// 将显示在窗口标题栏中的对话框的标题。 /// </summary> string Title { get; } /// <summary> /// 指示 IDialogWindow 关闭对话框。 /// </summary> event Action<IDialogResult> RequestClose; } 一个简单的实现如下： Copy public class CreateUserViewModel : BindableBase, IDialogAware { public string Title => "Create User"; public event Action<IDialogResult> RequestClose; private DelegateCommand _createCommand; public DelegateCommand CreateCommand => _createCommand ??= new DelegateCommand(Create); private string _userName; public string UserName { get { return _userName; } set { SetProperty(ref _userName, value); } } public virtual void RaiseRequestClose(IDialogResult dialogResult) { RequestClose?.Invoke(dialogResult); } public virtual bool CanCloseDialog() { return true; } public virtual void OnDialogClosed() { } public virtual void OnDialogOpened(IDialogParameters parameters) { UserName = parameters.GetValue<string>("UserName"); } protected virtual void Create() { var parameters = new DialogParameters { { "User", new User{Name=UserName} } }; RaiseRequestClose(new DialogResult(ButtonResult.OK, parameters)); } } 上面的代码在 OnDialogOpened 中读取传入的参数，在 RaiseRequestClose 关闭对话框并传递结果。至此就完成了弹出对话框并获取结果的整个流程。 自定义 Window 样式在 WPF 程序中很流行，DialogService 也支持自定义 Window 样式。假设 MyWindow 是一个自定义样式的 Window，自定义一个继承它的 MyPrismWindow 类型，并实现接口 IDialogWindow： Copy public partial class MyPrismWindow: MyWindow, IDialogWindow { public IDialogResult Result { get; set; } } 然后调用 RegisterDialogWindow 注册这个 Window 类型。 Copy protected override void RegisterTypes(IContainerRegistry containerRegistry) { containerRegistry.RegisterDialogWindow<MyPrismWindow>(); } 这样 DialogService 将会使用这个自定义的 Window 类型作为 View 的窗口。
 
 ### Prism框架 如何在主程序中合理的弹出子窗体
 
@@ -1723,7 +1723,7 @@ Prism 7 和 8 相对于以往的版本最大的改变在于 View 和 ViewModel �
       </Grid>
     </Window>
 
-> 创建ChildWindow的基类：ChildWindowActionBase 并从TriggerAction\<T>派生，代码如下： public class ChildWindowActionBase : TriggerAction\<FrameworkElement> { protected override void Invoke(object parameter) { var arg = parameter as InteractionRequestedEventArgs; if (arg == null) return; var windows = this.GetChildWindow(arg.Context); var callback = arg.Callback; EventHandler handler = null; handler = (o, e) => { windows.Closed -= handler; callback(); }; windows.Closed += handler; windows.ShowDialog(); } Window GetChildWindow(Notification notification) { var childWindow = this.CreateDefaultWindow(notification); childWindow\.DataContext = notification; return childWindow; } Window CreateDefaultWindow(Notification notification) { return (Window)new ChildWindow\.ChildWindow(); } } 到此子窗体已经完成
+> 创建ChildWindow的基类：ChildWindowActionBase 并从TriggerAction<T>派生，代码如下： public class ChildWindowActionBase : TriggerAction<FrameworkElement> { protected override void Invoke(object parameter) { var arg = parameter as InteractionRequestedEventArgs; if (arg == null) return; var windows = this.GetChildWindow(arg.Context); var callback = arg.Callback; EventHandler handler = null; handler = (o, e) => { windows.Closed -= handler; callback(); }; windows.Closed += handler; windows.ShowDialog(); } Window GetChildWindow(Notification notification) { var childWindow = this.CreateDefaultWindow(notification); childWindow\.DataContext = notification; return childWindow; } Window CreateDefaultWindow(Notification notification) { return (Window)new ChildWindow\.ChildWindow(); } } 到此子窗体已经完成
 
     <Window x:Class="ChildWindowDemo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -2325,7 +2325,7 @@ Prism 7 和 8 相对于以往的版本最大的改变在于 View 和 ViewModel �
 
 ## ASHX 处理请求
 
-以下方法包含了处理各种请求，如POST,GET ,并且有获取url参数，和content内容等方法 //读取url参数获取参数内容，并分派请求进行处理 public void ProcessRequest(HttpContext context) { context.Response.ContentType = "text/json"; string querytype = context.Request.QueryString\["type"]; switch (querytype) { case "add": //var addline =JsonConvert.DeserializeObject\<Line>(context.Server.UrlDecode(context.Request.Form.ToString())); context.Response.Write(JsonConvert.SerializeObject(Add(ProcessRequest\<Line>(context)))); break; case "update": var updateline = JsonConvert.DeserializeObject\<Line>(context.Server.UrlDecode(context.Request.Form.ToString())); context.Response.Write(JsonConvert.SerializeObject(Update(updateline))); break; case "delete": string id = context.Request.QueryString\["id"]; context.Response.Write(JsonConvert.SerializeObject(Delete(id))); break; case "all": default: context.Response.Write(JsonConvert.SerializeObject(GetLines())); break; } } // 从请求body 种获取json 字符串内容 private T ProcessRequest\<T>(HttpContext context) where T : class { context.Response.ContentType = "text/json"; HttpRequest request = context.Request; Stream stream = request.InputStream; string json = string.Empty; if (stream.Length != 0) { StreamReader streamReader = new StreamReader(stream); json = streamReader.ReadToEnd(); return JsonConvert.DeserializeObject\<T>(json); } return null; }
+以下方法包含了处理各种请求，如POST,GET ,并且有获取url参数，和content内容等方法 //读取url参数获取参数内容，并分派请求进行处理 public void ProcessRequest(HttpContext context) { context.Response.ContentType = "text/json"; string querytype = context.Request.QueryString\["type"]; switch (querytype) { case "add": //var addline =JsonConvert.DeserializeObject<Line>(context.Server.UrlDecode(context.Request.Form.ToString())); context.Response.Write(JsonConvert.SerializeObject(Add(ProcessRequest<Line>(context)))); break; case "update": var updateline = JsonConvert.DeserializeObject<Line>(context.Server.UrlDecode(context.Request.Form.ToString())); context.Response.Write(JsonConvert.SerializeObject(Update(updateline))); break; case "delete": string id = context.Request.QueryString\["id"]; context.Response.Write(JsonConvert.SerializeObject(Delete(id))); break; case "all": default: context.Response.Write(JsonConvert.SerializeObject(GetLines())); break; } } // 从请求body 种获取json 字符串内容 private T ProcessRequest<T>(HttpContext context) where T : class { context.Response.ContentType = "text/json"; HttpRequest request = context.Request; Stream stream = request.InputStream; string json = string.Empty; if (stream.Length != 0) { StreamReader streamReader = new StreamReader(stream); json = streamReader.ReadToEnd(); return JsonConvert.DeserializeObject<T>(json); } return null; }
 
 # MVC
 
@@ -2453,23 +2453,23 @@ Name </th> </tr>
 资料验证
 View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常用的ValidationSummary在这里也支持，而且MVC的架构让验证信息的输出也更加弹性： <h2>Create</h2>
 <%= Html.ValidationSummary("Create was unsuccessful. Please correct the errors and try again.") %>
-<% using (Html.BeginForm()) {> \<fieldset> \<legend>Fields\</legend> <p> \<label for="Name">Name:\</label>
+<% using (Html.BeginForm()) {> <fieldset> <legend>Fields</legend> <p> <label for="Name">Name:</label>
 <%= Html.TextBox("Name") %> Required
-<%= Html.ValidationMessage("Name", "*") %> </p> <p> \<label for="Age">Age:\</label>
+<%= Html.ValidationMessage("Name", "*") %> </p> <p> <label for="Age">Age:</label>
 <%= Html.TextBox("Age") %> Required
-<%= Html.ValidationMessage("Age", "*") %> </p> <p> \<label for="Street">Street:\</label>
+<%= Html.ValidationMessage("Age", "*") %> </p> <p> <label for="Street">Street:</label>
 <%= Html.TextBox("Street") %>
-<%= Html.ValidationMessage("Street", "*") %> </p> <p> \<label for="City">City:\</label>
+<%= Html.ValidationMessage("Street", "*") %> </p> <p> <label for="City">City:</label>
 <%= Html.TextBox("City") %>
-<%= Html.ValidationMessage("City", "*") %> </p> <p> \<label for="State">State:\</label>
+<%= Html.ValidationMessage("City", "*") %> </p> <p> <label for="State">State:</label>
 <%= Html.TextBox("State") %>
-<%= Html.ValidationMessage("State", "*") %> </p> <p> \<label for="Zipcode">Zipcode:\</label>
+<%= Html.ValidationMessage("State", "*") %> </p> <p> <label for="Zipcode">Zipcode:</label>
 <%= Html.TextBox("Zipcode") %>
-<%= Html.ValidationMessage("Zipcode", "*") %> </p> <p> \<label for="Phone">Phone:\</label>
+<%= Html.ValidationMessage("Zipcode", "*") %> </p> <p> <label for="Phone">Phone:</label>
 <%= Html.TextBox("Phone") %> Required
-<%= Html.ValidationMessage("Phone", "*") %> </p> <p> \<label for="Email">Email:\</label>
+<%= Html.ValidationMessage("Phone", "*") %> </p> <p> <label for="Email">Email:</label>
 <%= Html.TextBox("Email") %> Required
-<%= Html.ValidationMessage("Email", "*") %> </p> <p> \<input type="submit" value="Create" /> </p> \</fieldset>
+<%= Html.ValidationMessage("Email", "*") %> </p> <p> <input type="submit" value="Create" /> </p> </fieldset>
  } > <div>
 <%=Html.ActionLink("Back to List", "Index") %> </div>
 不同类型的输出
@@ -2549,14 +2549,14 @@ View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常
 > 当预定义的绑定无法满足用户需求时，可以使用CustomBinding类开发自定义绑定，该类存在于System.ServiceModel.Channels命名空间。用户可以根据需要绑定以下属性： 事务（TransactionFlowBindingElement类）、可靠性会话（ReliableSessionBindingElement 类）、安全（ SecurityBindingElement 类）、流安全、单工双工工作模式、信息编码、传输绑定等，其中信息编码和传输绑定元素是自定义绑定的必要属性，其他属性用户可根据需求制定。
 > 传输绑定元素(必要），用户可选其中一种传输绑定模式。
 > 传输信道	传输绑定元素	绑定扩展	配置元素
-> TCP传输信道	TcpTransportBindingElement	TcpTransportElement	\<tcpTransport>
-> HTTP传输信道	HttpTransportionBindingElement　　	HttpTransportElement　　	\<httpTransport>
-> HTTPS传输信道	HttpTransportationBindingElement	HttpTransportElement	\<httpTransport>
-> MSMQ传输信道	MSMQTransportBindingElement	MSMQTransportElement	\<msmqTransport>
-> MSMQ集成传输信道	MSMQIntegrationBindingElement　　	MSMQIntegrationBindingElement	\<msmqIntegration>
-> 命名管道传输信道	NamedPipeTransportBindingElement	NamedPipeTransportElement　　	\<namedPipeTransport>
-> P2P传输信道　	PeerTransportBindingElement	PeerTransportElement	\<peerTransport>
-> UDP传输信道	UdpTransportBindingElement	UdpTransportElement	\<udpTransport>
+> TCP传输信道	TcpTransportBindingElement	TcpTransportElement	<tcpTransport>
+> HTTP传输信道	HttpTransportionBindingElement　　	HttpTransportElement　　	<httpTransport>
+> HTTPS传输信道	HttpTransportationBindingElement	HttpTransportElement	<httpTransport>
+> MSMQ传输信道	MSMQTransportBindingElement	MSMQTransportElement	<msmqTransport>
+> MSMQ集成传输信道	MSMQIntegrationBindingElement　　	MSMQIntegrationBindingElement	<msmqIntegration>
+> 命名管道传输信道	NamedPipeTransportBindingElement	NamedPipeTransportElement　　	<namedPipeTransport>
+> P2P传输信道　	PeerTransportBindingElement	PeerTransportElement	<peerTransport>
+> UDP传输信道	UdpTransportBindingElement	UdpTransportElement	<udpTransport>
 > 信息编码（必要），用户可以选择其中一种信息编码形式
 > 1.TextMessageEncodingBindingElement，文本编码
 > 2.BinaryMessageEncodingBindingElement，二进制编码
@@ -2601,10 +2601,10 @@ View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常
 
 ## 客户端
 
-> WCF通信机制由它自身复杂的体系结构所决定，但WCF服务给我们提供了两种不同的机制来创建客户端程序调用，一种是ClientBase\<TChannel>类，另一种ChannelFactory\<TChannel> 类。
-> ClientBase\<TChannel>：创建客户端代理类的基类，客户端代理类通过继承该基类，调用WCF的内部通信机制来实现WCF客户端与服务端的通信。代理类是一个公开单个CLR接口来表示服务契约的CLR类，代理类和服务契约很相似，但是他有着附加的方法来管理代理的生命周期和连接服务。通过visual studio 右键添加服务引用和通过svcutil.exe命令行工具生成的客户端都属于这种方式。(如果不熟悉svcutil.exe，请参照WCF初探-1：认识WCF)
-> ChannelFactory\<TChannel>：使用通道工厂类取决于你是否拥有描述服务契约的本地接口。最大的好处是你可以已扩展的方式更容易的修改通道的通信机制，如果你需要共享服务和客户端之间的契约组件，那么使用ChannelFactory\<TChannel>可以更有效的节省时间，但客户端必须完成对服务契约组件的引用。
-> ClientBase\<TChannel>和ChannelFactory\<TChannel>的差异：
+> WCF通信机制由它自身复杂的体系结构所决定，但WCF服务给我们提供了两种不同的机制来创建客户端程序调用，一种是ClientBase<TChannel>类，另一种ChannelFactory<TChannel> 类。
+> ClientBase<TChannel>：创建客户端代理类的基类，客户端代理类通过继承该基类，调用WCF的内部通信机制来实现WCF客户端与服务端的通信。代理类是一个公开单个CLR接口来表示服务契约的CLR类，代理类和服务契约很相似，但是他有着附加的方法来管理代理的生命周期和连接服务。通过visual studio 右键添加服务引用和通过svcutil.exe命令行工具生成的客户端都属于这种方式。(如果不熟悉svcutil.exe，请参照WCF初探-1：认识WCF)
+> ChannelFactory<TChannel>：使用通道工厂类取决于你是否拥有描述服务契约的本地接口。最大的好处是你可以已扩展的方式更容易的修改通道的通信机制，如果你需要共享服务和客户端之间的契约组件，那么使用ChannelFactory<TChannel>可以更有效的节省时间，但客户端必须完成对服务契约组件的引用。
+> ClientBase<TChannel>和ChannelFactory<TChannel>的差异：
 
 ## 实例化与会话
 
@@ -2721,8 +2721,8 @@ View的HTML工具可以配合Model处理资料验证的结果，在ASP.NET中常
 
 ## DI
 
-> services.AddSingleton\<IRepository, MemoryRepository>(); 单实例
-> services.AddTransient\<IModelStorage, DictionaryStorage>(); 每一次获取的对象都不是同一个
+> services.AddSingleton<IRepository, MemoryRepository>(); 单实例
+> services.AddTransient<IModelStorage, DictionaryStorage>(); 每一次获取的对象都不是同一个
 > services.AddScoped 请求开始-请求结束 在这次请求中获取的对象都是同一个；不用申明静态类；
 
 ## Filters
@@ -3320,8 +3320,8 @@ IoC(Inverse of Control)
 static void Main(string\[] args)
 {
 UnityContainer container = new UnityContainer();//创建容器
-container.RegisterType\<Test01.IWaterTool, Test01.PressWater>();//注册依赖对象
-Test01.IPeople people = container.Resolve\<Test01.VillagePeople>();//返回调用者
+container.RegisterType<Test01.IWaterTool, Test01.PressWater>();//注册依赖对象
+Test01.IPeople people = container.Resolve<Test01.VillagePeople>();//返回调用者
 people.DrinkWater();//喝水
 }
 
@@ -3396,12 +3396,12 @@ people.DrinkWater();//喝水
 > //注册Autofac组件
 > ContainerBuilder builder = new ContainerBuilder();
 > //注册实现类Student，当我们请求IStudent接口的时候，返回的是类Student的对象。
-> builder.RegisterType\<Student>().As\<IStudent>();
+> builder.RegisterType<Student>().As<IStudent>();
 > //上面这句也可改成下面这句，这样请求Student实现了的任何接口的时候，都会返回Student对象。
-> //builder.RegisterType\<Student>().AsImplementedInterfaces();
+> //builder.RegisterType<Student>().AsImplementedInterfaces();
 > IContainer container = builder.Build();
 > //请求IStudent接口
-> IStudent student = container.Resolve\<IStudent>();
+> IStudent student = container.Resolve<IStudent>();
 > student.Add("1001", "Hello");
 
 ## Ninject
@@ -3416,22 +3416,22 @@ people.DrinkWater();//喝水
 > {
 > public class Register
 > {
-> private StandardKernel \_kernel = new StandardKernel();
+> private StandardKernel _kernel = new StandardKernel();
 > // 在这里注册
 > public Register()
 > {
-> \_kernel.Bind\<IDataAccess>().To\<MySqlDataOrder>();
-> //\_kernel.Bind\<IDataAccess>().To\<SqlServerDataOrder>();
-> //\_kernel.Bind\<IDataProduct>().To\<SqlServerDataProduct>();
+> _kernel.Bind<IDataAccess>().To<MySqlDataOrder>();
+> //_kernel.Bind<IDataAccess>().To<SqlServerDataOrder>();
+> //_kernel.Bind<IDataProduct>().To<SqlServerDataProduct>();
 > }
 > //获取
-> public TInterface Get\<TInterface>()
+> public TInterface Get<TInterface>()
 > {
-> return \_kernel.Get\<TInterface>();
+> return _kernel.Get<TInterface>();
 > }
 > public void Dispose()
 > {
-> \_kernel.Dispose();
+> _kernel.Dispose();
 > }
 > }
 > }
@@ -3446,12 +3446,12 @@ people.DrinkWater();//喝水
 > private Register reg = new Register();
 > public string QueryOrder()
 > {
-> return reg.Get\<IDataAccess>().QueryOrder();
+> return reg.Get<IDataAccess>().QueryOrder();
 > }
 > }
 > }
 > 使用Xml文件（热插拔）
-> Register.xml \<?xml version="1.0" encoding="utf-8" ?> \<module name="register"> \<bind service="XmlNinject.IDataAccess,XmlNinject" to="XmlNinject.SqlServerDataOrder,XmlNinject"/> \</module>
+> Register.xml <?xml version="1.0" encoding="utf-8" ?> <module name="register"> <bind service="XmlNinject.IDataAccess,XmlNinject" to="XmlNinject.SqlServerDataOrder,XmlNinject"/> </module>
 
     using System;
     using System.Collections.Generic;
@@ -3594,7 +3594,7 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 > > 返回具有 www-authenticate: bearer 标头的 401 结果的 JWT 持有者方案。
 > > 身份验证处理程序：
 > > 是一种实现方案行为的类型。
-> > 派生自 IAuthenticationHandler 或 AuthenticationHandler\<TOptions>。
+> > 派生自 IAuthenticationHandler 或 AuthenticationHandler<TOptions>。
 > > 具有对用户进行身份验证的主要责任。
 > > 默认身份验证方案。
 > > 直接设置 HttpContext.User。
@@ -3663,7 +3663,7 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 > 简单授权
 > ASP.NET Core 中的授权由 AuthorizeAttribute 及其各种参数控制。 在其最基本的形式中，将 \[Authorize] 属性应用于控制器、操作或 Razor 页面，将对该组件的访问权限限制为经过身份验证的用户。
 > 基于角色的授权
-> 角色服务添加到 Identity 通过调用应用配置中的角色类型来AddRoles注册Program.cs基于角色的Identity授权服务。 以下示例中的角色类型为 IdentityRole：builder.Services.AddDefaultIdentity\<IdentityUser>( ... ).AddRoles\<IdentityRole>()
+> 角色服务添加到 Identity 通过调用应用配置中的角色类型来AddRoles注册Program.cs基于角色的Identity授权服务。 以下示例中的角色类型为 IdentityRole：builder.Services.AddDefaultIdentity<IdentityUser>( ... ).AddRoles<IdentityRole>()
 > \[Authorize(Roles = "HRManager,Finance")]
 > 基于 Policy 的角色检查
 > builder.Services.AddAuthorization(options =>
@@ -3685,9 +3685,9 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 > IAuthorizationService
 > 典型的授权服务配置：
 > // Add all of your handlers to DI.
-> builder.Services.AddSingleton\<IAuthorizationHandler, MyHandler1>();
+> builder.Services.AddSingleton<IAuthorizationHandler, MyHandler1>();
 > // MyHandler2, ...
-> builder.Services.AddSingleton\<IAuthorizationHandler, MyHandlerN>();
+> builder.Services.AddSingleton<IAuthorizationHandler, MyHandlerN>();
 > // Configure your policies
 > builder.Services.AddAuthorization(options =>
 > options.AddPolicy("Something",
@@ -3705,99 +3705,107 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 > 授权作为服务 IAuthorizationService 实现，并在类中的服务集合 Startup 中注册。 该服务通过依赖项注入提供给页面处理程序或操作。
 > public class DocumentController : Controller
 > {
-> private readonly IAuthorizationService \_authorizationService;
-> private readonly IDocumentRepository \_documentRepository;
+> private readonly IAuthorizationService _authorizationService;
+> private readonly IDocumentRepository _documentRepository;
 > public DocumentController(IAuthorizationService authorizationService,
 > IDocumentRepository documentRepository)
 > {
-> \_authorizationService = authorizationService;
-> \_documentRepository = documentRepository;
+> _authorizationService = authorizationService;
+> _documentRepository = documentRepository;
 > }
 > IAuthorizationService 有两个 AuthorizeAsync 方法重载：一个接受资源和策略名称，另一个接受资源和要评估的要求列表。
-> Task\<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
+> Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
 > object resource,
-> IEnumerable\<IAuthorizationRequirement> requirements);
-> Task\<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
+> IEnumerable<IAuthorizationRequirement> requirements);
+> Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
 > object resource,
 > string policyName);
 > 在以下示例中，要保护的资源将加载到自定义 Document 对象中。 系统调用 AuthorizeAsync 重载以确定是否允许当前用户编辑提供的文档。 自定义“EditPolicy”授权策略已纳入决策中。 有关创建授权策略的详细信息，请参阅基于自定义策略的授权。
 > 以下代码示例假定身份验证已运行并设置了 User 属性。
-> public async Task\<IActionResult> OnGetAsync(Guid documentId)
-> {
-> Document = \_documentRepository.Find(documentId);
-> if (Document == null)
-> {
-> return new NotFoundResult();
-> }
-> var authorizationResult = await \_authorizationService
-> .AuthorizeAsync(User, Document, "EditPolicy");
-> if (authorizationResult.Succeeded)
-> {
-> return Page();
-> }
-> else if (User.Identity.IsAuthenticated)
-> {
-> return new ForbidResult();
-> }
-> else
-> {
-> return new ChallengeResult();
-> }
-> }
+<div class="devgis_code"><pre>
+public async Task<IActionResultOnGetAsync(Guid documentId)
+{
+  Document = _documentRepository.Find(documentId);
+  if (Document == null)
+  {
+  return new NotFoundResult();
+  }
+  var authorizationResult = await _authorizationService
+  .AuthorizeAsync(User, Document, "EditPolicy");
+  if (authorizationResult.Succeeded)
+  {
+  return Page();
+  }
+  else if (User.Identity.IsAuthenticated)
+  {
+  return new ForbidResult();
+  }
+  else
+  {
+  return new ChallengeResult();
+  }
+}
+</pre></div>
 > 编写基于资源的处理程序为基于资源的授权编写处理程序与编写普通的要求处理程序没有太大区别。 创建自定义要求类并实现要求处理程序类。 有关创建要求类的详细信息，请参阅要求。处理程序类指定要求和资源类型。 例如，使用 SameAuthorRequirement 和 Document 资源的处理程序如下所示：
-> public class DocumentAuthorizationHandler :
-> AuthorizationHandler\<SameAuthorRequirement, Document>
-> {
-> protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
-> SameAuthorRequirement requirement,
-> Document resource)
-> {
-> if (context.User.Identity?.Name == resource.Author)
-> {
-> context.Succeed(requirement);
-> }
-> return Task.CompletedTask;
-> }
-> }
-> public class SameAuthorRequirement : IAuthorizationRequirement { }
-> 在前面的示例中，假设 SameAuthorRequirement 是更泛型的 SpecificAuthorRequirement 类的特例。 SpecificAuthorRequirement 类（未显示）包含一个表示作者姓名的 Name 属性。 Name 属性可以设置为当前用户。
-> 在 Program.cs 中注册要求和处理程序：
-> builder.Services.AddRazorPages();
-> builder.Services.AddControllersWithViews();
-> builder.Services.AddAuthorization(options =>
-> {
-> options.AddPolicy("EditPolicy", policy =>
-> policy.Requirements.Add(new SameAuthorRequirement()));
-> });
-> builder.Services.AddSingleton\<IAuthorizationHandler, DocumentAuthorizationHandler>();
-> builder.Services.AddSingleton\<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
-> builder.Services.AddScoped\<IDocumentRepository, DocumentRepository>();
+<div class="devgis_code"><pre>
+public class DocumentAuthorizationHandler :
+AuthorizationHandler<SameAuthorRequirement, Document>
+{
+  protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
+  SameAuthorRequirement requirement,
+  Document resource)
+  {
+    if (context.User.Identity?.Name == resource.Author)
+    {
+    context.Succeed(requirement);
+    }
+    return Task.CompletedTask;
+  }
+}
+public class SameAuthorRequirement : IAuthorizationRequirement { }
+//在前面的示例中，假设 SameAuthorRequirement 是更泛型的 SpecificAuthorRequirement 类的特例。 SpecificAuthorRequirement 类（未显示）包含一个表示作者姓名的 Name 属性。 Name 属性可以设置为当前用户。在 Program.cs 中注册要求和处理程序：
+builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
+builder.Services.AddAuthorization(options =>
+{
+  options.AddPolicy("EditPolicy", policy =>
+  policy.Requirements.Add(new SameAuthorRequirement()));
+});
+builder.Services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
+builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+</pre></div>
 > 如果要根据 CRUD 的结果做出决策， (创建、读取、更新、删除) 操作，请使用 OperationAuthorizationRequirement 帮助程序类。 借助此类，你可以编写单个处理程序，而不是为每种操作类型编写一个类。 若要使用它，请提供一些操作名称：
-> public static class Operations
-> {
-> public static OperationAuthorizationRequirement Create =
-> new OperationAuthorizationRequirement { Name = nameof(Create) };
-> public static OperationAuthorizationRequirement Read =
-> new OperationAuthorizationRequirement { Name = nameof(Read) };
-> public static OperationAuthorizationRequirement Update =
-> new OperationAuthorizationRequirement { Name = nameof(Update) };
-> public static OperationAuthorizationRequirement Delete =
-> new OperationAuthorizationRequirement { Name = nameof(Delete) };
-> }
-> 基于视图的授权
-> 开发人员通常希望根据当前用户标识显示、隐藏或以其他方式修改 UI。 可以通过依赖项注入在 MVC 视图中访问授权服务。 若要将授权服务注入 Razor 视图，请使用 @inject 指令：
-> @using Microsoft.AspNetCore.Authorization
-> @inject IAuthorizationService AuthorizationService
-> 如果要在每个视图中使用授权服务，请将 @inject 指令 \_ViewImports.cshtml 放入 Views 目录的文件。 有关详细信息，请参阅视图中的依赖关系注入。
-> 使用注入的授权服务调用 AuthorizeAsync，其方式与在基于资源的授权过程中检查的方式完全相同：
-> @if ((await AuthorizationService.AuthorizeAsync(User, "PolicyName")).Succeeded)
-> { <p>This paragraph is displayed because you fulfilled PolicyName.</p>
-> }
-> 有时资源是视图模型。 调用 AuthorizeAsync 的方式与在基于资源的授权过程中检查的方式完全相同：
-> @if ((await AuthorizationService.AuthorizeAsync(User, Model, Operations.Edit)).Succeeded)
-> { <p>\<a class="btn btn-default" role="button"
-> href="@Url.Action("Edit", "Document", new { id = Model.Id })">Edit</a></p>
-> }
+<div class="devgis_code"><pre>
+public static class Operations
+{
+public static OperationAuthorizationRequirement Create =
+new OperationAuthorizationRequirement { Name = nameof(Create) };
+public static OperationAuthorizationRequirement Read =
+new OperationAuthorizationRequirement { Name = nameof(Read) };
+public static OperationAuthorizationRequirement Update =
+new OperationAuthorizationRequirement { Name = nameof(Update) };
+public static OperationAuthorizationRequirement Delete =
+new OperationAuthorizationRequirement { Name = nameof(Delete) };
+}
+</pre></div>
+基于视图的授权
+开发人员通常希望根据当前用户标识显示、隐藏或以其他方式修改 UI。 可以通过依赖项注入在 MVC 视图中访问授权服务。 若要将授权服务注入 Razor 视图，请使用 @inject 指令：
+<div class="devgis_code"><pre>
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+如果要在每个视图中使用授权服务，请将 @inject 指令 _ViewImports.cshtml 放入 Views 目录的文件。 有关详细信息，请参阅视图中的依赖关系注入。
+使用注入的授权服务调用 AuthorizeAsync，其方式与在基于资源的授权过程中检查的方式完全相同：
+@if ((await AuthorizationService.AuthorizeAsync(User, "PolicyName")).Succeeded)
+{ <p>This paragraph is displayed because you fulfilled PolicyName.</p>
+}
+//有时资源是视图模型。 调用 AuthorizeAsync 的方式与在基于资源的授权过程中检查的方式完全相同：
+@if ((await AuthorizationService.AuthorizeAsync(User, Model, Operations.Edit)).Succeeded)
+{ <p><a class="btn btn-default" role="button"
+href="@Url.Action("Edit", "Document", new { id = Model.Id })">Edit</a></p>
+}
+</pre></div>
+
 > 在前面的代码中，模型作为策略评估应考虑的资源传递。
 > 按方案限制标识
 > 在某些情况下，例如单页应用程序 (SPA)，通常会使用多种身份验证方法。 例如，应用可能会针对登录使用基于 cookie 的身份验证，并使用 JWT 持有者身份验证来处理 JavaScript 请求。 在某些情况下，应用可能会有一个身份验证处理程序的多个实例。 例如，有两个 cookie 处理程序，一个包含基本标识，另一个是在多重身份验证 (MFA) 触发后创建的。 可能会触发 MFA，因为用户请求了需要额外安全性的操作。 有关当用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅使用 MFA 保护部分这一 GitHub 问题。身份验证方案是在身份验证期间配置身份验证服务时命名的。
@@ -3805,8 +3813,8 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 // Authentication
 builder.Services.AddAuthentication(options =>
 {
-  options.DefaultScheme = "B2C\_OR\_AAD";
-  options.DefaultChallengeScheme = "B2C\_OR\_AAD";
+  options.DefaultScheme = "B2C_OR_AAD";
+  options.DefaultChallengeScheme = "B2C_OR_AAD";
 })
 .AddJwtBearer("B2C", jwtOptions =>
 {
@@ -3828,7 +3836,7 @@ builder.Services.AddAuthentication(options =>
     ValidIssuers = builder.Configuration.GetSection("ValidIssuers").Get<string[]>()
     };
     })
-    .AddPolicyScheme("B2C\_OR\_AAD", "B2C\_OR\_AAD", options =>
+    .AddPolicyScheme("B2C_OR_AAD", "B2C_OR_AAD", options =>
     {
     options.ForwardDefaultSelector = context =>
     {
