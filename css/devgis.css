@@ -110,3 +110,11 @@ a.page-link {
     margin: 5px 0;
     color: #104E8B;
 }
+
+pre, code {
+    font-size: 15px;
+    border-radius: 3px;
+    background-color: #F0F8FF;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
