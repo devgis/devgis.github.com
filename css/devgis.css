@@ -98,3 +98,15 @@ a.page-link {
     background-color: #fff; 
     opacity: 0.75;
 }
+
+.devgis_code {
+    background-color: #F0F8FF;
+    font-family: "微软雅黑", sans-serif;
+    font-size: 15px !important;
+    border: 1px solid #00BFFF;
+    border-radius: 8px; 
+    padding: 5px;
+    overflow: auto;
+    margin: 5px 0;
+    color: #104E8B;
+}

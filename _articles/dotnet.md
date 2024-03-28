@@ -3801,47 +3801,49 @@ session 存储在服务器中，所以session 过多会耗费较大服务器资�
 > 在前面的代码中，模型作为策略评估应考虑的资源传递。
 > 按方案限制标识
 > 在某些情况下，例如单页应用程序 (SPA)，通常会使用多种身份验证方法。 例如，应用可能会针对登录使用基于 cookie 的身份验证，并使用 JWT 持有者身份验证来处理 JavaScript 请求。 在某些情况下，应用可能会有一个身份验证处理程序的多个实例。 例如，有两个 cookie 处理程序，一个包含基本标识，另一个是在多重身份验证 (MFA) 触发后创建的。 可能会触发 MFA，因为用户请求了需要额外安全性的操作。 有关当用户请求需要 MFA 的资源时强制执行 MFA 的详细信息，请参阅使用 MFA 保护部分这一 GitHub 问题。身份验证方案是在身份验证期间配置身份验证服务时命名的。
-> // Authentication
-> builder.Services.AddAuthentication(options =>
-> {
-> options.DefaultScheme = "B2C\_OR\_AAD";
-> options.DefaultChallengeScheme = "B2C\_OR\_AAD";
-> })
-> .AddJwtBearer("B2C", jwtOptions =>
-> {
-> jwtOptions.MetadataAddress = "B2C-MetadataAddress";
-> jwtOptions.Authority = "B2C-Authority";
-> jwtOptions.Audience = "B2C-Audience";
-> })
-> .AddJwtBearer("AAD", jwtOptions =>
-> {
-> jwtOptions.MetadataAddress = "AAD-MetadataAddress";
-> jwtOptions.Authority = "AAD-Authority";
-> jwtOptions.Audience = "AAD-Audience";
-> jwtOptions.TokenValidationParameters = new TokenValidationParameters
-> {
-> ValidateIssuer = true,
-> ValidateAudience = true,
-> ValidateIssuerSigningKey = true,
-> ValidAudiences = builder.Configuration.GetSection("ValidAudiences").Get\<string\[]>(),
-> ValidIssuers = builder.Configuration.GetSection("ValidIssuers").Get\<string\[]>()
-> };
-> })
-> .AddPolicyScheme("B2C\_OR\_AAD", "B2C\_OR\_AAD", options =>
-> {
-> options.ForwardDefaultSelector = context =>
-> {
-> string authorization = context.Request.Headers\[HeaderNames.Authorization];
-> if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
-> {
-> var token = authorization.Substring("Bearer ".Length).Trim();
-> var jwtHandler = new JwtSecurityTokenHandler();
-> return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals("B2C-Authority"))
-> ? "B2C" : "AAD";
-> }
-> return "AAD";
-> };
-> });
+<div class="devgis_code"><pre>
+// Authentication
+builder.Services.AddAuthentication(options =>
+{
+  options.DefaultScheme = "B2C\_OR\_AAD";
+  options.DefaultChallengeScheme = "B2C\_OR\_AAD";
+})
+.AddJwtBearer("B2C", jwtOptions =>
+{
+  jwtOptions.MetadataAddress = "B2C-MetadataAddress";
+  jwtOptions.Authority = "B2C-Authority";
+  jwtOptions.Audience = "B2C-Audience";
+})
+.AddJwtBearer("AAD", jwtOptions =>
+{
+  jwtOptions.MetadataAddress = "AAD-MetadataAddress";
+  jwtOptions.Authority = "AAD-Authority";
+  jwtOptions.Audience = "AAD-Audience";
+  jwtOptions.TokenValidationParameters = new TokenValidationParameters
+  {
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidateIssuerSigningKey = true,
+    ValidAudiences = builder.Configuration.GetSection("ValidAudiences").Get<string[]>(),
+    ValidIssuers = builder.Configuration.GetSection("ValidIssuers").Get<string[]>()
+    };
+    })
+    .AddPolicyScheme("B2C\_OR\_AAD", "B2C\_OR\_AAD", options =>
+    {
+    options.ForwardDefaultSelector = context =>
+    {
+      string authorization = context.Request.Headers\[HeaderNames.Authorization];
+      if (!string.IsNullOrEmpty(authorization) && authorization.StartsWith("Bearer "))
+      {
+      var token = authorization.Substring("Bearer ".Length).Trim();
+      var jwtHandler = new JwtSecurityTokenHandler();
+      return (jwtHandler.CanReadToken(token) && jwtHandler.ReadJwtToken(token).Issuer.Equals("B2C-Authority"))
+      ? "B2C" : "AAD";
+    }
+    return "AAD";
+  };
+});
+</pre></div>
 
 ### WCF三种授权模式
 
