@@ -17,3 +17,15 @@ updatedate: 2023-09-20 10:23:01
 > 两两相忘
 
 # 美妙音乐
+
+type GRN struct{ DocType, GRNNO, PRID, PRODUCE, VARIETY string }
+
+func filter(in []GRN, produce, variety string) []GRN {
+	var out []GRN
+	for _, each := range in {
+		if each.PRODUCE == produce && each.VARIETY == variety {
+			out = append(out, each)
+		}
+	}
+	return out
+}
