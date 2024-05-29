@@ -3,7 +3,7 @@ layout: post
 title: 计算机操作系统
 description: 计算机科学相关学习内容总结,包括各种操作系统安装配置，Windows Linux,以及Docker等虚拟化技术。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-26 10:55:53
+updatedate: 2024-03-26 10:16:53
 ---
 
 - [操作系统理论](#操作系统理论)
@@ -854,6 +854,16 @@ updatedate: 2024-03-26 10:55:53
 ## Busybox
 
 # Windows
+
+ 
+## Windows Server 2019 评估版 转换为 Windows Server 2019 标准版
+
+将 Windows Server 2019 评估版 转换为 Windows Server 2019 标准版：
+dism /online /set-edition:ServerStandard /productkey:N69G4-B89J2-4G8F4-WWYCC-J464C /accepteula
+将 Windows Server 2019 评估版 转换为 Windows Server 2019  数据中心版：
+dism /online /set-edition:ServerDatacenter /productkey:WMDGN-G9PQG-XVVXX-R3X43-63DFG /accepteula
+评估版改为正式版本才能使用kms38激活 ，目前windows server 2019不能使用数字权利激活。
+
 
 Windows
 
@@ -2083,6 +2093,31 @@ global.json file:
 > > systemctl daemon-reload
 
 > > systemctl restart docker
+
+##  Docker Compose 安装
+
+Docker Compose 安装
+第一种方法：由于官网使用的是 curl安装方法，实在太慢，不敢恭维
+0.ubuntu apt-get下载慢 解决办法
+1.更新源
+ sudo apt-install update
+2.安装python-pip
+ sudo apt install python3-pip
+3.查看版本
+ sudo pip --version
+4.更新pip版本
+ sudo pip install --upgrade pip
+5.安装docker-compose
+ sudo pip install docker-compose
+6.查看docker-compose版本
+ sudo docker-compose --version
+以上安装完成
+更新docker-compose 版本
+ sudo pip install --upgrade docker-comopse
+卸载pip安装的应用
+ sudo pip uninstall 引用名如docker-compose
+卸载pip
+ sudo  apt-get remove docker-compose
 
 ## container容器
 

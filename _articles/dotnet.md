@@ -3,7 +3,7 @@ layout: post
 title: Dotnet相关编程总结
 description: Dotnet相关编程知识的总结
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-26 11:06:26
+updatedate: 2024-05-29 10:28:53
 ---
 - [Donet6 ubuntu下的安装](#donet6-ubuntu下的安装)
 - [发布项目](#发布项目)
@@ -3875,4 +3875,43 @@ builder.Services.AddAuthentication(options =>
 > Access Token（Get）如果客户端身份被认证，并且authorization grant也被验证通过，授权服务器将为客户端派发access token。授权阶段至此全部结束。
 > Access Token（Post && Validate）客户端向资源服务器发送access token用于验证并请求资源信息。
 > Protected Resource（Get）如果access token验证通过，资源服务器将向客户端返回资源信息。
+
+# Avalonia for VS Code
+
+安装步骤：
+（1）安装插件
+
+图片
+
+（2）创建项目：
+
+创建一个新的Avalonia项目你需要从命令行创建一个新的Avalonia项目，扩展还没有办法从VS Code中创建一个新的项目。
+
+您可以通过运行以下命令创建一个新的Avalonia应用程序:
+
+dotnet new avalonia.app -o MyApp
+这将为应用程序文件创建一个名为MyApp的新文件夹。您可以使用以下命令安装Avalonia项目模板，如果您还没有安装它们:
+
+dotnet new install Avalonia.Templates
+最后在VS Code中打开MyApp文件夹，打开任何axaml文件来激活扩展和代码完成。
+
+（3）安装.NET 7
+
+这里不管你基于.NET几的框架版本进行开发的，都需要安装.NET 7具体的原因我贴在了下面可以查看连接里的内容。
+
+https://github.com/AvaloniaUI/Avalonia-VSCode-Extension/issues/4
+
+（4）打开预览
+
+点击右上角的放大镜即可开启UI预览，如果打开不能正常显示需要反复多点几次即可。这个时候我们就能边预览边开发Avalonia的应用程序。
+
+图片
+
+（5）运行调试
+
+图片
+
+图片
+
+看起来在VS Code开发Avalonia的应用支持的程度还是比较乐观的，虽说可能还会有些小问题但是随着后续的不断的完善应开发体验会更加流畅。
 

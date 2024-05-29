@@ -3,7 +3,7 @@ layout: post
 title: Oracle数据库
 description: Oracle数据库中PLSQL,数据库管理优化。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-27 12:07:00
+updatedate: 2024-05-29 10:14:50
 ---
 - [Oracle概述](#oracle概述)
 - [数据库结构](#数据库结构)
@@ -1710,6 +1710,806 @@ select * from t1 where exists (select 1 from t2 where col2=t1.col2);
 #### where子句的连接顺序
 
 ##### 能够过滤掉最多记录的的条件放在最右
+
+##　索引
+
+简介
+1.说明
+　　1）索引是数据库对象之一，用于加快数据的检索，类似于书籍的索引。在数据库中索引可以减少数据库程序查询结果时需要读取的数据量，类似于在书籍中我们利用索引可以不用翻阅整本书即可找到想要的信息。
+　　2）索引是建立在表上的可选对象；索引的关键在于通过一组排序后的索引键来取代默认的全表扫描检索方式，从而提高检索效率
+　　3）索引在逻辑上和物理上都与相关的表和数据无关，当创建或者删除一个索引时，不会影响基本的表；
+　　4）索引一旦建立，在表上进行DML操作时（例如在执行插入、修改或者删除相关操作时），oracle会自动管理索引，索引删除，不会对表产生影响
+　　5）索引对用户是透明的，无论表上是否有索引，sql语句的用法不变
+　　6）oracle创建主键时会自动在该列上创建索引
+ 
+索引原理
+1.  若没有索引，搜索某个记录时（例如查找name='wish'）需要搜索所有的记录，因为不能保证只有一个wish，必须全部搜索一遍
+2. 若在name上建立索引，oracle会对全表进行一次搜索，将每条记录的name值哪找升序排列，然后构建索引条目（name和rowid），存储到索引段中，查询name为wish时即可直接查找对应地方
+3.创建了索引并不一定就会使用，oracle自动统计表的信息后，决定是否使用索引，表中数据很少时使用全表扫描速度已经很快，没有必要使用索引
+ 
+索引使用（创建、修改、删除、查看）
+1.创建索引语法
+
+CREATE [UNIQUE] | [BITMAP] INDEX index_name  --unique表示唯一索引
+ON table_name([column1 [ASC|DESC],column2    --bitmap，创建位图索引
+[ASC|DESC],…] | [express])
+[TABLESPACE tablespace_name]
+[PCTFREE n1]                                 --指定索引在数据块中空闲空间
+[STORAGE (INITIAL n2)]
+[NOLOGGING]                                  --表示创建和重建索引时允许对表做DML操作，默认情况下不应该使用
+[NOLINE]
+[NOSORT];                                    --表示创建索引时不进行排序，默认不适用，如果数据已经是按照该索引顺序排列的可以使用
+
+
+2.修改索引
+1）重命名索引
+alter index index_sno rename to bitmap_index;
+2) 合并索引（表使用一段时间后在索引中会产生碎片，此时索引效率会降低，可以选择重建索引或者合并索引,合并索引方式更好些，无需额外存储空间，代价较低）
+alter index index_sno coalesce;
+3)重建索引
+　　方式一：删除原来的索引，重新建立索引
+　　方式二：
+alter index index_sno rebuild;
+3.删除索引
+drop index index_sno;
+4.查看索引
+
+select index_name,index-type, tablespace_name, uniqueness from all_indexes where table_name ='tablename';
+
+ -- eg:    
+create index index_sno on student('name');
+select * from all_indexes where table_name='student';
+
+
+ 
+索引分类
+1. B树索引（默认索引，保存讲过排序过的索引列和对应的rowid值）
+1）说明：
+　　1.oracle中最常用的索引；B树索引就是一颗二叉树；叶子节点（双向链表）包含索引列和指向表中每个匹配行的ROWID值
+　　2.所有叶子节点具有相同的深度，因而不管查询条件怎样，查询速度基本相同
+　　3.能够适应精确查询、模糊查询和比较查询
+2）分类：
+　　 UNIQUE,NON-UNIQUE(默认),REVERSE KEY（数据列中的数据是反向存储的）
+3）创建例子
+craete index index_sno on student('sno');
+ 
+4）适合使用场景：
+　　列基数（列不重复值的个数）大时适合使用B数索引
+　　
+2. 位图索引
+1）说明：
+　　1.创建位图索引时，oracle会扫描整张表，并为索引列的每个取值建立一个位图（位图中，对表中每一行使用一位（bit，0或者1）来标识该行是否包含该位图的索引列的取值，如果为1，表示对应的rowid所在的记录包含该位图索引列值），最后通过位图索引中的映射函数完成位到行的ROWID的转换
+2)创建例子
+create bitmap index index_sno on student(sno);
+3) 适合场景：
+对于基数小的列适合简历位图索引（例如性别等）
+ 
+3.单列索引和复合索引（基于多个列创建）
+1) 注意：
+　　即如果索引建立在多个列上，只有它的第一个列被where子句引用时，优化器才会使用该索引，即至少要包含组合索引的第一列
+ 
+4. 函数索引
+1)说明：
+　　1. 当经常要访问一些函数或者表达式时，可以将其存储在索引中，这样下次访问时，该值已经计算出来了，可以加快查询速度
+　　2. 函数索引既可以使用B数索引，也可以使用位图索引；当函数结果不确定时采用B树索引，结果是固定的某几个值时使用位图索引
+　　3. 函数索引中可以水泥用len、trim、substr、upper（每行返回独立结果），不能使用如sum、max、min、avg等
+ 
+2）例子：
+create index fbi  on student (upper(name));
+select * from student where upper(name) ='WISH';
+ 
+索引建立原则总结
+　　1. 如果有两个或者以上的索引，其中有一个唯一性索引，而其他是非唯一，这种情况下oracle将使用唯一性索引而完全忽略非唯一性索引
+　　2. 至少要包含组合索引的第一列（即如果索引建立在多个列上，只有它的第一个列被where子句引用时，优化器才会使用该索引）
+　　3. 小表不要简历索引
+　　4. 对于基数大的列适合建立B树索引，对于基数小的列适合简历位图索引
+　　5. 列中有很多空值，但经常查询该列上非空记录时应该建立索引
+　　6. 经常进行连接查询的列应该创建索引
+　　7. 使用create index时要将最常查询的列放在最前面
+　　8. LONG（可变长字符串数据，最长2G）和LONG RAW（可变长二进制数据，最长2G）列不能创建索引
+　　9.限制表中索引的数量（创建索引耗费时间，并且随数据量的增大而增大；索引会占用物理空间；当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，降低了数据的维护速度）
+注意事项
+1. 通配符在搜索词首出现时，oracle不能使用索引，eg：
+
+--我们在name上创建索引；
+
+create index index_name on student('name');
+
+--下面的方式oracle不适用name索引
+
+select * from student where name like '%wish%';
+
+--如果通配符出现在字符串的其他位置时，优化器能够利用索引；如下：
+
+select * from student where name like 'wish%';
+
+
+ 
+ 2. 不要在索引列上使用not，可以采用其他方式代替如下：（oracle碰到not会停止使用索引，而采用全表扫描）
+
+select * from student where not (score=100);
+
+select * from student where score <> 100;
+
+--替换为
+
+select * from student where score>100 or score <100
+
+
+ 
+3. 索引上使用空值比较将停止使用索引， eg：
+select * from student where score is not null;
+各种Oracle索引类型介绍
+逻辑上：
+Single column 单行索引
+Concatenated 多行索引
+Unique 唯一索引
+NonUnique 非唯一索引
+Function-based函数索引
+Domain 域索引
+ 
+物理上：
+Partitioned 分区索引
+NonPartitioned 非分区索引
+B-tree：
+Normal 正常型B树
+Rever Key 反转型B树 
+Bitmap 位图索引
+ 
+索引结构：
+B-tree：
+适合与大量的增、删、改（OLTP）；
+不能用包含OR操作符的查询；
+适合高基数的列（唯一值多）
+典型的树状结构；
+每个结点都是数据块；
+大多都是物理上一层、两层或三层不定，逻辑上三层；
+叶子块数据是排序的，从左向右递增；
+在分支块和根块中放的是索引的范围；
+Bitmap:
+适合与决策支持系统；
+做UPDATE代价非常高；
+非常适合OR操作符的查询； 
+基数比较少的时候才能建位图索引；
+ 
+树型结构：
+索引头 
+开始ROWID，结束ROWID（先列出索引的最大范围）
+BITMAP
+每一个BIT对应着一个ROWID，它的值是1还是0，如果是1，表示着BIT对应的ROWID有值
+
+
+
+1. b-tree索引
+Oracle数据库中最常见的索引类型是b-tree索引，也就是B-树索引，以其同名的计算科学结构命名。CREATE 
+INDEX语句时，默认就是在创建b-tree索引。没有特别规定可用于任何情况。
+2. 位图索引(bitmap index)
+位图索引特定于该列只有几个枚举值的情况，比如性别字段，标示字段比如只有0和1的情况。
+3. 基于函数的索引
+比如经常对某个字段做查询的时候是带函数操作的，那么此时建一个函数索引就有价值了。
+4. 分区索引和全局索引
+这2个是用于分区表的时候。前者是分区内索引，后者是全表索引
+5. 反向索引（REVERSE）
+这个索引不常见，但是特定情况特别有效，比如一个varchar(5)位字段(员工编号)含值
+（10001,10002,10033,10005,10016..）
+这种情况默认索引分布过于密集，不能利用好服务器的并行
+但是反向之后10001,20001,33001,50001,61001就有了一个很好的分布，能高效的利用好并行运算。
+6.HASH索引
+HASH索引可能是访问数据库中数据的最快方法，但它也有自身的缺点。集群键上不同值的数目必须在创建HASH集群之前就要知道。需要在创建HASH集群的时候指定这个值。使用HASH索引必须要使用HASH集群。
+
+
+1.逻辑结构：
+所谓逻辑结构就是数据与数据之间的关联关系，准确的说是数据元素之间的关联关系。
+注：所有的数据都是由数据元素构成，数据元素是数据的基本构成单位。而数据元素由多个数据项构成。
+逻辑结构有四种基本类型：集合结构、线性结构、树状结构和网络结构。也可以统一的分为线性结构和非线性结构。
+2.物理结构：
+数据的物理结构就是数据存储在磁盘中的方式。官方语言为：数据结构在计算机中的表示（又称映像）称为数据的物理结构，或称存储结构。它所研究的是数据结构在计算机中的实现方法，包括数据结构中元素的表示及元素间关系的表示。
+而物理结构一般有四种：顺序存储，链式存储，散列，索引
+3.逻辑结构的物理表示：
+线性表的顺序存储则可以分为静态和非静态：静态存储空间不可扩展，初始时就定义了存储空间的大小，故而容易造成内存问题。
+线性表的链式存储：通过传递地址的方式存储数据。
+单链表：节点存储下一个节点的地址-------------->单循环链表：尾节点存储头结点的地址
+双链表：节点存储前一个和后一个节点的地址，存储两个地址。---------------->双循环链表：尾节点存储头结点的地址。
+4.高级语言应用：
+数组是顺序存储
+指针则是链式存储 
+
+理解oracle索引扫描类型的特点以及具体触发的条件，对于通过合理地使用索引，进行sql优化至关重要（例如组合索引的引导列的选择问题）。
+在总结索引扫描类型前，需要再次强调关于索引特点的几个关键点：
+- 对于单一列建立的索引，既单一列索引，b-tree中不保存索引列的null值信息
+- 对于多个列建立的索引，既组合列索引，b-tree中会连同其他非null值列，保留该列null值记录；对于一条记录中，组合索引全部列都是null值，组合索引中不会记录（从之前的实验看，此时的执行计划是全表扫描）
+- 创建主键约束以及唯一键约束，或自动创建唯一索引
+- create index创建的索引属于普通索引（非唯一索引）
+- create unique index创建的索引属于唯一索引
+其他的一些特点，可参阅前面的几篇总结。
+此外，为避免概念的混淆，再次说明一下：“索引类型”主要探讨的是索引的几种类别的问题，而“索引扫描类型”主要探讨的是索引扫描的几种具体实现方法的问题。
+ 
+ 
+1、索引扫描类型概述
+Oracle提供了五种索引扫描类型，根据具体索引类型、数据分布、约束条件以及where限制的不同进行选择： 
+- 索引唯一扫描(index unique scan)
+- 索引范围扫描(index range scan)
+- 索引跳跃扫描(index skip scan)
+- 索引全扫描(index full scan)
+- 索引快速扫描(index fast full scan)
+ 
+ 
+2、索引唯一扫描(index unique scan) 
+索引唯一扫描，仅仅针对唯一索引的扫描，且仅适用于等值（=）条件的查询。从结果集看，至多返回一条记录。
+ 
+具体情况分析：
+- 对于单一列建立的索引（单一索引），当索引属于唯一索引，在检索条件中，使用该索引进行检索，且检索值不是null时，会使用“索引唯一扫描”
+- 对于单一列建立的索引（单一索引），当索引属于唯一索引，在检索条件中，使用该索引进行检索，且检索值等于null时，会使用“全表扫描”
+- 对于多个列建立的索引（组合索引），当索引属于唯一索引，且检索条件中，使用该组合索引进行检索，且检索列使用组合索引涉及的所有列时，会使用“索引唯一扫描”
+ 
+需要注意：
+- 对于组合索引，若其中涉及的部分列或则所有列，在同一条记录上存在null值。当使用完整的组合索引列作为检索条件，且使用该null值进行该条记录的检索时，不会使用“索引唯一扫描”
+ 
+示例：
+
+--创建唯一索引
+Yumiko@Sunny >create unique index ind_test_normal on test_normal(empno,ENAME,SAL);
+Index created.
+
+
+
+
+Yumiko@Sunny >select INDEX_NAME,INDEX_TYPE,TABLE_NAME,UNIQUENESS from user_indexes where TABLE_NAME='TEST_NORMAL';
+
+INDEX_NAME                INDEX_TYPE                  TABLE_NAME      UNIQUENES
+------------------------- --------------------------- --------------- ---------
+IND_TEST_NORMAL           NORMAL                      TEST_NORMAL     UNIQUE
+
+
+
+
+--查询记录并查看执行计划
+Yumiko@Sunny >select * from TEST_NORMAL where empno=7369 and ENAME='SMITH' and sal=800;
+
+     EMPNO ENAME      JOB              SAL
+---------- ---------- --------- ----------
+      7369 SMITH      CLERK            800
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1399315988
+------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name           | Rows | Bytes|Cost (%CPU)| Time    |
+------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |                |     1|    39|    1   (0)| 00:00:01|
+|   1 |  TABLE ACCESS BY INDEX ROWID| TEST_NORMAL    |     1|    39|    1   (0)| 00:00:01|
+|*  2 |   INDEX UNIQUE SCAN         | IND_TEST_NORMAL|     1|      |    0   (0)| 00:00:01|
+------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   2 - access("EMPNO"=7369 AND "ENAME"='SMITH' AND "SAL"=800)
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          2  consistent gets
+         16  physical reads
+          0  redo size
+        581  bytes sent via SQL*Net to client
+        458  bytes received via SQL*Net from client
+          1  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+ 
+ 
+ 
+3、索引范围扫描(index range scan)
+索引范围扫描，不仅可以针对唯一索引，也可以针对非唯一索引。从结果集看，可以是一条记录，也可以是多条记录。
+ 
+具体情况分析：
+- 对于单一列建立的索引（单一索引），当索引属于唯一索引，在检索条件中，使用该索引进行检索，且使用范围的操作符（>,<,>=,<=,between），会使用“索引范围扫描”。
+- 对于单一列建立的索引（单一索引），当索引属于非唯一索引，在检索条件中，使用该索引进行检索，且检索值不是null值，会使用“索引范围扫描”。
+- 对于多个列建立的索引（组合索引），当索引属于唯一索引，在检索条件中，使用该索引进行检索，且检索列使用组合索引涉及的部分列，但必须存在组合索引的引导列（创建组合索引时指定的第一列）时，会使用“索引范围扫描”。
+- 对于多个列建立的索引（组合索引），当索引属于非唯一索引，在检索条件中，使用该索引进行检索，检索列涉及组合索引的部分列或者全部列，但必须存在组合索引的引导列（创建组合索引时指定的第一列）时，会使用“索引范围扫描”。
+ 
+需要注意：
+- 对于组合索引，当一条记录的引导列存在null值，当检索条件中，针对该条记录，仅使用该引导列进行检索时，不会使用“索引范围扫描”。
+- 对于组合索引，当一条记录的引导列存在null值，当检索条件中，针对该条记录，在使用该引导列进行检索的同时，使用组合索引的其他列且这些列针对该条记录的列值不是null值，一并进行检索，会使用“索引范围扫描”。
+ 
+示例：
+
+--创建普通索引
+Yumiko@Sunny >create  index ind_test_normal on test_normal(empno,ENAME,SAL);
+Index created.
+
+
+
+--验证普通索引创建情况，确认为非唯一索引
+Yumiko@Sunny >select INDEX_NAME,INDEX_TYPE,TABLE_NAME,UNIQUENESS from user_indexes where TABLE_NAME='TEST_NORMAL';
+
+INDEX_NAME                INDEX_TYPE                  TABLE_NAME      UNIQUENES
+------------------------- --------------------------- --------------- ---------
+IND_TEST_NORMAL           NORMAL                      TEST_NORMAL     NONUNIQUE
+
+
+
+
+
+--查询记录并观察执行计划，此时扫描类型为index range scan
+Yumiko@Sunny >select * from TEST_NORMAL where empno=7369 and ENAME='SMITH' and sal=800;
+
+     EMPNO ENAME      JOB              SAL
+---------- ---------- --------- ----------
+      7369 SMITH      CLERK            800
+
+Execution Plan
+-----------------------------------------------
+Plan hash value: 67814702
+---------------------------------------------------------------------------------------------
+| Id  | Operation                   | Name           | Rows  | Bytes | Cost (%CPU)| Time    |
+---------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |                |     1 |    18 |     2   (0)| 00:00:01|
+|   1 |  TABLE ACCESS BY INDEX ROWID| TEST_NORMAL    |     1 |    18 |     2   (0)| 00:00:01|
+|*  2 |   INDEX RANGE SCAN          | IND_TEST_NORMAL|     1 |       |     1   (0)| 00:00:01|
+---------------------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   2 - access("EMPNO"=7369 AND "ENAME"='SMITH' AND "SAL"=800)
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          3  consistent gets
+         16  physical reads
+          0  redo size
+        717  bytes sent via SQL*Net to client
+        469  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+ 
+ 
+4、索引跳跃扫描（index skip scan）
+该索引扫描方式主要发生在组合索引上，且组合索引的引导列未被指定在检索条件中的情况下发生。
+在组合索引中，无论该索引是否为唯一索引。当引导列未被指定在检索条件的情况下，可能会发生“索引跳跃扫描”
+ 
+以下黄色字体内容摘引自http://book.51cto.com/art/201312/422441.htm
+对于组合索引，在无前导列的情况下还能使用索引，是因为Oracle帮我们对该索引的前导列的所有distinct值做了遍历。
+所谓的对目标索引的所有distinct值做遍历，其实际含义相当于对原目标SQL做等价改写（即把要用的目标索引的所有前导列的distinct值都加进来）。
+例如：create index idx_employee on employee(gender,employee_id)，表数据量10000行，其中gender列只有“M”跟“F”值。
+当执行select * from employee where employee_id = 100时，相当于执行了等价改写，改写为：
+select * from employee where gender = 'F' and employee_id = 100
+union all
+select * from employee where gender = 'M' and employee_id = 100;
+因此，Oracle中的索引跳跃式扫描仅仅适用于那些目标索引前导列的distinct值数量较少、后续非前导列的可选择性又非常好的情形，因为索引跳跃式扫描的执行效率一定会随着目标索引前导列的distinct值数量的递增而递减。否则将执行全表扫描。
+ 
+示例：
+
+--查询测试表的总数据量
+--该表总数据为22928行
+Yumiko@Sunny >select count(*) from test;
+
+  COUNT(*)
+----------
+     22928
+
+
+
+--查询测试表中owner列的列值数据分布情况
+--从查询结果看，对于owner列，在22928行的数据中，只分布了3个不同的列值，数据数值的分布情况较为集中
+Yumiko@Sunny >select count(distinct owner) from test;
+
+COUNT(DISTINCTOWNER)
+--------------------
+                   3
+
+
+
+--查询测试表中object_id列的数值分布情况
+--从查询结果看，对于object_id列，在22928行的数据中，分布了22912个不同的数值，该列整体的数值分布情况较为零散
+Yumiko@Sunny >select count(distinct object_id) from test;
+
+COUNT(DISTINCTOBJECT_ID)
+------------------------
+                   22912
+
+
+
+
+Yumiko@Sunny >desc test
+ Name                                       Null?    Type
+ ----------------------------------------------------------------------
+ OWNER                                               VARCHAR2(30)
+ OBJECT_NAME                                         VARCHAR2(128)
+ SUBOBJECT_NAME                                      VARCHAR2(30)
+ OBJECT_ID                                           NUMBER
+ DATA_OBJECT_ID                                      NUMBER
+ OBJECT_TYPE                                         VARCHAR2(19)
+ CREATED                                             DATE
+ LAST_DDL_TIME                                       DATE
+ TIMESTAMP                                           VARCHAR2(19)
+ STATUS                                              VARCHAR2(7)
+ TEMPORARY                                           VARCHAR2(1)
+ GENERATED                                           VARCHAR2(1)
+ SECONDARY                                           VARCHAR2(1)
+
+
+
+
+--以数值较为集中的owner作为组合索引的引导列，创建普通索引
+Yumiko@Sunny >create index test on test(owner,OBJECT_ID);
+Index created.
+
+
+
+Yumiko@Sunny >select INDEX_NAME,INDEX_TYPE,TABLE_NAME,UNIQUENESS from user_indexes where TABLE_NAME='TEST';
+
+INDEX_NAME                INDEX_TYPE          TABLE_NAME      UNIQUENES
+------------------------- ------------------- --------------- ---------
+TEST                      NORMAL              TEST            NONUNIQUE
+
+
+
+
+--收集测试表最新的统计信息
+Yumiko@Sunny >analyze table test compute statistics for table for all columns for all indexes;
+Table analyzed.
+
+
+--清空buffer cache缓冲池，保证无测试表的数据块存在在内存中，防止影响到测试结果
+Yumiko@Sunny >alter system flush buffer_cache;
+System altered.
+
+
+
+--使用之前创建的组合索引，以组合索引非引导作为条件查询列进行条件查询
+--从执行计划看，oracle用到了索引扫描，而且采用index skip scan的方式进行扫描
+Yumiko@Sunny >select * from test where object_id=3;
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2389257771
+----------------------------------------------------------------------------------
+| Id  | Operation                   | Name | Rows  | Bytes| Cost (%CPU)| Time    |
+----------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT            |      |     1 |    86|     5   (0)| 00:00:01|
+|   1 |  TABLE ACCESS BY INDEX ROWID| TEST |     1 |    86|     5   (0)| 00:00:01|
+|*  2 |   INDEX SKIP SCAN           | TEST |     1 |      |     4   (0)| 00:00:01|
+----------------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   2 - access("OBJECT_ID"=3)
+       filter("OBJECT_ID"=3)
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          6  consistent gets
+         24  physical reads
+          0  redo size
+       1402  bytes sent via SQL*Net to client
+        469  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          1  rows processed
+
+
+
+
+--删除之前的索引
+Yumiko@Sunny >drop index test;
+Index dropped.
+
+
+
+--以数值分布较为零散的object_id列作为引导列，再次创建普通索引
+Yumiko@Sunny >create index test on test(OBJECT_ID,owner);
+Index created.
+
+
+
+--收集测试表最新的统计信息
+Yumiko@Sunny >analyze table test compute statistics for table for all columns for all indexes;
+Table analyzed.
+
+
+
+--清空buffer cache缓冲池，避免影响数据测试
+Yumiko@Sunny >alter system flush buffer_cache;
+System altered.
+
+
+
+
+--使用上面刚刚创建的组合索引的非引导列owner作为条件查询列进行查询操作
+--从执行计划看，此次oracle未选择走索引扫描，而是采用了全表扫描的方式
+--到此，印证了之前对于index skip scan方式选择的说法
+Yumiko@Sunny >select * from test where owner='BI';
+8 rows selected.
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1357081020
+------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes| Cost (%CPU)| Time    |
+------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      |     8 |   688|    74   (2)| 00:00:01|
+|*  1 |  TABLE ACCESS FULL| TEST |     8 |   688|    74   (2)| 00:00:01|
+------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - filter("OWNER"='BI')
+
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+        318  consistent gets
+        315  physical reads
+          0  redo size
+       1583  bytes sent via SQL*Net to client
+        469  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+          8  rows processed
+
+
+ 
+ 
+5、索引全扫描（index full scan）
+对于索引全扫描，就是使用目标索引进行索引扫描时，会扫描所有索引叶块的所有索引行。
+对于索引全扫描，只适用于CBO。
+对于索引全扫描，使用单块读取的方式，有序读取索引块。
+对于索引全扫描，从结果集看，结果全部源于索引块，而且由于已经按照索引键值顺序排序，因此不需要单独排序
+对于索引全扫描，会话会产生db file sequential reads事件。
+ 
+具体情况分析：
+- 对于单一列建立的索引（单一索引），当该索引列有非空约束时，在具体检索中只检索该列全部数据，会使用“索引全扫描”。
+- 对于单一列建立的索引（单一索引），当该索引列无非空约束时，在具体检索中只检索该列全部数据，且是对该列的统计（count）或者非空条件查询（is not null），会使用“索引全扫描”。
+- 对于单一列建立的索引（单一索引），当该索引列无非空约束时，在具体检索中只检索该列全部数据，且是对该列的常规查询，不会使用“索引全扫描”。（这是因为对于oracle索引，对于列中存在的null值不记录在b-tree索引中）
+- 对于多个列建立的索引（组合索引），当该索引列有非空约束时，在具体检索中只检索组合索引中涉及的全部列或者部分列的全部数据，会使用“索引全扫描”。
+- 对于多个列建立的索引（组合索引），当该索引列无非空约束时，在具体检索中只检索组合索引中涉及的全部列或者部分列的全部数据，且是对这些相关列的统计（count）或者非空条件查询（is not null），会使用“索引全扫描”。
+- 对于多个列建立的索引（组合索引），当该索引列无非空约束时，在具体检索中只检索组合索引中涉及的全部列或者部分列的全部数据，且是对该列的常规查询，不会使用“索引全扫描”。
+ 
+示例：
+
+--为测试表TEST_NORMAL的empno列添加非空约束
+Yumiko@Sunny >alter table TEST_NORMAL modify(empno not null);
+Table altered.
+
+
+
+--以empno列以及ename列作为组合，创建普通索引
+Yumiko@Sunny >create index TEST_NORMAL_ind on TEST_NORMAL(empno,ename);
+Index created.
+
+
+
+--查询上面组合索引涉及的ename列，该列不存在非空约束
+--从执行计划看，oracle选择了index full scan的索引扫描方式，且结果集仅仅来源于索引块（没有根据rowid返回数据集的记录，说明无访问数据块）
+Yumiko@Sunny >select ename from TEST_NORMAL;
+14 rows selected.
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 2425626010
+------------------------------------------------------------------------------------
+| Id  | Operation        | Name            | Rows  | Bytes | Cost (%CPU)| Time     |
+------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT |                 |    14 |    70 |     1   (0)| 00:00:01 |
+|   1 |  INDEX FULL SCAN | TEST_NORMAL_IND |    14 |    70 |     1   (0)| 00:00:01 |
+------------------------------------------------------------------------------------
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+          2  consistent gets
+          8  physical reads
+          0  redo size
+        705  bytes sent via SQL*Net to client
+        469  bytes received via SQL*Net from client
+          2  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+         14  rows processed
+
+
+ 
+ 
+6、索引快速扫描（index fast full scan）
+对于索引快速扫描，就是使用目标索引进行索引扫描时，会扫描所有索引叶块的所有索引行。
+对于索引快速扫描，只适用于CBO。
+对于索引快速扫描，使用多块读取的方式，读取索引块。（这种方式相较于索引全扫描，获取数据的效率更高）
+对于索引快速扫描，从结果集看，结果全部源于索引块，但数据结果不一定有序。
+对于索引快速扫描，会话会产生db file scattered reads事件。
+ 
+具体情况分析：
+参阅上面的索引全扫描，两者所谓的同宗，只是不同的需求（对于结果的响应速度或是数据序列，当然CBO优化器也会进行内部的计算评估选取最优执行路径），产生的不同的执行结果，下面的示例会展示
+ 
+示例：
+
+
+--查询测试表的数据量，显示此表有22928行数据
+Yumiko@Sunny >select count(*) from test;
+
+  COUNT(*)
+----------
+     22928
+
+
+
+
+--确认数据列中不含非空约束
+Yumiko@Sunny >desc test
+ Name                                                    Null?    Type
+ --------------------------------------------------------------------------------
+ OWNER                                                            VARCHAR2(30)
+ OBJECT_NAME                                                      VARCHAR2(128)
+ SUBOBJECT_NAME                                                   VARCHAR2(30)
+ OBJECT_ID                                                        NUMBER
+ DATA_OBJECT_ID                                                   NUMBER
+ OBJECT_TYPE                                                      VARCHAR2(19)
+ CREATED                                                          DATE
+ LAST_DDL_TIME                                                    DATE
+ TIMESTAMP                                                        VARCHAR2(19)
+ STATUS                                                           VARCHAR2(7)
+ TEMPORARY                                                        VARCHAR2(1)
+ GENERATED                                                        VARCHAR2(1)
+ SECONDARY                                                        VARCHAR2(1)
+
+
+
+
+--针对object_id列，创建普通索引
+Yumiko@Sunny >create index test on test(object_id);
+Index created.
+
+
+
+
+--确认上面创建的索引为非唯一索引
+Yumiko@Sunny >select INDEX_NAME,INDEX_TYPE,TABLE_NAME,UNIQUENESS from user_indexes where TABLE_NAME='TEST';
+
+INDEX_NAME        INDEX_TYPE          TABLE_NAME                UNIQUENES
+-------------------------------------------------------------------------
+TEST              NORMAL              TEST                      NONUNIQUE
+
+
+
+--清空buffer_cache缓冲池数据，防止造成测试的影响
+Yumiko@Sunny >alter system flush buffer_cache;
+System altered.
+
+
+--清空shared pool缓冲池数据，防止对测试造成影响
+Yumiko@Sunny >alter system flush shared_pool;
+System altered.
+
+
+
+--收集测试表最新的统计信息
+Yumiko@Sunny >analyze table test compute statistics for table for all columns for all indexes;
+Table analyzed.
+
+
+
+--打开会话追踪，仅查看执行计划
+Yumiko@Sunny >set autotrace trace
+
+
+
+
+--查询索引列object，同时使用is not null作为查询条件。
+--由于b-tree索引中不记录null值信息，而且该列不存在非空约束，通过not null条件指定，让oracle不必考虑null值。
+--从执行计划看，由于读取的数据量很大且不用排序，oracle选择了更快的多块读方式的index fast full scan，尽快获取数据。
+--同样的，此时未出现access by index rowid的情况，说明未查询数据块，仅仅查询了索引块。
+Yumiko@Sunny >select object_id from test where object_id is not null;
+22928 rows selected.
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1645531115
+-----------------------------------------------------------------------------
+| Id  | Operation            | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+-----------------------------------------------------------------------------
+|   0 | SELECT STATEMENT     |      | 23290 |   295K|    14   (0)| 00:00:01 |
+|*  1 |  INDEX FAST FULL SCAN| TEST | 23290 |   295K|    14   (0)| 00:00:01 |
+-----------------------------------------------------------------------------
+
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - filter("OBJECT_ID" IS NOT NULL)
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+       1582  consistent gets
+         53  physical reads
+          0  redo size
+     502642  bytes sent via SQL*Net to client
+      17277  bytes received via SQL*Net from client
+       1530  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+      22928  rows processed
+
+
+
+
+
+
+--修改上面的查询，增加排序操作。
+--从执行计划看，由于此次增加了排序操作，oracle选择了偏向有序读取的index full scan的方式进行扫描。
+--同样的，此次未查询数据块（不存在access by index rowid）。
+Yumiko@Sunny >select object_id from test where object_id is not null order by object_id;
+22928 rows selected.
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 3883652822
+-------------------------------------------------------------------------
+| Id  | Operation        | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------
+|   0 | SELECT STATEMENT |      | 23290 |   295K|    60   (2)| 00:00:01 |
+|*  1 |  INDEX FULL SCAN | TEST | 23290 |   295K|    60   (2)| 00:00:01 |
+-------------------------------------------------------------------------
+Predicate Information (identified by operation id):
+---------------------------------------------------
+   1 - filter("OBJECT_ID" IS NOT NULL)
+
+Statistics
+----------------------------------------------------------
+          0  recursive calls
+          0  db block gets
+       1578  consistent gets
+         64  physical reads
+          0  redo size
+     502642  bytes sent via SQL*Net to client
+      17277  bytes received via SQL*Net from client
+       1530  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+      22928  rows processed
+
+
+
+
+
+--再次修改查询，取消not null条件查询以及排序操作。
+--此时，对于没有非空约束的object_id列，增加了null值的可能性，而b-tree索引不保存null信息。
+--此次，oracle选择了全表扫描的方式。
+Yumiko@Sunny >select object_id from test;
+22928 rows selected.
+
+Execution Plan
+----------------------------------------------------------
+Plan hash value: 1357081020
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      | 22928 | 91712 |    74   (2)| 00:00:01 |
+|   1 |  TABLE ACCESS FULL| TEST | 22928 | 91712 |    74   (2)| 00:00:01 |
+--------------------------------------------------------------------------
+Statistics
+----------------------------------------------------------
+          1  recursive calls
+          0  db block gets
+       1830  consistent gets
+        315  physical reads
+          0  redo size
+     415626  bytes sent via SQL*Net to client
+      17277  bytes received via SQL*Net from client
+       1530  SQL*Net roundtrips to/from client
+          0  sorts (memory)
+          0  sorts (disk)
+      22928  rows processed
 
 ### 有效使用索引
 
@@ -3658,3 +4458,29 @@ DSG RealSync同步du软件的实现方案：
 | 带宽占用    | 使用Oracle Net传输日志，可通过高级压缩选项进行压缩，压缩比在2-3倍         | 利用TCP/IP传输数据变化，集成数据压缩，提供理论可达到9：1压缩比的数据压缩特性                                                                   |
 
 | 拓扑结构    | 可以实现一对多模式                                       | 可以实现一对一、一对多、多对一、双向复制等多种拓扑结构                                                                                  |
+
+# Docker 安装 
+
+Docker Compose 安装
+第一种方法：由于官网使用的是 curl安装方法，实在太慢，不敢恭维
+0.ubuntu apt-get下载慢 解决办法
+1.更新源
+ sudo apt-install update
+2.安装python-pip
+ sudo apt install python3-pip
+3.查看版本
+ sudo pip --version
+4.更新pip版本
+ sudo pip install --upgrade pip
+5.安装docker-compose
+ sudo pip install docker-compose
+6.查看docker-compose版本
+ sudo docker-compose --version
+以上安装完成
+更新docker-compose 版本
+ sudo pip install --upgrade docker-comopse
+卸载pip安装的应用
+ sudo pip uninstall 引用名如docker-compose
+卸载pip
+ sudo  apt-get remove docker-compose
+ 

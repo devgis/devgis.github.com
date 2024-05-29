@@ -3,7 +3,7 @@ layout: post
 title: 数据库基础
 description: 各种数据库系统的数据库基础知识，查询性能优化以及数据库管理知识总结，以及除去Oracle、Sql Server等数据库的相关内容。
 date: 2022-10-01 09:01:01
-updatedate: 2024-03-26 10:55:56
+updatedate:  2024-05-29 10:11:50
 ---
 - [数据库基础](#数据库基础)
   - [数据库范式](#数据库范式)
@@ -2020,6 +2020,14 @@ on e1.salary = e2.salary;
 -> Table scan on e1  (cost=2.75 rows=25)
 
 从结果可以看出，该执行计划使用了 Inner hash join 实现两个表的连接查询。
+
+## 执行计划中的select_type：查询的类型。
+
+SIMPLE：简单 SELECT，不需要使用 UNION 操作或子查询。
+PRIMARY：如果查询包含子查询，最外层的 SELECT 被标记为 PRIMARY。
+UNION：UNION 操作中第二个或后面的 SELECT 语句。
+SUBQUERY：子查询中的第一个 SELECT。
+DERIVED：派生表的 SELECT 子查询。
 
 ## 执行计划中的分区表信息
 

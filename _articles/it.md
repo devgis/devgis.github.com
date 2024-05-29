@@ -2211,3 +2211,547 @@ Modbus 协议是应用于电子控制器上的一种通用语言。 通过此协
 （4）特殊协议：编程口、打印口等特殊方式取得的协议
 
 工业传输通讯的协议种类较多主要有历史遗留和人为垄断两方面的原因。虽然目前还有大量的现场总线标准，但没有任何一种标准比工业以太网更具生命力\[2]。
+
+
+##  什么叫数字孪生
+数字孪生是一种技术概念，它通过集成物理模型、传感器数据、运行历史等信息，在虚拟空间中创建物理实体或系统的数字化副本。12345678
+这个数字化副本可以模拟、验证、预测和控制原物理系统的行为，覆盖其全生命周期。数字孪体技术的应用范围广泛，包括产品设计、制造、医学分析、工程建设等多个领域。它们通过实时数据传输和高级分析技术，实现物理世界和数字世界之间的紧密结合和相互优化。
+
+
+数字孪生是一种超越现实的概念，利用物理模型、传感器更新、运行历史等数据，在虚拟空间中完成映射，从而反映相对应的实体装备的全生命周期过程。这可以被视为一个或多个重要的、彼此依赖的装备系统的数字映射系统。
+数字孪生集成了建模与仿真、虚拟现实、物联网、云边协同以及人工智能等技术，通过实测、仿真和数据分析来实时感知、诊断、预测物理实体对象的状态，通过指令来调控物理实体对象的行为，通过相关数字模型间的相互学习来进化自身，合理有效地调度资源或对相关设备进行维护。
+在产业链上，数字孪生可以划分为“基础支撑”、“数据互动”、“模型构建”、“仿真分析”、“共性应用”和“行业应用”六大核心模块，覆盖了从设备、数据到行业应用的全生命周期。
+数字孪生的应用场景非常广泛，包括工业制造、智能城市、交通物流、医疗健康、农业科技等众多领域。在工业制造中，数字孪生技术可以帮助企业实现生产过程的数字化和智能化，提高生产效率和产品质量。在智能城市领域，数字孪生模型可以用于更加精细化的城市管理和规划，提升城市运行效率和管理水平。在交通物流方面，数字孪生技术可以实时监控和预测车辆运行状态，提高运输效率和安全性。在医疗健康领域，数字孪生技术可以建立人体的数字模型，用于实时监测和预测健康状况，为医疗保健提供精准服务。
+总体来说，数字孪生是一个普遍适应的理论技术体系，具有巨大的应用潜力和发展空间。随着技术的不断进步和应用场景的不断拓展，数字孪生将在未来发挥更加重要的作用，推动各行各业的创新发展。
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+以前的某个安装需要重新引导计算机以便使更改生效
+
+1.进入注册表路径 `计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\PendingFileRenameOperations`。
+2.找到名为 `PendingFileRenameOperations` 的文件。
+3.删除 `PendingFileRenameOperations` 文件。
+4.重启计算机。
+PendingFileRenameOperations
+powershell
+registry remove --key-path \HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\PendingFileRenameOperations --recurse
+
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\PendingFileRenameOperations" /f
+
+
+OK
+
+reg delete "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\PendingFileRenameOperations" /f
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+oracle pivot unpivot
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+with temp as(
+select '四川省' nation ,'成都市' city,'第一' ranking from dual union all
+select '四川省' nation ,'绵阳市' city,'第二' ranking from dual union all
+select '四川省' nation ,'德阳市' city,'第三' ranking from dual union all
+select '四川省' nation ,'宜宾市' city,'第四' ranking from dual union all
+select '湖北省' nation ,'武汉市' city,'第一' ranking from dual union all
+select '湖北省' nation ,'宜昌市' city,'第二' ranking from dual union all
+select '湖北省' nation ,'襄阳市' city,'第三' ranking from dual
+)
+select * from （select nation,city,ranking from temp）pivot (max(city) for ranking in ('第一' as 第一,'第二' AS 第二,'第三' AS 第三,'第四' AS 第四));
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+with temp as(
+select '四川省' nation ,'成都市' 第一 ,'绵阳市' 第二,'德阳市' 第三,'宜宾市' 第四  from dual union all
+select '四川省' nation ,'武汉市' 第一 ,'宜昌市' 第二,'襄阳市' 第三,null 第四  from dual
+)
+SELECT nation,ranking,city
+FROM
+(
+SELECT * FROM temp
+)
+UNPIVOT EXClUDE NULLS (
+city
+FOR ranking IN (第一 ,第二,第三,第四)
+);
+
+with temp as(
+select '四川省' nation ,'成都市' 第一 ,'绵阳市' 第二,'德阳市' 第三,'宜宾市' 第四  from dual union all
+select '四川省' nation ,'武汉市' 第一 ,'宜昌市' 第二,'襄阳市' 第三,null 第四  from dual
+)
+SELECT nation,ranking,city
+FROM
+(
+SELECT * FROM temp
+)
+UNPIVOT INClUDE NULLS (
+city
+FOR ranking IN (第一 ,第二,第三,第四)
+);
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Oracle 的表类型  外部表 索引组织表IOT 对象表 临时表
+Oracle 物化视图（旧版本为快照，数据真实刷新到物理表中，当然也可以阻止刷新）
+分区表
+Oracle簇表介绍 （clustered table)簇表概述簇表(cluster) 是一种可以选的存储数据方式。簇表由1组拥有相同的列而且经常被一起使用的数据表构成，这组表在存储时会共享一部分Data Blocks, 例如，employees 和 departments表都包含department_id 这个列。 当用户将这两个表组合成1个簇表时，Oracle在物理上将employees 和 departments 两张表各行的department_id 字段存储在1个Data block里。下图显示了由employees 和 departments 两张表构成的簇表是怎样存储的。
+
+
+
+
+ 
+如上图，在1个簇表内,不同表的相关(related)数据行会被存储到1个Data Block中，因此有如下优点：       * 连接（join) 簇表所需的磁盘I/O减少。    * 连接簇表时间减少    * 在1个簇表内，簇键(cluster key) 是指各簇键列(cluster key column)的值。1个簇内的       有多个簇表的各个数据行所使用的相同的簇键值，在簇表及簇索引(cluster index)中只会被       存储1次（参考上图）。因此与非簇表相比(nonclustered table)相比,簇表这存储相关的       表和表数据所需的空间会减少。  如上图所示, 每个簇键（department_id）的值只会存储1次       ，而两张表employees和 departments 中包含的相同簇键值的数据共享同1个簇键.
+簇表的一些属性
+簇键 cluster key
+      簇键是列或多列的组合，为簇表所共有      在创建簇表时指定簇键的列，以后在创建增加簇表中的每个表示，指定相同的列则可。      每个簇键值在簇和簇索引中只存储1次，与不同表中有多少这样的行无关。使用簇键的好处      减少磁盘I/O， 减少了因使用连接表所带来系统开销      节省了磁盘存储空间，因为原来要单独存放多张表，现在可以将连接的部分作为共享列存储。什么情况下创建簇表      对于经常查询,DML操作比较少的表
+         表中的记录经常被连接到其他表查询
+
+创建簇表的步骤     创建簇表      创建簇索引      创建簇表的子表创建簇表时应考虑的问题     哪些表适用于创建簇表      对于创建簇的表那些列用作簇列      创建簇时Data Blocks的空间如何使用(pctfree, pctused)      平均簇键及所需相关行所需的空间大小      簇索引的位置(比如存放到不同表空间）      预估簇的大小     创建簇和簇表在创建簇表时，如果未指定索引列，则默认的创建1个索引簇。如果指定了散列参数, 如haskeys,hashis 或single table hashkeys，则可以创建哈希簇.
+先检查当前环境
+
+可以看出当前用户是HR， 用户的默认表空间是TS_EXAMPLE
+
+创建簇
+
+
+   CREATE CLUSTER EMP_DEPT_CLUSTER(DEPTNO 
+NUMBER(2))
+   PCTUSED 80
+
+   PCTFREE 15
+
+   SIZE 1024
+
+   TABLESPACE USERS
+
+上面语句就创建了1个簇，其中1个最重要的参数就是
+SIZE，需要为
+SIZE指定1个合适的值，如果太大，则每个块仅存放少量的簇，造成空间浪费，太小又会形成很多数据链。
+注意TABLESPACE 字句，这里我们会将这个簇放入USER 这个表空间中，而不是用户HR默认的表空间TS_EXAMPLE.
+
+注意:本地管理类型的表空间中, PCTUSED的设置是无效的.
+关于
+PCTUSED 
+PCTFREE 的参数可以参考我的另1篇blog
+http://nvd11.blog.163.com/blog/static/200018312201282354948602/
+如下图，利用上面语句创建了1个簇
+ 
+
+
+创建后可以通过查看user_clusters 来检索这个簇.
+
+
+ 
+
+
+创建簇索引    创建簇索引的条件:
+      * 模式中必须包含簇
+      * 必须具有create any index 的权限.
+
+   簇索引的作用
+         用于1个簇键值并返回该簇键值的地址块. (注意簇中,每1个簇键值只存储1次啊)
+   
+   语法:
+           Create index emp_dept_cluster_idx                         on  cluster emp_dept_cluster
+
+     创建后可以查看user_indexse来检索这个簇索引
+
+
+ 
+
+
+
+
+创建簇表
+     创建簇表 cl_dept:
+      CREATE TABLE CL_DEPT(                       DEPTNO NUMBER(2) PRIMARY KEY,                       DNAME VARCHAR2(14),                       LOC VARCHAR2(13)                       )                cluster emp_dept_cluster(deptno) --cluster关键字后面跟簇名、簇列
+                                                                               --作用就是分配该表给指定簇,同时指定簇键.
+
+     
+     CREATE TABLE CL_EMP(                      EMPNO NUMBER PRIMARY KEY,                      ENAME VARCHAR2(10),                      JOB1  VARCHAR(9),                      MGR   NUMBER,                      HIREDATE DATE,                      SAL   NUMBER,                      COMM  NUMBER,                      DEPTNO NUMBER(2) REFERENCES CL_DEPT(DEPTNO)  --外键                      )                CLUSTER EMP_DEPT_CLUSTER(DEPTNO) ----cluster关键字后面跟簇名、簇列
+
+创建后可以查看user_tables来检索这两张簇表
+
+
+ 
+也可以从user_objects视图里查看:
+
+
+ 
+上图两个SYS开头的index是建立主键时系统自动建立的indexes.
+
+下面对CL_DEPT 和 CL_EMP 插入数据. 从scott帐号的表导入
+
+
+ 
+记得commit;..
+
+
+更改簇属性     
+   类似table
+ 可以用如下语句更改簇属性
+
+Alter Cluster EMP_DEPT_CLUSTER
+        pctree 20;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+游标的概念: 
+    游标是SQL的一个内存工作区，由系统或用户以变量的形式定义。游标的作用就是用于临时存储从数据库中提取的数据块。在某些情况下，需要把数据从存放在磁盘的表中调到计算机内存中进行处理，最后将处理结果显示出来或最终写回数据库。这样数据处理的速度才会提高，否则频繁的磁盘数据交换会降低效率。 
+游标有两种类型：显式游标和隐式游标。我们常用到的SELECT...INTO...查询语句，一次只能从数据库中提取一行数据，对于这种形式的查询和DML操作，系统都会使用一个隐式游标。但是如果要提取多行数据，就要由程序员定义一个显式游标，并通过与游标有关的语句进行处理。显式游标对应一个返回结果为多行多列的SELECT语句。 
+游标一旦打开，数据就从数据库中传送到游标变量中，然后应用程序再从游标变量中分解出需要的数据，并进行处理。 
+隐式游标 
+如前所述，DML操作和单行SELECT语句会使用隐式游标，它们是： 
+* 插入操作：INSERT。 
+* 更新操作：UPDATE。 
+* 删除操作：DELETE。 
+* 单行查询操作：SELECT ... INTO ...。 
+当系统使用一个隐式游标时，可以通过隐式游标的属性来了解操作的状态和结果，进而控制程序的流程。隐式游标可以使用名字SQL来访问，但要注意，通过SQL游标名总是只能访问前一个DML操作或单行SELECT操作的游标属性。所以通常在刚刚执行完操作之后，立即使用SQL游标名来访问属性。游标的属性有四种，如下所示:
+sql%found （布尔类型，默认值为null）
+sql%notfound（布尔类型,默认值为null）
+sql%rowcount(数值类型默认值为0)
+sql%isopen(布尔类型)
+当执行一条DML语句后，DML语句的结果保存在四个游标属性中，这些属性用于控制程序流程或者了解程序的状态。当运行DML语句时，PL/SQL打开一个内建游标并处理结果，游标是维护查询结果的内存中的一个区域，游标在运行DML语句时打开，完成后关闭。隐式游标只使用SQL%FOUND,SQL%NOTFOUND,SQL%ROWCOUNT三个属性.SQL%FOUND,SQL%NOTFOUND是布尔值，SQL%ROWCOUNT是整数值。
+SQL%FOUND和SQL%NOTFOUND
+在执行任何DML语句前SQL%FOUND和SQL%NOTFOUND的值都是NULL,在执行DML语句后，SQL%FOUND的属性值将是：
+     . TRUE :INSERT
+　　. TRUE :DELETE和UPDATE，至少有一行被DELETE或UPDATE.
+　　. TRUE :SELECT INTO至少返回一行
+　当SQL%FOUND为TRUE时,SQL%NOTFOUND为FALSE。
+ SQL%ROWCOUNT
+　　在执行任何DML语句之前，SQL%ROWCOUNT的值都是NULL,对于SELECT INTO语句，如果执行成功，SQL%ROWCOUNT的值为1,如果没有成功或者没有操作(如update、insert、delete为0条），SQL%ROWCOUNT的值为0，而对于update和delete来说表示游标所检索数据库行的个数即更新或者删除的行数。
+SQL%ISOPEN
+　　SQL%ISOPEN是一个布尔值，如果游标打开，则为TRUE, 如果游标关闭，则为FALSE.对于隐式游标而言SQL%ISOPEN总是FALSE，这是因为隐式游标在DML语句执行时打开，结束时就立即关闭。
+ 最后我们来说一下隐式游标中SELECT..INTO 语句，当执行的时候会有三种可能：
+（1).结果集只含有一行，且select是成功的
+ (2).没有查询到任何结果集，引发NO_DATA_FOUND异常
+ (3).结果集中含有两行或者更多行，引发TOO_MANY_ROWS异常。
+例子:
+
+BEGIN
+     UPDATE exchangerate SET rate=7 where quarter='2011Q1';
+
+     DBMS_output.put_line('游标所影响的行数：'||SQL%rowcount);
+      if SQL%NotFound then
+
+         DBMS_output.put_line('NotFound为真');
+
+         DBMS_output.put_line('NofFound为假');   
+      end if;
+      if SQL%Found then
+           DBMS_output.put_line('Found为真');
+      else
+           DBMS_output.put_line('Found为假');
+      end if;
+      if SQL%isopen then
+           DBMS_output.put_line('isOpen为真');
+      else
+           DBMS_output.put_line('isOpen为假');
+      end if;
+END;
+
+
+显式游标:
+游标的定义和操作 
+游标的使用分成以下4个步骤。 
+1．声明游标 
+在DECLEAR部分按以下格式声明游标： 
+CURSOR 游标名[(参数1 数据类型[，参数2 数据类型...])] 
+IS SELECT语句; 
+参数是可选部分，所定义的参数可以出现在SELECT语句的WHERE子句中。如果定义了参数，则必须在打开游标时传递相应的实际参数。 
+SELECT语句是对表或视图的查询语句，甚至也可以是联合查询。可以带WHERE条件、ORDER BY或GROUP BY等子句，但不能使用INTO子句。在SELECT语句中可以使用在定义游标之前定义的变量。
+ 
+2．打开游标 
+在可执行部分，按以下格式打开游标： 
+OPEN 游标名[(实际参数1[，实际参数2...])]; 
+打开游标时，SELECT语句的查询结果就被传送到了游标工作区。 
+3．提取数据 
+在可执行部分，按以下格式将游标工作区中的数据取到变量中。提取操作必须在打开游标之后进行。 
+FETCH 游标名 INTO 变量名1[，变量名2...]; 
+或 
+FETCH 游标名 INTO 记录变量; 
+游标打开后有一个指针指向数据区，FETCH语句一次返回指针所指的一行数据，要返回多行需重复执行，可以使用循环语句来实现。控制循环可以通过判断游标的属性来进行。 
+下面对这两种格式进行说明： 
+第一种格式中的变量名是用来从游标中接收数据的变量，需要事先定义。变量的个数和类型应与SELECT语句中的字段变量的个数和类型一致。 
+第二种格式一次将一行数据取到记录变量中，需要使用%ROWTYPE事先定义记录变量，这种形式使用起来比较方便，不必分别定义和使用多个变量。 
+定义记录变量的方法如下： 
+变量名 表名|游标名%ROWTYPE； 
+其中的表必须存在，游标名也必须先定义。 
+4．关闭游标 
+CLOSE 游标名; 
+显式游标打开后，必须显式地关闭。游标一旦关闭，游标占用的资源就被释放，游标变成无效，必须重新打开才能使用。 
+现在通过一个例子来学习一下显示游标的使用方法：
+有一个表原来结构是如下的
+
+create table EXCHANGERATE
+(
+  QUARTER      VARCHAR2(20),
+  RATE         NUMBER(10,4),
+  DESCRIPTION  VARCHAR2(900),
+  ID           VARCHAR2(10) not null,
+  CURRENCY     VARCHAR2(100)
+)
+
+
+这是一个汇率表里面维护着的是季度 币种和汇率的关系，现在有一个新的需求是在原来表的基础上增加一列名字为currentmonth，变为季度、季度中月份、 币种和汇率的关系，
+并且使原来每个季度对应的币种和汇率变成每个季度 对应该季度月份 币种和汇率，每个月的默认值为原来季度对应的值。
+例如 原来 2013Q2 CNY 6.2
+现在我们要变为2013Q2 2013-04 CNY 6.2  2013Q2 2013-05 CNY 6.2
+2013Q2 2013-06 CNY 6.2  三条记录。
+通过分析以上需求，我们首先要增加一列：
+alter table exchangerate add currentmonth varchar2(20);
+然后我们通过在匿名块中通过显示游标来实现以上需求:
+
+declare
+
+ v_year varchar2(20);
+ v_month number;
+ p_rate exchangerate%rowtype;
+
+ cursor c_rate is  select * from exchangerate t where t.currentmonth is null;
+
+ begin
+   open c_rate;
+    loop
+
+    fetch c_rate into p_rate;
+    v_year:=substr(p_rate.quarter, 0, 4);
+    v_month:=(to_number(substr(p_rate.quarter,6,1)) - 1) * 3;
+
+    for i in 1 .. 3 loop
+
+    insert into exchangerate(id,quarter,currentmonth,rate,currency,Description)
+    values(SEQUENCE_EXCHANGERATE.nextval,p_rate.quarter,
+           to_char(to_date(v_year||(v_month+i),'yyyyMM'),'yyyy-MM'),p_rate.rate,p_rate.currency,p_rate.description);
+     
+    end loop; 
+
+    exit when c_rate%notfound;
+
+   end loop;
+
+   close c_rate;
+
+ end;
+ /
+
+
+ 我们把上面的例子有游标的for循环来改写一下。
+ 
+显式游标的for循环
+
+declare
+
+ v_year varchar2(20);
+ v_month number;
+
+ cursor c_rate is  select * from exchangerate t where t.currentmonth is null;
+
+ begin
+
+   for p_rate in c_rate loop
+
+   v_year:=substr(p_rate.quarter, 0, 4);
+
+   v_month:=(to_number(substr(p_rate.quarter,6,1)) - 1) * 3;
+
+    for i in 1 .. 3 loop
+
+    insert into exchangerate(id,quarter,currentmonth,rate,currency,Description)
+    values(SEQUENCE_EXCHANGERATE.nextval,p_rate.quarter,
+           to_char(to_date(v_year||(v_month+i),'yyyyMM'),'yyyy-MM'),p_rate.rate,p_rate.currency,p_rate.description);
+
+    end loop; 
+
+   end loop;
+
+ end;
+
+  /
+
+
+ 
+我们可以看到游标FOR循环确实很好的简化了游标的开发，我们不在需要open、fetch和close语句，不在需要用%FOUND属性检测是否到最后一条记录，这一切Oracle隐式的帮我们完成了。
+ 
+隐式游标的for循环
+ 
+
+declare
+
+ v_year varchar2(20);
+ v_month number;
+
+ begin
+
+   for p_rate in (select * from exchangerate t where t.currentmonth is null) loop
+
+   v_year:=substr(p_rate.quarter, 0, 4);
+   v_month:=(to_number(substr(p_rate.quarter,6,1)) - 1) * 3;
+
+    for i in 1 .. 3 loop
+
+      insert into exchangerate(id,quarter,currentmonth,rate,currency,Description) 
+        values(SEQUENCE_EXCHANGERATE.nextval,p_rate.quarter,
+               to_char(to_date(v_year||(v_month+i),'yyyyMM'),'yyyy-MM'),p_rate.rate,p_rate.currency,p_rate.description);
+
+    end loop; 
+
+   end loop;
+
+ end;
+/
+
+
+ 
+显示游标中游标参数的传递
+例子：就以上面的表来说 加入我们在定义游标时不确定查询条件中的值，这时我们可以通过游标参数来解决
+
+declare
+
+ v_year varchar2(20);
+ v_month number;
+ p_rate exchangerate%rowtype;
+
+ cursor c_rate(p_quarter varchar2) --声明游标带参数
+ is  
+    select * from exchangerate t where t.quarter<=p_quarter;
+
+ begin
+   open c_rate(p_quarter=>'2011Q3');--打开游标,传递参数值
+    loop
+
+    fetch c_rate into p_rate;
+    
+    update exchangerate set rate=p_rate.rate+1 where id=p_rate.id;
+
+
+    exit when c_rate%notfound;
+
+   end loop;
+
+   close c_rate;
+
+ end;
+
+
+ 
+游标变量
+ 游标是数据库中一个命名的工作区,当游标被声明后,他就与一个固定的SQL想关联,在编译时刻是已知的,是静态的.它永远指向一个相同的查询工作区.
+ 游标变量是动态的可以在运行时刻与不同的SQL语句关联,在运行时可以取不同的SQL语句.它可以引用不同的工作区.
+如何定义游标类型
+ 
+TYPE ref_type_name IS REF CURSOR
+
+[RETURN return_type];
+声明游标变量
+cursor_name ref_type_name;
+ 
+ref_type_name 是后面声明游标变量时要用到的我们的游标类型(自定义游标类型,即CURSOR是系统默认的,ref_type_name是我们定义的 );
+return_type代表数据库表中的一行,或一个记录类型
+TYPE ref_type_name IS REF CURSOR RETURN EMP%TYPE
+RETURN 是可选的,如果有是强类型,可以减少错误,如果没有return是弱引用,有较好的灵活性.
+游标变量的操作
+ 例子：
+
+declare
+
+ v_year varchar2(20);
+ v_month number;
+ p_rate exchangerate%rowtype;
+
+ type  rate is ref cursor;--定义游标变量
+  c_rate rate; --声明游标变量
+  
+ begin
+   
+   
+   open c_rate for select * from exchangerate t where t.quarter='2011Q3';--打开游标变量
+    loop
+
+    fetch c_rate into p_rate;--提取游标变量
+    
+    update exchangerate set rate=p_rate.rate+1 where id=p_rate.id;
+
+    exit when c_rate%notfound;
+
+   end loop;
+  
+  --将同一个游标变量对应到另一个SELECT语句
+   
+   open c_rate for select * from exchangerate t where t.quarter='2011Q2';--打开游标变量
+    loop
+
+    fetch c_rate into p_rate;--提取游标变量
+    
+    update exchangerate set rate=p_rate.rate-1 where id=p_rate.id;
+
+    exit when c_rate%notfound;
+
+   end loop;
+   close c_rate;--关闭游标变量
+
+ end;
+
+
+ 
+游标表达式
+Oracle在SQL语言中提供了一个强有力的工具：游标表达式。一个游标表达式从一个查询中返回一个内嵌的游标。在这个内嵌游标的结果集中，每一行数据包含了在SQL查询中的可允许的数值范围；它也能包含被其他子查询所产生的游标。
+因此，你能够使用游标表达式来返回一个大的和复杂的，从一张或多张表获取的数据集合。游标表达式的复杂程度，取决于查询和结果集。然而，了解所有从Oracle RDBMS提取数据的可能途径，还有大有好处的。
+你能够在以下任何一种情况使用游标表达式：
+   （1）、 显式游标声明
+   （2）、动态SQL查询。
+   （3）、REF CURSOR 声明和变量。
+你不能在一个隐式查询中使用游标表达式。
+游标表达式的语法是相当简单的：
+    CURSOR (查询语句)
+当Oracle从父游标或外围游标那里检取包含游标表达式的数据行时，Oracle就会隐式地打开一个内嵌的游标，这个游标就是被上述的游标表达式所定义。在以下情况发生时，这个内迁游标将会被关闭：
+    （1）、你显式地关闭这个游标。
+    （2）、外围或父游标被重新执行，关闭或撤销。
+    （3）、当从父游标检取数据时，发生异常。内嵌游标就会与父游标一起被关闭。
+ 使用游标表达式
+你可以通过两种不同的，但是非常有用的方法来使用游标表达式：
+   1.  在一个外围查询中把字查询作为一列来检取数据。
+   2.  把一个查询转换成一个结果集，而这个结果集就可以被当成一个参数传递给一个流型或变换函数。
+例子：
+
+CREATE OR REPLACE PROCEDURE emp_report(p_locid NUMBER)
+IS
+    TYPE refcursor IS REF CURSOR;
+    CURSOR all_in_one IS
+        SELECT l.city, CURSOR(
+            SELECT  d.department_name, CURSOR (
+                SELECT e.last_name
+                FROM employees e
+                WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+            ) as ename
+            FROM departments d
+            WHERE d.LOCATION_ID = l.LOCATION_ID
+        ) as dname
+        FROM locations l
+        WHERE l.location_id = p_locid;
+departments_cur refcursor;
+employees_cur refcursor;
+v_city locations.city%type;
+v_dname departments.department_name%type;
+v_ename employees.last_name%type;
+i integer :=1;
+j integer :=1;
+k integer :=1;
+BEGIN
+    OPEN all_in_one;
+    LOOP    
+    FETCH all_in_one INTO v_city, departments_cur;
+    EXIT WHEN all_in_one%NOTFOUND;
+                                                  LOOP
+        FETCH departments_cur INTO  v_dname, employees_cur;
+        EXIT WHEN departments_cur%NOTFOUND;
+        LOOP
+            FETCH employees_cur INTO v_ename;
+            EXIT WHEN employees_cur%NOTFOUND;
+            dbms_output.put_line(i || ' , ' || j || ' , ' || k || '----' || v_city || ' ,' || v_dname || ' ,' || v_ename );
+            k := k + 1;
+        END LOOP;
+        j := j + 1;
+    END LOOP;
+    i := i + 1;
+    END LOOP;
+END;
+/
+
+
