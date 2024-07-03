@@ -3,7 +3,7 @@ layout: post
 title: Dotnet相关编程总结
 description: Dotnet相关编程知识的总结
 date: 2022-10-01 09:01:01
-updatedate: 2024-05-29 10:28:53
+updatedate: 2024-07-03 11:35:53
 ---
 - [Donet6 ubuntu下的安装](#donet6-ubuntu下的安装)
 - [发布项目](#发布项目)
@@ -269,7 +269,15 @@ Dotnet6 完整卸载，如果未安装可以不用执行
 
 # Dotnet版本
 
-.NET 是一款广泛使用的软件开发框架，它经历了多个版本的演进和改进。其中有的特性对.NET起到划时代的意义，对我们开发效率和程序的运行效率得到本质提升。本文将介绍.NET历史版本中比较优秀的10个新特征： 1、 .NET Framework 2.0： 引入了泛型类型和方法。通过使用泛型，开发人员可以编写更灵活、可扩展和类型安全的代码，减少了冗余代码的编写，并提高了应用程序的性能和可维护性。泛型在.NET框架中被广泛应用，例如在集合类（如List、Dictionary）、LINQ查询、委托和事件等方面。 2、.NET Framework 3.5： 引入了 LINQ（Language Integrated Query）查询语言，LINQ（Language Integrated Query）是.NET框架中的一项功能，它提供了一种统一的查询语法和操作符，用于在.NET应用程序中对各种数据源进行查询和操作。LINQ使得在.NET中执行查询操作变得更加简洁、直观和易于理解。同时可以使用Lambda表达式，它是一种简洁的匿名函数表示法，LINQ与lambda表达式密切相关。 3、 .NET Framework 4.5： 异步编程模型（async/await）是.NET框架中的一项重要特性，用于简化和改进异步编程。它使开发人员能够以一种更直观、可读性更高的方式编写异步代码，避免了传统的回调式编程模式带来的复杂性和困扰。 public async Task DownloadDataAsync(string url){ HttpClient client = new HttpClient(); string data = await client.GetStringAsync(url); return data;}//DownloadDataAsync方法被标记为异步方法，//并使用await关键字等待HttpClient的GetStringAsync方法的完成。//在等待期间，线程可以执行其他任务，而不会被阻塞。当异步操作完成后，//方法会返回结果。 ![0](https://note.youdao.com/yws/res/27000/WEBRESOURCE30e6d4f01758815f80a8b55fc6506da8 "0") 4、.NET Core 1.0： 从2016年6月开始发布.NET Core 1.0 ，.NET Core已经经历过了8年，加上今年发布的.NET7 已经有7个版本了，几乎是一年一个版本。其中长期支持的版本是.NET Core 3.1和.NET 6，大家注意选择。下面是[思维导图](https://so.csdn.net/so/search?q=%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE\&spm=1001.2101.3001.7020)描述了他们的发展历程。 .NET Core 1.0是.NET的首个跨平台版本，为开发人员带来了一场革命。它突破了操作系统的限制，可以在Windows、Linux和macOS等多个平台上运行，打开了.NET的全新时代。 新特性：
+.NET 是一款广泛使用的软件开发框架，它经历了多个版本的演进和改进。其中有的特性对.NET起到划时代的意义，对我们开发效率和程序的运行效率得到本质提升。本文将介绍.NET历史版本中比较优秀的10个新特征：
+
+ 1、 .NET Framework 2.0： 引入了泛型类型和方法。通过使用泛型，开发人员可以编写更灵活、可扩展和类型安全的代码，减少了冗余代码的编写，并提高了应用程序的性能和可维护性。泛型在.NET框架中被广泛应用，例如在集合类（如List、Dictionary）、LINQ查询、委托和事件等方面。 
+
+ 2、.NET Framework 3.5： 引入了 LINQ（Language Integrated Query）查询语言，LINQ（Language Integrated Query）是.NET框架中的一项功能，它提供了一种统一的查询语法和操作符，用于在.NET应用程序中对各种数据源进行查询和操作。LINQ使得在.NET中执行查询操作变得更加简洁、直观和易于理解。同时可以使用Lambda表达式，它是一种简洁的匿名函数表示法，LINQ与lambda表达式密切相关。 
+
+ 3、 .NET Framework 4.5： 异步编程模型（async/await）是.NET框架中的一项重要特性，用于简化和改进异步编程。它使开发人员能够以一种更直观、可读性更高的方式编写异步代码，避免了传统的回调式编程模式带来的复杂性和困扰。 public async Task DownloadDataAsync(string url){ HttpClient client = new HttpClient(); string data = await client.GetStringAsync(url); return data;}//DownloadDataAsync方法被标记为异步方法，//并使用await关键字等待HttpClient的GetStringAsync方法的完成。//在等待期间，线程可以执行其他任务，而不会被阻塞。当异步操作完成后，//方法会返回结果。 ![0](https://note.youdao.com/yws/res/27000/WEBRESOURCE30e6d4f01758815f80a8b55fc6506da8 "0") 
+
+ 4、.NET Core 1.0： 从2016年6月开始发布.NET Core 1.0 ，.NET Core已经经历过了8年，加上今年发布的.NET7 已经有7个版本了，几乎是一年一个版本。其中长期支持的版本是.NET Core 3.1和.NET 6，大家注意选择。下面是[思维导图](https://so.csdn.net/so/search?q=%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE\&spm=1001.2101.3001.7020)描述了他们的发展历程。 .NET Core 1.0是.NET的首个跨平台版本，为开发人员带来了一场革命。它突破了操作系统的限制，可以在Windows、Linux和macOS等多个平台上运行，打开了.NET的全新时代。 新特性：
 
 * URL 重写中间件
 * 响应缓存中间件
@@ -280,9 +288,35 @@ Dotnet6 完整卸载，如果未安装可以不用执行
 * Azure Key Vault 配置提供程序
 * Azure 和 Redis 存储数据保护密钥存储库
 * 适用于 Windows 的 WebListener 服务器（注：指 HTTP.sys 服务器）
-* WebSockets 支持 5、 .NET Core 2.0： 增加了对 Razor Pages 的支持， Razor Pages采用了一种类似于传统Web Forms的方式，即将前端页面和后端代码逻辑紧密集成在一个文件中。每个Razor Pages文件（.cshtml）都包含了HTML标记和C#代码，使开发人员能够在同一个文件中处理页面布局、数据绑定和事件处理等操作。 Razor Pages使用了Razor语法，这是一种简洁、直观的模板语言，可以轻松地将C#代码嵌入到HTML中。开发人员可以在Razor Pages中使用Razor语法来处理数据显示、条件逻辑、循环结构等。Razor Pages还支持部分视图（Partial Views），这允许开发人员将页面的某些部分作为可重用的组件进行封装。 6、.NET Core 2.1： .NET Core 2.0引入了高性能的Span类型，以更有效地处理内存和数据。Span是一个结构体，用于表示连续的内存区域，并提供了一组安全且高效的方法来访问和操作这些内存区域。 通过使用Span，开发人员可以直接操作内存，而无需进行不必要的内存分配和复制操作。这对于处理大型数据集合或高性能计算任务非常有用。Span提供了多种方法来访问和修改内存，如索引访问、切片操作、复制和填充等。 新特性包含2.0、2.1， 新特性如下：
+* WebSockets 支持 
+
+5、 .NET Core 2.0： 增加了对 Razor Pages 的支持， Razor Pages采用了一种类似于传统Web Forms的方式，即将前端页面和后端代码逻辑紧密集成在一个文件中。每个Razor Pages文件（.cshtml）都包含了HTML标记和C#代码，使开发人员能够在同一个文件中处理页面布局、数据绑定和事件处理等操作。 Razor Pages使用了Razor语法，这是一种简洁、直观的模板语言，可以轻松地将C#代码嵌入到HTML中。开发人员可以在Razor Pages中使用Razor语法来处理数据显示、条件逻辑、循环结构等。Razor Pages还支持部分视图（Partial Views），这允许开发人员将页面的某些部分作为可重用的组件进行封装。
+
+ 6、.NET Core 2.1： .NET Core 2.0引入了高性能的Span类型，以更有效地处理内存和数据。Span是一个结构体，用于表示连续的内存区域，并提供了一组安全且高效的方法来访问和操作这些内存区域。 通过使用Span，开发人员可以直接操作内存，而无需进行不必要的内存分配和复制操作。这对于处理大型数据集合或高性能计算任务非常有用。Span提供了多种方法来访问和修改内存，如索引访问、切片操作、复制和填充等。 新特性包含2.0、2.1， 新特性如下：
+
+例如，我们可以为非托管内存创建Span：
+
+Span<byte> stackMemory = stackalloc byte[256];
+
+IntPtr unmanagedHandle = Marshal.AllocHGlobal(256);
+Span<byte> unmanaged = new Span<byte>(unmanagedHandle.ToPointer(), 256); 
+Marshal.FreeHGlobal(unmanagedHandle);
+从T[]到Span的隐式转换：
+
+char[] array = new char[] { 'i', 'm', 'p', 'l', 'i', 'c', 'i', 't' };
+Span<char> fromArray = array;
+ 
+
+此外，还有ReadOnlySpan，可以用来处理字符串或其他不可变类型：
+
+ReadOnlySpan<char> fromString = "Hello world".AsSpan();
+ 
+
+Span创建完成后，就跟普通的数组一样，有一个Length属性和一个允许读写的index，因此使用时就和一般的数组一样使用就好
+
 * Razor Pages
 * ASP.NET Core 元包（注：即Microsoft.AspNetCore.All ，我喜欢称作全家桶，作用就是一把梭给你全部引用了相关的包，不用你发现没有的时候自己去找，方便是方便，就是把一堆没用到的也给引用了，项目加载速度也会受到影响）
+
 * .NET Standard 2.0
 * SPA 模板
 * Kestrel 改进（添加大量服务器约束配置选项）
@@ -302,7 +336,9 @@ Dotnet6 完整卸载，如果未安装可以不用执行
 * SignalR Java 客户端
 * CORS 改进
 * 响应压缩（ASP.NET Core 2.2 可以使用 Brotli 压缩格式来压缩响应。）
-* 提升 HttpClient 性能（通过改善连接池锁的冲突） 7、 .NET Core 3.0： .NET Core 3.0引入了System.Text.Json，它是.NET平台中用于JSON序列化和反序列化的官方库。它具有高性能、简化的API和可定制性等特点，使开发人员能够方便地处理JSON数据。随着.NET Core的发展，System.Text.Json已成为.NET开发中的首选JSON处理库。 { // 创建一个对象 Person person = new Person {Name = "caochao", Age = 30, Email = "<caochao@example.com>" }; // 对象序列化为JSON字符串 string json = JsonSerializer.Serialize(person); // JSON字符串反序列化为对象 Person deserializedPerson = JsonSerializer.Deserialize(json); } class Person { public string Name { get; set; } public int Age { get; set; } public string Email { get; set; } }//欢迎关注公众号：DOTNET开发跳槽，领取海量面试题。加微信号xbhpnet入群交流 新特性包含3.0 新特性如下：
+* 提升 HttpClient 性能（通过改善连接池锁的冲突） 
+
+7、 .NET Core 3.0： .NET Core 3.0引入了System.Text.Json，它是.NET平台中用于JSON序列化和反序列化的官方库。它具有高性能、简化的API和可定制性等特点，使开发人员能够方便地处理JSON数据。随着.NET Core的发展，System.Text.Json已成为.NET开发中的首选JSON处理库。 { // 创建一个对象 Person person = new Person {Name = "caochao", Age = 30, Email = "<caochao@example.com>" }; // 对象序列化为JSON字符串 string json = JsonSerializer.Serialize(person); // JSON字符串反序列化为对象 Person deserializedPerson = JsonSerializer.Deserialize(json); } class Person { public string Name { get; set; } public int Age { get; set; } public string Email { get; set; } }//欢迎关注公众号：DOTNET开发跳槽，领取海量面试题。加微信号xbhpnet入群交流 新特性包含3.0 新特性如下：
 * Blazor Server
 * Blazor WebAssembly
 * Razor 组件
@@ -324,20 +360,54 @@ Dotnet6 完整卸载，如果未安装可以不用执行
 * 对 ASP.NET Core 项目运行
 *  dotnet watch 将启动默认浏览器，并在对代码进行更改时自动刷新浏览器
 * 控制台记录器格式化程序
-* JSON Console Logger 9、 .NET 6： .NET MAUI是.NET 6中的重要新特性，它是一种新的跨平台应用程序开发框架，允许开发人员使用单一代码库构建移动、桌面和Web应用程序。它继承了Xamarin.Forms的优点，并进一步扩展和改进了跨平台开发体验。 .NET 6 (长期支持版本) 新特性：
+* JSON Console Logger 
+
+9、 .NET 6： .NET MAUI是.NET 6中的重要新特性，它是一种新的跨平台应用程序开发框架，允许开发人员使用单一代码库构建移动、桌面和Web应用程序。它继承了Xamarin.Forms的优点，并进一步扩展和改进了跨平台开发体验。 .NET 6 (长期支持版本) 新特性：
 * 性能大幅提升
-* 支持 [热更新](https://so.csdn.net/so/search?q=%E7%83%AD%E6%9B%B4%E6%96%B0\&spm=1001.2101.3001.7020) Visual Studio 2022 和 .NET CLI 中支持，适用于 C# 和 Visual Basic
+* 支持 [热更新]Visual Studio 2022 和 .NET CLI 中支持，适用于 C# 和 Visual Basic
 * 支持C#10版本 ,例如记录结构、隐式使用和新的 lambda 功能
-* 具有原生设备功能的 [Blazor](https://so.csdn.net/so/search?q=Blazor\&spm=1001.2101.3001.7020) 桌面Web应用
+* 具有原生设备功能的  桌面Web应用
 * 添加了 HTTP3支持
 * System.Text.Json APIs
 * 新的 LINQ API
 * 支持Arm64
-* 最小化 Web APIs(Mini API) 10、 .NET 7： 内置容器化支持是.NET 7引入的重要新特征。之前我们更熟悉使用 Dockerfile 的形式构建镜像，而现在，可以在 .NET 项目中，配置 MSBuild 属性来做同样的事情，指定基础镜像，标签等等。.NET7的新特性小编比较难找，不知道“内置容器化支持”具体如何？ .NET 7 优化主要集中在： 统一的基类库（Base Class Library - BCL）、新的 TFM、对 ARM64 的原生支持、Linux 上增强的 .NET 支持。 ![0](https://note.youdao.com/yws/res/27938/WEBRESOURCE648a639fc7b432befdd4e358e020fcfc "0") 简单来说，如果使用 .NET 7，开发人员只需学习一次即可通过一个 SDK、一个运行时、一组基础库重复构建多种类型的应用程序（云、Web、桌面、移动、游戏、IoT 和 AI）。 ![0](https://note.youdao.com/yws/res/27939/WEBRESOURCE0a132573396519c807f8548c8d1af385 "0") 此外，微软还优化了在 Arm 机器上的性能，包括估算 L3 缓存大小、引入了 LSE 原子指令、优化使用内在函数的库。 11、 .NET 8： .NET 8 是微软于2021年8月24日宣布的下一代编程语言和框架，它是 .NET 宇宙的一部分，与 C# (Common Language Infrastructure) 紧密集成。.NET 8 引入了许多新功能，如原生编译、值类型 (Value Types)、结构化并发 (structured concurrency) 和快速数组 (RapidArray)。.NET 8 还支持本机 (native) AOT (Ahead-Of-Time) 编译，以提高性能和启动速度。 .NET 8 是 Microsoft 发布的最新一代 .NET 框架，它引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率。 以下是一些 .NET 8 的主要亮点： 1.性能提升：.NET 8 引入了名为“性能计数器”的新功能，可帮助开发人员了解应用程序的性能瓶颈，并采取相应的优化措施。此外，.NET 8 还对许多现有的组件和库进行了优化，以提高应用程序的整体性能。 2.新的异步编程模型：.NET 8 引入了名为“协程”的新的异步编程模型，它可以更自然地处理异步操作和长时间运行的任务。协程可以在同一个线程上执行多个异步操作，从而避免了线程切换和上下文切换的开销。 3.云原生支持：.NET 8 提供了更好的云原生支持，可以更轻松地将应用程序部署到 Kubernetes 等容器化平台中。.NET 8 还支持使用 Docker 等容器化工具打包和分发应用程序。 4.新的开发工具：.NET 8 引入了新的开发工具，如 R#”、Visual Studio Code“ 和 Visual Studio IDE 等，这些工具可以帮助开发人员更高效地编写、调试和测试代码。 5.跨平台支持：.NET 8 可以在多个平台上运行，包括 Windows、macOS 和 Linux 等操作系统。此外，.NET 8 还支持在移动设备、Web 应用程序和游戏开发等领域中使用。 6.人工智能和机器学习：.NET 8 内置了对人工智能和机器学习的支持，可以更轻松地使用这些技术来构建智能应用程序。 7.安全性改进：.NET 8 对安全性进行了改进，包括更好的代码签名和加密技术、对 .NET 反射的限制、对代码访问控制的改进等。 总的来说，.NET 8 为开发人员提供了许多新功能和改进，可以帮助他们更高效地编写高质量的应用程序。 以下是 .NET 8 中引入的一些主要功能和改进： 1.性能优化：.NET 8 引入了名为“JIT-Chains”的全新技术，它可以将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 2.容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 3.多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 4.新增语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch表达式、模式匹配、记录类型、可变性和局部类型参数等。 5.云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 6.数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 7.Web API 改进：.NET 8 对 Web API 进行了改进，可以更轻松地创建 RESTful API，并且支持异步和同步请求处理。 总之，.NET 8 引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率，使其成为构建现代应用程序的一个强大框架。 .NET 8 与.NET 7 相比，主要区别在于性能优化、容器化、多平台支持、语言功能、云原生应用支持、数据库连接和 Web API 改进等方面。.NET 8 在这些方面进行了升级和改进，旨在提高性能、可扩展性和开发效率。 .NET8对比.NET 性能优化：.NET 8 引入了 JIT-Chains 技术，将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch 表达式、模式匹配、记录类型、可变性和局部类型参数等。 云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 Web API 改进：.NET 8 对 Web API 进行 12、 .NET 9预览版：
+* 最小化 Web APIs(Mini API) 
+
+
+10、 .NET 7： 内置容器化支持是.NET 7引入的重要新特征。之前我们更熟悉使用 Dockerfile 的形式构建镜像，而现在，可以在 .NET 项目中，配置 MSBuild 属性来做同样的事情，指定基础镜像，标签等等。.NET7的新特性小编比较难找，不知道“内置容器化支持”具体如何？ .NET 7 优化主要集中在： 统一的基类库（Base Class Library - BCL）、新的 TFM、对 ARM64 的原生支持、Linux 上增强的 .NET 支持。简单来说，如果使用 .NET 7，开发人员只需学习一次即可通过一个 SDK、一个运行时、一组基础库重复构建多种类型的应用程序（云、Web、桌面、移动、游戏、IoT 和 AI）。 ! 此外，微软还优化了在 Arm 机器上的性能，包括估算 L3 缓存大小、引入了 LSE 原子指令、优化使用内在函数的库。
+
+
+ 11、 .NET 8： .NET 8 是微软于2021年8月24日宣布的下一代编程语言和框架，它是 .NET 宇宙的一部分，与 C# (Common Language Infrastructure) 紧密集成。
+ .NET 8 引入了许多新功能，如原生编译、值类型 (Value Types)、结构化并发 (structured concurrency) 和快速数组 (RapidArray)。.NET 8 还支持本机 (native) AOT (Ahead-Of-Time) 编译，以提高性能和启动速度。 
+ .NET 8 是 Microsoft 发布的最新一代 .NET 框架，它引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率。 
+ 以下是一些 .NET 8 的主要亮点： 
+ 1.性能提升：.NET 8 引入了名为“性能计数器”的新功能，可帮助开发人员了解应用程序的性能瓶颈，并采取相应的优化措施。此外，.NET 8 还对许多现有的组件和库进行了优化，以提高应用程序的整体性能。 
+ 2.新的异步编程模型：.NET 8 引入了名为“协程”的新的异步编程模型，它可以更自然地处理异步操作和长时间运行的任务。协程可以在同一个线程上执行多个异步操作，从而避免了线程切换和上下文切换的开销。 
+ 3.云原生支持：.NET 8 提供了更好的云原生支持，可以更轻松地将应用程序部署到 Kubernetes 等容器化平台中。
+ .NET 8 还支持使用 Docker 等容器化工具打包和分发应用程序。 
+ 4.新的开发工具：.NET 8 引入了新的开发工具，如 R#”、Visual Studio Code“ 和 Visual Studio IDE 等，这些工具可以帮助开发人员更高效地编写、调试和测试代码。 
+ 5.跨平台支持：.NET 8 可以在多个平台上运行，包括 Windows、macOS 和 Linux 等操作系统。此外，
+ .NET 8 还支持在移动设备、Web 应用程序和游戏开发等领域中使用。 
+ 6.人工智能和机器学习：.NET 8 内置了对人工智能和机器学习的支持，可以更轻松地使用这些技术来构建智能应用程序。 
+ 7.安全性改进：.NET 8 对安全性进行了改进，包括更好的代码签名和加密技术、对 .NET 反射的限制、对代码访问控制的改进等。 总的来说，.NET 8 为开发人员提供了许多新功能和改进，可以帮助他们更高效地编写高质量的应用程序。 
+ 以下是 .NET 8 中引入的一些主要功能和改进： 
+ 1.性能优化：.NET 8 引入了名为“JIT-Chains”的全新技术，它可以将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 
+ 2.容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 
+ 3.多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 
+ 4.新增语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch表达式、模式匹配、记录类型、可变性和局部类型参数等。
+5.云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 
+6.数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。
+7.Web API 改进：.NET 8 对 Web API 进行了改进，可以更轻松地创建 RESTful API，并且支持异步和同步请求处理。 
+总之，.NET 8 引入了许多新功能和改进，旨在提高性能、可扩展性和开发效率，使其成为构建现代应用程序的一个强大框架。 .NET 8 与.NET 7 相比，主要区别在于性能优化、容器化、多平台支持、语言功能、云原生应用支持、数据库连接和 Web API 改进等方面。.NET 8 在这些方面进行了升级和改进，旨在提高性能、可扩展性和开发效率。 .NET8对比.NET 性能优化：.NET 8 引入了 JIT-Chains 技术，将多个热点方法组合在一起，以减少 JIT 编译的开销。此外，.NET 8 还优化了垃圾回收器的性能，提高了堆内存的压缩速度和效率。 容器化：.NET 8 支持容器化应用，可以将应用打包成 Docker 镜像并在任何支持 Docker 的平台上运行。这使得应用更容易部署和扩展，并且可以与其他容器化应用集成。 多平台支持：.NET 8 可以在 Linux、macOS 和 Windows 平台上运行，并且支持 ARM64 和 ARMv7 架构，这意味着可以在各种设备和应用程序中使用 .NET 8。 语言功能：.NET 8 支持 C# 10 和 VB.NET 16，这些语言版本引入了许多新功能和改进，如记录模式、switch 表达式、模式匹配、记录类型、可变性和局部类型参数等。 云原生应用支持：.NET 8 支持 Kubernetes 和云原生应用的其他组件，如服务网格、StatefulSet 等，这使得 .NET 8 更适合构建云原生应用。 数据库连接：.NET 8 引入了新的数据库连接 API，可以更轻松地连接各种数据库，如 MySQL、PostgreSQL 和 SQL Server 等。 Web API 改进：.NET 8 对 Web API 进行 
+12、 .NET 9预览版：
 
 # C#历史版本
 
-C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开始接触 C# 的，在此不赘述该版本了，只能说 C# 的起点不低，从 Java 转过来上手很快，兼具 C 语族的语法特点，同时又很有 Delphi 味，简直梦幻开局。 C# 1.2 发布日期：2003 年 4 月 从此版本开始，当 IEnumerator 实现 IDisposable 时，foreach 循环中生成的代码会在 IEnumerator 上调用 Dispose。【刚刚知道还有这特性】 C# 2.0 发布日期：2005 年 11 月 和 Visual Studio 2005 一起发布。看看这些金光闪闪的特性吧：
+C# 1.0 发布日期：2002 年 1 月 
+
+C# 1.2 发布日期：2003 年 4 月 从此版本开始，当 IEnumerator 实现 IDisposable 时，foreach 循环中生成的代码会在 IEnumerator 上调用 Dispose。
+
+C# 2.0 发布日期：2005 年 11 月 和 Visual Studio 2005 一起发布。看看这些金光闪闪的特性吧：
 
 * 泛型
 * 分部类型【partial 关键字】
@@ -346,7 +416,9 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
 * 迭代器【yield return 语句】
 * 协变和逆变【这时候还不支持泛型接口和委托】
 * getter/setter 单独可访问性
-* 静态类 C# 3.0 发布日期：2007 年 11 月 C# 3.0 和 Visual Studio 2008 一起发布于 2007 年下半年，但完整的语言功能是在 .NET Framework 3.5 版中发布的。如果说 2.0 时期是分庭抗礼，那么到了 3.0 就真的是一骑绝尘，诸多特性完美地结合 在一起。尽管我习惯用 Lambda 表达式与链式调用来写 LINQ ，但是查询表达式写法的 LINQ 实在 是太惊艳了。
+* 静态类 
+
+C# 3.0 发布日期：2007 年 11 月 C# 3.0 和 Visual Studio 2008 一起发布于 2007 年下半年，但完整的语言功能是在 .NET Framework 3.5 版中发布的。如果说 2.0 时期是分庭抗礼，那么到了 3.0 就真的是一骑绝尘，诸多特性完美地结合 在一起。尽管我习惯用 Lambda 表达式与链式调用来写 LINQ ，但是查询表达式写法的 LINQ 实在 是太惊艳了。
 * 自动实现的属性【{ get; set; } 写法】
 * 匿名类型【new { Foo = 108, Bar = "Hello" } 写法】
 * 查询表达式【from foo select bar where baz 写法】
@@ -356,19 +428,31 @@ C# 1.0 发布日期：2002 年 1 月 一切的开始，由于我是从 2.0 开�
 * 隐式类型本地变量【var 关键字】
 * 分部方法【partial 关键字可以作用在方法上，没用过该特性】
 * 对象和集合初始值设定项【Foo foo = new Foo { Bar = "Hello" } 写法】
-* WPF、WCF、WF C# 4.0 发布日期：2010 年 4 月 C# 版本 4.0 随 Visual Studio 2010 一起发布，引入了一些小改进。
+* WPF、WCF、WF 
+
+C# 4.0 发布日期：2010 年 4 月 C# 版本 4.0 随 Visual Studio 2010 一起发布，引入了一些小改进。
 * 动态绑定【dynamic 关键字，不在编译时检查类型，而是在运行时评估。】
 * 命名实参和可选实参【可以少些一些方法重载了】
 * 泛型协变和逆变【完全体，但一般只有底层类库设计者需要考虑这玩意】
+可变性是以一种类型安全的方式，将一个对象当做另一个对象来使用。如果不能将一个类型替换为另一个类型，那么这个类型就称之为：不变量。协变和逆变是两个相互对立的概念：
+如果某个返回的类型可以由其派生类型替换，那么这个类型就是支持协变的
+如果某个参数类型可以由其基类替换，那么这个类型就是支持逆变的。
+
 * 嵌入的互操作类型【没什么存在感】
 * System.Threading.Tasks 命名空间【更方便的线程操作及并行处理】
 * System.Tuple 类
 * 现有类的新方法【例如 String.IsNullOrWhiteSpace、Stopwatch.Restart、StringBuilder.Clear 等等】
 * 现有方法的新重载【例如 String.Join 方法添加了可以连接 IEnumerable 集合的成员的新重载。 】
 * Managed Extensibility Framework (MEF)【动态加载，实现插件系统的好帮手】
-* ASP.NET MVC C# 5.0 发布日期：2012 年 8 月 C# 版本 5.0 随 Visual Studio 2012 一起发布。.NET Framework 4.5、4.5.1、4.5.2 基本上就是一系列更新和优化，新东西很少。
+* ASP.NET MVC 
+
+C# 5.0 发布日期：2012 年 8 月 C# 版本 5.0 随 Visual Studio 2012 一起发布。.NET Framework 4.5、4.5.1、4.5.2 基本上就是一系列更新和优化，新东西很少。
 * 异步成员【async 和 await，版本之子。】
-* 调用方信息特性【CallerMemberName 等，方便确定调用方信息。】 C# 6.0 发布日期：2015 年 7 月 版本 6.0 随 Visual Studio 2015 一起发布，发布了很多使得 C# 编程更有效率的小功能。对应 .NET Framework 4.6、4.6.1、4.6.2。.NET Core 出现了，好消息是 .NET 开放源码了，坏消息是微软开始折腾，从这开始语法糖多得齁嗓子。得益于诸多新特性，代码变得简短了，但是引入了很多新符号，心智负 担加重了。“Null 条件运算符”、“字符串内插”、“nameof 表达式”是我比较喜欢的特性。
+* 调用方信息特性【CallerMemberName 等，方便确定调用方信息。】 
+
+C# 6.0 发布日期：2015 年 7 月 版本 6.0 随 Visual Studio 2015 一起发布，发布了很多使得 C# 编程更有效率的小功能。对应 .NET Framework 4.6、4.6.1、4.6.2。.NET Core 出现了，好消息是 .NET 开放源码了，坏消息是微软开始折腾，从这开始语法糖多得齁嗓子。得益于诸多新特性，代码变得简短了，但是引入了很多新符号，心智负 担加重了。“Null 条件运算符”、“字符串内插”、“nameof 表达式”是我比较喜欢的特性。
+
+----------------------------------------------------------------------------------------------2024-07-03--------------------------------------------------------
 * 静态导入【using static 指令命名了一种类型，无需指定类型名称即可访问其静态成员和嵌套类型。】可以using static非静态类型，但是只能使用它的静态方法。 using static System.Console; namespace csharp6 { internal class Program { private static void Main(string\[] args) { WriteLine("blackheart"); } } }
 * 异常筛选器【catch (ExceptionType \[e]) when (expr)】 using System; using System.Net.Http; using System.Threading.Tasks; class Program { static void Main() { Console.WriteLine(MakeRequest().Result); } public static async Task<string> MakeRequest() { var client = new HttpClient(); var streamTask = client.GetStringAsync("<https://localHost:10000>"); try { var responseText = await streamTask; return responseText; } catch (HttpRequestException e) when (e.Message.Contains("301")) { return "Site Moved"; } catch (HttpRequestException e) when (e.Message.Contains("404")) { return "Page Not Found"; } catch (HttpRequestException e) { return e.Message; } } }
 * 自动属性初始化表达式【public string Foo { get; set; } = string.Empty;】
